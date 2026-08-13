@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller · Vender distinto a cada quien · ANDINA</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --coral:#FF5C39;--ink:#14141C;--ink2:#1B1B25;--paper:#FFFFFF;--soft:#F1F1F4;
+  --line:#E8E8EF;--body:#3A3A46;--muted:#6E6E78;--dim:#B8B8C6;
+  --H:Cambria,Georgia,'Times New Roman',serif;
+  --B:Calibri,'Segoe UI',system-ui,sans-serif;
+  --M:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:var(--ink)}
+body{font-family:var(--B)}
+.deck{position:relative;width:100vw;height:100vh}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:4.2vh 5.5vw 7.6vh;background:var(--ink);color:var(--paper)}
+.slide.on{display:flex}
+@media (prefers-reduced-motion:no-preference){
+  .slide.on{animation:in .26s ease-out both}
+  @keyframes in{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+}
+.slide.panel{background:var(--paper);color:var(--ink);justify-content:flex-start;padding-top:4.2vh}
+
+.kicker{font-size:clamp(10px,.93vw,13px);letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--coral);margin-bottom:1.4vh;display:flex;gap:1.4em;align-items:center}
+.kicker b{color:var(--dim);font-weight:600}
+.panel .kicker b{color:var(--muted)}
+h1{font-family:var(--H);font-weight:700;font-size:clamp(31px,5.4vw,82px);line-height:1.0;letter-spacing:-.02em}
+h2{font-family:var(--H);font-weight:700;font-size:clamp(22px,3.3vw,48px);line-height:1.06;letter-spacing:-.015em}
+h3{font-family:var(--H);font-weight:700;font-size:clamp(15px,1.65vw,23px);line-height:1.12;margin-bottom:.9vh}
+.lead{font-size:clamp(13.5px,1.34vw,20px);line-height:1.5;max-width:34ch;margin-top:2vh;color:var(--dim)}
+.panel .lead{color:var(--body);max-width:72ch}
+.coral{color:var(--coral)}
+.foot{margin-top:auto;padding-top:1.7vh;font-size:clamp(11.5px,.98vw,15px);color:var(--muted);font-style:italic}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:2.8vw;align-items:start;margin-top:2vh}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vw;margin-top:2.2vh}
+.cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw;margin-top:2.2vh}
+.cols5{display:grid;grid-template-columns:repeat(5,1fr);gap:1vw;margin-top:2.4vh}
+.card{border:1px solid #2A2A36;padding:1.5vh 1.1vw;background:var(--ink2)}
+.panel .card{border-color:var(--line);background:var(--soft)}
+.card .k{font-size:11px;letter-spacing:.15em;color:var(--coral);text-transform:uppercase;font-weight:600}
+.card p{font-size:clamp(12px,.98vw,15.5px);line-height:1.45;margin-top:.55vh;color:var(--dim)}
+.panel .card p{color:var(--body)}
+.card.hi{border-color:var(--coral);border-width:2px}
+
+.crear .card{text-align:center;padding:1.6vh .7vw}
+.crear .l{font-family:var(--H);font-size:clamp(25px,3.1vw,43px);font-weight:700;color:var(--coral);line-height:1}
+.crear .n{font-family:var(--H);font-size:clamp(11.5px,1.12vw,16px);font-weight:700;margin-top:.4vh}
+.crear .d{font-size:clamp(10px,.82vw,12.5px);line-height:1.4;margin-top:.5vh;color:var(--body)}
+
+ol.num{list-style:none;counter-reset:s}
+ol.num li{counter-increment:s;position:relative;padding-left:2.5em;font-size:clamp(12px,1.03vw,16.5px);line-height:1.48;margin-bottom:.95vh}
+ol.num li::before{content:counter(s);position:absolute;left:0;top:0;font-size:.85em;font-weight:700;color:#fff;background:var(--coral);width:1.9em;height:1.9em;display:flex;align-items:center;justify-content:center;border-radius:50%}
+ul.plain{list-style:none}
+ul.plain li{position:relative;padding-left:1.4em;font-size:clamp(12px,1vw,15.5px);line-height:1.48;margin-bottom:.7vh}
+ul.plain li::before{content:"·";position:absolute;left:.3em;color:var(--coral);font-weight:700}
+li b{font-weight:700}
+.panel .path{font-family:var(--M);font-size:.88em;background:#FFE6DF;padding:.1em .4em}
+.url{font-family:var(--M);font-size:clamp(11px,1vw,16px);background:var(--ink);color:#fff;padding:1.4vh 1.1vw;display:block;word-break:break-all;margin-top:1.6vh;line-height:1.5}
+.panel .url{background:var(--ink)}
+
+.prompt{position:relative;margin-top:1.2vh;border:1px solid var(--line);background:var(--soft)}
+.prompt pre{font-family:var(--M);font-size:clamp(9px,.76vw,12px);line-height:1.54;padding:2vh 1.1vw .7vh;white-space:pre-wrap;color:var(--ink);max-height:60vh;overflow:auto}
+.prompt .cr{color:var(--coral);font-weight:600}
+.prompt .var{background:#FFE6DF;font-weight:600}
+.copy{position:absolute;top:.5vh;right:.4vw;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;padding:.55em .9em;cursor:pointer}
+.copy:hover{background:var(--coral)}
+
+table.dt{width:100%;border-collapse:collapse;margin-top:1.5vh;font-size:clamp(10px,.9vw,14px)}
+table.dt th{background:var(--ink);color:#fff;text-align:left;padding:.8vh .55vw;font-size:clamp(9px,.78vw,12px);letter-spacing:.06em;text-transform:uppercase}
+table.dt td{border-bottom:1px solid var(--line);padding:.7vh .55vw;color:var(--body)}
+table.dt td.n{font-family:var(--M);text-align:right}
+table.dt tr.mk td{background:#FFE6DF;font-weight:700;color:var(--ink)}
+
+.rfm{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vw;margin-top:2vh}
+.rfm .b{border:1px solid var(--line);background:var(--soft);padding:2vh 1.2vw;text-align:center}
+.rfm .b .l{font-family:var(--H);font-size:clamp(30px,3.8vw,54px);font-weight:700;color:var(--coral);line-height:1}
+.rfm .b .q{font-family:var(--H);font-size:clamp(14px,1.4vw,20px);font-weight:700;margin-top:.5vh}
+.rfm .b .v{font-family:var(--M);font-size:clamp(15px,1.7vw,25px);margin-top:1vh;color:var(--ink);font-weight:600}
+.rfm .b .s{font-size:clamp(11px,.9vw,14px);color:var(--muted);margin-top:.5vh;line-height:1.35}
+
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1vw;margin-top:2vh}
+.seg .s{border-left:4px solid var(--coral);background:var(--soft);padding:1.5vh 1vw}
+.seg .s .t{font-family:var(--H);font-weight:700;font-size:clamp(14px,1.5vw,21px)}
+.seg .s .r{font-family:var(--M);font-size:clamp(9.5px,.8vw,12px);color:var(--coral);margin-top:.25vh;font-weight:600}
+.seg .s .d{font-size:clamp(11px,.92vw,14.5px);color:var(--body);margin-top:.6vh;line-height:1.4}
+.seg .s.dim{border-left-color:#B8B8C6}
+.seg .s.dim .r{color:var(--muted)}
+
+.anchor{display:flex;align-items:center;gap:1.4vw;margin-top:2.4vh}
+.anchor .core{flex:0 0 27%;border:2px solid var(--coral);background:#FFE6DF;padding:2.2vh 1.2vw;text-align:center}
+.anchor .core .t{font-family:var(--H);font-weight:700;font-size:clamp(16px,1.7vw,24px);color:var(--ink)}
+.anchor .core .d{font-size:clamp(11px,.9vw,14px);color:var(--body);margin-top:.7vh;line-height:1.4}
+.anchor .ar{color:var(--coral);font-size:clamp(18px,2vw,30px);font-weight:700}
+.anchor .outs{flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:.9vw}
+.anchor .outs .o{border:1px solid var(--line);background:var(--soft);padding:1.3vh 1vw}
+.anchor .outs .o .t{font-family:var(--H);font-weight:700;font-size:clamp(13px,1.25vw,18px)}
+.anchor .outs .o .d{font-size:clamp(10.5px,.86vw,13.5px);color:var(--muted);margin-top:.35vh;line-height:1.35}
+
+.timer{display:flex;align-items:center;gap:.9vw;margin-top:1.6vh;border:2px solid var(--ink);padding:.95vh .9vw;width:max-content}
+.timer .clock{font-family:var(--M);font-weight:600;font-size:clamp(23px,3.4vw,44px);line-height:1}
+.timer.done .clock{background:var(--coral);color:#fff}
+.timer button{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;background:transparent;border:1px solid var(--ink);padding:.58em .85em;cursor:pointer}
+.timer button:hover{background:var(--ink);color:#fff}
+.timer .lbl{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+.check label{display:flex;gap:.9vw;align-items:flex-start;cursor:pointer;border-bottom:1px solid var(--line);padding:1.1vh .3vw;font-size:clamp(12px,1.03vw,16.5px);line-height:1.45}
+.check input{appearance:none;width:1.2em;height:1.2em;border:2px solid var(--ink);flex:none;margin-top:.1em;cursor:pointer}
+.check input:checked{background:var(--coral);border-color:var(--coral)}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:2.6vw;margin-top:2vh}
+.vs h3{font-family:var(--B);font-size:11px;letter-spacing:.2em;font-weight:700}
+.vs .yes h3{color:var(--coral)}
+.vs .no h3{color:#A9A9B8}
+.vs p{font-size:clamp(12px,1.03vw,16.5px);line-height:1.4;margin-bottom:1vh}
+.vs .no p{color:#9A9AA8}
+.vs .no p small{display:block;font-size:11px;color:#B8B8C6;margin-top:.15em}
+
+.big{font-family:var(--H);font-weight:700;font-size:clamp(35px,7.6vw,124px);line-height:.98;letter-spacing:-.03em}
+.rule{height:1px;background:#2A2A36;margin:2vh 0}
+.panel .rule{background:var(--line)}
+.tag{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:1px solid currentColor;padding:.4em .7em}
+
+.flow{display:flex;align-items:stretch;gap:.8vw;margin-top:2.8vh}
+.flow .st{flex:1;border:1px solid #2A2A36;background:var(--ink2);padding:1.9vh 1vw}
+.panel .flow .st{border-color:var(--line);background:var(--soft)}
+.flow .st .n{font-family:var(--M);font-size:12px;color:var(--coral);font-weight:600}
+.flow .st .t{font-family:var(--H);font-weight:700;font-size:clamp(13.5px,1.45vw,20px);margin-top:.5vh;line-height:1.1}
+.flow .st .d{font-size:clamp(10.5px,.88vw,13.5px);color:var(--muted);margin-top:.55vh;line-height:1.35}
+.flow .ar{display:flex;align-items:center;color:var(--coral);font-size:clamp(16px,1.8vw,26px);font-weight:700}
+
+.rail{position:fixed;left:0;right:0;bottom:0;height:5vh;display:flex;align-items:center;gap:1.4vw;padding:0 5.5vw;pointer-events:none;z-index:5}
+.rail .bar{flex:1;height:2px;background:#2A2A36;position:relative}
+.panelmode .rail .bar{background:var(--line)}
+.rail .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--coral);transition:width .3s ease}
+.rail .meta{font-family:var(--M);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.nav{position:fixed;bottom:0;right:0;display:flex;pointer-events:auto;z-index:6}
+.nav button{background:transparent;border:0;color:var(--muted);font-family:var(--M);font-size:18px;padding:1.2vh 1vw;cursor:pointer}
+.nav button:hover{color:var(--coral)}
+@media(max-width:820px){.cols,.vs{grid-template-columns:1fr}.cols5,.cols3,.cols4,.seg,.rfm{grid-template-columns:repeat(2,1fr)}.flow,.anchor{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 01 -->
+<section class="slide" data-min="0">
+  <div class="kicker"><span class="tag">Taller práctico · 3 horas</span><b>ANDINA</b></div>
+  <h1>Vender distinto<br>a cada quien</h1>
+  <p class="lead">Analizar el comportamiento de compra, personalizar la oferta y optimizar el proceso. Con las herramientas de las sesiones anteriores.</p>
+</section>
+
+<!-- 02 -->
+<section class="slide" data-min="3">
+  <div class="kicker"><span>El problema</span><b>Lo que hacemos hoy</b></div>
+  <h2>El mismo correo<br>a los 240 clientes.</h2>
+  <p class="lead">Al que compró ayer y al que no compra hace dos años. Al que nos ha dejado 205 millones y al que nos dejó 154 mil.</p>
+  <p class="lead" style="max-width:44ch;color:var(--coral)">Y después nos quejamos de que nadie abre los correos.</p>
+</section>
+
+<!-- 03 -->
+<section class="slide" data-min="6">
+  <div class="kicker"><span>Hoy</span><b>Un solo embudo</b></div>
+  <h2>Tres bloques encadenados</h2>
+  <div class="flow">
+    <div class="st"><div class="n">01</div><div class="t">Analizar</div><div class="d">Descubrir quiénes son en realidad tus clientes. Segmentos, no promedios.</div></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="n">02</div><div class="t">Personalizar</div><div class="d">Una oferta por segmento, declinada en correo, SMS, WhatsApp y llamada.</div></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="n">03</div><div class="t">Optimizar</div><div class="d">Un tablero que dice a quién llamar esta semana, con nombre propio.</div></div>
+  </div>
+  <p class="lead" style="max-width:58ch">Se llevan cinco piezas listas para usar. No conceptos: piezas.</p>
+</section>
+
+<!-- 04 -->
+<section class="slide" data-min="9">
+  <div class="kicker"><span>La regla de hoy</span><b>Grábensela</b></div>
+  <p class="big">La IA<br>no calcula.<br><span class="coral">Construye la<br>calculadora.</span></p>
+</section>
+
+<!-- 05 PANEL -->
+<section class="slide panel" data-min="12">
+  <div class="kicker"><span>La regla de hoy</span><b>Por qué importa</b></div>
+  <h2>Nunca le pidas que sume</h2>
+  <p class="lead" style="margin-top:1vh">Si le pegas 240 filas y le pides los totales por segmento, te va a responder con seguridad total. Y va a estar mal: se salta registros, redondea y calcula de memoria.</p>
+  <div class="vs" style="margin-top:1.6vh">
+    <div class="yes">
+      <h3>SÍ</h3>
+      <p>"Escríbeme la fórmula de Sheets que clasifica cada cliente"</p>
+      <p>"Dame el código que arma el gráfico"</p>
+      <p>"Con estos números que yo saqué, escribe la oferta"</p>
+    </div>
+    <div class="no">
+      <h3>NO</h3>
+      <p>"¿Cuántos clientes hay en cada segmento?"<small>Los cuenta a ojo y se equivoca.</small></p>
+      <p>"Súmame el valor de los campeones"<small>Aritmética con 240 filas: falla.</small></p>
+      <p>"Analiza esta tabla y dime qué ves"<small>Da generalidades que suenan bien.</small></p>
+    </div>
+  </div>
+  <p class="foot">Es lo mismo del taller pasado: la IA no leía los datos, escribía el código que los lee.</p>
+</section>
+
+<!-- 06 -->
+<section class="slide" data-min="15">
+  <div class="kicker"><span>El caso</span><b>La empresa de hoy</b></div>
+  <h2>ANDINA</h2>
+  <p class="lead">Vende equipos y presta servicios de mantenimiento, consumibles y consultoría. Ocho ciudades. Clientes empresa y clientes persona.</p>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0;max-width:50ch"><b>240 clientes. $3.350 millones</b> en compras históricas. Y una sola lista de correo para todos.</p>
+</section>
+
+<!-- 07 PANEL -->
+<section class="slide panel" data-min="18">
+  <div class="kicker"><span>Los datos</span><b>Descárgalos ahora</b></div>
+  <h2>La base</h2>
+  <p class="lead" style="margin-top:1vh">Abre esta dirección, clic derecho, <b>Guardar como</b>. O cópiala y pégala directo al importar en Sheets.</p>
+  <span class="url">https://raw.githubusercontent.com/Sanogusano/esumer-marketing-con-ia/refs/heads/main/clientes-andina.csv</span>
+  <table class="dt">
+    <tr><th>ClienteID</th><th>Nombre</th><th>Tipo</th><th>Ciudad</th><th>UltimaCompra</th><th>Compras</th><th>ValorTotal</th><th>Categoria</th><th>Canal</th></tr>
+    <tr><td>C1065</td><td>Soluciones del Valle</td><td>Empresa</td><td>Medellín</td><td>2026-06-20</td><td class="n">8</td><td class="n">11.774.000</td><td>Mantenimiento</td><td>Vendedor</td></tr>
+    <tr><td>C1096</td><td>Ana Muñoz</td><td>Persona</td><td>Bucaramanga</td><td>2026-07-26</td><td class="n">26</td><td class="n">45.174.000</td><td>Consumibles</td><td>Referido</td></tr>
+  </table>
+  <p class="foot">Regla de oro: los nombres de las columnas no se cambian ni se acentúan distinto. Categoria va sin tilde.</p>
+</section>
+
+<!-- 08 -->
+<section class="slide" data-min="21">
+  <div class="kicker"><span>Bloque 1 · Analizar</span><b>El método</b></div>
+  <h2>Tres preguntas<br>por cliente</h2>
+  <p class="lead">Se llama <b>RFM</b>. Tiene cuarenta años, no necesita inteligencia artificial y sigue siendo lo mejor que existe para saber quién es quién en tu base.</p>
+  <p class="lead" style="max-width:46ch;color:var(--coral)">La IA solo nos va a ahorrar escribirlo.</p>
+</section>
+
+<!-- 09 PANEL -->
+<section class="slide panel" data-min="23">
+  <div class="kicker"><span>Bloque 1 · Analizar</span><b>Un cliente real de la base</b></div>
+  <h2>C1065 · Soluciones del Valle</h2>
+  <div class="rfm">
+    <div class="b"><div class="l">R</div><div class="q">¿Hace cuánto compró?</div><div class="v">52 días</div><div class="s">Ni ayer ni hace un año. Está tibio.<br><b>Puntaje: 4 de 5</b></div></div>
+    <div class="b"><div class="l">F</div><div class="q">¿Cuántas veces?</div><div class="v">8 compras</div><div class="s">Ya no es un accidente: es costumbre.<br><b>Puntaje: 4 de 5</b></div></div>
+    <div class="b"><div class="l">M</div><div class="q">¿Cuánto ha dejado?</div><div class="v">$11.774.000</div><div class="s">Arriba del promedio de la base.<br><b>Puntaje: 4 de 5</b></div></div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0">Cuatro, cuatro, cuatro. Compra seguido, deja buena plata, pero no es de los más recientes. <span class="coral">Este cliente es un LEAL.</span> Y a un leal no se le manda un descuento: se le da algo que no puede comprar.</p>
+</section>
+
+<!-- 10 PANEL -->
+<section class="slide panel" data-min="26">
+  <div class="kicker"><span>Bloque 1 · Analizar</span><b>Los mismos tres números, otro resultado</b></div>
+  <h2>Dos clientes más</h2>
+  <table class="dt">
+    <tr><th>Cliente</th><th>R · días sin comprar</th><th>F · compras</th><th>M · valor total</th><th>Puntajes</th><th>Segmento</th></tr>
+    <tr class="mk"><td><b>C1093</b> Soluciones Central</td><td class="n">7</td><td class="n">28</td><td class="n">$205.534.000</td><td class="n">5 · 5 · 5</td><td><b>Campeón</b></td></tr>
+    <tr class="mk"><td><b>C1157</b> Almacenes Pacífico</td><td class="n">296</td><td class="n">12</td><td class="n">$37.688.000</td><td class="n">1 · 5 · 5</td><td><b>En riesgo</b></td></tr>
+    <tr><td><b>C1163</b> Sofía Jaramillo</td><td class="n">341</td><td class="n">1</td><td class="n">$154.000</td><td class="n">1 · 1 · 1</td><td>Perdido</td></tr>
+  </table>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0">Miren el del medio. Doce compras. Treinta y siete millones. <b>Y lleva casi diez meses sin decir nada.</b> Ese cliente vale 244 veces más que el de abajo, y está a punto de irse sin que nadie se entere.</p>
+  <p class="foot">Perder a Almacenes Pacífico cuesta lo mismo que perder 244 clientes como Sofía. Por eso segmentamos.</p>
+</section>
+
+<!-- 11 PANEL -->
+<section class="slide panel" data-min="29">
+  <div class="kicker"><span>Bloque 1 · Analizar</span><b>A dónde llegamos</b></div>
+  <h2>Seis segmentos</h2>
+  <div class="seg">
+    <div class="s"><div class="t">Campeones</div><div class="r">R alta · F alta · M alto</div><div class="d">Compran seguido, hace poco y mucho. Son tu negocio.</div></div>
+    <div class="s"><div class="t">Leales</div><div class="r">R media · F alta</div><div class="d">Constantes, ticket moderado. La base estable.</div></div>
+    <div class="s"><div class="t">Prometedores</div><div class="r">R alta · F baja</div><div class="d">Nuevos y recientes. Todavía no saben si quedarse.</div></div>
+    <div class="s dim"><div class="t">En riesgo</div><div class="r">R baja · F alta · M alto</div><div class="d">Compraban mucho y llevan meses callados. Los más caros de perder.</div></div>
+    <div class="s dim"><div class="t">Dormidos</div><div class="r">R baja · F baja</div><div class="d">Compraron poco y hace rato. Barato intentarlo, poco probable.</div></div>
+    <div class="s dim"><div class="t">Perdidos</div><div class="r">R muy baja</div><div class="d">Más de un año callados. Decidir si se sueltan.</div></div>
+  </div>
+  <p class="foot">"En riesgo" es el segmento que más plata mueve y el que casi nadie mira.</p>
+</section>
+
+<!-- 12 PANEL -->
+<section class="slide panel" data-min="32">
+  <div class="kicker"><span>Bloque 1</span><b>Prompt maestro 1 · las fórmulas</b></div>
+  <h3>Pégalo en Claude. Es un solo mensaje.</h3>
+  <div class="prompt">
+    <button class="copy" data-copy>Copiar</button>
+<pre><span class="cr">CONTEXTO:</span> trabajo en ANDINA, empresa de ventas y servicios. Tengo
+en Google Sheets una base de 240 clientes y necesito segmentarla con
+RFM para dejar de mandarle el mismo correo a todo el mundo.
+
+<span class="cr">ROL:</span> actúa como analista de datos de marketing.
+
+<span class="cr">ANCLA — mi hoja:</span>
+Los datos van de la fila 2 a la 241. Las columnas son:
+A ClienteID | B Nombre | C Tipo | D Ciudad | E UltimaCompra
+F Compras | G ValorTotal | H Categoria | I Canal
+- UltimaCompra es fecha AAAA-MM-DD
+- Compras y ValorTotal son enteros
+- Mi Google Sheets usa PUNTO Y COMA como separador de argumentos
+
+<span class="cr">ENTREGABLE:</span> las fórmulas para llenar estas cinco columnas, una
+por una, listas para pegar en la fila 2 y arrastrar hasta la 241:
+
+  J = Recencia, días desde la última compra hasta hoy
+  K = R, puntaje 1 a 5 según recencia (5 = más reciente)
+  L = F, puntaje 1 a 5 según número de compras
+  M = M, puntaje 1 a 5 según valor total
+  N = Segmento, uno de estos seis nombres exactos:
+      Campeones, Leales, Prometedores, En riesgo, Dormidos, Perdidos
+
+<span class="cr">RESTRICCIONES:</span>
+- No calcules tú los resultados. Dame solo las fórmulas.
+- Nada de macros ni Apps Script: fórmulas normales.
+- Para los puntajes usa percentiles de MI base, no cortes inventados.
+- Explícame en una línea el criterio de cada corte, para poder
+  defenderlo ante mi jefe.
+- Dime antes qué va a pasar con los clientes que tengan datos
+  faltantes.</pre>
+  </div>
+</section>
+
+<!-- 13 PANEL -->
+<section class="slide panel" data-min="36">
+  <div class="kicker"><span>TALLER 1</span><b>Segmentar · 30 minutos</b></div>
+  <h2>Ahora ustedes</h2>
+  <ol class="num" style="margin-top:1.2vh">
+    <li>Importa el CSV a una hoja nueva: <span class="path">Archivo → Importar → Subir</span>, y elige <b>Reemplazar hoja de cálculo</b>.</li>
+    <li>Escribe los títulos de J a N: Recencia, R, F, M, Segmento.</li>
+    <li>Pega el <b>prompt maestro 1</b> en Claude.</li>
+    <li>Pega cada fórmula en su columna, fila 2, y arrastra hasta la 241.</li>
+    <li>Verifica: <b>ningún cliente en blanco ni con error</b> en la columna N.</li>
+    <li>Cuenta cada segmento con <span class="path">=CONTAR.SI(N2:N241;"Campeones")</span> y suma su valor con <span class="path">=SUMAR.SI(N2:N241;"Campeones";G2:G241)</span>.</li>
+  </ol>
+  <div class="timer" data-min="30">
+    <span class="lbl">Restante</span><span class="clock">30:00</span>
+    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
+  </div>
+</section>
+
+<!-- 14 PANEL -->
+<section class="slide panel" data-min="48">
+  <div class="kicker"><span>TALLER 1</span><b>Si algo falla</b></div>
+  <h2>Los cuatro errores</h2>
+  <div class="cols" style="margin-top:1.4vh">
+    <div>
+      <div class="card" style="margin-bottom:1.1vh"><span class="k">Sale #¡ERROR!</span><p>Es el separador. Repite: <b>"mi Sheets usa punto y coma, no coma"</b>.</p></div>
+      <div class="card"><span class="k">Todos en un solo segmento</span><p>Los cortes quedaron mal. Pide: <b>"revisa los cortes, me clasifica el 80% igual"</b>.</p></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:1.1vh"><span class="k">Recencia negativa</span><p>La columna E no se lee como fecha. <span class="path">Formato → Número → Fecha</span>.</p></div>
+      <div class="card hi"><span class="k">Te entregó la tabla resuelta</span><p>Ignoró la restricción. Reenvía: <b>"no quiero resultados, quiero las fórmulas"</b>.</p></div>
+    </div>
+  </div>
+  <p class="foot">Un problema por mensaje. Si le pides tres arreglos juntos, resuelve uno y daña otro.</p>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-min="66">
+  <div class="kicker"><span>Pausa</span><b>Minuto 66</b></div>
+  <h2>Los números,<br>en voz alta</h2>
+  <p class="lead">Diez minutos de pausa. Antes, cada mesa dice cuántos clientes le quedaron en <b>"En riesgo"</b> y cuánta plata representan.</p>
+  <p class="lead" style="max-width:44ch;color:var(--coral)">Ese número suele sorprender a todo el mundo.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-min="76">
+  <div class="kicker"><span>Bloque 2 · Personalizar</span><b>El salto</b></div>
+  <h2>Un segmento no es<br>una etiqueta.<br><span class="coral">Es una decisión.</span></h2>
+  <p class="lead">Saber que hay 38 clientes en riesgo no sirve de nada. Lo que sirve es saber qué les vas a decir, por dónde y cuándo.</p>
+</section>
+
+<!-- 17 PANEL -->
+<section class="slide panel" data-min="79">
+  <div class="kicker"><span>Bloque 2 · Personalizar</span><b>El método</b></div>
+  <h2>Una oferta.<br>Cuatro declinaciones.</h2>
+  <div class="anchor">
+    <div class="core"><div class="t">Oferta ancla</div><div class="d">Qué le das, por qué, cuándo y con qué objetivo medible. <b>La decisión.</b></div></div>
+    <div class="ar">→</div>
+    <div class="outs">
+      <div class="o"><div class="t">Correo</div><div class="d">120 palabras. Explica y argumenta.</div></div>
+      <div class="o"><div class="t">SMS</div><div class="d">160 caracteres. Solo lo esencial.</div></div>
+      <div class="o"><div class="t">WhatsApp</div><div class="d">Conversacional. Invita a responder.</div></div>
+      <div class="o"><div class="t">Llamada</div><div class="d">Guion hablado. Primeros 20 segundos.</div></div>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0">Es el mismo principio del Key Visual: <span class="coral">no son cuatro creaciones, son una decisión declinada cuatro veces.</span> Si cada pieza dice algo distinto, no personalizaste: improvisaste cuatro veces.</p>
+</section>
+
+<!-- 18 PANEL -->
+<section class="slide panel" data-min="82">
+  <div class="kicker"><span>Bloque 2 · Personalizar</span><b>Qué cambia de verdad</b></div>
+  <h2>Cuatro palancas</h2>
+  <div class="cols4" style="margin-top:2vh">
+    <div class="card"><span class="k">El mensaje</span><p>Al campeón se le agradece. Al de riesgo se le pregunta qué pasó. Al dormido se le da una razón nueva.</p></div>
+    <div class="card"><span class="k">El incentivo</span><p>Descuento no siempre. A veces es acceso anticipado, servicio adicional, o solo una llamada.</p></div>
+    <div class="card"><span class="k">El canal</span><p>Correo, WhatsApp o el vendedor levantando el teléfono. Depende de cuánto valga el cliente.</p></div>
+    <div class="card hi"><span class="k">El momento</span><p>La que nadie usa. Al de riesgo hay que hablarle esta semana; al dormido puede esperar al mes.</p></div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0"><span class="coral">Error clásico:</span> creer que personalizar es poner el nombre en el asunto. Personalizar es cambiar la oferta, no el saludo.</p>
+</section>
+
+<!-- 19 PANEL -->
+<section class="slide panel" data-min="85">
+  <div class="kicker"><span>Bloque 2</span><b>Prompt maestro 2 · la oferta ancla</b></div>
+  <h3>Llena los seis datos con los números de TU segmento</h3>
+  <div class="prompt">
+    <button class="copy" data-copy>Copiar</button>
+<pre><span class="cr">CONTEXTO:</span> ANDINA vende equipos, mantenimiento, consumibles y
+consultoría a empresas y personas en ocho ciudades de Colombia.
+Segmenté mi base de 240 clientes con RFM.
+
+Mi segmento:
+  Nombre: <span class="var">[SEGMENTO]</span>
+  Cuántos clientes: <span class="var">[NÚMERO]</span>
+  Valor total que representan: <span class="var">[VALOR]</span>
+  Días sin comprar, promedio: <span class="var">[DÍAS]</span>
+  Compras promedio por cliente: <span class="var">[NÚMERO]</span>
+  Categoría que más compran: <span class="var">[CATEGORÍA]</span>
+
+<span class="cr">ROL:</span> actúa como estratega de CRM con experiencia en retención.
+
+<span class="cr">ENTREGABLE — solo la oferta ancla, todavía no escribas piezas:</span>
+1. En una frase: qué le está pasando a este segmento y por qué.
+2. Objetivo medible a 30 días, con número.
+3. La oferta exacta: qué damos y por qué esa, no un descuento
+   genérico.
+4. El canal principal y por qué ese.
+5. El momento: en qué semana se manda y por qué.
+6. Qué NO decirle nunca a este segmento.
+
+<span class="cr">RESTRICCIONES:</span>
+- Si esta oferta serviría igual para otro segmento, no sirve.
+  Vuelve a empezar.
+- No inventes datos de la empresa que no te di.
+- Si crees que a este segmento no vale la pena invertirle, dilo y
+  explica por qué. Prefiero eso a una campaña inventada.</pre>
+  </div>
+</section>
+
+<!-- 20 PANEL -->
+<section class="slide panel" data-min="88">
+  <div class="kicker"><span>Bloque 2</span><b>Prompt maestro 3 · las cuatro piezas</b></div>
+  <h3>Va en el mismo chat, después de aprobar la oferta ancla</h3>
+  <div class="prompt">
+    <button class="copy" data-copy>Copiar</button>
+<pre>Apruebo esa oferta ancla. Ahora decliníala en cuatro piezas.
+Las cuatro comunican la MISMA oferta: cambia el formato, nunca
+el fondo.
+
+1. CORREO
+   - Tres opciones de asunto, máximo 8 palabras cada una
+   - Cuerpo de máximo 120 palabras
+   - Una sola llamada a la acción
+
+2. SMS
+   - Máximo 160 caracteres, contando espacios
+   - Sin enlaces largos, sin emojis
+   - Cuenta los caracteres y escribe el número al final
+
+3. WHATSAPP
+   - Tono conversacional, no publicitario
+   - Máximo 60 palabras
+   - Termina con una pregunta abierta que invite a responder
+   - Sin signos de admiración
+
+4. GUION DE LLAMADA
+   - Apertura de máximo 20 segundos hablados (unas 45 palabras)
+   - Una pregunta de diagnóstico para que hable el cliente
+   - Cómo presentar la oferta si la conversación va bien
+   - Cómo cerrar si va mal, sin quemar la relación
+
+<span class="cr">RESTRICCIONES:</span>
+- Nada de "estimado cliente" ni "esperamos que se encuentre bien".
+- El SMS no es el correo recortado. El WhatsApp no es el SMS con
+  emojis. Cada canal se escribe distinto o no sirve.
+- El guion es para decirlo en voz alta: frases cortas, sin
+  palabras que nadie usa hablando.
+- Al final, dime cuál de las cuatro piezas es la más débil y por qué.</pre>
+  </div>
+</section>
+
+<!-- 21 PANEL -->
+<section class="slide panel" data-min="91">
+  <div class="kicker"><span>Bloque 2</span><b>Antes de mandar nada</b></div>
+  <h2>Generar no es<br>poder enviar</h2>
+  <p class="lead" style="margin-top:1vh">Hoy vamos a producir las cuatro piezas. Pero con clientes reales, tres de los cuatro canales tienen condiciones que hay que resolver antes:</p>
+  <div class="cols3" style="margin-top:1.8vh">
+    <div class="card"><span class="k">WhatsApp</span><p>Escribirle a alguien que no te escribió primero requiere plantilla previamente aprobada por Meta. No es abrir el teléfono y mandar.</p></div>
+    <div class="card"><span class="k">SMS</span><p>Necesita autorización previa del titular y salida clara para no recibir más.</p></div>
+    <div class="card hi"><span class="k">Los datos</span><p>En Colombia, tratar datos personales tiene reglas. Antes de pegar tu base real en cualquier IA, <b>anonimízala</b>: quita nombres y contactos, deja solo los números.</p></div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead" style="margin-top:0">No soy abogado y esto cambia. <span class="coral">Cuando lo lleven a su empresa, esa conversación va antes del primer envío</span>, no después. Hoy trabajamos con datos inventados y por eso podemos.</p>
+</section>
+
+<!-- 22 PANEL -->
+<section class="slide panel" data-min="94">
+  <div class="kicker"><span>TALLER 2</span><b>La oferta y las piezas · 45 minutos</b></div>
+  <h2>Ahora ustedes</h2>
+  <ol class="num" style="margin-top:1.1vh">
+    <li>A cada mesa le asigno <b>un segmento distinto</b>. Nadie repite.</li>
+    <li>Saca los seis números de tu segmento con <span class="path">CONTAR.SI</span>, <span class="path">SUMAR.SI</span> y <span class="path">PROMEDIO.SI</span>. <b>Los números los sacas tú, no la IA.</b></li>
+    <li>Prompt maestro 2 → <b>oferta ancla</b>. Léela completa antes de juzgarla.</li>
+    <li><b>Atácala:</b> pregúntale <i>"¿esta oferta funcionaría igual para Campeones? Si sí, vuelve a empezar."</i></li>
+    <li>Cuando la apruebes, prompt maestro 3 → <b>las cuatro piezas</b>.</li>
+    <li>Revisa las cuatro juntas: ¿comunican la misma oferta? ¿o cada una se fue por su lado?</li>
+  </ol>
+  <div class="timer" data-min="45">
+    <span class="lbl">Restante</span><span class="clock">45:00</span>
+    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
+  </div>
+</section>
+
+<!-- 23 PANEL -->
+<section class="slide panel" data-min="112">
+  <div class="kicker"><span>TALLER 2</span><b>Checklist de las piezas</b></div>
+  <h2>Cómo saber si sirven</h2>
+  <div class="check">
+    <label><input type="checkbox"><span>Si le quito el nombre del segmento, <b>no se podría mandar a otro</b>.</span></label>
+    <label><input type="checkbox"><span>El SMS cabe en 160 caracteres <b>de verdad</b> (cuéntalos).</span></label>
+    <label><input type="checkbox"><span>El WhatsApp <b>invita a responder</b>, no solo informa.</span></label>
+    <label><input type="checkbox"><span>El guion se puede <b>decir en voz alta</b> sin sonar leído.</span></label>
+    <label><input type="checkbox"><span>Las cuatro piezas comunican <b>la misma oferta</b>.</span></label>
+    <label><input type="checkbox"><span>Hay un <b>número</b> que dirá si funcionó en 30 días.</span></label>
+  </div>
+  <p class="foot">Léanse el guion en voz alta entre ustedes. Ahí se cae la mitad de lo que parecía bien escrito.</p>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-min="139">
+  <div class="kicker"><span>Bloque 3 · Vender</span><b>Lo que de verdad cuesta</b></div>
+  <h2>Escribir el correo<br>es lo fácil</h2>
+  <p class="lead">Lo difícil es qué contestas cuando el cliente dice "ahora no", "está muy caro" o "déjame pensarlo".</p>
+  <p class="lead" style="max-width:46ch;color:var(--coral)">Ahí es donde la IA sí cambia el juego comercial.</p>
+</section>
+
+<!-- 25 PANEL -->
+<section class="slide panel" data-min="142">
+  <div class="kicker"><span>Bloque 3</span><b>Prompt maestro 4 · un cliente real</b></div>
+  <h3>Elige UNA fila de tu segmento y pega sus nueve datos</h3>
+  <div class="prompt">
+    <button class="copy" data-copy>Copiar</button>
+<pre>Este es un cliente concreto de mi segmento, con sus datos reales:
+<span class="var">[PEGA AQUÍ LA FILA COMPLETA: ID, nombre, tipo, ciudad,
+última compra, compras, valor total, categoría, canal]</span>
+
+<span class="cr">ENTREGABLE:</span>
+1. Qué me dicen estos datos de este cliente que no me dirían de
+   otro del mismo segmento. Tres observaciones concretas.
+2. El guion de la llamada, adaptado a ESTE cliente:
+   - Apertura de 20 segundos
+   - Una pregunta de diagnóstico
+   - Cómo presento la oferta
+3. Las <span class="cr">cinco objeciones</span> más probables de este cliente en
+   particular, con la respuesta a cada una. Para cada objeción:
+   - Qué va a decir, con sus palabras
+   - Qué hay detrás de esa frase
+   - Qué respondo, en máximo dos frases habladas
+4. La señal de que debo cerrar la llamada y agendar otra.
+
+<span class="cr">RESTRICCIONES:</span>
+- Las objeciones tienen que salir de SUS datos, no de un manual.
+  Si lleva 296 días sin comprar, una objeción probable es que ya
+  esté comprándole a otro. Dímelo así.
+- Nada de técnicas de presión ni urgencia falsa.
+- Si la respuesta honesta a una objeción es "tiene razón", dilo.</pre>
+  </div>
+</section>
+
+<!-- 26 PANEL -->
+<section class="slide panel" data-min="145">
+  <div class="kicker"><span>TALLER 3</span><b>La llamada · 15 minutos</b></div>
+  <h2>Un cliente. Una llamada.</h2>
+  <ol class="num" style="margin-top:1.2vh">
+    <li>Filtra tu hoja por tu segmento y <b>elige una fila</b>. La que quieras.</li>
+    <li>Copia el <b>prompt maestro 4</b> y pega los nueve datos de ese cliente.</li>
+    <li>Lee el guion en voz alta. Si suena a folleto, pide: <b>"reescríbelo como lo diría una persona por teléfono"</b>.</li>
+    <li><b>Ensáyenlo en parejas:</b> uno es el vendedor, otro es el cliente y usa las objeciones de la lista.</li>
+    <li>Anoten en qué objeción se trabó el vendedor. Esa es la que hay que reescribir.</li>
+  </ol>
+  <div class="timer" data-min="15">
+    <span class="lbl">Restante</span><span class="clock">15:00</span>
+    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
+  </div>
+  <p class="foot">Nadie aprende un guion leyéndolo. Se aprende cuando alguien te interrumpe a la mitad.</p>
+</section>
+
+<!-- 27 -->
+<section class="slide" data-min="160">
+  <div class="kicker"><span>Bloque 4 · Optimizar</span><b>Demo</b></div>
+  <h2>Y esto hay que poder<br>verlo cada lunes</h2>
+  <p class="lead">Un análisis que se hace una vez es un informe. Uno que se ve solo, cada semana, es un proceso.</p>
+  <p class="lead" style="max-width:44ch;color:var(--coral)">Esto ya lo saben hacer. Se los muestro y les dejo el prompt.</p>
+</section>
+
+<!-- 28 PANEL -->
+<section class="slide panel" data-min="163">
+  <div class="kicker"><span>Bloque 4</span><b>Prompt maestro 5 · el tablero</b></div>
+  <h3>Publica tu hoja segmentada como CSV y usa el método de la sesión pasada</h3>
+  <div class="prompt">
+    <button class="copy" data-copy>Copiar</button>
+<pre><span class="cr">CONTEXTO:</span> soy responsable comercial de ANDINA. Mi base segmentada
+con RFM está en una hoja de Google publicada como CSV. Necesito un
+tablero para la reunión de ventas del lunes.
+
+<span class="cr">ROL:</span> actúa como desarrollador front-end de dashboards.
+
+<span class="cr">ANCLA:</span>
+URL del CSV: <span class="var">[PEGA AQUÍ TU URL]</span>
+Columnas: ClienteID | Nombre | Tipo | Ciudad | UltimaCompra |
+Compras | ValorTotal | Categoria | Canal | Recencia | R | F | M |
+Segmento
+
+<span class="cr">ENTREGABLE:</span> un dashboard en un solo archivo HTML que:
+1. Lee la URL con fetch() y la relee cada 60 segundos.
+2. Cuatro tarjetas: total de clientes, valor total de la base,
+   valor del segmento "En riesgo", y cuántos llevan más de 180
+   días sin comprar.
+3. Barras: cuántos clientes por segmento.
+4. Barras: cuánto valor aporta cada segmento.
+5. Tabla filtrable por segmento y ciudad, ordenada por ValorTotal.
+6. Un bloque destacado <span class="cr">"Llamar esta semana"</span>: los 10 clientes de
+   mayor ValorTotal que estén en "En riesgo", con su nombre, ciudad
+   y días sin comprar.
+
+<span class="cr">RESTRICCIONES:</span>
+- Un solo archivo HTML, todo adentro. Sin backend ni claves.
+- No inventes datos. Si la URL falla, muestra el error.
+- Tipografía grande: se proyecta en la reunión de ventas.
+- Valores en pesos con separador de miles.</pre>
+  </div>
+</section>
+
+<!-- 29 -->
+<section class="slide" data-min="168">
+  <div class="kicker"><span>Bloque 4</span><b>Lo que van a ver</b></div>
+  <h2>Los dos gráficos<br>no coinciden</h2>
+  <p class="lead">El segmento con más clientes casi nunca es el que aporta más plata. Un puñado de campeones vale más que cien dormidos.</p>
+  <p class="lead" style="max-width:46ch;color:var(--coral)">Ese desajuste es el hallazgo. Todo el taller fue para poder verlo.</p>
+</section>
+
+<!-- 30 PANEL -->
+<section class="slide panel" data-min="171">
+  <div class="kicker"><span>El límite</span><b>Antes de irse</b></div>
+  <h2>Hasta dónde llega<br>la personalización</h2>
+  <div class="vs">
+    <div class="yes">
+      <h3>LEGÍTIMO</h3>
+      <p>Usar lo que el cliente hizo contigo: qué compró, cuándo, cuánto</p>
+      <p>Priorizar a quién le dedicas tiempo comercial</p>
+      <p>Dejar de escribirle a quien no responde hace dos años</p>
+      <p>Decirle al cliente por qué le estás escribiendo</p>
+    </div>
+    <div class="no">
+      <h3>NO</h3>
+      <p>Inferir lo que no te dijo y usarlo para presionar<small>Salud, situación económica, vida personal.</small></p>
+      <p>Subir el precio porque el sistema dice que puede pagar<small>Indefendible el día que se sepa.</small></p>
+      <p>Pegar tu base real con nombres en una IA pública<small>Anonimiza primero. Siempre.</small></p>
+      <p>Fabricar urgencia que no existe<small>Funciona una vez y te cuesta el cliente.</small></p>
+    </div>
+  </div>
+  <p class="foot">Hoy trabajamos con datos inventados. Cuando lo hagan con los reales, esta lámina es la que importa.</p>
+</section>
+
+<!-- 31 -->
+<section class="slide" data-min="175">
+  <div class="kicker"><span>Cierre</span><b>Qué se llevan</b></div>
+  <h2>Cinco piezas y un método</h2>
+  <div class="cols3">
+    <div class="card"><span class="k">Las piezas</span><p>Oferta ancla, correo, SMS, WhatsApp y guion de llamada con objeciones. Listas.</p></div>
+    <div class="card"><span class="k">La base</span><p>Segmentada, y se recalcula sola cada vez que entra un cliente nuevo.</p></div>
+    <div class="card hi"><span class="k">El método</span><p>Cinco prompts maestros que sirven para cualquier empresa que tenga clientes.</p></div>
+  </div>
+  <p class="lead" style="max-width:52ch">Y la regla que atraviesa las tres sesiones: la IA no hace el trabajo. Construye la herramienta con la que tú lo haces.</p>
+</section>
+
+<!-- 32 -->
+<section class="slide" data-min="178">
+  <div class="kicker"><span>Fin</span></div>
+  <h1>No tienes<br>240 clientes.<br><span class="coral">Tienes seis<br>conversaciones.</span></h1>
+  <p class="lead">Todo el taller fue para poder verlas.</p>
+</section>
+
+</div>
+
+<div class="rail">
+  <span class="meta" id="pos">01 / 32</span>
+  <div class="bar"><i id="fill"></i></div>
+  <span class="meta" id="min">min 000</span>
+</div>
+<div class="nav">
+  <button id="prev" aria-label="Anterior">←</button>
+  <button id="next" aria-label="Siguiente">→</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0,pos=document.getElementById('pos'),fill=document.getElementById('fill'),minEl=document.getElementById('min');
+  function pad(n){return n<10?'0'+n:''+n}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+    var m=parseInt(slides[i].dataset.min||0,10);
+    pos.textContent=pad(i+1)+' / '+slides.length;
+    minEl.textContent='min '+pad(m);
+    fill.style.width=(m/180*100)+'%';
+    document.body.classList.toggle('panelmode',slides[i].classList.contains('panel'));
+    location.hash=i+1;
+  }
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1)}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0);
+    if(e.key==='End')show(slides.length-1);
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-copy]');if(!b)return;
+    var txt=b.parentNode.querySelector('pre').innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600);
+    }).catch(function(){b.textContent='Selecciona y copia'});
+  });
+  [].slice.call(document.querySelectorAll('.timer')).forEach(function(t){
+    var total=parseInt(t.dataset.min,10)*60,left=total,id=null;
+    var clock=t.querySelector('.clock');
+    function paint(){clock.textContent=pad(Math.floor(left/60))+':'+pad(left%60)}
+    t.querySelector('[data-t="start"]').onclick=function(){
+      if(id){clearInterval(id);id=null;this.textContent='Reanudar';return}
+      this.textContent='Pausar';
+      id=setInterval(function(){left--;paint();if(left<=0){clearInterval(id);id=null;t.classList.add('done');left=0;paint()}},1000);
+    };
+    t.querySelector('[data-t="reset"]').onclick=function(){
+      if(id){clearInterval(id);id=null}
+      left=total;t.classList.remove('done');paint();
+      t.querySelector('[data-t="start"]').textContent='Iniciar';
+    };
+    paint();
+  });
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>
