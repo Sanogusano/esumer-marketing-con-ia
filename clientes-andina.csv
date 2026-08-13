@@ -1,0 +1,241 @@
+ClienteID,Nombre,Tipo,Ciudad,UltimaCompra,Compras,ValorTotal,Categoria,Canal
+C1065,Soluciones del Valle,Empresa,Medellín,2026-06-20,8,11774000,Mantenimiento,Vendedor
+C1183,Comercial Central,Empresa,Bogotá,2026-05-27,3,3838000,Mantenimiento,Vendedor
+C1158,Julián Muñoz,Persona,Pereira,2026-07-05,1,450000,Mantenimiento,Referido
+C1042,Inversiones Regional,Empresa,Cali,2026-06-05,1,1041000,Consumibles,Vendedor
+C1011,Almacenes del Valle,Empresa,Cartagena,2025-10-24,3,2464000,Equipos,Referido
+C1202,Adriana Zapata,Persona,Medellín,2026-07-29,7,4234000,Consumibles,Web
+C1012,Inversiones del Norte,Empresa,Medellín,2026-05-18,2,1252000,Mantenimiento,Web
+C1154,Soluciones Oriente,Empresa,Bogotá,2026-06-08,1,1042000,Consultoría,Feria
+C1010,Inversiones Integral,Empresa,Bogotá,2026-05-30,1,525000,Equipos,Referido
+C1069,Luisa Rincón,Persona,Bogotá,2026-02-17,4,1811000,Mantenimiento,Redes
+C1180,Carlos Betancur,Persona,Bucaramanga,2025-06-30,3,522000,Mantenimiento,Vendedor
+C1223,Sebastián Jaramillo,Persona,Bogotá,2026-06-27,6,2743000,Mantenimiento,Referido
+C1101,Industrias Central,Empresa,Cali,2026-07-27,4,2721000,Consumibles,Referido
+C1096,Ana Muñoz,Persona,Bucaramanga,2026-07-26,26,45174000,Consumibles,Referido
+C1019,Natalia Mejía,Persona,Bogotá,2024-12-07,2,1023000,Equipos,Feria
+C1189,Ana Agudelo,Persona,Cali,2026-03-14,14,15137000,Consumibles,Redes
+C1236,Comercial Andina,Empresa,Cali,2026-07-04,11,24904000,Consumibles,Referido
+C1231,Sebastián Ramírez,Persona,Bogotá,2026-07-17,9,11585000,Equipos,Feria
+C1206,Distribuidora del Valle,Empresa,Medellín,2024-05-29,4,3613000,Consumibles,Referido
+C1188,Grupo Integral,Empresa,Pereira,2026-08-09,10,48885000,Mantenimiento,Redes
+C1234,Mauricio Restrepo,Persona,Medellín,2024-11-16,1,520000,Mantenimiento,Vendedor
+C1043,Natalia Betancur,Persona,Barranquilla,2026-02-14,8,4628000,Equipos,Redes
+C1214,Corporación Global,Empresa,Cali,2026-04-03,3,8552000,Consultoría,Vendedor
+C1005,Almacenes Integral,Empresa,Bogotá,2025-09-26,3,2544000,Equipos,Referido
+C1025,Felipe Mejía,Persona,Barranquilla,2026-07-02,6,2203000,Equipos,Vendedor
+C1125,Corporación Oriente,Empresa,Manizales,2026-01-06,13,38953000,Consultoría,Web
+C1031,Almacenes Central,Empresa,Bogotá,2025-12-19,11,21852000,Consultoría,Vendedor
+C1107,Distribuidora del Norte,Empresa,Barranquilla,2026-03-23,14,19820000,Equipos,Vendedor
+C1203,Carlos Rincón,Persona,Bogotá,2025-10-30,2,814000,Equipos,Redes
+C1208,Sebastián Muñoz,Persona,Medellín,2026-06-14,11,8750000,Consultoría,Vendedor
+C1194,Daniela Muñoz,Persona,Bogotá,2025-12-14,1,122000,Consumibles,Vendedor
+C1133,Soluciones Pacífico,Empresa,Barranquilla,2026-05-26,2,1306000,Equipos,Web
+C1174,Soluciones del Norte,Empresa,Cali,2026-01-21,1,230000,Consumibles,Referido
+C1155,Logística Oriente,Empresa,Cali,2025-12-19,3,2356000,Equipos,Referido
+C1022,Inversiones Oriente,Empresa,Cali,2026-06-28,4,6444000,Consumibles,Referido
+C1164,Industrias Integral,Empresa,Cali,2026-06-28,3,4121000,Consumibles,Web
+C1215,Iván Gómez,Persona,Cartagena,2026-02-08,4,3102000,Equipos,Web
+C1135,Grupo Andina,Empresa,Manizales,2024-05-11,1,974000,Mantenimiento,Referido
+C1121,Distribuidora Global,Empresa,Barranquilla,2026-01-22,2,1588000,Mantenimiento,Vendedor
+C1172,Comercial Andina,Empresa,Medellín,2026-07-30,6,9585000,Mantenimiento,Web
+C1141,Sebastián Ospina,Persona,Medellín,2026-06-25,5,1718000,Equipos,Web
+C1066,Grupo Andina,Empresa,Bogotá,2026-06-16,11,19203000,Equipos,Vendedor
+C1138,Carlos Mejía,Persona,Bogotá,2025-12-01,5,5736000,Equipos,Web
+C1230,Logística Pacífico,Empresa,Barranquilla,2024-11-04,4,3323000,Consultoría,Vendedor
+C1175,Logística Pacífico,Empresa,Bogotá,2024-04-06,4,4666000,Consultoría,Vendedor
+C1027,Carlos Mejía,Persona,Bucaramanga,2024-07-03,5,3147000,Consultoría,Referido
+C1205,Industrias Regional,Empresa,Pereira,2026-07-30,16,102681000,Equipos,Vendedor
+C1235,Almacenes Regional,Empresa,Medellín,2024-08-17,2,1692000,Equipos,Vendedor
+C1076,Inversiones Integral,Empresa,Bogotá,2025-02-11,4,941000,Mantenimiento,Vendedor
+C1166,Distribuidora Integral,Empresa,Cartagena,2026-08-01,1,549000,Mantenimiento,Vendedor
+C1014,Mauricio Salazar,Persona,Medellín,2026-06-12,1,332000,Consultoría,Web
+C1105,Óscar Salazar,Persona,Cali,2025-12-20,11,5479000,Mantenimiento,Referido
+C1196,Andrés Toro,Persona,Bogotá,2026-03-07,10,10079000,Equipos,Referido
+C1003,Carlos Ceballos,Persona,Medellín,2026-04-01,6,2214000,Equipos,Referido
+C1170,Distribuidora Andina,Empresa,Bogotá,2025-10-08,3,2079000,Equipos,Vendedor
+C1238,Ana Mejía,Persona,Bogotá,2026-06-28,10,2502000,Consumibles,Referido
+C1016,Corporación Pacífico,Empresa,Medellín,2026-01-15,12,18562000,Consultoría,Redes
+C1106,Adriana Toro,Persona,Bogotá,2025-06-30,2,293000,Mantenimiento,Feria
+C1068,Distribuidora Integral,Empresa,Bogotá,2026-05-26,2,1491000,Equipos,Referido
+C1082,Valentina Mejía,Persona,Medellín,2025-11-05,2,263000,Mantenimiento,Web
+C1221,Distribuidora Regional,Empresa,Medellín,2026-06-06,3,3367000,Equipos,Redes
+C1161,Comercial Pacífico,Empresa,Cali,2025-11-02,13,8764000,Consumibles,Redes
+C1057,Soluciones Global,Empresa,Bogotá,2026-07-25,23,171681000,Consultoría,Redes
+C1079,Corporación del Norte,Empresa,Barranquilla,2026-06-29,6,8935000,Equipos,Web
+C1037,Camila Cardona,Persona,Medellín,2025-06-20,3,815000,Consultoría,Vendedor
+C1094,Daniela Agudelo,Persona,Cali,2026-06-18,4,1589000,Equipos,Web
+C1001,Grupo Integral,Empresa,Cali,2026-03-26,11,9292000,Consultoría,Referido
+C1108,Juliana Cardona,Persona,Medellín,2026-08-08,28,82878000,Consultoría,Web
+C1084,Camila Muñoz,Persona,Cartagena,2025-06-07,3,478000,Mantenimiento,Referido
+C1182,Álvaro Salazar,Persona,Bogotá,2026-07-06,3,819000,Mantenimiento,Web
+C1204,Soluciones Central,Empresa,Barranquilla,2026-06-14,9,6927000,Mantenimiento,Feria
+C1165,Soluciones Pacífico,Empresa,Medellín,2025-11-02,4,10556000,Consumibles,Feria
+C1232,Natalia Hoyos,Persona,Pereira,2025-11-30,7,6404000,Mantenimiento,Referido
+C1228,Julián Peláez,Persona,Bogotá,2025-09-08,3,1132000,Consumibles,Web
+C1163,Sofía Jaramillo,Persona,Medellín,2025-09-04,1,154000,Equipos,Web
+C1115,Distribuidora Pacífico,Empresa,Cali,2026-07-27,1,407000,Equipos,Web
+C1201,Grupo Pacífico,Empresa,Cali,2026-02-14,14,14793000,Consumibles,Feria
+C1071,Industrias Global,Empresa,Bogotá,2026-07-31,7,6953000,Consumibles,Redes
+C1118,Mauricio Mejía,Persona,Bogotá,2025-11-16,10,9087000,Equipos,Referido
+C1192,Grupo Oriente,Empresa,Cali,2025-12-04,3,2186000,Mantenimiento,Vendedor
+C1020,Paula Arango,Persona,Barranquilla,2025-07-18,1,147000,Consultoría,Feria
+C1039,Inversiones Andina,Empresa,Manizales,2026-07-30,11,7941000,Mantenimiento,Redes
+C1026,Inversiones Central,Empresa,Barranquilla,2026-08-04,18,82023000,Equipos,Vendedor
+C1185,Distribuidora Global,Empresa,Bucaramanga,2026-07-19,3,3043000,Equipos,Vendedor
+C1021,Inversiones del Sur,Empresa,Cartagena,2024-10-22,6,10684000,Mantenimiento,Referido
+C1128,Distribuidora Andina,Empresa,Medellín,2026-01-07,3,2214000,Consultoría,Web
+C1126,Almacenes del Norte,Empresa,Pereira,2025-10-04,3,1137000,Consumibles,Web
+C1123,Distribuidora del Valle,Empresa,Cartagena,2025-10-22,9,21446000,Consultoría,Web
+C1006,Ana Ceballos,Persona,Manizales,2026-05-30,3,1198000,Equipos,Web
+C1207,Comercial Central,Empresa,Bogotá,2026-03-02,4,5644000,Consultoría,Referido
+C1029,Jorge Peláez,Persona,Barranquilla,2026-07-20,25,48528000,Consultoría,Referido
+C1078,Julián Ospina,Persona,Bogotá,2024-09-27,5,823000,Consumibles,Redes
+C1035,Inversiones Oriente,Empresa,Bogotá,2026-06-16,1,705000,Consumibles,Web
+C1015,Logística del Norte,Empresa,Cartagena,2026-07-23,13,61959000,Mantenimiento,Referido
+C1168,Distribuidora Integral,Empresa,Bucaramanga,2025-08-09,1,471000,Consumibles,Vendedor
+C1157,Almacenes Pacífico,Empresa,Medellín,2025-10-19,12,37688000,Consultoría,Vendedor
+C1013,Grupo Regional,Empresa,Bogotá,2024-07-07,6,8271000,Consultoría,Redes
+C1190,Valentina Vélez,Persona,Medellín,2026-07-12,3,2242000,Equipos,Referido
+C1152,Luisa Mejía,Persona,Cali,2025-12-29,10,15477000,Consumibles,Web
+C1127,Catalina Vélez,Persona,Bogotá,2026-08-05,5,2396000,Equipos,Referido
+C1159,Grupo Global,Empresa,Medellín,2026-07-25,4,3362000,Mantenimiento,Web
+C1124,Paula Ramírez,Persona,Barranquilla,2025-05-31,2,414000,Consultoría,Vendedor
+C1216,Jorge Gómez,Persona,Cartagena,2025-12-03,7,2521000,Mantenimiento,Web
+C1186,Almacenes del Sur,Empresa,Pereira,2026-08-09,15,111651000,Mantenimiento,Vendedor
+C1110,Daniela Cardona,Persona,Medellín,2026-07-07,7,5700000,Mantenimiento,Referido
+C1191,Almacenes del Norte,Empresa,Barranquilla,2026-01-11,2,1509000,Consumibles,Redes
+C1176,Grupo Pacífico,Empresa,Medellín,2025-04-09,3,5176000,Consumibles,Web
+C1239,Inversiones Central,Empresa,Pereira,2026-07-27,6,7789000,Consumibles,Web
+C1209,Comercial Global,Empresa,Medellín,2026-05-29,3,1397000,Consultoría,Vendedor
+C1085,Sofía Zapata,Persona,Bogotá,2026-06-21,5,1280000,Consultoría,Redes
+C1177,Daniela Zapata,Persona,Manizales,2025-08-31,2,248000,Consumibles,Feria
+C1087,Esteban Arango,Persona,Medellín,2026-06-22,4,1434000,Equipos,Vendedor
+C1047,Almacenes del Norte,Empresa,Medellín,2026-08-08,13,51443000,Equipos,Web
+C1199,Jorge Salazar,Persona,Medellín,2026-07-27,4,4966000,Consumibles,Web
+C1134,Grupo Global,Empresa,Medellín,2025-12-03,7,14720000,Consumibles,Redes
+C1036,Soluciones Regional,Empresa,Medellín,2025-04-11,2,3508000,Equipos,Referido
+C1136,Comercial Integral,Empresa,Pereira,2024-03-08,6,1918000,Equipos,Referido
+C1119,Distribuidora Integral,Empresa,Medellín,2026-07-27,4,9729000,Mantenimiento,Vendedor
+C1111,Soluciones Oriente,Empresa,Bogotá,2025-03-13,3,1099000,Consumibles,Web
+C1178,Logística del Norte,Empresa,Manizales,2025-08-23,2,1235000,Equipos,Web
+C1169,Soluciones Pacífico,Empresa,Cali,2026-06-22,1,802000,Consultoría,Referido
+C1081,Ricardo Quintero,Persona,Bogotá,2026-07-19,1,130000,Consultoría,Vendedor
+C1148,Inversiones Global,Empresa,Bogotá,2025-11-01,8,15651000,Consultoría,Referido
+C1145,Comercial Global,Empresa,Medellín,2026-06-29,1,1289000,Mantenimiento,Vendedor
+C1117,Manuela Cardona,Persona,Bogotá,2026-07-24,2,1243000,Equipos,Referido
+C1218,Almacenes Oriente,Empresa,Bogotá,2026-05-23,3,2980000,Equipos,Referido
+C1052,Inversiones Global,Empresa,Bogotá,2026-07-08,5,10609000,Mantenimiento,Vendedor
+C1237,Logística Oriente,Empresa,Medellín,2026-07-22,9,11010000,Consumibles,Feria
+C1210,Inversiones Pacífico,Empresa,Cartagena,2025-12-16,14,22837000,Equipos,Vendedor
+C1103,Almacenes Pacífico,Empresa,Barranquilla,2026-07-17,2,1219000,Consultoría,Referido
+C1160,Distribuidora Pacífico,Empresa,Cali,2025-09-26,3,1808000,Consultoría,Web
+C1074,Logística del Norte,Empresa,Bogotá,2026-08-01,23,74607000,Consumibles,Referido
+C1058,Comercial Pacífico,Empresa,Bucaramanga,2025-11-17,2,620000,Mantenimiento,Feria
+C1147,Jorge Gómez,Persona,Medellín,2026-07-24,6,6638000,Mantenimiento,Feria
+C1150,Corporación Integral,Empresa,Medellín,2025-10-23,8,16868000,Equipos,Web
+C1220,Industrias del Valle,Empresa,Medellín,2026-07-24,8,6465000,Mantenimiento,Vendedor
+C1050,Luisa Rincón,Persona,Pereira,2025-08-31,1,342000,Consumibles,Vendedor
+C1179,Inversiones Global,Empresa,Bogotá,2026-08-06,9,10798000,Mantenimiento,Feria
+C1129,Adriana Salazar,Persona,Bucaramanga,2026-08-04,15,9810000,Consumibles,Vendedor
+C1229,Logística Oriente,Empresa,Medellín,2026-07-31,1,902000,Mantenimiento,Web
+C1018,Almacenes Oriente,Empresa,Medellín,2026-07-03,4,8562000,Consumibles,Referido
+C1028,Almacenes del Norte,Empresa,Barranquilla,2024-05-06,2,2332000,Equipos,Referido
+C1217,Óscar Ceballos,Persona,Bogotá,2026-07-22,5,3766000,Consumibles,Referido
+C1083,Industrias del Norte,Empresa,Medellín,2026-02-09,13,33713000,Equipos,Referido
+C1060,Servicios Integral,Empresa,Bogotá,2026-06-20,1,691000,Mantenimiento,Redes
+C1046,Sofía Arango,Persona,Bogotá,2026-08-01,15,15572000,Mantenimiento,Web
+C1240,Felipe Ramírez,Persona,Barranquilla,2026-07-13,7,4031000,Equipos,Feria
+C1213,Distribuidora Oriente,Empresa,Medellín,2026-08-05,11,38650000,Consumibles,Referido
+C1004,Grupo Andina,Empresa,Bogotá,2025-11-01,6,9409000,Equipos,Referido
+C1080,Sofía Ospina,Persona,Bogotá,2025-03-15,3,669000,Mantenimiento,Web
+C1038,Ana Zapata,Persona,Cartagena,2026-07-19,14,17234000,Consumibles,Feria
+C1146,Corporación Global,Empresa,Bogotá,2026-06-10,2,2578000,Equipos,Feria
+C1008,Soluciones Global,Empresa,Bogotá,2026-03-28,3,7503000,Mantenimiento,Vendedor
+C1225,Corporación Regional,Empresa,Bucaramanga,2026-01-05,13,18683000,Consultoría,Web
+C1195,Valentina Restrepo,Persona,Medellín,2025-12-19,8,3949000,Mantenimiento,Web
+C1139,Camila Ceballos,Persona,Bogotá,2026-07-16,11,9892000,Equipos,Vendedor
+C1197,Sofía Vélez,Persona,Medellín,2026-07-31,9,5785000,Mantenimiento,Vendedor
+C1132,Iván Hoyos,Persona,Bogotá,2026-07-25,12,20575000,Equipos,Feria
+C1219,Almacenes Regional,Empresa,Bogotá,2026-05-19,4,1450000,Consultoría,Referido
+C1193,Servicios del Valle,Empresa,Bogotá,2026-06-15,4,2995000,Consumibles,Redes
+C1055,Soluciones del Sur,Empresa,Medellín,2026-04-10,10,7577000,Consumibles,Vendedor
+C1131,Soluciones del Norte,Empresa,Cali,2025-10-21,2,1486000,Mantenimiento,Web
+C1156,Juliana Betancur,Persona,Bogotá,2026-07-31,6,4601000,Consumibles,Referido
+C1184,Inversiones Andina,Empresa,Cali,2026-06-23,8,11115000,Mantenimiento,Web
+C1064,Óscar Toro,Persona,Cartagena,2026-03-09,13,15288000,Mantenimiento,Referido
+C1233,Comercial Oriente,Empresa,Barranquilla,2025-11-03,13,32233000,Equipos,Referido
+C1187,Soluciones Integral,Empresa,Manizales,2026-07-27,27,173640000,Equipos,Referido
+C1151,Diego Salazar,Persona,Bucaramanga,2026-07-11,2,792000,Equipos,Vendedor
+C1113,Catalina Cardona,Persona,Cartagena,2026-07-22,4,1056000,Equipos,Web
+C1153,Diego Zapata,Persona,Bogotá,2025-08-01,2,823000,Consumibles,Feria
+C1067,Almacenes Central,Empresa,Bogotá,2026-07-26,9,15805000,Mantenimiento,Feria
+C1198,Paula Peláez,Persona,Bogotá,2026-06-26,1,208000,Consultoría,Redes
+C1173,Carlos Mejía,Persona,Medellín,2025-07-25,3,1147000,Consumibles,Vendedor
+C1116,Corporación del Sur,Empresa,Bucaramanga,2026-07-15,2,1469000,Equipos,Referido
+C1059,Diego Jaramillo,Persona,Bogotá,2024-10-02,4,248000,Mantenimiento,Web
+C1053,Industrias del Valle,Empresa,Barranquilla,2025-06-21,2,759000,Equipos,Vendedor
+C1130,Juliana Betancur,Persona,Medellín,2026-07-16,1,537000,Equipos,Referido
+C1122,Inversiones Andina,Empresa,Pereira,2026-06-26,4,3737000,Consultoría,Redes
+C1077,Soluciones Regional,Empresa,Bucaramanga,2026-07-26,15,51587000,Equipos,Referido
+C1054,Corporación Andina,Empresa,Cali,2026-06-26,1,998000,Equipos,Referido
+C1149,Valentina Rincón,Persona,Medellín,2025-12-23,3,1003000,Equipos,Web
+C1162,Comercial Regional,Empresa,Bogotá,2026-07-14,1,574000,Equipos,Referido
+C1097,Grupo Integral,Empresa,Bogotá,2025-12-30,7,16354000,Equipos,Vendedor
+C1222,Luisa Hoyos,Persona,Bucaramanga,2026-06-17,2,946000,Consumibles,Web
+C1056,Julián Rincón,Persona,Bogotá,2026-07-08,11,13011000,Equipos,Referido
+C1091,Inversiones Pacífico,Empresa,Bogotá,2026-06-30,7,9240000,Consultoría,Web
+C1095,Inversiones del Valle,Empresa,Bucaramanga,2026-07-18,15,96105000,Mantenimiento,Web
+C1041,Industrias Regional,Empresa,Manizales,2026-02-03,8,21517000,Equipos,Referido
+C1200,Almacenes Pacífico,Empresa,Bogotá,2026-05-26,3,1635000,Consultoría,Referido
+C1211,Esteban Agudelo,Persona,Medellín,2026-01-02,3,2919000,Equipos,Web
+C1114,Logística Oriente,Empresa,Medellín,2025-07-16,1,371000,Consumibles,Web
+C1143,Soluciones Global,Empresa,Medellín,2026-08-02,28,166757000,Equipos,Feria
+C1033,Soluciones Andina,Empresa,Bogotá,2025-03-20,6,7334000,Equipos,Referido
+C1140,Esteban Cardona,Persona,Medellín,2025-11-21,3,558000,Equipos,Referido
+C1070,María Cardona,Persona,Medellín,2026-07-19,24,72354000,Consultoría,Redes
+C1051,Distribuidora del Norte,Empresa,Bogotá,2026-07-14,5,7078000,Equipos,Referido
+C1024,Comercial Pacífico,Empresa,Pereira,2026-07-29,4,3949000,Consumibles,Referido
+C1034,Comercial Integral,Empresa,Medellín,2025-03-16,6,9171000,Mantenimiento,Web
+C1181,Almacenes Andina,Empresa,Barranquilla,2025-12-10,9,10090000,Consultoría,Referido
+C1062,Carlos Zapata,Persona,Manizales,2026-07-20,18,30815000,Mantenimiento,Web
+C1040,Carlos Rincón,Persona,Cartagena,2025-12-26,1,131000,Consumibles,Web
+C1088,Comercial del Norte,Empresa,Bogotá,2026-05-24,3,1556000,Equipos,Referido
+C1007,Luisa Jaramillo,Persona,Bogotá,2026-07-23,3,795000,Consumibles,Referido
+C1171,Álvaro Cardona,Persona,Pereira,2026-06-10,1,178000,Consumibles,Web
+C1072,Juliana Toro,Persona,Cali,2026-07-17,10,5048000,Equipos,Vendedor
+C1009,Corporación Oriente,Empresa,Medellín,2026-07-27,20,51830000,Equipos,Vendedor
+C1112,Mauricio Rincón,Persona,Bogotá,2026-03-18,7,10023000,Consumibles,Referido
+C1061,Distribuidora del Valle,Empresa,Pereira,2026-08-02,10,14413000,Equipos,Redes
+C1089,Paula Ospina,Persona,Cali,2026-06-05,2,468000,Consumibles,Vendedor
+C1073,Juliana Zapata,Persona,Bogotá,2025-12-23,14,11109000,Consultoría,Referido
+C1120,Corporación Central,Empresa,Bogotá,2025-10-31,11,25121000,Mantenimiento,Web
+C1049,Felipe Cardona,Persona,Pereira,2026-06-28,6,2376000,Consumibles,Vendedor
+C1100,Valentina Ramírez,Persona,Medellín,2026-01-09,14,8548000,Mantenimiento,Redes
+C1063,Iván Hoyos,Persona,Bogotá,2024-04-18,6,2566000,Equipos,Referido
+C1142,Comercial Andina,Empresa,Bogotá,2026-07-13,11,8409000,Consumibles,Vendedor
+C1090,Álvaro Ospina,Persona,Medellín,2025-11-09,2,289000,Equipos,Web
+C1212,Iván Quintero,Persona,Cartagena,2025-06-21,3,323000,Consultoría,Referido
+C1109,Iván Vélez,Persona,Medellín,2026-02-16,4,4921000,Equipos,Vendedor
+C1032,Camila Peláez,Persona,Bogotá,2025-02-24,4,503000,Equipos,Referido
+C1017,Industrias del Valle,Empresa,Bogotá,2026-08-07,19,113393000,Consumibles,Web
+C1167,Mauricio Agudelo,Persona,Bogotá,2026-07-14,1,264000,Consumibles,Referido
+C1104,Distribuidora Oriente,Empresa,Cali,2026-07-22,23,111442000,Equipos,Web
+C1227,Logística Central,Empresa,Cartagena,2025-02-23,4,6495000,Equipos,Referido
+C1099,Comercial Andina,Empresa,Medellín,2026-06-16,4,4647000,Equipos,Referido
+C1224,Logística Pacífico,Empresa,Bogotá,2026-06-27,1,749000,Mantenimiento,Vendedor
+C1137,Almacenes Regional,Empresa,Medellín,2026-06-27,7,17454000,Mantenimiento,Vendedor
+C1086,Soluciones Integral,Empresa,Bucaramanga,2025-12-21,2,689000,Consumibles,Feria
+C1030,Distribuidora Andina,Empresa,Cartagena,2025-11-21,3,7728000,Mantenimiento,Vendedor
+C1093,Soluciones Central,Empresa,Cali,2026-08-04,28,205534000,Consultoría,Web
+C1144,Catalina Hoyos,Persona,Cali,2025-08-06,3,1029000,Mantenimiento,Referido
+C1102,Manuela Vélez,Persona,Bucaramanga,2026-02-16,12,10079000,Equipos,Referido
+C1075,Almacenes Central,Empresa,Medellín,2026-07-28,18,34674000,Consultoría,Vendedor
+C1226,Grupo Regional,Empresa,Cali,2026-07-14,4,3817000,Equipos,Redes
+C1002,Corporación Andina,Empresa,Cali,2026-07-02,10,8123000,Consultoría,Vendedor
+C1048,Logística Regional,Empresa,Bucaramanga,2025-12-15,3,2481000,Mantenimiento,Vendedor
+C1098,Óscar Hoyos,Persona,Bogotá,2026-07-17,20,41652000,Consultoría,Web
+C1092,Comercial Global,Empresa,Bucaramanga,2025-04-16,1,949000,Consultoría,Redes
+C1044,Luisa Restrepo,Persona,Cali,2026-07-18,17,20766000,Mantenimiento,Web
+C1045,Esteban Arango,Persona,Medellín,2026-04-02,10,3815000,Mantenimiento,Web
+C1023,Valentina Muñoz,Persona,Bucaramanga,2026-07-10,4,1743000,Consultoría,Web
