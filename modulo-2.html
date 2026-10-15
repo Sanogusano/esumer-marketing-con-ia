@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 · Campaña adidas TRÓPICO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:2.6vh;padding:7vh 6vw 11vh;overflow-y:auto;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.eyebrow{font-size:clamp(13px,1.25vw,20px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(34px,5.2vw,92px)}
+h2{font-size:clamp(28px,3.4vw,58px)}
+h3{font-size:clamp(18px,1.8vw,30px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(16px,1.55vw,26px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,32px);color:var(--soft);max-width:70ch}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.2vw,38px);line-height:1.3}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex-wrap:wrap}
+.row>*{flex:1 1 260px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2.4vh 1.8vw;display:flex;flex-direction:column;gap:1.2vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p{color:var(--soft)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border:2px solid var(--coral-d)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(30px,3.6vw,60px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+.who{font-size:clamp(13px,1.1vw,18px);font-weight:700;color:var(--coral-d)}
+.card.ink .who{color:#8E8E9A}
+ol,ul{padding-left:1.4em;display:flex;flex-direction:column;gap:.6vh}
+.split{display:flex;gap:2.4vw;flex:1;min-height:0;flex-wrap:wrap}
+.split>.left{flex:0 1 34%;min-width:260px;display:flex;flex-direction:column;gap:2vh}
+.split>.right{flex:1 1 420px;display:flex;flex-direction:column;gap:2vh}
+.prompt{position:relative;background:var(--ink);border-radius:14px;padding:2.6vh 1.8vw;color:#F1F1F4;display:flex;flex-direction:column;gap:1.2vh}
+.dark .prompt{background:var(--ink2)}
+.prompt .tag{font-size:clamp(12px,1.05vw,17px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);min-height:2.6em;padding-right:9em;display:flex;align-items:center}
+.prompt pre{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(13px,1.15vw,20px);line-height:1.45;white-space:pre-wrap;word-wrap:break-word;color:#F1F1F4}
+.prompt .k{color:var(--coral)}
+.prompt .v{color:#FFB59E}
+.copy{position:absolute;top:2.2vh;right:1.2vw;background:var(--coral);color:var(--ink);border:0;border-radius:999px;padding:.7em 1.3em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.copy:hover{background:#FF7B5E}
+.copy.done{background:#F1F1F4}
+.pill{display:inline-block;font-size:clamp(14px,1.3vw,22px);font-weight:600;background:var(--ink);color:#F6F5F2;padding:.4em 1em;border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.35vw,23px)}
+th{background:var(--ink);color:#F6F5F2;text-align:left;padding:1.2vh 1vw;font-weight:700}
+td{padding:1.2vh 1vw;border-bottom:1px solid var(--line)}
+tr:nth-child(even) td{background:#ECEAE4}
+.right-num{text-align:right}
+.callout{display:flex;gap:1.4vw;align-items:center;background:var(--ink);color:#F6F5F2;border-radius:14px;padding:2.4vh 2vw}
+.callout .ic{font-size:clamp(24px,2.6vw,44px);color:var(--coral)}
+.callout p{font-weight:600}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.3em;line-height:1.2}
+.dark .check::before,.card.ink .check::before{color:var(--coral)}
+.weights{display:flex;gap:1.2vw;flex:1;flex-wrap:wrap}
+.weights .card{justify-content:space-between}
+.big{font-family:'Source Serif 4',Georgia,serif;font-weight:700;line-height:1;color:var(--coral-d)}
+.foot{position:absolute;left:6vw;bottom:3.6vh;right:6vw;font-size:clamp(12px,1.05vw,17px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.spacer{flex:1}
+/* timer */
+.timer{display:flex;align-items:center;gap:1vw;flex-wrap:wrap}
+.timer .t{font-family:'JetBrains Mono',monospace;font-size:clamp(22px,2.4vw,40px);font-weight:600;min-width:5ch;color:var(--ink)}
+.dark .timer .t{color:#F6F5F2}
+.timer button{border:1px solid var(--coral-d);background:transparent;color:var(--coral-d);border-radius:999px;padding:.5em 1.2em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.dark .timer button{border-color:var(--coral);color:var(--coral)}
+.timer .t.over{color:var(--coral-d)}
+/* nav */
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:10}
+.nav button{width:44px;height:44px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:10;transition:width .2s}
+@media (max-width:900px){
+  .grid5{grid-template-columns:1fr 1fr}
+  .slide{padding:5vh 5vw 14vh}
+  .foot{position:static;margin-top:2vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Módulo 2 · Taller virtual individual · 120 min</p>
+  <h1>Una campaña con IA que se ve como una sola campaña</h1>
+  <p class="lead">Caso: adidas TRÓPICO. Del brief a tres piezas consistentes en dos horas.</p>
+  <p class="foot">Ejercicio académico. adidas TRÓPICO no existe; las piezas no se publican. · Usa las flechas ← → para avanzar.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">Lo que entregas al final</p>
+  <h2>Cinco entregables, una sola campaña</h2>
+  <div class="grid5">
+    <div class="card"><span class="num">1</span><h3>Concepto</h3><p class="muted">La idea en una frase. No es el eslogan.</p></div>
+    <div class="card"><span class="num">2</span><h3>Claim</h3><p class="muted">Máximo cinco palabras.</p></div>
+    <div class="card"><span class="num">3</span><h3>Key Visual</h3><p class="muted">La imagen ancla de toda la campaña.</p></div>
+    <div class="card"><span class="num">4</span><h3>Tres piezas</h3><p class="muted">Story 9:16, banner 3:1 y header de correo 2:1.</p></div>
+    <div class="card"><span class="num">5</span><h3>Mensajes</h3><p class="muted">Un mensaje por canal, sobre cada pieza.</p></div>
+  </div>
+  <p style="font-weight:600;color:var(--ink)">Y la ficha de producción: la plantilla que te llevas para cualquier marca.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">Agenda</p>
+  <h2>El mapa de las 2 horas</h2>
+  <table>
+    <tr><th>Bloque</th><th>Quién</th><th class="right-num">Min</th><th>Sale de aquí</th></tr>
+    <tr><td>Brief y reglas</td><td>Facilitador</td><td class="right-num">10</td><td>Encargo claro</td></tr>
+    <tr><td>El fracaso demostrado</td><td>Facilitador</td><td class="right-num">8</td><td>Por qué hace falta método</td></tr>
+    <tr><td>Método y ficha</td><td>Facilitador</td><td class="right-num">12</td><td>Ficha de producción</td></tr>
+    <tr><td>Taller 1 · Concepto y claim</td><td>Tú</td><td class="right-num">15</td><td>Concepto + claim</td></tr>
+    <tr><td>Taller 2 · Key Visual</td><td>Tú</td><td class="right-num">25</td><td>Imagen ancla</td></tr>
+    <tr><td>Galería en vivo</td><td>Todos</td><td class="right-num">5</td><td>Votación en el chat</td></tr>
+    <tr><td>Taller 3 · Piezas</td><td>Tú</td><td class="right-num">28</td><td>3 piezas con mensaje</td></tr>
+    <tr><td>Autoauditoría</td><td>Tú + 3 voluntarios</td><td class="right-num">10</td><td>Tu puntaje</td></tr>
+    <tr><td>Demo y cierre</td><td>Facilitador</td><td class="right-num">7</td><td>Techo de calidad</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Antes de empezar · 5 minutos</p>
+  <h2>Tres pestañas abiertas antes de conectarte</h2>
+  <div class="row">
+    <div class="card"><h3>ChatGPT</h3><p class="muted">Para concepto, claim y mensajes.</p></div>
+    <div class="card"><h3>Gemini</h3><p class="muted">Para generar el Key Visual y las piezas.</p></div>
+    <div class="card"><h3>Canva</h3><p class="muted">Para montar texto y logo encima de la imagen.</p></div>
+  </div>
+  <p class="muted">Consejo: divide la pantalla. La reunión a un lado, tus herramientas al otro.</p>
+  <div class="spacer"></div>
+  <div class="callout"><span class="ic">!</span><p>Reglas de hoy: la conversación de Gemini no se cierra, y cada prompt se copia con el botón “Copiar” de esta página.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide dark">
+  <p class="eyebrow">El brief · 1 de 4 · adidas Running LATAM</p>
+  <h2>TRÓPICO: running para el calor húmedo</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Lo que muestran las marcas</p><p>Luz fría, asfalto seco, aliento visible. El running de clima templado.</p></div>
+    <div class="card"><p class="eyebrow">Lo que vive el corredor</p><p>Humedad, sudor, luz dura, sombra de mango y la lluvia de las 4 p. m.</p></div>
+  </div>
+  <div class="spacer"></div>
+  <p class="quote accent">El reto: adidas es la número 2 en running en la región y no tiene un producto que hable del calor.</p>
+  <p class="foot">Producto ficticio para el ejercicio</p>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 2 de 4</p>
+  <h2>A quién le hablamos</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Target</p>
+      <p>Corredores urbanos de 25 a 40 años en ciudades tropicales de LATAM.</p>
+      <p>Corren 3 a 5 veces por semana, de 5 a 15 km.</p>
+      <p>No son atletas de élite: salen a las 5:30 a. m. porque a las 7 ya no se puede.</p></div>
+    <div class="card ink"><p class="eyebrow" style="color:var(--coral)">Insight de partida</p>
+      <p class="quote" style="color:#F6F5F2">Aquí el enemigo no es el frío ni la distancia. Es el calor. Y al calor no se le gana: se le aguanta.</p>
+      <div class="spacer"></div>
+      <p>Es un punto de partida. Tú lo afilas.</p></div>
+  </div>
+  <p class="foot">Objetivo: posicionar TRÓPICO como el producto que entiende una realidad que las marcas globales ignoran.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 3 de 4</p>
+  <h2>Cómo se califica</h2>
+  <div class="weights">
+    <div class="card ink" style="flex:4 1 220px"><span class="big" style="font-size:clamp(48px,6vw,110px);color:var(--coral)">40%</span><h3>Consistencia visual entre las tres piezas</h3></div>
+    <div class="card" style="flex:3 1 200px"><span class="big" style="font-size:clamp(40px,5vw,90px)">30%</span><h3>Fidelidad al kit de marca</h3></div>
+    <div class="card" style="flex:2 1 180px"><span class="big" style="font-size:clamp(34px,4vw,74px)">20%</span><h3>Fuerza del concepto</h3></div>
+    <div class="card" style="flex:2 1 180px"><span class="big" style="font-size:clamp(34px,4vw,74px)">10%</span><h3>Ejecución del claim</h3></div>
+  </div>
+  <p class="foot">La autoauditoría del final usa estos cuatro criterios.</p>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 4 de 4</p>
+  <h2>Las reglas del kit</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Siempre</p><ul><li>Negro y blanco como base.</li><li>Un solo color de acento por campaña.</li><li>Tipografía de marca solo en el montaje.</li></ul></div>
+    <div class="card"><p class="eyebrow">Nunca</p><ul><li>Gente sonriendo a cámara.</li><li>Gimnasios.</li><li>Filtro naranja de atardecer.</li><li>Sudor “estético”.</li></ul></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="callout"><span class="ic">🔒</span><p>El logo y las tres bandas no se generan con IA. Se ponen encima en Canva. Una pieza con logo inventado queda descalificada.</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide dark">
+  <p class="eyebrow">Demo en vivo · 8 min · facilitador</p>
+  <h2>El fracaso demostrado</h2>
+  <div class="split">
+    <div class="right">
+      <div class="prompt"><span class="tag">Prompt que casi todos escriben</span>
+<pre>Corredor latino corriendo en una ciudad tropical, estilo adidas, foto profesional.</pre></div>
+      <p class="muted">Se ejecuta tres veces en chats distintos.</p>
+    </div>
+    <div class="left" style="justify-content:center">
+      <p class="eyebrow">Responde en el chat</p>
+      <p class="quote" style="color:#F6F5F2">¿Estas tres imágenes son de la misma campaña?</p>
+    </div>
+  </div>
+  <p class="accent" style="font-weight:600">Cambia la luz, la persona, la paleta y el lente. Cada adjetivo se interpreta distinto cada vez.</p>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">El método · del kit al Key Visual</p>
+  <h2>Cinco pasos, una sola regla: fijar todo menos una cosa</h2>
+  <div class="grid5" style="flex:1">
+    <div class="card ink"><span class="num">1</span><h3>Destilar</h3><p>El kit se vuelve un Style Bible medible.</p><span class="who">Facilitador</span></div>
+    <div class="card ink"><span class="num">2</span><h3>Codificar</h3><p>El Style Bible se vuelve ficha de producción.</p><span class="who">Facilitador</span></div>
+    <div class="card hl"><span class="num">3</span><h3>Anclar</h3><p class="muted">Generas el Key Visual y lo guardas como ancla.</p><span class="who">Tú</span></div>
+    <div class="card hl"><span class="num">4</span><h3>Declinar</h3><p class="muted">La misma ancla en tres formatos.</p><span class="who">Tú</span></div>
+    <div class="card hl"><span class="num">5</span><h3>Auditar</h3><p class="muted">Lo que no pasa el checklist se regenera.</p><span class="who">Tú</span></div>
+  </div>
+  <p class="foot">C.R.E.A.R. aplicado a imagen: hoy todo vive en la A, el Ancla.</p>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="eyebrow">Paso 1 · Destilar · Gemini · demo del facilitador</p>
+  <h2>Del kit de marca a un Style Bible</h2>
+  <div class="split">
+    <div class="left">
+      <ol><li>Sube a Gemini el kit de marca y 5 a 8 referentes visuales.</li><li>Pega el prompt.</li><li>Revisa que no quede ni un adjetivo vago.</li></ol>
+      <p class="muted"><b>Resultado:</b> la marca deja de ser un PDF de 80 páginas y se vuelve algo que la IA puede ejecutar.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Analiza el kit de marca y las imágenes de referencia adjuntas. Extrae un Style Bible de 8 campos: sujeto, mundo, luz, lente, paleta en HEX, textura, composición y lo que nunca aparece.
+
+Cada campo debe ser medible o fotografiable: milímetros, hora del día, porcentajes, códigos de color.
+
+Prohibido: moderno, dinámico, aspiracional, impactante, épico.</pre></div></div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Paso 2 · Codificar · tu plantilla de trabajo</p>
+  <h2>La ficha de producción</h2>
+  <div class="prompt"><span class="tag">Ficha completa · cópiala entera</span><button class="copy">Copiar ficha</button>
+<pre><span class="k">CONTEXTO:</span> Key Visual de lanzamiento de adidas TRÓPICO, línea de running para clima cálido y húmedo.
+
+<span class="k">ROL:</span> actúa como fotógrafo de campaña deportiva.
+
+<span class="k">ENTREGABLE:</span>
+- concepto: <span class="v">[ESCRIBE AQUÍ TU CONCEPTO]</span>
+- acción: <span class="v">[QUÉ HACE EL CORREDOR EN LA FOTO]</span>
+- formato: 3:2
+- composición: sujeto a la izquierda, 60% de aire a la derecha reservado para el texto.
+
+<span class="k">ANCLA:</span>
+- sujeto: corredor urbano latinoamericano, 28 a 35 años, ropa técnica de running negra, sin logos visibles.
+- mundo: calle de ciudad tropical al amanecer, asfalto húmedo, vegetación densa desenfocada al fondo.
+- luz: luz dura lateral de las 5:40 a. m., sombras largas, alto contraste, sin relleno.
+- lente: 85 mm, f/2.0, cámara a la altura del pecho, sujeto en tres cuartos.
+- paleta: #0A0A0A, #FFFFFF y un solo acento #D9F000.
+- textura: grano fino de película, saturación -10, negros profundos.
+
+<span class="k">RESTRICCIONES:</span> sin logos, sin texto, sin marcas, sin sonrisas a cámara, sin gimnasio, sin atardecer naranja, sin sudor estilizado. Fotografía real, no ilustración.</pre></div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Paso 2 · cómo se lee la ficha</p>
+  <h2>Tres tipos de campo</h2>
+  <div class="row" style="flex:1">
+    <div class="card ink"><h3>🔒 Bloqueado</h3><p>Paleta, textura y restricciones. Vienen del kit. Nadie los toca: son la marca.</p></div>
+    <div class="card"><h3>Fijo por campaña</h3><p class="muted">Sujeto, mundo, luz, lente y composición. Se deciden una vez y se respetan en las tres piezas.</p></div>
+    <div class="card hl"><h3>Libre</h3><p class="muted">Concepto y acción. Lo único que cambias tú.</p></div>
+  </div>
+  <p class="quote" style="color:var(--ink)">Un adjetivo se interpreta distinto cada vez. Un número, no.</p>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="eyebrow">Taller 1 · 15 min · ChatGPT · individual</p>
+  <h2>Concepto y claim</h2>
+  <div class="timer" data-min="15"><span class="t">15:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Pega el prompt con el brief.</li><li>Elige tu concepto.</li><li>Pásalo por el panel hostil del Módulo 1.</li><li>Escribe la acción del corredor que sale del concepto.</li></ol>
+      <p class="muted"><b>Sales con:</b> concepto, claim de máximo 5 palabras y acción.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Actúa como director creativo. Este es el brief:
+
+adidas TRÓPICO es una línea de running para clima cálido y húmedo. Target: corredores urbanos de 25 a 40 años en ciudades tropicales de LATAM que salen a las 5:30 a. m. porque a las 7 ya no se puede. Insight de partida: aquí el enemigo no es el frío ni la distancia, es el calor; y al calor no se le gana, se le aguanta.
+
+Descarta las 10 ideas obvias. Dame 5 conceptos, cada uno en una frase, con la tensión humana que activa.
+
+Para cada concepto: un claim de máximo 5 palabras y una acción concreta que el corredor hace en la foto.
+
+Prohibido usar: supera, desafía, sin límites, rompe.</pre></div></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">Taller 2 · 25 min · Gemini · individual</p>
+  <h2>El Key Visual, paso a paso</h2>
+  <div class="timer" data-min="25"><span class="t">25:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2 1 420px"><ol>
+      <li>Abre un chat nuevo en Gemini. Este chat no se cierra en todo el taller.</li>
+      <li>Pega la ficha completa (diapositiva 12).</li>
+      <li>Llena solo concepto y acción.</li>
+      <li>Pide cuatro variaciones, no una.</li>
+      <li>Elige la que deja libre el 60% de aire para el texto.</li></ol></div>
+    <div class="card ink" style="flex:1 1 300px"><p class="eyebrow" style="color:var(--coral)">Paso 6 · el que no se olvida</p>
+      <p class="quote" style="color:#F6F5F2">Descarga la imagen elegida.</p>
+      <p>Ese archivo es el ancla de la campaña. Sin él, el Taller 3 no funciona.</p></div>
+  </div>
+  <p class="foot">Si a los 20 minutos no tienes una imagen usable, descarga el Key Visual de respaldo del chat.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <p class="eyebrow">Taller 2 · diagnóstico rápido</p>
+  <h2>Si te sale mal, revisa esto</h2>
+  <table>
+    <tr><th>Síntoma</th><th>Causa probable</th><th>Arreglo</th></tr>
+    <tr><td>Se ve plana</td><td>La acción es vaga</td><td>Una acción que se pueda fotografiar</td></tr>
+    <tr><td>Se ve genérica</td><td>Tocaste un campo bloqueado</td><td>Vuelve a pegar la ficha original</td></tr>
+    <tr><td>Aparece un logo</td><td>El modelo lo inventa</td><td>Repite: “sin logos, sin marcas”</td></tr>
+    <tr><td>No hay aire para el texto</td><td>Se ignoró la composición</td><td>“Sujeto a la izquierda, 60% libre”</td></tr>
+    <tr><td>Atardecer naranja</td><td>Sesgo del modelo hacia lo épico</td><td>Repite la hora: 5:40 a. m.</td></tr>
+  </table>
+  <p class="foot">Cambia una sola cosa por intento. Si cambias tres, no sabes cuál funcionó.</p>
+</section>
+
+<!-- 17 -->
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Galería en vivo · 5 min · todos</p>
+  <h1>Imágenes distintas. Una sola campaña.</h1>
+  <p class="lead">Cada persona cambió solo concepto y acción. Todo lo demás estaba fijo.</p>
+  <p class="accent" style="font-weight:600">Sube tu Key Visual a la carpeta compartida y vota en el chat: ¿cuál cuenta mejor el concepto?</p>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <p class="eyebrow">Taller 3 · 28 min en total · Gemini · individual</p>
+  <h2>Declina el Key Visual en tres formatos</h2>
+  <div class="timer" data-min="28"><span class="t">28:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Sigue en el mismo chat de Gemini.</li><li>Adjunta tu Key Visual descargado.</li><li>Cambia solo formato y composición.</li><li>Genera una pieza por formato.</li></ol>
+      <div class="row" style="gap:.6vw"><span class="pill" style="flex:none">Story 9:16</span><span class="pill" style="flex:none">Banner 3:1</span><span class="pill" style="flex:none">Correo 2:1</span></div>
+    </div>
+    <div class="right">
+      <div class="prompt"><span class="tag">Story · con la imagen adjunta</span><button class="copy">Copiar</button>
+<pre>Esta imagen es la referencia. Misma persona, misma luz, mismo mundo, misma paleta.
+Cambia solo el encuadre a 9:16. Composición: sujeto en el tercio inferior, parte superior libre para el texto.
+Sin logos, sin texto.</pre></div>
+      <div class="prompt"><span class="tag">Banner</span><button class="copy">Copiar</button>
+<pre>Misma referencia. Cambia solo el encuadre a 3:1. Composición: sujeto a la izquierda, derecha libre para el texto. Sin logos, sin texto.</pre></div>
+      <div class="prompt"><span class="tag">Header de correo</span><button class="copy">Copiar</button>
+<pre>Misma referencia. Cambia solo el encuadre a 2:1. Composición: sujeto centrado con aire a ambos lados. Sin logos, sin texto.</pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 -->
+<section class="slide">
+  <p class="eyebrow">Taller 3 · mensajes · ChatGPT</p>
+  <h2>Un mensaje por canal, con la pieza al frente</h2>
+  <div class="split">
+    <div class="right">
+      <table>
+        <tr><th>Pieza</th><th>Tono</th><th>Extensión</th></tr>
+        <tr><td>Story</td><td>Primera persona, del corredor</td><td>Máximo 8 palabras</td></tr>
+        <tr><td>Banner</td><td>Directo, con el producto</td><td>Claim + 1 línea</td></tr>
+        <tr><td>Correo</td><td>Promete algo útil</td><td>Asunto + 2 líneas</td></tr>
+      </table>
+    </div>
+    <div class="left" style="flex:1 1 420px">
+      <div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Concepto: [ESCRIBE TU CONCEPTO]. Claim: [ESCRIBE TU CLAIM].
+Escribe el texto de tres piezas:
+- Story: primera persona, del corredor, máximo 8 palabras.
+- Banner: directo, con el producto, una línea debajo del claim.
+- Correo: asunto + 2 líneas que prometan algo útil.
+Prohibido: descubre, revoluciona, eleva, transforma, sumérgete, potencia, emojis y rayas largas.
+Dame 3 opciones por canal.</pre></div>
+    </div>
+  </div>
+  <p class="foot">El claim es el mismo en las tres piezas. Lo que cambia es el mensaje.</p>
+</section>
+
+<!-- 20 -->
+<section class="slide">
+  <p class="eyebrow">Taller 3 · montaje · Canva</p>
+  <h2>Lo que la IA no hace, se monta encima</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><span class="num">1</span><h3>Claim</h3><p class="muted">Igual en las tres piezas, en el aire que dejó la composición.</p></div>
+    <div class="card"><span class="num">2</span><h3>Mensaje del canal</h3><p class="muted">El texto de story, banner o correo, debajo del claim.</p></div>
+    <div class="card ink"><span class="num">3</span><h3>Logo</h3><p>Siempre el archivo oficial. Nunca dentro del prompt.</p></div>
+  </div>
+  <p style="font-weight:600;color:var(--ink)">Usa el color de acento de la paleta solo en un elemento por pieza.</p>
+</section>
+
+<!-- 21 -->
+<section class="slide">
+  <p class="eyebrow">Autoauditoría · 10 min · individual + 3 voluntarios</p>
+  <h2>¿Las tres piezas son la misma campaña?</h2>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2 1 420px;gap:1.6vh">
+      <p class="check">Misma persona en las tres piezas.</p>
+      <p class="check">Misma luz y misma hora del día.</p>
+      <p class="check">Paleta negra y blanca con un solo acento.</p>
+      <p class="check">Cero logos inventados por la IA.</p>
+      <p class="check">Claim de máximo 5 palabras, igual en las tres.</p>
+      <p class="check">Ningún “nunca” del kit aparece.</p>
+    </div>
+    <div class="card ink" style="flex:1 1 300px;justify-content:space-between">
+      <p class="eyebrow" style="color:var(--coral)">Regla de la auditoría</p>
+      <p class="quote" style="color:#F6F5F2">La pieza que no pasa se regenera. No se maquilla en Canva.</p>
+      <p>Escribe tu puntaje en el chat con los pesos del brief: 40, 30, 20 y 10.</p>
+    </div>
+  </div>
+  <p class="foot">Un logo inventado por la IA descalifica la pieza.</p>
+</section>
+
+<!-- 22 -->
+<section class="slide dark">
+  <p class="eyebrow">Demo y cierre · 7 min</p>
+  <h2>Lo que te llevas no son las imágenes</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Demo · Midjourney</p><p>La misma ficha en una herramienta paga. Ahí existe la semilla: un número que repite el punto de partida.</p><p class="muted">El método no cambia. Cambia la resolución.</p></div>
+    <div class="card" style="border-left:6px solid var(--coral)"><p class="eyebrow">Te llevas</p><p class="quote" style="color:#F6F5F2">La ficha de producción. Cambia el Ancla por el kit de tu marca y sirve para cualquier campaña.</p></div>
+  </div>
+  <p style="font-weight:600;color:#F6F5F2">Próxima sesión: la misma persona en diez escenas distintas.</p>
+</section>
+
+</div>
+
+<div class="nav"><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 22</span><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+  });
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+
+  // copiar prompts
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=b.parentNode.querySelector('pre').innerText;
+      var done=function(){var o=b.textContent;b.textContent='Copiado';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done');},1600);};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done);}
+      else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(err){}document.body.removeChild(t);done();}
+    });
+  });
+
+  // temporizadores
+  document.querySelectorAll('.timer').forEach(function(w){
+    var total=parseInt(w.getAttribute('data-min'),10)*60,left=total,id=null;
+    var out=w.querySelector('.t'),bs=w.querySelector('.start');
+    function fmt(s){var a=Math.abs(s);return (s<0?'-':'')+String(Math.floor(a/60)).padStart(2,'0')+':'+String(a%60).padStart(2,'0');}
+    function draw(){out.textContent=fmt(left);out.classList.toggle('over',left<=0);}
+    bs.onclick=function(){
+      if(id){clearInterval(id);id=null;bs.textContent='Continuar';return;}
+      bs.textContent='Pausar';
+      id=setInterval(function(){left--;draw();},1000);
+    };
+    w.querySelector('.reset').onclick=function(){clearInterval(id);id=null;left=total;bs.textContent='Iniciar';draw();};
+    draw();
+  });
+})();
+</script>
+</body>
+</html>
