@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía · Una marca que no se parezca a ninguna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:2.4vh;padding:6.5vh 6vw 11vh;overflow-y:auto;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.slide.coral{background:var(--coral);color:var(--ink)}
+.eyebrow{font-size:clamp(13px,1.2vw,19px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+.coral .eyebrow{color:var(--ink)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(34px,5vw,88px)}
+h2{font-size:clamp(26px,3.2vw,54px)}
+h3{font-size:clamp(17px,1.7vw,28px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(15px,1.45vw,24px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,32px);color:var(--soft);max-width:70ch}
+.coral .lead{color:var(--ink)}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.1vw,36px);line-height:1.3}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex-wrap:wrap}
+.row>*{flex:1 1 240px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2vw}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2.2vh 1.8vw;display:flex;flex-direction:column;gap:1.1vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p,.card.ink li{color:var(--soft)}
+.card.ink b{color:#F6F5F2}
+.card.ink .eyebrow{color:var(--coral)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border-left:6px solid var(--coral)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(26px,3vw,50px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+ol,ul{padding-left:1.4em;display:flex;flex-direction:column;gap:.6vh}
+.split{display:flex;gap:2.4vw;flex:1;min-height:0;flex-wrap:wrap}
+.split>.left{flex:0 1 30%;min-width:250px;display:flex;flex-direction:column;gap:1.8vh}
+.split>.right{flex:1 1 420px;display:flex;flex-direction:column;gap:1.8vh}
+.prompt{position:relative;background:var(--ink);border-radius:14px;padding:2.4vh 1.8vw;color:#F1F1F4;display:flex;flex-direction:column;gap:1vh}
+.dark .prompt{background:var(--ink2)}
+.prompt .tag{font-size:clamp(12px,1.05vw,17px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);min-height:2.6em;padding-right:9em;display:flex;align-items:center}
+.prompt pre{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(12px,1.08vw,19px);line-height:1.45;white-space:pre-wrap;word-wrap:break-word;color:#F1F1F4}
+.copy{position:absolute;top:2.2vh;right:1.2vw;background:var(--coral);color:var(--ink);border:0;border-radius:999px;padding:.7em 1.3em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.copy:hover{background:#FF7B5E}
+.copy.done{background:#F1F1F4}
+.callout{display:flex;gap:1.4vw;align-items:center;background:var(--ink);color:#F6F5F2;border-radius:14px;padding:2vh 2vw}
+.callout .ic{font-size:clamp(14px,1.2vw,20px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);white-space:nowrap}
+.callout p{font-weight:600;color:#F6F5F2}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.3em;line-height:1.2}
+.foot{position:absolute;left:6vw;bottom:3.6vh;right:6vw;font-size:clamp(12px,1.05vw,17px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.coral .foot{color:var(--ink)}
+.spacer{flex:1}
+.timer{display:flex;align-items:center;gap:1vw;flex-wrap:wrap}
+.timer .t{font-family:'JetBrains Mono',monospace;font-size:clamp(20px,2.2vw,36px);font-weight:600;min-width:5ch;color:var(--ink)}
+.dark .timer .t{color:#F6F5F2}
+.timer button{border:1px solid var(--coral-d);background:transparent;color:var(--coral-d);border-radius:999px;padding:.45em 1.1em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.coral .timer button{border-color:var(--ink);color:var(--ink)}
+.timer .t.over{color:var(--coral-d)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:2vw;flex-wrap:wrap}
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:10}
+.nav button{width:44px;height:44px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:10;transition:width .2s}
+@media (max-width:900px){
+  .grid2,.grid4{grid-template-columns:1fr}
+  .slide{padding:5vh 5vw 14vh}
+  .foot{position:static;margin-top:2vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Guía del participante · 180 min · Claude, Gemini y Canva</p>
+  <h1>Una marca que no se parezca a ninguna</h1>
+  <p class="lead">Aquí están todos los pasos, los prompts para copiar con un clic y un temporizador en cada ejercicio. Tu facilitador explica cada hack; tú vienes aquí a trabajar.</p>
+  <p class="foot">Usa las flechas ← → para avanzar. Caso ficticio: si traes tu propio negocio, reemplaza los datos del caso por los tuyos.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">Paso 0 · antes de empezar</p>
+  <h2>Tu entregable: un kit de lanzamiento de 30 días</h2>
+  <div class="grid4">
+    <div class="card"><span class="num">1</span><h3>Cerebro de Marca</h3><p class="muted">Una página: insight, posicionamiento, nombre, tono y lista negra.</p></div>
+    <div class="card ink"><span class="num">2</span><h3>Estrategia de redes</h3><p>Una página: objetivo, canal, pilares, serie fija y métrica.</p></div>
+    <div class="card ink"><span class="num">3</span><h3>Calendario</h3><p>4 semanas. Las 2 primeras con copy completo.</p></div>
+    <div class="card"><span class="num">4</span><h3>Tres piezas</h3><p class="muted">Episodio 1 de tu serie, post de producto y carrusel.</p></div>
+  </div>
+  <div class="card hl">
+    <h3>Haz esto ahora</h3>
+    <ol>
+      <li>Abre un Google Doc y llámalo <b>Mi marca</b>.</li>
+      <li>Escribe cuatro títulos: Cerebro de Marca, Estrategia de redes, Calendario y Piezas.</li>
+      <li>Abre en pestañas: Gemini, Claude y Canva.</li>
+    </ol>
+  </div>
+  <p class="foot">Cada resultado se pega en tu documento. Cada paso usa lo que salió del anterior.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">El caso</p>
+  <h2>Finca El Recreo: café sin marca propia</h2>
+  <p class="muted">Cópialo y pégalo en tu documento. Lo vas a pegar en varios prompts. Si traes tu negocio, reemplaza el texto y escribe tus propios 5 detalles.</p>
+  <div class="prompt"><span class="tag">El caso completo · pégalo en tu documento</span><button class="copy">Copiar caso</button>
+<pre>CASO: Finca El Recreo, finca cafetera familiar en Jardín, Antioquia. Hasta hoy vendía todo su café de especialidad a exportadores. Ahora quiere lanzar su propia marca: bolsas de 250 g en grano o molido a 38.000 COP, con venta por Instagram y WhatsApp y envíos a todo el país. Cliente: personas de 25 a 35 años en ciudades colombianas que preparan café en casa. Presupuesto: 1.500.000 COP al mes. No tiene nombre de marca, identidad ni redes.
+
+DETALLES QUE SOLO TIENE ESTA FINCA:
+1. Tercera generación, desde 1987.
+2. Doña Rosa, de 78 años, cata cada lote antes de venderlo.
+3. Secan el café 12 días en marquesina.
+4. Solo recogen a mano los granos maduros.
+5. 4 hectáreas a 1.850 metros, con lluvia casi todas las tardes.</pre></div>
+</section>
+
+<!-- 4 -->
+<section class="slide dark">
+  <p class="eyebrow">El hilo conductor</p>
+  <h2>El test del logo cambiado</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Cómo se hace</p><p class="quote" style="color:#F6F5F2">Toma tu insight, tu posicionamiento o tu pieza. Cambia tu nombre por el de un competidor.</p></div>
+    <div class="card hl"><p class="eyebrow">Cómo se lee</p><p class="quote" style="color:#F6F5F2">Si todo sigue funcionando, es genérico. Se rehace.</p></div>
+  </div>
+  <p class="accent" style="font-weight:600">Lo aplicas al final de cada paso. Cada vez que veas este símbolo ⟲, haz el test.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 1A · Investigación · Gemini</p><h2>Panorama y pregunta inversa</h2></div>
+  <div class="timer" data-min="25"><span class="t">25:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Abre un chat nuevo en Gemini.</li><li>Copia el prompt y reemplaza [PEGA EL CASO].</li><li>Lee con atención la parte 2: ahí está tu ángulo.</li><li>Pasa al paso 1B en el mismo chat.</li></ol>
+      <p class="muted">El temporizador de 25 minutos cubre 1A y 1B.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 1A</span><button class="copy">Copiar</button>
+<pre>Actúa como analista de mercado en Colombia. Este es mi caso: [PEGA EL CASO].
+
+1. Panorama: en 5 viñetas, cómo está hoy la categoría de café de especialidad para preparar en casa en Colombia, con fuente y fecha de cada dato.
+2. Pregunta inversa: ¿qué cree todo el mundo en esta categoría que ya no es cierto? Dame 3 respuestas, cada una con evidencia.
+3. Cinco marcas que compiten por este mismo cliente, con su cuenta de Instagram.
+
+Escribe SIN FUENTE junto a todo dato que no puedas respaldar con un enlace.</pre></div></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">Paso 1B · Investigación · Gemini, mismo chat</p>
+  <h2>Benchmark y mapa de clichés</h2>
+  <div class="split">
+    <div class="left">
+      <ol><li>Elige 3 marcas de la lista del paso 1A.</li><li>Copia el prompt con sus nombres.</li><li>Abre 2 enlaces y comprueba que dicen lo que Gemini dice. Si no, borra ese dato.</li><li>Pega el mapa de clichés en tu documento con el título <b>Lista negra</b>.</li></ol>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 1B</span><button class="copy">Copiar</button>
+<pre>Analiza estas 3 marcas: [MARCA 1], [MARCA 2], [MARCA 3].
+
+1. Tabla comparativa: propuesta de valor en una frase, precio de 250 g, tono de voz con 2 frases textuales de sus publicaciones, qué hace mejor y qué hueco deja.
+2. Mapa de clichés: las 10 imágenes y las 10 frases que repiten casi todas las marcas de café de especialidad en Colombia, con un ejemplo de dónde aparece cada una.
+
+Incluye el enlace de cada dato. Si no encuentras algo, escribe "no encontrado"; no lo inventes.</pre></div></div>
+  </div>
+  <p class="foot">El benchmark sirve para encontrar huecos, no para copiar lo que hacen los demás.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 2 · Voz de cliente · a mano</p><h2>Diez frases de reseñas de 1 a 3 estrellas</h2></div>
+  <div class="timer" data-min="10"><span class="t">10:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Dónde buscar</p><ul>
+      <li>Google Maps: cafeterías y tiendas de café de especialidad. Ordena las reseñas por <b>Más bajas</b>.</li>
+      <li>Comentarios con quejas o dudas en los posts de tus 3 competidores.</li>
+      <li>Preguntas de compradores en Mercado Libre.</li></ul></div>
+    <div class="card ink"><p class="eyebrow">Reglas</p><ul>
+      <li>Copia las frases tal cual, con errores y todo.</li>
+      <li>Sin nombres de usuario.</li>
+      <li>No le pidas a la IA que las invente.</li>
+      <li>Pégalas en tu documento.</li></ul></div>
+  </div>
+  <p class="foot">En las reseñas de 5 estrellas está el elogio. En las de 1 a 3 está lo que el cliente quería y no recibió.</p>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 3 · Insight · Claude</p><h2>El insight escrito como confesión</h2></div>
+  <div class="timer" data-min="15"><span class="t">15:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Abre un chat nuevo en Claude. Lo usarás hasta el final del taller.</li><li>Copia el prompt y pega tu investigación donde dice [PEGA].</li><li>Elige una confesión.</li><li>⟲ Cambia la marca por un competidor: ¿sigue funcionando? Pide otra.</li><li>Pega tu confesión en el chat de la reunión.</li></ol>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 3</span><button class="copy">Copiar</button>
+<pre>Actúa como estratega de planeación. Te paso mi investigación.
+Caso: [PEGA EL CASO]
+Pregunta inversa y benchmark: [PEGA]
+Mapa de clichés: [PEGA]
+10 frases reales de clientes: [PEGA]
+
+Encuentra 5 insights. Escribe cada uno como una confesión en primera persona del cliente, empezando por "Me da pena admitir que…", "Nadie me cree, pero…" o "Lo que nunca le digo a nadie es…".
+Para cada uno: la frase de cliente que lo respalda y la oportunidad que ninguna de las 3 marcas está usando.
+
+Descarta cualquier insight que funcione igual para cualquier marca de café. Recomienda uno y explica por qué.</pre></div></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 4A · Marca · Claude, mismo chat</p><h2>El detalle que nadie puede copiar</h2></div>
+  <div class="timer" data-min="20"><span class="t">20:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Copia el prompt con tu número de insight.</li><li>Pega los 5 detalles del caso, o los tuyos.</li><li>Revisa que el posicionamiento termine en un detalle real.</li><li>⟲ Haz el test con el posicionamiento.</li></ol>
+      <p class="muted">El temporizador de 20 minutos cubre 4A y 4B.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 4A</span><button class="copy">Copiar</button>
+<pre>Elijo el insight [NÚMERO]. Estos son 5 detalles que solo tiene esta marca: [PEGA TUS 5 DETALLES].
+
+Crea:
+1. Posicionamiento: Para [cliente] que [tensión de la confesión], [marca] es [categoría] que [beneficio] porque [uno de los 5 detalles].
+2. Personalidad: 3 rasgos, cada uno con "es / no es".
+3. Tono de voz: 3 reglas, cada una con una frase de ejemplo.
+4. Ocho nombres cortos y fáciles de decir en español. Cada nombre debe salir de uno de los 5 detalles: di de cuál.
+
+Prohibido usar cualquier imagen o frase del mapa de clichés.</pre></div></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">Paso 4B · Nombre y Cerebro de Marca</p>
+  <h2>Un nombre, una página</h2>
+  <div class="split">
+    <div class="left">
+      <div class="card"><p class="eyebrow">Filtra los 8 nombres</p><ol>
+        <li>Se escribe como se dice.</li>
+        <li>@nombre está libre en Instagram y TikTok (búscalo).</li>
+        <li>No se parece a ningún competidor.</li>
+        <li>Sale de un detalle real.</li></ol></div>
+      <p class="muted">Pega en el chat de la reunión tu nombre y de qué detalle salió.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 4B</span><button class="copy">Copiar</button>
+<pre>El nombre elegido es [NOMBRE]. Arma el Cerebro de Marca en una página:
+- Qué vendemos y a quién, en 3 líneas.
+- La confesión del cliente y el posicionamiento.
+- El detalle que nadie puede copiar.
+- Personalidad y tono, con 3 reglas.
+- Palabras que sí usamos.
+- Lista negra: incluye todo el mapa de clichés.
+
+Escríbelo como instrucciones que otra persona o una IA puedan seguir sin conocer la marca.</pre></div></div>
+  </div>
+  <p class="foot">Pégalo en tu documento bajo el título “Cerebro de Marca”. Para una marca real, consulta el registro de marcas de la Superintendencia de Industria y Comercio.</p>
+</section>
+
+<!-- 11 -->
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Pausa · 10 min</p>
+  <h1>Tu marca ya existe.</h1>
+  <p class="lead">Ahora viene lo que más vale: la estrategia, el contenido y las piezas.</p>
+  <div class="timer" data-min="10"><span class="t">10:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 5 · Estrategia de redes · Claude, mismo chat</p><h2>Una serie fija, no posts sueltos</h2></div>
+  <div class="timer" data-min="25"><span class="t">25:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Copia el prompt tal cual: Claude ya tiene tu Cerebro de Marca.</li><li>Revisa que cada pilar salga de la confesión.</li><li>⟲ Haz el test con la serie: si otra marca de café la puede hacer igual, pide otra.</li><li>Pega la estrategia en tu documento.</li></ol>
+      <div class="card hl"><p><b>Ejemplo:</b> “La cata del viernes”. Cada viernes doña Rosa prueba un lote y dice en una frase si sale a la venta.</p></div>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 5</span><button class="copy">Copiar</button>
+<pre>Con el Cerebro de Marca, arma la estrategia de redes de los primeros 30 días en una página:
+1. Un objetivo con número: pedidos, conversaciones o suscriptores; no seguidores.
+2. Canal principal y canal de apoyo, con el porqué.
+3. Tres pilares de contenido que salgan de la confesión, con su % del total.
+4. Una serie fija semanal: nombre, formato, qué pasa en cada episodio y qué detalle de la marca usa. Debe ser imposible de copiar para otra marca de café.
+5. Frecuencia: cuántas publicaciones por semana y qué día va la serie.
+6. Una sola métrica principal y cómo medirla gratis desde Instagram o WhatsApp.
+7. Cómo repartir 1.500.000 COP al mes.
+
+Nada que dependa de influencers pagados.</pre></div></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 6 · Contenido · Claude, mismo chat</p><h2>El calendario de 4 semanas</h2></div>
+  <div class="timer" data-min="20"><span class="t">20:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Copia el prompt.</li><li>Copia la tabla, abre Google Sheets y pégala en la celda A1.</li><li>Pon el enlace del Sheet en tu documento, bajo “Calendario”.</li><li>Anota las 3 publicaciones marcadas: son tus piezas del paso 7.</li></ol>
+      <div class="card hl"><p><b>Semana tipo:</b> lunes enseña · miércoles vende · viernes la serie · domingo conversa.</p></div>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 6</span><button class="copy">Copiar</button>
+<pre>Arma el calendario de 4 semanas en una tabla con estas columnas: semana, día, pilar, formato e idea.
+
+Usa una semana tipo de 4 publicaciones: lunes enseña, miércoles vende, viernes la serie, domingo conversa en historias. Ajústala si mi estrategia dice otra cosa.
+
+Para las semanas 1 y 2 agrega tres columnas: copy completo de máximo 40 palabras, llamado a la acción e indicación visual.
+
+Usa el tono y la lista negra del Cerebro de Marca. Al final marca 3 publicaciones para producir hoy: el episodio 1 de la serie, un post de producto y un carrusel educativo.</pre></div></div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 7.1 · Kit de producción · Claude, mismo chat</p><h2>Todo listo para producir</h2></div>
+  <div class="timer" data-min="7"><span class="t">07:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="split">
+    <div class="left">
+      <p>Claude ya conoce tu marca y tu calendario. Recibes 3 bloques:</p>
+      <div class="card"><p><b>A.</b> Identidad: 3 colores y 2 tipografías.</p></div>
+      <div class="card"><p><b>B.</b> Los textos finales de las 3 piezas.</p></div>
+      <div class="card"><p><b>C.</b> Dos prompts de imagen para Gemini.</p></div>
+      <p class="muted">Pega los tres bloques en tu documento.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 7.1</span><button class="copy">Copiar</button>
+<pre>Arma el kit de producción para las 3 publicaciones marcadas.
+
+A. Identidad: 3 colores HEX (fondo, texto y acento) y 2 tipografías de esta lista: Montserrat, Poppins, Playfair Display, Lora, League Spartan, Bebas Neue.
+B. Textos finales: para el episodio 1 de la serie y el post de producto, titular de máximo 8 palabras, línea de apoyo y llamado a la acción. Para el carrusel, el texto de 3 láminas.
+C. Dos prompts de imagen, uno para el episodio 1 y otro para el post de producto, con: CONTEXTO, ROL, ENTREGABLE (escena, formato 4:5, tercio superior libre para texto), ANCLA (luz, lente, encuadre, textura, entorno y paleta) y RESTRICCIONES (sin logos, sin texto, sin marcas y ninguna imagen del mapa de clichés). El mismo ANCLA en los dos.
+
+Entrega A, B y C en bloques separados.</pre></div></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 7.2 · Imágenes · Gemini, chat nuevo</p><h2>Dos fotos con la misma luz</h2></div>
+  <div class="timer" data-min="10"><span class="t">10:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Foto 1 · episodio 1 de la serie</p><ol>
+      <li>Abre un chat nuevo en Gemini.</li>
+      <li>Pega el primer prompt de imagen del bloque C.</li>
+      <li>Si no te gusta, pide un solo cambio, por ejemplo: “más cerca”.</li>
+      <li>Descárgala con el ícono de descarga.</li></ol></div>
+    <div class="card"><p class="eyebrow">Foto 2 · producto</p><ol>
+      <li>En el mismo chat, toca “+” y adjunta la foto 1.</li>
+      <li>Pega el segundo prompt y agrega: “Usa la imagen adjunta como referencia de luz y color”.</li>
+      <li>Descárgala.</li></ol></div>
+  </div>
+  <div class="callout"><span class="ic">Plan B</span><p>¿Gemini no genera o llegaste al límite? Usa una foto gratuita de Canva (Elementos → Fotos) que no esté en tu mapa de clichés.</p></div>
+  <p class="foot">Si la foto sale cuadrada no importa: en Canva se recorta sola al ponerla de fondo.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 7.3 · Canva · episodio 1 y producto</p><h2>Monta una pieza y duplícala</h2></div>
+  <div class="timer" data-min="10"><span class="t">10:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="grid2" style="flex:1">
+    <div class="card"><p><b>1. Crear un diseño → Tamaño personalizado:</b> 1080 × 1350 px.</p></div>
+    <div class="card"><p><b>2. Subidas:</b> sube la foto 1, arrástrala al lienzo, clic derecho → <b>Establecer imagen como fondo</b>.</p></div>
+    <div class="card"><p><b>3. Texto → Añadir un título:</b> pega el titular del bloque B en el tercio superior, con tu tipografía de títulos.</p></div>
+    <div class="card"><p><b>4. Color:</b> selecciona el texto → ícono de color → <b>+</b> → pega tu HEX de texto.</p></div>
+    <div class="card"><p><b>5. Logo:</b> escribe el nombre de la marca abajo, con la misma fuente, en tu color de acento.</p></div>
+    <div class="card ink"><p><b>6. Duplicar página</b> (ícono arriba de la página). En la copia cambia la foto por la 2 y el texto por el del post de producto.</p></div>
+  </div>
+  <p class="foot">Si el texto no se lee sobre la foto: Elementos → Formas → un rectángulo de tu color de fondo con transparencia detrás del texto.</p>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <div class="head"><div><p class="eyebrow">Paso 7.4 · Canva · carrusel y descarga</p><h2>El carrusel no necesita foto</h2></div>
+  <div class="timer" data-min="8"><span class="t">08:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div></div>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2 1 420px"><p class="eyebrow">Carrusel educativo</p><ol>
+      <li>En el mismo diseño, toca <b>+ Añadir página</b> tres veces.</li>
+      <li>Fondo: clic en el lienzo vacío → ícono de color → pega tu HEX de fondo.</li>
+      <li>Pega en cada lámina el texto del bloque B.</li>
+      <li>Pon el nombre de la marca en la misma posición que en las otras piezas.</li></ol></div>
+    <div class="card ink" style="flex:1 1 300px"><p class="eyebrow">Descargar</p><ol>
+      <li><b>Compartir → Descargar</b>.</li>
+      <li>Tipo de archivo: <b>PNG</b>.</li>
+      <li>Sube los archivos a la carpeta compartida con el nombre de tu marca.</li></ol></div>
+  </div>
+  <p class="foot">Pon el enlace de la carpeta en tu documento, bajo “Piezas”.</p>
+</section>
+
+<!-- 18 -->
+<section class="slide dark">
+  <p class="eyebrow">Cierre</p>
+  <h2>⟲ El test del logo, sobre todo el kit</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Cambia tu nombre por el de un competidor en…</p><ul>
+      <li>Tu confesión.</li><li>Tu posicionamiento.</li><li>Tu serie fija.</li><li>Tu pieza del episodio 1.</li></ul>
+      <p class="accent" style="font-weight:600">Si deja de funcionar con otro nombre, es tuyo.</p></div>
+    <div class="card hl"><p class="eyebrow">Tu kit está completo si tu documento tiene</p><ol>
+      <li>Cerebro de Marca.</li><li>Estrategia de redes.</li><li>Enlace al calendario en Google Sheets.</li><li>Enlace a la carpeta con tus piezas.</li></ol></div>
+  </div>
+  <p style="font-weight:600;color:#F6F5F2">Escribe en el chat el día en que publicarías el episodio 1 de tu serie.</p>
+</section>
+
+</div>
+
+<div class="nav"><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 18</span><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+  });
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=b.parentNode.querySelector('pre').innerText;
+      var done=function(){var o=b.textContent;b.textContent='Copiado';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done');},1600);};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done);}
+      else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(err){}document.body.removeChild(t);done();}
+    });
+  });
+
+  document.querySelectorAll('.timer').forEach(function(w){
+    var total=parseInt(w.getAttribute('data-min'),10)*60,left=total,id=null;
+    var out=w.querySelector('.t'),bs=w.querySelector('.start');
+    function fmt(s){var a=Math.abs(s);return (s<0?'-':'')+String(Math.floor(a/60)).padStart(2,'0')+':'+String(a%60).padStart(2,'0');}
+    function draw(){out.textContent=fmt(left);out.classList.toggle('over',left<=0);}
+    bs.onclick=function(){
+      if(id){clearInterval(id);id=null;bs.textContent='Continuar';return;}
+      bs.textContent='Pausar';
+      id=setInterval(function(){left--;draw();},1000);
+    };
+    w.querySelector('.reset').onclick=function(){clearInterval(id);id=null;left=total;bs.textContent='Iniciar';draw();};
+    draw();
+  });
+})();
+</script>
+</body>
+</html>
