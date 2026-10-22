@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slides · Una marca que no se parezca a ninguna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:3vh;padding:8vh 7vw 11vh;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.slide.coral{background:var(--coral);color:var(--ink)}
+.eyebrow{font-size:clamp(13px,1.25vw,22px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+.coral .eyebrow{color:var(--ink)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(36px,5.4vw,100px)}
+h2{font-size:clamp(28px,3.6vw,66px)}
+h3{font-size:clamp(18px,1.75vw,32px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(16px,1.55vw,28px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,34px);color:var(--soft);max-width:70ch}
+.coral .lead{color:var(--ink)}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.3vw,42px);line-height:1.28}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex:1;min-height:0}
+.row>*{flex:1}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:3vh 2vw;display:flex;flex-direction:column;gap:1.4vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p,.card.ink li{color:var(--soft)}
+.card.ink .eyebrow{color:var(--coral)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border-left:8px solid var(--coral)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,3.2vw,58px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+ol,ul{padding-left:1.3em;display:flex;flex-direction:column;gap:.8vh}
+.mono{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(15px,1.5vw,27px);line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:.8vw}
+.chips span{font-size:clamp(14px,1.4vw,26px);background:#ECEAE4;padding:.4em 1em;border-radius:999px}
+.go{display:flex;gap:1.6vw;align-items:center;background:var(--ink);border-radius:16px;padding:2.4vh 2.4vw}
+.dark .go{background:var(--coral)}
+.go .k{font-size:clamp(13px,1.2vw,22px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);white-space:nowrap}
+.dark .go .k{color:var(--ink)}
+.go p{font-weight:600;color:#F6F5F2;font-size:clamp(16px,1.7vw,30px)}
+.dark .go p{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.35vw,24px)}
+th{background:var(--ink);color:#F6F5F2;text-align:left;padding:1.1vh 1vw;font-weight:700}
+td{padding:1.1vh 1vw;border-bottom:1px solid var(--line)}
+tr:nth-child(even) td{background:#ECEAE4}
+.r{text-align:right}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.25em;line-height:1.2}
+.foot{position:absolute;left:7vw;bottom:4vh;right:14vw;font-size:clamp(12px,1.1vw,20px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.coral .foot{color:var(--ink)}
+.spacer{flex:1}
+.notes{display:none}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#FFF8E6;color:#14141C;border-top:4px solid var(--coral);padding:2vh 3vw 2vh;font:400 clamp(14px,1.2vw,19px)/1.5 'DM Sans',Arial,sans-serif;z-index:20;display:none}
+#notes.on{display:block}
+#notes b{font-weight:700}
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:30}
+.nav button{width:42px;height:42px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:18px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.nav .help{width:auto;padding:0 14px;border-radius:999px;font-size:13px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:30;transition:width .2s}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Taller virtual · 180 min · Claude, Gemini y Canva</p>
+  <h1>Una marca que no se parezca a ninguna</h1>
+  <p class="lead">Ocho hacks para crear con IA una marca, su estrategia de redes y su contenido, sin caer en lo genérico.</p>
+  <p class="foot">Caso ficticio. Si traes una idea de negocio propia, úsala.</p>
+  <div class="notes"><b>1 min.</b> Promesa: salen con un kit de lanzamiento de 30 días que no podría ser de otra marca. Dinámica que vas a repetir en cada bloque: explicas un hack con el slide, ellos trabajan con la guía y tú corriges leyendo el chat.</div>
+</section>
+
+<!-- 2 -->
+<section class="slide dark">
+  <p class="eyebrow">El hilo conductor</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">El test del logo cambiado</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Cómo se hace</p><p class="quote" style="color:#F1F1F4">Toma tu insight, tu posicionamiento o tu pieza. Cambia tu nombre por el de un competidor.</p></div>
+    <div class="card hl"><p class="eyebrow">Cómo se lee</p><p class="quote" style="color:#F1F1F4">Si todo sigue funcionando, es genérico. Se rehace.</p></div>
+  </div>
+  <p class="quote accent">Lo vamos a aplicar al final de cada paso.</p>
+  <div class="notes"><b>2 min.</b> Ejemplo en voz alta: “Café de especialidad, del grano a tu taza, con amor colombiano.” Cambia el nombre por cualquier marca de café: funciona igual. Este es el criterio que se llevan aunque olviden todo lo demás.</div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">El entregable</p>
+  <h2>Un kit de lanzamiento de 30 días</h2>
+  <div class="grid4" style="flex:1">
+    <div class="card"><span class="num">1</span><h3>Cerebro de Marca</h3><p class="muted">Insight, posicionamiento, nombre, tono y lista negra. Una página.</p></div>
+    <div class="card ink"><span class="num">2</span><h3>Estrategia de redes</h3><p>Objetivo, canal, pilares, serie fija y métrica. Una página.</p></div>
+    <div class="card ink"><span class="num">3</span><h3>Calendario</h3><p>4 semanas. Las 2 primeras con copy completo.</p></div>
+    <div class="card"><span class="num">4</span><h3>Tres piezas</h3><p class="muted">Episodio 1 de la serie, post de producto y carrusel.</p></div>
+  </div>
+  <p style="font-weight:600;color:#14141C">Todo vive en un Google Doc llamado “Mi marca”.</p>
+  <div class="notes"><b>1 min.</b> Estrategia, calendario y piezas ocupan 80 de los 180 minutos: son el centro del taller. Pide que creen ya el documento con cuatro títulos vacíos (la guía lo explica en el paso 0).</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Agenda</p>
+  <h2>Ocho hacks en 3 horas</h2>
+  <table>
+    <tr><th>Bloque</th><th>Hack</th><th>Herramienta</th><th class="r">Min</th></tr>
+    <tr><td>Apertura</td><td>Demo del logo cambiado</td><td>Facilitador</td><td class="r">10</td></tr>
+    <tr><td>1 · Investigación</td><td>Pregunta inversa y mapa de clichés</td><td>Gemini</td><td class="r">25</td></tr>
+    <tr><td>2 · Voz de cliente</td><td>Reseñas de 1 a 3 estrellas</td><td>A mano</td><td class="r">10</td></tr>
+    <tr><td>3 · Insight</td><td>El insight como confesión</td><td>Claude</td><td class="r">15</td></tr>
+    <tr><td>4 · Marca</td><td>El detalle que nadie puede copiar</td><td>Claude</td><td class="r">20</td></tr>
+    <tr><td>Pausa</td><td>—</td><td>—</td><td class="r">10</td></tr>
+    <tr><td>5 · Estrategia de redes</td><td>Una serie fija, no posts sueltos</td><td>Claude</td><td class="r">25</td></tr>
+    <tr><td>6 · Contenido</td><td>Una semana tipo, repetida</td><td>Claude</td><td class="r">20</td></tr>
+    <tr><td>7 · Piezas</td><td>Los clichés como restricción</td><td>Gemini + Canva</td><td class="r">35</td></tr>
+    <tr><td>Cierre</td><td>Test del logo sobre el kit</td><td>Todos</td><td class="r">10</td></tr>
+  </table>
+  <div class="notes"><b>1 min.</b> Si el tiempo se acorta, recorta la investigación, nunca la estrategia ni el contenido.</div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="eyebrow">Antes de empezar · 3 min</p>
+  <h2>Abre la guía y tres pestañas</h2>
+  <div class="grid4">
+    <div class="card ink"><h3>La guía</h3><p>Pasos, prompts para copiar y temporizadores.</p></div>
+    <div class="card"><h3>Gemini</h3><p class="muted">Busca en internet y genera imágenes.</p></div>
+    <div class="card"><h3>Claude</h3><p class="muted">Piensa y escribe: insight, marca, estrategia y copys.</p></div>
+    <div class="card"><h3>Canva</h3><p class="muted">Monta las piezas.</p></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Guía</span><p>sanogusano.github.io/esumer-marketing-con-ia/marca.html</p></div>
+  <p class="foot">Divide la pantalla: la reunión a un lado, tus herramientas al otro.</p>
+  <div class="notes"><b>3 min.</b> Pega el enlace de la guía en el chat mientras muestras este slide. Pide un “listo” cuando tengan las cuatro pestañas abiertas. Desde aquí solo compartes esta ventana de slides; ellos trabajan en sus propias pestañas.</div>
+</section>
+
+<!-- 6 -->
+<section class="slide dark">
+  <p class="eyebrow">Demo en vivo · 5 min</p>
+  <h2>Una marca en un solo prompt</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">El prompt que casi todos escriben</p><p class="mono" style="color:#F1F1F4">Créame una marca de café de especialidad colombiano para jóvenes: nombre, eslogan, propuesta de valor y tres posts para Instagram.</p></div>
+    <div class="card"><p class="eyebrow">En vivo</p><ol><li>Lo ejecutas en Claude.</li><li>Cambias el nombre por el de una marca conocida.</li><li>Preguntas en el chat: ¿se nota la diferencia?</li></ol></div>
+  </div>
+  <p class="quote accent">La IA no es genérica. Es genérica cuando no le das nada propio.</p>
+  <div class="notes"><b>Momento en vivo 1 de 2.</b> Cambia a la pestaña de Claude, corre el prompt y vuelve a esta ventana. Ten el resultado ya guardado por si tarda. Suele salir algo como “Origen” o “Raíces”, con montañas y tradición. Lee el eslogan con el nombre cambiado. Cierre: “Hoy no le pedimos una marca a la IA: le damos material que solo tiene esta finca.”</div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">El caso · 5 min</p>
+  <h2>Finca El Recreo: café sin marca propia</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">El negocio</p><p>Finca familiar en Jardín, Antioquia. Hasta hoy vendía todo a exportadores. Ahora quiere su propia marca: bolsas de 250 g a 38.000 COP, por Instagram y WhatsApp, para personas de 25 a 35 años que preparan café en casa.</p><p><b>Presupuesto:</b> 1.500.000 COP al mes.</p></div>
+    <div class="card ink"><p class="eyebrow">Lo que solo tiene esta finca</p><ul><li>Tercera generación, desde 1987.</li><li>Doña Rosa, de 78 años, cata cada lote antes de venderlo.</li><li>Secan el café 12 días en marquesina.</li><li>Solo recogen a mano los granos maduros.</li><li>4 hectáreas a 1.850 metros, con lluvia casi todas las tardes.</li></ul></div>
+  </div>
+  <p class="foot">Caso ficticio. Si traes tu negocio, escribe tus propios 5 detalles que nadie más tiene.</p>
+  <div class="notes"><b>3 min.</b> La columna oscura es la materia prima del hack 5: sin detalles concretos, la marca sale genérica. Que copien el caso desde la guía (página 3) a su documento.</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">Hack 1 · Investigación</p>
+  <h2>La pregunta inversa</h2>
+  <div class="row">
+    <div class="card ink" style="justify-content:center"><p class="eyebrow">En lugar de “¿cuáles son las tendencias?”</p><p class="quote" style="color:#F6F5F2;font-size:clamp(24px,2.8vw,52px)">¿Qué cree todo el mundo en esta categoría que ya no es cierto?</p></div>
+    <div class="card" style="flex:.8"><p class="eyebrow">Por qué funciona</p><p>Las tendencias le llegan igual a todos tus competidores. Una creencia vieja que ya no se cumple es un ángulo que nadie está usando.</p><p class="muted">Pedimos evidencia de cada respuesta para que no se la invente.</p></div>
+  </div>
+  <div class="notes"><b>2 min, sin cambiar de pantalla.</b> Respuestas típicas para mencionar: que el café de especialidad es solo para expertos, que hace falta máquina para prepararlo bien, que el joven solo toma café en cafeterías. Son hipótesis que ellos verifican con los enlaces. Pasa al siguiente slide para lanzar el paso 1.</div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="eyebrow">Hack 2 · Investigación</p>
+  <h2>El mapa de clichés</h2>
+  <p>Le pides a Gemini las imágenes y frases que repiten casi todas las marcas de tu categoría. Esa lista se vuelve tu lista negra para el resto del taller.</p>
+  <div class="chips"><span>montañas con niebla</span><span>manos recogiendo cerezas</span><span>taza humeante</span><span>granos cayendo</span><span>saco de fique</span><span>“del grano a tu taza”</span><span>“pasión”</span><span>“tradición”</span><span>“100% colombiano”</span></div>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 1A y 1B · Gemini · 25 min</p></div>
+  <p class="foot">Ejemplos ilustrativos. Cada participante construye su propio mapa.</p>
+  <div class="notes"><b>Lanza y corrige.</b> Pregunta: “¿Cuántos de estos verían hoy en el Instagram de una marca de café?” Lanza el paso y quédate en este slide. A los 12 minutos pide que peguen en el chat su mejor respuesta a la pregunta inversa; a los 20, tres clichés de su mapa. Lee dos en voz alta. Recuérdales verificar dos enlaces.</div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">Hack 3 · Voz de cliente</p>
+  <h2>Lee las reseñas de 1 a 3 estrellas</h2>
+  <div class="row">
+    <div class="card"><span class="num" style="color:#8E8E9A">5 ★</span><p class="muted">Elogio. Todas dicen lo mismo: “delicioso”, “excelente atención”.</p></div>
+    <div class="card ink"><span class="num">1 a 3 ★</span><p>Tensión. Ahí está lo que el cliente quería y no recibió. Ese hueco es tu oportunidad.</p></div>
+  </div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 2 · a mano · 10 min · 10 frases reales</p></div>
+  <div class="notes"><b>Lanza y corrige.</b> Este paso se hace a mano a propósito: una IA a veces devuelve comentarios que suenan reales y no existen. A los 7 minutos pide que peguen en el chat la frase más dolorosa que encontraron, sin nombres de usuario.</div>
+</section>
+
+<!-- 11 -->
+<section class="slide dark">
+  <p class="eyebrow">Hack 4 · Insight</p>
+  <h2>El insight se escribe como confesión</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow" style="color:#8E8E9A">Así sale normalmente</p><p class="quote" style="color:#C9C9D2">Los jóvenes buscan experiencias de café de calidad en casa.</p><p style="color:#8E8E9A">Es un dato. Lo firmaría cualquier marca.</p></div>
+    <div class="card hl"><p class="eyebrow">Como confesión</p><p class="quote" style="color:#F6F5F2">“Me da pena admitir que compré una bolsa de 40.000 y no noté la diferencia con la del supermercado.”</p><p class="muted">Es una tensión. Duele, y abre una oportunidad.</p></div>
+  </div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 3 · Claude · 15 min · pega tu confesión en el chat</p></div>
+  <div class="notes"><b>Lanza y corrige.</b> Ejemplo ilustrativo, no un hallazgo real. A los 10 minutos lee tres confesiones del chat y aplica el test del logo: “¿Le sirve igual a cualquier marca de café?” Si sí, pide más especificidad. Fórmulas: “Me da pena admitir que…”, “Nadie me cree, pero…”.</div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Hack 5 · Marca</p>
+  <h2>El detalle que nadie puede copiar</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Genérico</p><p class="quote">“Café de origen, cultivado con tradición familiar.”</p><p class="muted">Cualquier finca lo puede decir.</p></div>
+    <div class="card ink"><p class="eyebrow">Desde un detalle</p><p class="quote" style="color:#F6F5F2">“Ningún lote sale de la finca sin que doña Rosa lo pruebe primero.”</p><p>Solo esta finca lo puede decir. Y responde a la confesión: alguien ya probó por ti.</p></div>
+  </div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 4A y 4B · Claude · 20 min · termina con tu Cerebro de Marca</p></div>
+  <div class="notes"><b>Lanza y corrige.</b> Aquí se ve el hilo: la confesión encuentra respuesta en un detalle real. El posicionamiento y el nombre tienen que salir de uno de los 5 detalles. A los 15 minutos pide que peguen su nombre y de qué detalle salió; lee dos.</div>
+</section>
+
+<!-- 13 -->
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Pausa · 10 min</p>
+  <h1>Tu marca ya existe.</h1>
+  <p class="lead">Ahora viene lo que más vale: la estrategia, el contenido y las piezas.</p>
+  <p class="foot">Antes de irte: pega en el chat tu nombre de marca y el detalle del que salió.</p>
+  <div class="notes">Durante la pausa elige dos nombres del chat: uno que sale de un detalle y uno genérico. Al volver, aplícales el test del logo sin decir de quién son.</div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="eyebrow">Hack 6 · Estrategia de redes</p>
+  <h2>Una serie fija, no posts sueltos</h2>
+  <div class="row">
+    <div class="card ink"><p class="eyebrow">Ejemplo con El Recreo</p><p class="quote" style="color:#F6F5F2;font-size:clamp(24px,2.8vw,50px)">“La cata del viernes”</p><p>Cada viernes doña Rosa prueba un lote y dice en una frase si sale a la venta o no.</p><p class="accent" style="color:var(--coral)">Sale de un detalle, responde a la confesión y nadie la puede copiar.</p></div>
+    <div class="card" style="flex:.7"><p class="eyebrow">La estrategia en una página</p><ul><li>Un objetivo con número.</li><li>Canal principal y de apoyo.</li><li>Tres pilares desde el insight.</li><li>La serie fija.</li><li>Frecuencia por semana.</li><li>Una sola métrica.</li></ul></div>
+  </div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 5 · Claude · 25 min · pega el nombre de tu serie en el chat</p></div>
+  <div class="notes"><b>Lanza y corrige.</b> El hack de mayor valor práctico: una serie resuelve el “no sé qué publicar”. A los 15 minutos lee tres series del chat y aplica el test del logo. Si alguien pone “seguidores” como objetivo, corrígelo en voz alta: pedidos, conversaciones o guardados.</div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">Hack 7 · Contenido</p>
+  <h2>Una semana tipo, repetida cuatro veces</h2>
+  <div class="grid4">
+    <div class="card"><p class="eyebrow">Lunes</p><h3>Enseña</h3><p class="muted">Un consejo de preparación.</p></div>
+    <div class="card"><p class="eyebrow">Miércoles</p><h3>Vende</h3><p class="muted">Producto con llamado a WhatsApp.</p></div>
+    <div class="card ink"><p class="eyebrow">Viernes</p><h3>La serie</h3><p>El episodio de la semana.</p></div>
+    <div class="card"><p class="eyebrow">Domingo</p><h3>Conversa</h3><p class="muted">Historias con pregunta o encuesta.</p></div>
+  </div>
+  <p>Claude llena 4 semanas con ese ritmo. Las 2 primeras con copy completo, llamado a la acción e indicación visual.</p>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 6 · Claude · 20 min · copia la tabla a Google Sheets</p></div>
+  <div class="notes"><b>Lanza y corrige.</b> El calendario deja de ser una lista de ocurrencias y se vuelve una estructura sostenible. Si alguien propone publicar todos los días, pregúntale quién lo va a producir. Recuérdales anotar las 3 publicaciones marcadas: son las piezas del paso 7.</div>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <p class="eyebrow">Hack 8 · Piezas</p>
+  <h2>Los clichés como restricción</h2>
+  <div class="row">
+    <div class="card ink"><span class="num">1</span><h3>Lo que no puede aparecer</h3><p>Tu mapa de clichés entra al prompt de imagen como prohibición.</p></div>
+    <div class="card"><span class="num">2</span><h3>La foto ancla</h3><p class="muted">La primera foto se adjunta para generar la segunda: misma luz, mismo color.</p></div>
+    <div class="card"><span class="num">3</span><h3>Duplicar en Canva</h3><p class="muted">Se diseña una pieza y se duplica: tipografía y nombre idénticos.</p></div>
+  </div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 7 · Claude, Gemini y Canva · 35 min</p></div>
+  <div class="notes"><b>Momento en vivo 2 de 2.</b> Antes de lanzar, cambia a tu pestaña de Canva y haz en 5 minutos: tamaño 1080 × 1350, foto de fondo, titular, color con HEX, nombre como logo y duplicar página. Vuelve a esta ventana y lanza. Recuerda el plan B de la guía si Gemini no genera. Pide que suban las piezas a la carpeta compartida.</div>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <p class="eyebrow">Cierre · 7 min · 2 voluntarios</p>
+  <h2>El test del logo, sobre todo el kit</h2>
+  <div class="row">
+    <div class="card" style="gap:2vh"><p class="eyebrow">Cambia tu nombre por el de un competidor en…</p><p class="check">Tu confesión.</p><p class="check">Tu posicionamiento.</p><p class="check">Tu serie fija.</p><p class="check">Tu pieza del episodio 1.</p></div>
+    <div class="card ink" style="justify-content:space-between"><p class="eyebrow">Resultado</p><p class="quote" style="color:#F6F5F2">Si deja de funcionar con otro nombre, es tuyo.</p><p>Escribe en el chat cuántos de los 4 pasaron.</p></div>
+  </div>
+  <div class="notes">Dos voluntarios comparten su pantalla con la pieza del episodio 1 y su serie (aquí tú dejas de compartir). Haz el test en voz alta. Si sigue funcionando con otro nombre, pregunta qué detalle real podrían meter.</div>
+</section>
+
+<!-- 18 -->
+<section class="slide dark">
+  <p class="eyebrow">Cierre · 3 min</p>
+  <h2>Lo que te llevas</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">El kit</p><p>Cerebro de Marca, estrategia de redes, calendario de 4 semanas y tres piezas. Se puede ejecutar el lunes.</p></div>
+    <div class="card hl"><p class="eyebrow">El criterio</p><p class="quote" style="color:#F6F5F2">La IA no es genérica. Es genérica cuando no le das nada propio.</p></div>
+  </div>
+  <p style="font-weight:600;color:#F6F5F2">Compromiso en el chat: el día que publicarías el episodio 1 de tu serie.</p>
+  <div class="notes">Cierra repitiendo la frase de la demo inicial: el taller termina donde empezó.</div>
+</section>
+
+</div>
+
+<div id="notes"></div>
+<div class="nav"><button class="help" id="tog" aria-label="Notas">Notas (N)</button><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 18</span><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var notes=document.getElementById('notes');
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    var nn=slides[i].querySelector('.notes');
+    notes.innerHTML=nn?nn.innerHTML:'Sin notas.';
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function toggleNotes(){notes.classList.toggle('on');}
+  function full(){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.getElementById('tog').onclick=toggleNotes;
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+    if(e.key==='n'||e.key==='N'){toggleNotes();}
+    if(e.key==='f'||e.key==='F'){full();}
+  });
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+})();
+</script>
+</body>
+</html>
