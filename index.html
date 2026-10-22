@@ -3,623 +3,511 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller · Dashboard en tiempo real · CASA LUNA</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Módulo 2 · Campaña adidas TRÓPICO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --coral:#FF5C39;--ink:#14141C;--ink2:#1B1B25;--paper:#FFFFFF;--soft:#F1F1F4;
-  --line:#E8E8EF;--body:#3A3A46;--muted:#6E6E78;--dim:#B8B8C6;
-  --H:Cambria,Georgia,'Times New Roman',serif;
-  --B:Calibri,'Segoe UI',system-ui,sans-serif;
-  --M:'IBM Plex Mono',ui-monospace,monospace;
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden;background:var(--ink)}
-body{font-family:var(--B)}
-.deck{position:relative;width:100vw;height:100vh}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:4.5vh 5.5vw 8vh;background:var(--ink);color:var(--paper)}
-.slide.on{display:flex}
-@media (prefers-reduced-motion:no-preference){
-  .slide.on{animation:in .26s ease-out both}
-  @keyframes in{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:2.6vh;padding:7vh 6vw 11vh;overflow-y:auto;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.eyebrow{font-size:clamp(13px,1.25vw,20px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(34px,5.2vw,92px)}
+h2{font-size:clamp(28px,3.4vw,58px)}
+h3{font-size:clamp(18px,1.8vw,30px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(16px,1.55vw,26px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,32px);color:var(--soft);max-width:70ch}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.2vw,38px);line-height:1.3}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex-wrap:wrap}
+.row>*{flex:1 1 260px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2.4vh 1.8vw;display:flex;flex-direction:column;gap:1.2vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p{color:var(--soft)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border:2px solid var(--coral-d)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(30px,3.6vw,60px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+.who{font-size:clamp(13px,1.1vw,18px);font-weight:700;color:var(--coral-d)}
+.card.ink .who{color:#8E8E9A}
+ol,ul{padding-left:1.4em;display:flex;flex-direction:column;gap:.6vh}
+.split{display:flex;gap:2.4vw;flex:1;min-height:0;flex-wrap:wrap}
+.split>.left{flex:0 1 34%;min-width:260px;display:flex;flex-direction:column;gap:2vh}
+.split>.right{flex:1 1 420px;display:flex;flex-direction:column;gap:2vh}
+.prompt{position:relative;background:var(--ink);border-radius:14px;padding:2.6vh 1.8vw;color:#F1F1F4;display:flex;flex-direction:column;gap:1.2vh}
+.dark .prompt{background:var(--ink2)}
+.prompt .tag{font-size:clamp(12px,1.05vw,17px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);min-height:2.6em;padding-right:9em;display:flex;align-items:center}
+.prompt pre{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(13px,1.15vw,20px);line-height:1.45;white-space:pre-wrap;word-wrap:break-word;color:#F1F1F4}
+.prompt .k{color:var(--coral)}
+.prompt .v{color:#FFB59E}
+.copy{position:absolute;top:2.2vh;right:1.2vw;background:var(--coral);color:var(--ink);border:0;border-radius:999px;padding:.7em 1.3em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.copy:hover{background:#FF7B5E}
+.copy.done{background:#F1F1F4}
+.pill{display:inline-block;font-size:clamp(14px,1.3vw,22px);font-weight:600;background:var(--ink);color:#F6F5F2;padding:.4em 1em;border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.35vw,23px)}
+th{background:var(--ink);color:#F6F5F2;text-align:left;padding:1.2vh 1vw;font-weight:700}
+td{padding:1.2vh 1vw;border-bottom:1px solid var(--line)}
+tr:nth-child(even) td{background:#ECEAE4}
+.right-num{text-align:right}
+.callout{display:flex;gap:1.4vw;align-items:center;background:var(--ink);color:#F6F5F2;border-radius:14px;padding:2.4vh 2vw}
+.callout .ic{font-size:clamp(24px,2.6vw,44px);color:var(--coral)}
+.callout p{font-weight:600}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.3em;line-height:1.2}
+.dark .check::before,.card.ink .check::before{color:var(--coral)}
+.weights{display:flex;gap:1.2vw;flex:1;flex-wrap:wrap}
+.weights .card{justify-content:space-between}
+.big{font-family:'Source Serif 4',Georgia,serif;font-weight:700;line-height:1;color:var(--coral-d)}
+.foot{position:absolute;left:6vw;bottom:3.6vh;right:6vw;font-size:clamp(12px,1.05vw,17px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.spacer{flex:1}
+/* timer */
+.timer{display:flex;align-items:center;gap:1vw;flex-wrap:wrap}
+.timer .t{font-family:'JetBrains Mono',monospace;font-size:clamp(22px,2.4vw,40px);font-weight:600;min-width:5ch;color:var(--ink)}
+.dark .timer .t{color:#F6F5F2}
+.timer button{border:1px solid var(--coral-d);background:transparent;color:var(--coral-d);border-radius:999px;padding:.5em 1.2em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.dark .timer button{border-color:var(--coral);color:var(--coral)}
+.timer .t.over{color:var(--coral-d)}
+/* nav */
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:10}
+.nav button{width:44px;height:44px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:10;transition:width .2s}
+@media (max-width:900px){
+  .grid5{grid-template-columns:1fr 1fr}
+  .slide{padding:5vh 5vw 14vh}
+  .foot{position:static;margin-top:2vh}
 }
-.slide.panel{background:var(--paper);color:var(--ink);justify-content:flex-start;padding-top:4.5vh}
-
-.kicker{font-size:clamp(10px,.95vw,13px);letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--coral);margin-bottom:1.6vh;display:flex;gap:1.4em;align-items:center}
-.kicker b{color:var(--dim);font-weight:600}
-.panel .kicker b{color:var(--muted)}
-h1{font-family:var(--H);font-weight:700;font-size:clamp(32px,5.8vw,88px);line-height:1.0;letter-spacing:-.02em}
-h2{font-family:var(--H);font-weight:700;font-size:clamp(23px,3.5vw,52px);line-height:1.06;letter-spacing:-.015em}
-h3{font-family:var(--H);font-weight:700;font-size:clamp(15px,1.75vw,25px);line-height:1.12;margin-bottom:1vh}
-.lead{font-size:clamp(14px,1.4vw,21px);line-height:1.5;max-width:34ch;margin-top:2.2vh;color:var(--dim)}
-.panel .lead{color:var(--body);max-width:70ch}
-.coral{color:var(--coral)}
-.foot{margin-top:auto;padding-top:2vh;font-size:clamp(12px,1.02vw,15px);color:var(--muted);font-style:italic}
-
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:start;margin-top:2.2vh}
-.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;margin-top:2.4vh}
-.cols5{display:grid;grid-template-columns:repeat(5,1fr);gap:1vw;margin-top:2.6vh}
-.card{border:1px solid #2A2A36;padding:1.7vh 1.2vw;background:var(--ink2)}
-.panel .card{border-color:var(--line);background:var(--soft)}
-.card .k{font-size:11px;letter-spacing:.15em;color:var(--coral);text-transform:uppercase;font-weight:600}
-.card p{font-size:clamp(12.5px,1vw,16px);line-height:1.45;margin-top:.6vh;color:var(--dim)}
-.panel .card p{color:var(--body)}
-.card.hi{border-color:var(--coral);border-width:2px}
-
-.crear .card{text-align:center;padding:1.8vh .7vw}
-.crear .l{font-family:var(--H);font-size:clamp(28px,3.4vw,48px);font-weight:700;color:var(--coral);line-height:1}
-.crear .n{font-family:var(--H);font-size:clamp(12px,1.2vw,17px);font-weight:700;margin-top:.5vh}
-.crear .d{font-size:clamp(10.5px,.85vw,13px);line-height:1.4;margin-top:.6vh;color:var(--body)}
-
-ol.num{list-style:none;counter-reset:s}
-ol.num li{counter-increment:s;position:relative;padding-left:2.6em;font-size:clamp(12.5px,1.08vw,17px);line-height:1.5;margin-bottom:1.05vh}
-ol.num li::before{content:counter(s);position:absolute;left:0;top:0;font-size:.85em;font-weight:700;color:#fff;background:var(--coral);width:1.9em;height:1.9em;display:flex;align-items:center;justify-content:center;border-radius:50%}
-ul.plain{list-style:none}
-ul.plain li{position:relative;padding-left:1.4em;font-size:clamp(12.5px,1.05vw,16px);line-height:1.5;margin-bottom:.8vh}
-ul.plain li::before{content:"·";position:absolute;left:.3em;color:var(--coral);font-weight:700}
-li b{font-weight:700}
-kbd{font-family:var(--M);font-size:.86em;background:var(--ink);color:#fff;padding:.12em .45em;border-radius:3px}
-.panel .path{font-family:var(--M);font-size:.92em;background:#FFE6DF;padding:.12em .4em}
-
-.prompt{position:relative;margin-top:1.4vh;border:1px solid var(--line);background:var(--soft)}
-.prompt pre{font-family:var(--M);font-size:clamp(9.5px,.79vw,12.5px);line-height:1.56;padding:2.2vh 1.1vw .7vh;white-space:pre-wrap;color:var(--ink);max-height:56vh;overflow:auto}
-.prompt .cr{color:var(--coral);font-weight:600}
-.prompt .var{background:#FFE6DF;font-weight:600}
-.copy{position:absolute;top:.5vh;right:.4vw;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;padding:.55em .9em;cursor:pointer}
-.copy:hover{background:var(--coral)}
-
-table.dt{width:100%;border-collapse:collapse;margin-top:1.8vh;font-size:clamp(11px,.95vw,15px)}
-table.dt th{background:var(--ink);color:#fff;text-align:left;padding:.9vh .7vw;font-size:clamp(10px,.85vw,13px);letter-spacing:.08em;text-transform:uppercase}
-table.dt td{border-bottom:1px solid var(--line);padding:.8vh .7vw;color:var(--body)}
-table.dt td.n{font-family:var(--M);text-align:right}
-
-.timer{display:flex;align-items:center;gap:.9vw;margin-top:1.8vh;border:2px solid var(--ink);padding:1vh .9vw;width:max-content}
-.timer .clock{font-family:var(--M);font-weight:600;font-size:clamp(24px,3.6vw,46px);line-height:1}
-.timer.done .clock{background:var(--coral);color:#fff}
-.timer button{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;background:transparent;border:1px solid var(--ink);padding:.6em .9em;cursor:pointer}
-.timer button:hover{background:var(--ink);color:#fff}
-.timer .lbl{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-
-.check label{display:flex;gap:.9vw;align-items:flex-start;cursor:pointer;border-bottom:1px solid var(--line);padding:1.2vh .3vw;font-size:clamp(12.5px,1.08vw,17px);line-height:1.45}
-.check input{appearance:none;width:1.2em;height:1.2em;border:2px solid var(--ink);flex:none;margin-top:.1em;cursor:pointer}
-.check input:checked{background:var(--coral);border-color:var(--coral)}
-.check input:checked + span{color:var(--muted);text-decoration:line-through}
-
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:2.6vw;margin-top:2.2vh}
-.vs h3{font-family:var(--B);font-size:11px;letter-spacing:.2em;font-weight:700}
-.vs .yes h3{color:var(--coral)}
-.vs .no h3{color:#A9A9B8}
-.vs p{font-size:clamp(12.5px,1.08vw,17px);line-height:1.4;margin-bottom:1.1vh}
-.vs .no p{color:#9A9AA8}
-.vs .no p small{display:block;font-size:11.5px;color:#B8B8C6;margin-top:.15em}
-
-.big{font-family:var(--H);font-weight:700;font-size:clamp(38px,8.2vw,136px);line-height:.96;letter-spacing:-.03em}
-.rule{height:1px;background:#2A2A36;margin:2.2vh 0}
-.panel .rule{background:var(--line)}
-.tag{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:1px solid currentColor;padding:.4em .7em}
-
-.flow{display:flex;align-items:stretch;gap:.8vw;margin-top:3vh}
-.flow .st{flex:1;border:1px solid var(--line);background:var(--soft);padding:2vh 1vw;position:relative}
-.slide:not(.panel) .flow .st{border-color:#2A2A36;background:var(--ink2)}
-.flow .st .n{font-family:var(--M);font-size:12px;color:var(--coral);font-weight:600}
-.flow .st .t{font-family:var(--H);font-weight:700;font-size:clamp(14px,1.5vw,21px);margin-top:.6vh;line-height:1.1}
-.flow .st .d{font-size:clamp(11px,.9vw,14px);color:var(--muted);margin-top:.6vh;line-height:1.35}
-.flow .ar{display:flex;align-items:center;color:var(--coral);font-size:clamp(16px,1.8vw,26px);font-weight:700}
-
-.rail{position:fixed;left:0;right:0;bottom:0;height:5.2vh;display:flex;align-items:center;gap:1.4vw;padding:0 5.5vw;pointer-events:none;z-index:5}
-.rail .bar{flex:1;height:2px;background:#2A2A36;position:relative}
-.panelmode .rail .bar{background:var(--line)}
-.rail .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--coral);transition:width .3s ease}
-.rail .meta{font-family:var(--M);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.nav{position:fixed;bottom:0;right:0;display:flex;pointer-events:auto;z-index:6}
-.nav button{background:transparent;border:0;color:var(--muted);font-family:var(--M);font-size:18px;padding:1.3vh 1vw;cursor:pointer}
-.nav button:hover{color:var(--coral)}
-@media(max-width:820px){.cols,.vs{grid-template-columns:1fr}.cols5,.cols3{grid-template-columns:repeat(2,1fr)}.flow{flex-direction:column}}
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 <div class="deck" id="deck">
 
-<!-- 01 -->
-<section class="slide" data-min="0">
-  <div class="kicker"><span class="tag">Taller práctico · 3 horas</span><b>CASA LUNA</b></div>
-  <h1>El reporte que<br>se hace <span class="coral">solo</span></h1>
-  <p class="lead">Hoy vas a construir un dashboard que lee una hoja de Google y se actualiza sin que nadie lo toque. Y lo vas a dejar publicado en internet.</p>
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Módulo 2 · Taller virtual individual · 120 min</p>
+  <h1>Una campaña con IA que se ve como una sola campaña</h1>
+  <p class="lead">Caso: adidas TRÓPICO. Del brief a tres piezas consistentes en dos horas.</p>
+  <p class="foot">Ejercicio académico. adidas TRÓPICO no existe; las piezas no se publican. · Usa las flechas ← → para avanzar.</p>
 </section>
 
-<!-- 02 -->
-<section class="slide" data-min="2">
-  <div class="kicker"><span>El problema</span><b>Todos los lunes</b></div>
-  <h2>Abres cuatro plataformas.<br>Copias los números a mano.<br>Pegas capturas en un PPT.<br><span class="coral">Y el martes ya está viejo.</span></h2>
-  <p class="lead">Dos horas de trabajo para producir un documento que nace desactualizado.</p>
-</section>
-
-<!-- 03 -->
-<section class="slide" data-min="5">
-  <div class="kicker"><span>El problema</span><b>Por qué pasa</b></div>
-  <h2>El reporte y los datos<br>viven separados</h2>
-  <p class="lead">Cada vez que los datos cambian, alguien tiene que ir a buscarlos y volver a armar el reporte. Ese "alguien" eres tú.</p>
-  <p class="lead" style="max-width:44ch">Hoy vamos a unirlos con un tubo. Un solo tubo, y ya no lo vuelves a tocar.</p>
-</section>
-
-<!-- 04 -->
-<section class="slide" data-min="8">
-  <div class="kicker"><span>Lo que vamos a construir</span></div>
-  <h2>Cuatro piezas</h2>
-  <div class="flow">
-    <div class="st"><div class="n">01</div><div class="t">Hoja de Google</div><div class="d">Donde viven los datos. Cualquiera del equipo escribe ahí.</div></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="n">02</div><div class="t">URL pública</div><div class="d">Google publica la hoja como archivo de datos.</div></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="n">03</div><div class="t">Dashboard</div><div class="d">Lee esa URL cada 30 segundos y se redibuja.</div></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="n">04</div><div class="t">Publicado</div><div class="d">Un link que le puedes mandar a tu jefe.</div></div>
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">Lo que entregas al final</p>
+  <h2>Cinco entregables, una sola campaña</h2>
+  <div class="grid5">
+    <div class="card"><span class="num">1</span><h3>Concepto</h3><p class="muted">La idea en una frase. No es el eslogan.</p></div>
+    <div class="card"><span class="num">2</span><h3>Claim</h3><p class="muted">Máximo cinco palabras.</p></div>
+    <div class="card"><span class="num">3</span><h3>Key Visual</h3><p class="muted">La imagen ancla de toda la campaña.</p></div>
+    <div class="card"><span class="num">4</span><h3>Tres piezas</h3><p class="muted">Story 9:16, banner 3:1 y header de correo 2:1.</p></div>
+    <div class="card"><span class="num">5</span><h3>Mensajes</h3><p class="muted">Un mensaje por canal, sobre cada pieza.</p></div>
   </div>
-  <p class="lead" style="max-width:56ch">Ni servidores, ni bases de datos, ni contraseñas, ni programar.</p>
+  <p style="font-weight:600;color:var(--ink)">Y la ficha de producción: la plantilla que te llevas para cualquier marca.</p>
 </section>
 
-<!-- 05 -->
-<section class="slide" data-min="11">
-  <div class="kicker"><span>Lo que vamos a construir</span><b>Demo</b></div>
-  <h2>Miren esto</h2>
-  <p class="lead">Voy a escribir un número en la hoja, desde el celular. No toquen nada. Miren la pantalla.</p>
-  <p class="lead" style="max-width:44ch;color:var(--coral)">Eso es lo que van a tener funcionando en dos horas.</p>
-</section>
-
-<!-- 06 PANEL -->
-<section class="slide panel" data-min="15">
-  <div class="kicker"><span>Honestidad</span><b>Antes de seguir</b></div>
-  <h2>Se llama "tiempo real".<br>En realidad es <span class="coral">casi</span>.</h2>
-  <p class="lead" style="margin-top:1.4vh">Google guarda una copia de la hoja publicada y la refresca cada cierto tiempo. No es instantáneo: puede tardar entre unos segundos y unos minutos.</p>
-  <div class="cols" style="margin-top:2vh">
-    <div class="card"><span class="k">Sirve para</span><p>Reportes de campaña, seguimiento diario, tableros de equipo, pantallas de oficina.</p></div>
-    <div class="card"><span class="k">No sirve para</span><p>Precios de bolsa, inventario al segundo, alertas críticas. Eso necesita otra arquitectura.</p></div>
-  </div>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0">Decirlo ahora es la diferencia entre una herramienta y una promesa incumplida. <b>Cuando lo presenten en su empresa, díganlo también.</b></p>
-</section>
-
-<!-- 07 PANEL -->
-<section class="slide panel" data-min="18">
-  <div class="kicker"><span>Antes de empezar</span><b>Deja esto abierto</b></div>
-  <h2>Tu pantalla</h2>
-  <ol class="num" style="margin-top:2.2vh">
-    <li>Abre <b>sheets.google.com</b> y entra con tu correo.</li>
-    <li>Abre <b>claude.ai</b> en otra pestaña.</li>
-    <li>Abre <b>github.com</b> en una tercera. Si no tienes cuenta, créala ahora: es gratis y toma dos minutos.</li>
-    <li>Ten tu <b>celular a la mano</b>. Lo vamos a usar de verdad.</li>
-  </ol>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0">No hay que instalar nada. No hay que usar la consola. No hay que pagar nada.</p>
-</section>
-
-<!-- 08 -->
-<section class="slide" data-min="20">
-  <div class="kicker"><span>Paso 1</span><b>Los datos</b></div>
-  <h2>CASA LUNA</h2>
-  <p class="lead">Marca de ropa que vende por internet. Publica en cuatro redes. Tres semanas de datos, 62 publicaciones.</p>
-  <p class="lead" style="max-width:44ch;color:var(--coral)">Les voy a pasar el archivo. Es el mismo para todos.</p>
-</section>
-
-<!-- 09 PANEL -->
-<section class="slide panel" data-min="22">
-  <div class="kicker"><span>Paso 1</span><b>Así se ven los datos</b></div>
-  <h2>Siete columnas</h2>
-  <table class="dt">
-    <tr><th>Fecha</th><th>Red</th><th>Publicación</th><th>Alcance</th><th>Interacc.</th><th>Clics</th><th>Seguidores</th></tr>
-    <tr><td>2026-07-20</td><td>LinkedIn</td><td>Buscamos diseñadora textil</td><td class="n">788</td><td class="n">44</td><td class="n">12</td><td class="n">18.400</td></tr>
-    <tr><td>2026-07-20</td><td>TikTok</td><td>Tres looks, una prenda</td><td class="n">5.380</td><td class="n">386</td><td class="n">97</td><td class="n">18.410</td></tr>
-    <tr><td>2026-07-20</td><td>Instagram</td><td>Colab con creadora local</td><td class="n">7.869</td><td class="n">441</td><td class="n">60</td><td class="n">18.414</td></tr>
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">Agenda</p>
+  <h2>El mapa de las 2 horas</h2>
+  <table>
+    <tr><th>Bloque</th><th>Quién</th><th class="right-num">Min</th><th>Sale de aquí</th></tr>
+    <tr><td>Brief y reglas</td><td>Facilitador</td><td class="right-num">10</td><td>Encargo claro</td></tr>
+    <tr><td>El fracaso demostrado</td><td>Facilitador</td><td class="right-num">8</td><td>Por qué hace falta método</td></tr>
+    <tr><td>Método y ficha</td><td>Facilitador</td><td class="right-num">12</td><td>Ficha de producción</td></tr>
+    <tr><td>Taller 1 · Concepto y claim</td><td>Tú</td><td class="right-num">15</td><td>Concepto + claim</td></tr>
+    <tr><td>Taller 2 · Key Visual</td><td>Tú</td><td class="right-num">25</td><td>Imagen ancla</td></tr>
+    <tr><td>Galería en vivo</td><td>Todos</td><td class="right-num">5</td><td>Votación en el chat</td></tr>
+    <tr><td>Taller 3 · Piezas</td><td>Tú</td><td class="right-num">28</td><td>3 piezas con mensaje</td></tr>
+    <tr><td>Autoauditoría</td><td>Tú + 3 voluntarios</td><td class="right-num">10</td><td>Tu puntaje</td></tr>
+    <tr><td>Demo y cierre</td><td>Facilitador</td><td class="right-num">7</td><td>Techo de calidad</td></tr>
   </table>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0"><b>Regla de oro de hoy:</b> los nombres de las columnas no se cambian, no se traducen, no se acentúan distinto. <span class="coral">El dashboard las busca por su nombre exacto.</span> Si escribes "Alcances" en vez de "Alcance", esa tarjeta sale vacía.</p>
 </section>
 
-<!-- 10 PANEL -->
-<section class="slide panel" data-min="25">
-  <div class="kicker"><span>TALLER 1</span><b>Montar y publicar la hoja · 20 minutos</b></div>
-  <h2>Paso a paso</h2>
-  <ol class="num" style="margin-top:1.4vh">
-    <li>Descarga el archivo <b>datos-redes-casa-luna.csv</b> del link que les pasé.</li>
-    <li>En Google Sheets: <span class="path">Archivo → Importar → Subir</span> y arrastra el archivo. Elige <b>"Reemplazar hoja de cálculo"</b>.</li>
-    <li>Verifica que la primera fila tenga los siete títulos y que los números se vean alineados a la derecha.</li>
-    <li>Ahora publícala: <span class="path">Archivo → Compartir → Publicar en la web</span>.</li>
-    <li>En el primer menú deja <b>Hoja 1</b>. En el segundo, cambia "Página web" por <b>Valores separados por comas (.csv)</b>.</li>
-    <li>Clic en <b>Publicar</b>. Acepta la advertencia.</li>
-    <li><b>Copia la URL</b> que te da y pégala en un documento. La vas a necesitar en cinco minutos.</li>
-  </ol>
-  <div class="timer" data-min="20">
-    <span class="lbl">Restante</span><span class="clock">20:00</span>
-    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Antes de empezar · 5 minutos</p>
+  <h2>Tres pestañas abiertas antes de conectarte</h2>
+  <div class="row">
+    <div class="card"><h3>ChatGPT</h3><p class="muted">Para concepto, claim y mensajes.</p></div>
+    <div class="card"><h3>Gemini</h3><p class="muted">Para generar el Key Visual y las piezas.</p></div>
+    <div class="card"><h3>Canva</h3><p class="muted">Para montar texto y logo encima de la imagen.</p></div>
   </div>
+  <p class="muted">Consejo: divide la pantalla. La reunión a un lado, tus herramientas al otro.</p>
+  <div class="spacer"></div>
+  <div class="callout"><span class="ic">!</span><p>Reglas de hoy: la conversación de Gemini no se cierra, y cada prompt se copia con el botón “Copiar” de esta página.</p></div>
 </section>
 
-<!-- 11 PANEL -->
-<section class="slide panel" data-min="35">
-  <div class="kicker"><span>TALLER 1</span><b>Verificación obligatoria</b></div>
-  <h2>Prueba que funciona</h2>
-  <p class="lead" style="margin-top:1.2vh">No sigas sin hacer esto. Es la causa número uno de que el dashboard salga en blanco después.</p>
-  <ol class="num" style="margin-top:1.8vh">
-    <li>Abre una <b>pestaña nueva</b> y pega ahí la URL que copiaste.</li>
-    <li>Presiona Enter.</li>
-  </ol>
-  <div class="cols" style="margin-top:2vh">
-    <div class="card hi"><span class="k">Bien</span><p>Se descarga un archivo, o ves texto plano con comas y todos tus datos. <b>Sigue adelante.</b></p></div>
-    <div class="card"><span class="k">Mal</span><p>Ves la hoja de cálculo con su cuadrícula, o te pide permiso para entrar. <b>Copiaste la URL equivocada.</b> Vuelve al paso 4.</p></div>
+<!-- 5 -->
+<section class="slide dark">
+  <p class="eyebrow">El brief · 1 de 4 · adidas Running LATAM</p>
+  <h2>TRÓPICO: running para el calor húmedo</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Lo que muestran las marcas</p><p>Luz fría, asfalto seco, aliento visible. El running de clima templado.</p></div>
+    <div class="card"><p class="eyebrow">Lo que vive el corredor</p><p>Humedad, sudor, luz dura, sombra de mango y la lluvia de las 4 p. m.</p></div>
   </div>
-  <p class="foot">La URL correcta contiene la palabra "pub" y termina en "output=csv".</p>
+  <div class="spacer"></div>
+  <p class="quote accent">El reto: adidas es la número 2 en running en la región y no tiene un producto que hable del calor.</p>
+  <p class="foot">Producto ficticio para el ejercicio</p>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 2 de 4</p>
+  <h2>A quién le hablamos</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Target</p>
+      <p>Corredores urbanos de 25 a 40 años en ciudades tropicales de LATAM.</p>
+      <p>Corren 3 a 5 veces por semana, de 5 a 15 km.</p>
+      <p>No son atletas de élite: salen a las 5:30 a. m. porque a las 7 ya no se puede.</p></div>
+    <div class="card ink"><p class="eyebrow" style="color:var(--coral)">Insight de partida</p>
+      <p class="quote" style="color:#F6F5F2">Aquí el enemigo no es el frío ni la distancia. Es el calor. Y al calor no se le gana: se le aguanta.</p>
+      <div class="spacer"></div>
+      <p>Es un punto de partida. Tú lo afilas.</p></div>
+  </div>
+  <p class="foot">Objetivo: posicionar TRÓPICO como el producto que entiende una realidad que las marcas globales ignoran.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 3 de 4</p>
+  <h2>Cómo se califica</h2>
+  <div class="weights">
+    <div class="card ink" style="flex:4 1 220px"><span class="big" style="font-size:clamp(48px,6vw,110px);color:var(--coral)">40%</span><h3>Consistencia visual entre las tres piezas</h3></div>
+    <div class="card" style="flex:3 1 200px"><span class="big" style="font-size:clamp(40px,5vw,90px)">30%</span><h3>Fidelidad al kit de marca</h3></div>
+    <div class="card" style="flex:2 1 180px"><span class="big" style="font-size:clamp(34px,4vw,74px)">20%</span><h3>Fuerza del concepto</h3></div>
+    <div class="card" style="flex:2 1 180px"><span class="big" style="font-size:clamp(34px,4vw,74px)">10%</span><h3>Ejecución del claim</h3></div>
+  </div>
+  <p class="foot">La autoauditoría del final usa estos cuatro criterios.</p>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">El brief · 4 de 4</p>
+  <h2>Las reglas del kit</h2>
+  <div class="row">
+    <div class="card"><p class="eyebrow">Siempre</p><ul><li>Negro y blanco como base.</li><li>Un solo color de acento por campaña.</li><li>Tipografía de marca solo en el montaje.</li></ul></div>
+    <div class="card"><p class="eyebrow">Nunca</p><ul><li>Gente sonriendo a cámara.</li><li>Gimnasios.</li><li>Filtro naranja de atardecer.</li><li>Sudor “estético”.</li></ul></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="callout"><span class="ic">🔒</span><p>El logo y las tres bandas no se generan con IA. Se ponen encima en Canva. Una pieza con logo inventado queda descalificada.</p></div>
+</section>
+
+<!-- 9 -->
+<section class="slide dark">
+  <p class="eyebrow">Demo en vivo · 8 min · facilitador</p>
+  <h2>El fracaso demostrado</h2>
+  <div class="split">
+    <div class="right">
+      <div class="prompt"><span class="tag">Prompt que casi todos escriben</span>
+<pre>Corredor latino corriendo en una ciudad tropical, estilo adidas, foto profesional.</pre></div>
+      <p class="muted">Se ejecuta tres veces en chats distintos.</p>
+    </div>
+    <div class="left" style="justify-content:center">
+      <p class="eyebrow">Responde en el chat</p>
+      <p class="quote" style="color:#F6F5F2">¿Estas tres imágenes son de la misma campaña?</p>
+    </div>
+  </div>
+  <p class="accent" style="font-weight:600">Cambia la luz, la persona, la paleta y el lente. Cada adjetivo se interpreta distinto cada vez.</p>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">El método · del kit al Key Visual</p>
+  <h2>Cinco pasos, una sola regla: fijar todo menos una cosa</h2>
+  <div class="grid5" style="flex:1">
+    <div class="card ink"><span class="num">1</span><h3>Destilar</h3><p>El kit se vuelve un Style Bible medible.</p><span class="who">Facilitador</span></div>
+    <div class="card ink"><span class="num">2</span><h3>Codificar</h3><p>El Style Bible se vuelve ficha de producción.</p><span class="who">Facilitador</span></div>
+    <div class="card hl"><span class="num">3</span><h3>Anclar</h3><p class="muted">Generas el Key Visual y lo guardas como ancla.</p><span class="who">Tú</span></div>
+    <div class="card hl"><span class="num">4</span><h3>Declinar</h3><p class="muted">La misma ancla en tres formatos.</p><span class="who">Tú</span></div>
+    <div class="card hl"><span class="num">5</span><h3>Auditar</h3><p class="muted">Lo que no pasa el checklist se regenera.</p><span class="who">Tú</span></div>
+  </div>
+  <p class="foot">C.R.E.A.R. aplicado a imagen: hoy todo vive en la A, el Ancla.</p>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="eyebrow">Paso 1 · Destilar · Gemini · demo del facilitador</p>
+  <h2>Del kit de marca a un Style Bible</h2>
+  <div class="split">
+    <div class="left">
+      <ol><li>Sube a Gemini el kit de marca y 5 a 8 referentes visuales.</li><li>Pega el prompt.</li><li>Revisa que no quede ni un adjetivo vago.</li></ol>
+      <p class="muted"><b>Resultado:</b> la marca deja de ser un PDF de 80 páginas y se vuelve algo que la IA puede ejecutar.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Analiza el kit de marca y las imágenes de referencia adjuntas. Extrae un Style Bible de 8 campos: sujeto, mundo, luz, lente, paleta en HEX, textura, composición y lo que nunca aparece.
+
+Cada campo debe ser medible o fotografiable: milímetros, hora del día, porcentajes, códigos de color.
+
+Prohibido: moderno, dinámico, aspiracional, impactante, épico.</pre></div></div>
+  </div>
 </section>
 
 <!-- 12 -->
-<section class="slide" data-min="40">
-  <div class="kicker"><span>Paso 2</span><b>El método</b></div>
-  <h2>Ahora hay que pedirle<br>a la IA que lo construya</h2>
-  <p class="lead">Y aquí es donde casi todo el mundo pierde una hora: pidiendo mal, corrigiendo, volviendo a pedir.</p>
+<section class="slide">
+  <p class="eyebrow">Paso 2 · Codificar · tu plantilla de trabajo</p>
+  <h2>La ficha de producción</h2>
+  <div class="prompt"><span class="tag">Ficha completa · cópiala entera</span><button class="copy">Copiar ficha</button>
+<pre><span class="k">CONTEXTO:</span> Key Visual de lanzamiento de adidas TRÓPICO, línea de running para clima cálido y húmedo.
+
+<span class="k">ROL:</span> actúa como fotógrafo de campaña deportiva.
+
+<span class="k">ENTREGABLE:</span>
+- concepto: <span class="v">[ESCRIBE AQUÍ TU CONCEPTO]</span>
+- acción: <span class="v">[QUÉ HACE EL CORREDOR EN LA FOTO]</span>
+- formato: 3:2
+- composición: sujeto a la izquierda, 60% de aire a la derecha reservado para el texto.
+
+<span class="k">ANCLA:</span>
+- sujeto: corredor urbano latinoamericano, 28 a 35 años, ropa técnica de running negra, sin logos visibles.
+- mundo: calle de ciudad tropical al amanecer, asfalto húmedo, vegetación densa desenfocada al fondo.
+- luz: luz dura lateral de las 5:40 a. m., sombras largas, alto contraste, sin relleno.
+- lente: 85 mm, f/2.0, cámara a la altura del pecho, sujeto en tres cuartos.
+- paleta: #0A0A0A, #FFFFFF y un solo acento #D9F000.
+- textura: grano fino de película, saturación -10, negros profundos.
+
+<span class="k">RESTRICCIONES:</span> sin logos, sin texto, sin marcas, sin sonrisas a cámara, sin gimnasio, sin atardecer naranja, sin sudor estilizado. Fotografía real, no ilustración.</pre></div>
 </section>
 
-<!-- 13 PANEL -->
-<section class="slide panel" data-min="43">
-  <div class="kicker"><span>Paso 2</span><b>Ya lo conocen</b></div>
-  <h2>C.R.E.A.R.</h2>
-  <p class="lead" style="margin-top:1vh">Cinco componentes. Si falta uno, el modelo improvisa por ti — y cuando improvisa software, improvisa mal.</p>
-  <div class="cols5 crear">
-    <div class="card"><div class="l">C</div><div class="n">Contexto</div><div class="d">Quién eres, qué datos tienes, para qué sirve esto.</div></div>
-    <div class="card"><div class="l">R</div><div class="n">Rol</div><div class="d">"Actúa como desarrollador de dashboards."</div></div>
-    <div class="card"><div class="l">E</div><div class="n">Entregable</div><div class="d">Qué tarjetas, qué gráficos, en qué orden.</div></div>
-    <div class="card hi"><div class="l">A</div><div class="n">Ancla</div><div class="d">Tu URL y los nombres exactos de las columnas.</div></div>
-    <div class="card"><div class="l">R</div><div class="n">Restricciones</div><div class="d">Sin backend, sin claves, un solo archivo.</div></div>
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Paso 2 · cómo se lee la ficha</p>
+  <h2>Tres tipos de campo</h2>
+  <div class="row" style="flex:1">
+    <div class="card ink"><h3>🔒 Bloqueado</h3><p>Paleta, textura y restricciones. Vienen del kit. Nadie los toca: son la marca.</p></div>
+    <div class="card"><h3>Fijo por campaña</h3><p class="muted">Sujeto, mundo, luz, lente y composición. Se deciden una vez y se respetan en las tres piezas.</p></div>
+    <div class="card hl"><h3>Libre</h3><p class="muted">Concepto y acción. Lo único que cambias tú.</p></div>
   </div>
-  <p class="foot">El error más común no es escribir mal el prompt. Es escribir solo la E.</p>
+  <p class="quote" style="color:var(--ink)">Un adjetivo se interpreta distinto cada vez. Un número, no.</p>
 </section>
 
 <!-- 14 -->
-<section class="slide" data-min="46">
-  <div class="kicker"><span>Paso 2</span><b>La letra que decide</b></div>
-  <p class="big">Sin la <span class="coral">A</span>,<br>la IA<br>inventa datos</p>
-  <p class="lead" style="max-width:44ch">Si no le das tu URL y los nombres exactos de tus columnas, te va a entregar un dashboard precioso lleno de números falsos. Y se ve tan bien que no te das cuenta.</p>
-</section>
-
-<!-- 15 PANEL -->
-<section class="slide panel" data-min="49">
-  <div class="kicker"><span>Paso 2</span><b>El prompt maestro · 1 de 2</b></div>
-  <h3>Cópialo completo. Solo cambias lo resaltado.</h3>
-  <div class="prompt">
-    <button class="copy" data-copy>Copiar</button>
-<pre><span class="cr">CONTEXTO:</span> soy analista de redes sociales de una marca de ropa que
-vende por internet. Tengo una hoja de Google publicada como CSV con
-los datos diarios de mis publicaciones. Necesito un dashboard que se
-actualice solo, sin volver a subir nada, para proyectarlo en la
-oficina y compartirlo con mi equipo.
-
-<span class="cr">ROL:</span> actúa como desarrollador front-end especializado en
-dashboards de datos.
-
-<span class="cr">ANCLA — mi fuente de datos:</span>
-URL del CSV: <span class="var">[PEGA AQUÍ TU URL]</span>
-
-Las columnas son, en este orden y con estos nombres exactos:
-Fecha | Red | Publicacion | Alcance | Interacciones | Clics | Seguidores
-
-- Fecha viene como AAAA-MM-DD
-- Red es texto: Instagram, TikTok, Facebook o LinkedIn
-- Publicacion es el nombre de la pieza (puede traer comas entre
-  comillas, el parseo debe respetarlas)
-- Alcance, Interacciones, Clics y Seguidores son números enteros</pre>
-  </div>
-</section>
-
-<!-- 16 PANEL -->
-<section class="slide panel" data-min="52">
-  <div class="kicker"><span>Paso 2</span><b>El prompt maestro · 2 de 2</b></div>
-  <h3>Va pegado al anterior, en el mismo mensaje</h3>
-  <div class="prompt">
-    <button class="copy" data-copy>Copiar</button>
-<pre><span class="cr">ENTREGABLE:</span> un dashboard en un solo archivo HTML que:
-
-1. Lee los datos con fetch() desde la URL de arriba y los parsea.
-
-2. Vuelve a leer la URL automáticamente cada 30 segundos y redibuja
-   todo, sin recargar la página.
-
-3. Arriba, cuatro tarjetas grandes con los totales:
-   - Alcance total
-   - Interacciones totales
-   - Clics totales
-   - Tasa de interacción (interacciones / alcance, en porcentaje)
-
-4. Debajo, tres gráficos:
-   - Líneas: alcance por fecha
-   - Barras: interacciones por red social
-   - Barras horizontales: las 5 publicaciones con más clics
-
-5. Abajo, una tabla con todas las filas, ordenada por fecha
-   descendente.
-
-6. Arriba a la derecha: un texto "Actualizado hace X segundos" y
-   un botón "Actualizar ahora".
-
-<span class="cr">RESTRICCIONES:</span>
-- Un solo archivo HTML. Todo el CSS y el JavaScript adentro.
-- Sin backend, sin base de datos, sin login, sin clave de API.
-- Nada de instalar librerías por consola: si usas una, cárgala
-  desde un CDN.
-- No inventes datos de ejemplo. Si la URL falla, muestra un
-  mensaje de error visible, nunca una pantalla en blanco.
-- Diseño limpio, fondo claro, un solo color de acento.
-- Tipografía grande: esto se va a proyectar y se lee a 3 metros.
-- Que funcione también en celular.</pre>
-  </div>
-</section>
-
-<!-- 17 PANEL -->
-<section class="slide panel" data-min="55">
-  <div class="kicker"><span>Paso 2</span><b>Por qué cada restricción está ahí</b></div>
-  <h2>Nada es decorativo</h2>
-  <div class="cols" style="margin-top:1.8vh">
-    <div>
-      <div class="card" style="margin-bottom:1.2vh"><span class="k">"Un solo archivo"</span><p>Para poder publicarlo arrastrándolo. Si te entrega tres archivos, el paso final se complica.</p></div>
-      <div class="card"><span class="k">"Sin instalar por consola"</span><p>Sin esto, la IA asume que sabes usar la terminal y te entrega instrucciones que no vas a poder seguir.</p></div>
+<section class="slide">
+  <p class="eyebrow">Taller 1 · 15 min · ChatGPT · individual</p>
+  <h2>Concepto y claim</h2>
+  <div class="timer" data-min="15"><span class="t">15:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Pega el prompt con el brief.</li><li>Elige tu concepto.</li><li>Pásalo por el panel hostil del Módulo 1.</li><li>Escribe la acción del corredor que sale del concepto.</li></ol>
+      <p class="muted"><b>Sales con:</b> concepto, claim de máximo 5 palabras y acción.</p>
     </div>
-    <div>
-      <div class="card hi" style="margin-bottom:1.2vh"><span class="k">"No inventes datos"</span><p>La más importante. Sin esta línea te entrega un dashboard con números falsos que se ve perfecto.</p></div>
-      <div class="card"><span class="k">"Mensaje de error visible"</span><p>Para que cuando algo falle sepas qué falló, en vez de mirar una pantalla blanca.</p></div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Actúa como director creativo. Este es el brief:
+
+adidas TRÓPICO es una línea de running para clima cálido y húmedo. Target: corredores urbanos de 25 a 40 años en ciudades tropicales de LATAM que salen a las 5:30 a. m. porque a las 7 ya no se puede. Insight de partida: aquí el enemigo no es el frío ni la distancia, es el calor; y al calor no se le gana, se le aguanta.
+
+Descarta las 10 ideas obvias. Dame 5 conceptos, cada uno en una frase, con la tensión humana que activa.
+
+Para cada concepto: un claim de máximo 5 palabras y una acción concreta que el corredor hace en la foto.
+
+Prohibido usar: supera, desafía, sin límites, rompe.</pre></div></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">Taller 2 · 25 min · Gemini · individual</p>
+  <h2>El Key Visual, paso a paso</h2>
+  <div class="timer" data-min="25"><span class="t">25:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2 1 420px"><ol>
+      <li>Abre un chat nuevo en Gemini. Este chat no se cierra en todo el taller.</li>
+      <li>Pega la ficha completa (diapositiva 12).</li>
+      <li>Llena solo concepto y acción.</li>
+      <li>Pide cuatro variaciones, no una.</li>
+      <li>Elige la que deja libre el 60% de aire para el texto.</li></ol></div>
+    <div class="card ink" style="flex:1 1 300px"><p class="eyebrow" style="color:var(--coral)">Paso 6 · el que no se olvida</p>
+      <p class="quote" style="color:#F6F5F2">Descarga la imagen elegida.</p>
+      <p>Ese archivo es el ancla de la campaña. Sin él, el Taller 3 no funciona.</p></div>
+  </div>
+  <p class="foot">Si a los 20 minutos no tienes una imagen usable, descarga el Key Visual de respaldo del chat.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <p class="eyebrow">Taller 2 · diagnóstico rápido</p>
+  <h2>Si te sale mal, revisa esto</h2>
+  <table>
+    <tr><th>Síntoma</th><th>Causa probable</th><th>Arreglo</th></tr>
+    <tr><td>Se ve plana</td><td>La acción es vaga</td><td>Una acción que se pueda fotografiar</td></tr>
+    <tr><td>Se ve genérica</td><td>Tocaste un campo bloqueado</td><td>Vuelve a pegar la ficha original</td></tr>
+    <tr><td>Aparece un logo</td><td>El modelo lo inventa</td><td>Repite: “sin logos, sin marcas”</td></tr>
+    <tr><td>No hay aire para el texto</td><td>Se ignoró la composición</td><td>“Sujeto a la izquierda, 60% libre”</td></tr>
+    <tr><td>Atardecer naranja</td><td>Sesgo del modelo hacia lo épico</td><td>Repite la hora: 5:40 a. m.</td></tr>
+  </table>
+  <p class="foot">Cambia una sola cosa por intento. Si cambias tres, no sabes cuál funcionó.</p>
+</section>
+
+<!-- 17 -->
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Galería en vivo · 5 min · todos</p>
+  <h1>Imágenes distintas. Una sola campaña.</h1>
+  <p class="lead">Cada persona cambió solo concepto y acción. Todo lo demás estaba fijo.</p>
+  <p class="accent" style="font-weight:600">Sube tu Key Visual a la carpeta compartida y vota en el chat: ¿cuál cuenta mejor el concepto?</p>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <p class="eyebrow">Taller 3 · 28 min en total · Gemini · individual</p>
+  <h2>Declina el Key Visual en tres formatos</h2>
+  <div class="timer" data-min="28"><span class="t">28:00</span><button class="start">Iniciar</button><button class="reset">Reiniciar</button></div>
+  <div class="split">
+    <div class="left">
+      <ol><li>Sigue en el mismo chat de Gemini.</li><li>Adjunta tu Key Visual descargado.</li><li>Cambia solo formato y composición.</li><li>Genera una pieza por formato.</li></ol>
+      <div class="row" style="gap:.6vw"><span class="pill" style="flex:none">Story 9:16</span><span class="pill" style="flex:none">Banner 3:1</span><span class="pill" style="flex:none">Correo 2:1</span></div>
+    </div>
+    <div class="right">
+      <div class="prompt"><span class="tag">Story · con la imagen adjunta</span><button class="copy">Copiar</button>
+<pre>Esta imagen es la referencia. Misma persona, misma luz, mismo mundo, misma paleta.
+Cambia solo el encuadre a 9:16. Composición: sujeto en el tercio inferior, parte superior libre para el texto.
+Sin logos, sin texto.</pre></div>
+      <div class="prompt"><span class="tag">Banner</span><button class="copy">Copiar</button>
+<pre>Misma referencia. Cambia solo el encuadre a 3:1. Composición: sujeto a la izquierda, derecha libre para el texto. Sin logos, sin texto.</pre></div>
+      <div class="prompt"><span class="tag">Header de correo</span><button class="copy">Copiar</button>
+<pre>Misma referencia. Cambia solo el encuadre a 2:1. Composición: sujeto centrado con aire a ambos lados. Sin logos, sin texto.</pre></div>
     </div>
   </div>
 </section>
 
-<!-- 18 PANEL -->
-<section class="slide panel" data-min="58">
-  <div class="kicker"><span>TALLER 2</span><b>Construir · 35 minutos</b></div>
-  <h2>Ahora ustedes</h2>
-  <ol class="num" style="margin-top:1.4vh">
-    <li>Abre <b>claude.ai</b>.</li>
-    <li>Copia las <b>dos partes</b> del prompt maestro y pégalas <b>en un solo mensaje</b>.</li>
-    <li>Reemplaza <span class="path">[PEGA AQUÍ TU URL]</span> por tu URL del CSV.</li>
-    <li>Envía. Espera a que termine de escribir el archivo.</li>
-    <li>Descarga el archivo y ábrelo con doble clic. Se abre en tu navegador.</li>
-    <li>¿Ves tus números? <b>Ganaste.</b> ¿Pantalla en blanco o un error? Pasa a la siguiente lámina.</li>
-  </ol>
-  <div class="timer" data-min="35">
-    <span class="lbl">Restante</span><span class="clock">35:00</span>
-    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
-  </div>
-</section>
-
-<!-- 19 PANEL -->
-<section class="slide panel" data-min="70">
-  <div class="kicker"><span>TALLER 2</span><b>Si algo falla</b></div>
-  <h2>Los cuatro errores</h2>
-  <div class="cols" style="margin-top:1.6vh">
-    <div>
-      <div class="card" style="margin-bottom:1.2vh"><span class="k">Pantalla en blanco</span><p>Casi siempre es la URL. Vuelve a la lámina de verificación y ábrela sola en una pestaña.</p></div>
-      <div class="card"><span class="k">Tarjetas en cero o vacías</span><p>Un nombre de columna no coincide. Compara letra por letra: <b>Publicacion</b> va sin tilde.</p></div>
+<!-- 19 -->
+<section class="slide">
+  <p class="eyebrow">Taller 3 · mensajes · ChatGPT</p>
+  <h2>Un mensaje por canal, con la pieza al frente</h2>
+  <div class="split">
+    <div class="right">
+      <table>
+        <tr><th>Pieza</th><th>Tono</th><th>Extensión</th></tr>
+        <tr><td>Story</td><td>Primera persona, del corredor</td><td>Máximo 8 palabras</td></tr>
+        <tr><td>Banner</td><td>Directo, con el producto</td><td>Claim + 1 línea</td></tr>
+        <tr><td>Correo</td><td>Promete algo útil</td><td>Asunto + 2 líneas</td></tr>
+      </table>
     </div>
-    <div>
-      <div class="card" style="margin-bottom:1.2vh"><span class="k">Los números salen como texto</span><p>Dile: <b>"convierte Alcance, Interacciones, Clics y Seguidores a número antes de sumarlos"</b>.</p></div>
-      <div class="card hi"><span class="k">Datos que no son los tuyos</span><p>Inventó los datos. Dile: <b>"no uses datos de ejemplo, lee únicamente de la URL que te di"</b>.</p></div>
+    <div class="left" style="flex:1 1 420px">
+      <div class="prompt"><span class="tag">Prompt</span><button class="copy">Copiar</button>
+<pre>Concepto: [ESCRIBE TU CONCEPTO]. Claim: [ESCRIBE TU CLAIM].
+Escribe el texto de tres piezas:
+- Story: primera persona, del corredor, máximo 8 palabras.
+- Banner: directo, con el producto, una línea debajo del claim.
+- Correo: asunto + 2 líneas que prometan algo útil.
+Prohibido: descubre, revoluciona, eleva, transforma, sumérgete, potencia, emojis y rayas largas.
+Dame 3 opciones por canal.</pre></div>
     </div>
   </div>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0">Regla para pedir arreglos: <span class="coral">un problema por mensaje.</span> Si le pides tres cosas juntas, te arregla una y te daña otra.</p>
+  <p class="foot">El claim es el mismo en las tres piezas. Lo que cambia es el mensaje.</p>
 </section>
 
 <!-- 20 -->
-<section class="slide" data-min="95">
-  <div class="kicker"><span>Pausa</span><b>Minuto 95</b></div>
-  <h2>Los dashboards,<br>en la pared</h2>
-  <p class="lead">Quince minutos de pausa. Antes, cada mesa proyecta el suyo diez segundos. Mismos datos, y van a verse distintos: ahí se nota qué cambió cada quien.</p>
+<section class="slide">
+  <p class="eyebrow">Taller 3 · montaje · Canva</p>
+  <h2>Lo que la IA no hace, se monta encima</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><span class="num">1</span><h3>Claim</h3><p class="muted">Igual en las tres piezas, en el aire que dejó la composición.</p></div>
+    <div class="card"><span class="num">2</span><h3>Mensaje del canal</h3><p class="muted">El texto de story, banner o correo, debajo del claim.</p></div>
+    <div class="card ink"><span class="num">3</span><h3>Logo</h3><p>Siempre el archivo oficial. Nunca dentro del prompt.</p></div>
+  </div>
+  <p style="font-weight:600;color:var(--ink)">Usa el color de acento de la paleta solo en un elemento por pieza.</p>
 </section>
 
 <!-- 21 -->
-<section class="slide" data-min="110">
-  <div class="kicker"><span>Paso 3</span><b>El momento de la verdad</b></div>
-  <h2>Ahora saquen<br>el celular</h2>
-  <p class="lead">Abran la hoja de Google desde el teléfono. Vamos a escribir un dato nuevo y a ver si la pantalla del computador se entera sola.</p>
-</section>
-
-<!-- 22 PANEL -->
-<section class="slide panel" data-min="113">
-  <div class="kicker"><span>TALLER 3</span><b>La prueba · 25 minutos</b></div>
-  <h2>Paso a paso</h2>
-  <ol class="num" style="margin-top:1.4vh">
-    <li>En el <b>computador</b>, deja el dashboard abierto y visible.</li>
-    <li>En el <b>celular</b>, abre la app de Google Sheets y entra a tu hoja.</li>
-    <li>Ve a la primera fila vacía, abajo del todo, y escribe una fila nueva: fecha de hoy, una red, un nombre de publicación, y números grandes en Alcance, Interacciones y Clics.</li>
-    <li><b>Suelta el celular y mira el computador.</b> No recargues. No toques nada.</li>
-    <li>Espera. Si a los dos minutos no se movió, dale al botón <b>"Actualizar ahora"</b>.</li>
-    <li>Anota cuánto tardó. Ese número es la verdad de tu herramienta.</li>
-  </ol>
-  <div class="timer" data-min="25">
-    <span class="lbl">Restante</span><span class="clock">25:00</span>
-    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
-  </div>
-</section>
-
-<!-- 23 PANEL -->
-<section class="slide panel" data-min="122">
-  <div class="kicker"><span>TALLER 3</span><b>Si no se movió</b></div>
-  <h2>El caché de Google</h2>
-  <p class="lead" style="margin-top:1.2vh">Google guarda una copia de la hoja publicada y no siempre la refresca de inmediato. Hay una dirección alterna que suele responder más fresca. Pídesela a Claude así:</p>
-  <div class="prompt">
-    <button class="copy" data-copy>Copiar</button>
-<pre>El CSV publicado se está actualizando muy lento por el caché de
-Google. Cambia la fuente por el endpoint gviz de mi misma hoja:
-
-https://docs.google.com/spreadsheets/d/<span class="var">[EL ID DE MI HOJA]</span>/gviz/tq?tqx=out:csv
-
-Y agrégale a cada petición un parámetro que cambie con la hora,
-para saltarse el caché del navegador.</pre>
-  </div>
-  <p class="foot">El ID de la hoja es lo que aparece en la URL entre /d/ y /edit.</p>
-</section>
-
-<!-- 24 -->
-<section class="slide" data-min="135">
-  <div class="kicker"><span>Paso 4</span><b>Publicar</b></div>
-  <h2>Un archivo en tu computador<br>no le sirve a nadie</h2>
-  <p class="lead">Ahora le vamos a poner un link. Gratis, permanente, y sin usar la consola.</p>
-</section>
-
-<!-- 25 PANEL -->
-<section class="slide panel" data-min="138">
-  <div class="kicker"><span>TALLER 4</span><b>Publicar en GitHub · 25 minutos</b></div>
-  <h2>Paso a paso</h2>
-  <ol class="num" style="margin-top:1.2vh">
-    <li>Renombra tu archivo a <b>index.html</b> exactamente así, en minúsculas.</li>
-    <li>En <b>github.com</b>, botón verde <b>New</b> para crear un repositorio.</li>
-    <li>Ponle nombre, marca <b>Public</b> y crea.</li>
-    <li>Clic en <b>uploading an existing file</b> y arrastra tu <b>index.html</b>. Abajo, <b>Commit changes</b>.</li>
-    <li>Pestaña <b>Settings</b>, menú izquierdo abajo, <b>Pages</b>.</li>
-    <li>En <i>Source</i> elige <b>Deploy from a branch</b>. En <i>Branch</i>: <b>main</b> y carpeta <b>/ (root)</b>. <b>Save</b>.</li>
-    <li>Espera uno o dos minutos, recarga esa página y copia tu URL.</li>
-  </ol>
-  <div class="timer" data-min="25">
-    <span class="lbl">Restante</span><span class="clock">25:00</span>
-    <button data-t="start">Iniciar</button><button data-t="reset">Reiniciar</button>
-  </div>
-</section>
-
-<!-- 26 PANEL -->
-<section class="slide panel" data-min="150">
-  <div class="kicker"><span>TALLER 4</span><b>Las tres trampas</b></div>
-  <h2>Lo que sale mal aquí</h2>
-  <div class="cols3" style="margin-top:2vh">
-    <div class="card"><span class="k">Repositorio privado</span><p>Con cuenta gratuita, Pages no funciona en privado. Settings → abajo del todo → cambiar a público.</p></div>
-    <div class="card"><span class="k">El archivo no se llama index</span><p>Si quedó con otro nombre, tienes que pegárselo al final de la URL. Renómbralo y ya.</p></div>
-    <div class="card hi"><span class="k">Mayúsculas</span><p>GitHub distingue <b>Index.html</b> de <b>index.html</b>. En tu computador da igual; aquí no.</p></div>
-  </div>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0">Si activaste Pages y no carga, ve a la pestaña <b>Actions</b>. Punto amarillo: espera. Punto verde: ya está. Punto rojo: ahí está tu error.</p>
-</section>
-
-<!-- 27 PANEL -->
-<section class="slide panel" data-min="158">
-  <div class="kicker"><span>Auditoría</span><b>Cada mesa revisa a la de al lado</b></div>
-  <h2>¿Está realmente vivo?</h2>
-  <div class="check">
-    <label><input type="checkbox"><span>El link abre desde <b>otro computador</b>, no solo el tuyo.</span></label>
-    <label><input type="checkbox"><span>Las cuatro tarjetas muestran <b>números reales</b>, no ceros.</span></label>
-    <label><input type="checkbox"><span>Los tres gráficos <b>tienen datos</b> y se leen desde lejos.</span></label>
-    <label><input type="checkbox"><span>Escribo una fila en la hoja y el dashboard <b>la refleja</b>.</span></label>
-    <label><input type="checkbox"><span>Se ve bien <b>en el celular</b>.</span></label>
-    <label><input type="checkbox"><span>Si rompo la URL a propósito, sale un <b>mensaje de error</b>, no una pantalla blanca.</span></label>
-  </div>
-  <p class="foot">El cuarto punto es el único que importa. Los otros cinco explican por qué falla.</p>
-</section>
-
-<!-- 28 PANEL -->
-<section class="slide panel" data-min="165">
-  <div class="kicker"><span>Extra</span><b>La otra ruta</b></div>
-  <h2>¿Y Lovable?</h2>
-  <p class="lead" style="margin-top:1.2vh">Sirve para lo mismo, con el mismo prompt maestro, y te da dominio propio y edición visual. Pero tiene un límite que hay que conocer antes de casarse con la herramienta.</p>
-  <div class="cols" style="margin-top:2vh">
-    <div class="card"><span class="k">El límite</span><p>El plan gratuito da <b>5 créditos al día</b>, con tope de 30 al mes. Eso son unos dos o tres prompts diarios. Si iteras, te quedas sin cupo a mitad de camino.</p></div>
-    <div class="card hi"><span class="k">Cómo se usa bien</span><p>Un mensaje en <b>Plan Mode</b> para revisar el plan (cuesta 1 fijo), y <b>un solo</b> prompt maestro bien escrito para construir. Nunca tres intentos vagos.</p></div>
-  </div>
-  <div class="rule"></div>
-  <p class="lead" style="margin-top:0">Y ahí está la moraleja del taller entero: <span class="coral">cuando cada intento cuesta plata, escribir bien a la primera deja de ser elegancia y se vuelve presupuesto.</span></p>
-</section>
-
-<!-- 29 PANEL -->
-<section class="slide panel" data-min="170">
-  <div class="kicker"><span>Cierre</span><b>Hasta dónde llega esto</b></div>
-  <h2>Qué se puede y qué no</h2>
-  <div class="vs">
-    <div class="yes">
-      <h3>SÍ</h3>
-      <p>Cualquier hoja de Google se vuelve dashboard con el mismo método</p>
-      <p>Varias personas escriben en la hoja y todos ven lo mismo</p>
-      <p>Una pantalla en la oficina mostrándolo todo el día</p>
-      <p>Cambiar los gráficos pidiéndolo en palabras</p>
+<section class="slide">
+  <p class="eyebrow">Autoauditoría · 10 min · individual + 3 voluntarios</p>
+  <h2>¿Las tres piezas son la misma campaña?</h2>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2 1 420px;gap:1.6vh">
+      <p class="check">Misma persona en las tres piezas.</p>
+      <p class="check">Misma luz y misma hora del día.</p>
+      <p class="check">Paleta negra y blanca con un solo acento.</p>
+      <p class="check">Cero logos inventados por la IA.</p>
+      <p class="check">Claim de máximo 5 palabras, igual en las tres.</p>
+      <p class="check">Ningún “nunca” del kit aparece.</p>
     </div>
-    <div class="no">
-      <h3>NO</h3>
-      <p>Traer datos solo desde Instagram o Meta<small>Eso necesita la API de la plataforma. Otro taller.</small></p>
-      <p>Datos privados o sensibles<small>La hoja publicada es pública para quien tenga el link.</small></p>
-      <p>Actualización al segundo<small>El caché de Google manda.</small></p>
+    <div class="card ink" style="flex:1 1 300px;justify-content:space-between">
+      <p class="eyebrow" style="color:var(--coral)">Regla de la auditoría</p>
+      <p class="quote" style="color:#F6F5F2">La pieza que no pasa se regenera. No se maquilla en Canva.</p>
+      <p>Escribe tu puntaje en el chat con los pesos del brief: 40, 30, 20 y 10.</p>
     </div>
   </div>
+  <p class="foot">Un logo inventado por la IA descalifica la pieza.</p>
 </section>
 
-<!-- 30 -->
-<section class="slide" data-min="175">
-  <div class="kicker"><span>Cierre</span><b>Qué se llevan</b></div>
-  <h2>Tres cosas</h2>
-  <div class="cols3">
-    <div class="card"><span class="k">Uno</span><p>Un <b>dashboard publicado</b>, con link propio, funcionando ahora mismo.</p></div>
-    <div class="card"><span class="k">Dos</span><p>El <b>prompt maestro</b>, que sirve para cualquier hoja y cualquier tema.</p></div>
-    <div class="card"><span class="k">Tres</span><p>El <b>método</b>: publicar datos, apuntar, refrescar, publicar. Siempre igual.</p></div>
+<!-- 22 -->
+<section class="slide dark">
+  <p class="eyebrow">Demo y cierre · 7 min</p>
+  <h2>Lo que te llevas no son las imágenes</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Demo · Midjourney</p><p>La misma ficha en una herramienta paga. Ahí existe la semilla: un número que repite el punto de partida.</p><p class="muted">El método no cambia. Cambia la resolución.</p></div>
+    <div class="card" style="border-left:6px solid var(--coral)"><p class="eyebrow">Te llevas</p><p class="quote" style="color:#F6F5F2">La ficha de producción. Cambia el Ancla por el kit de tu marca y sirve para cualquier campaña.</p></div>
   </div>
-  <p class="lead" style="max-width:48ch">El lunes que viene, el reporte ya está hecho.</p>
-</section>
-
-<!-- 31 -->
-<section class="slide" data-min="178">
-  <div class="kicker"><span>Fin</span></div>
-  <h1>El dato no se<br>copia.<br><span class="coral">Se conecta.</span></h1>
-  <p class="lead">Todo lo que hiciste hoy fue un tubo entre dos cosas que ya existían.</p>
+  <p style="font-weight:600;color:#F6F5F2">Próxima sesión: la misma persona en diez escenas distintas.</p>
 </section>
 
 </div>
 
-<div class="rail">
-  <span class="meta" id="pos">01 / 31</span>
-  <div class="bar"><i id="fill"></i></div>
-  <span class="meta" id="min">min 000</span>
-</div>
-<div class="nav">
-  <button id="prev" aria-label="Anterior">←</button>
-  <button id="next" aria-label="Siguiente">→</button>
-</div>
+<div class="nav"><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 22</span><button id="next" aria-label="Siguiente">›</button></div>
 
 <script>
 (function(){
   var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var i=0,pos=document.getElementById('pos'),fill=document.getElementById('fill'),minEl=document.getElementById('min');
-  function pad(n){return n<10?'0'+n:''+n}
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
   function show(n){
     i=Math.max(0,Math.min(slides.length-1,n));
-    slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
-    var m=parseInt(slides[i].dataset.min||0,10);
-    pos.textContent=pad(i+1)+' / '+slides.length;
-    minEl.textContent='min '+pad(m);
-    fill.style.width=(m/180*100)+'%';
-    document.body.classList.toggle('panelmode',slides[i].classList.contains('panel'));
-    location.hash=i+1;
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
   }
-  document.getElementById('next').onclick=function(){show(i+1)};
-  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
   document.addEventListener('keydown',function(e){
-    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1)}
-    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
-    if(e.key==='Home')show(0);
-    if(e.key==='End')show(slides.length-1);
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
   });
-  document.addEventListener('click',function(e){
-    var b=e.target.closest('[data-copy]');if(!b)return;
-    var txt=b.parentNode.querySelector('pre').innerText;
-    navigator.clipboard.writeText(txt).then(function(){
-      b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600);
-    }).catch(function(){b.textContent='Selecciona y copia'});
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+
+  // copiar prompts
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=b.parentNode.querySelector('pre').innerText;
+      var done=function(){var o=b.textContent;b.textContent='Copiado';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done');},1600);};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done);}
+      else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(err){}document.body.removeChild(t);done();}
+    });
   });
-  [].slice.call(document.querySelectorAll('.timer')).forEach(function(t){
-    var total=parseInt(t.dataset.min,10)*60,left=total,id=null;
-    var clock=t.querySelector('.clock');
-    function paint(){clock.textContent=pad(Math.floor(left/60))+':'+pad(left%60)}
-    t.querySelector('[data-t="start"]').onclick=function(){
-      if(id){clearInterval(id);id=null;this.textContent='Reanudar';return}
-      this.textContent='Pausar';
-      id=setInterval(function(){left--;paint();if(left<=0){clearInterval(id);id=null;t.classList.add('done');left=0;paint()}},1000);
+
+  // temporizadores
+  document.querySelectorAll('.timer').forEach(function(w){
+    var total=parseInt(w.getAttribute('data-min'),10)*60,left=total,id=null;
+    var out=w.querySelector('.t'),bs=w.querySelector('.start');
+    function fmt(s){var a=Math.abs(s);return (s<0?'-':'')+String(Math.floor(a/60)).padStart(2,'0')+':'+String(a%60).padStart(2,'0');}
+    function draw(){out.textContent=fmt(left);out.classList.toggle('over',left<=0);}
+    bs.onclick=function(){
+      if(id){clearInterval(id);id=null;bs.textContent='Continuar';return;}
+      bs.textContent='Pausar';
+      id=setInterval(function(){left--;draw();},1000);
     };
-    t.querySelector('[data-t="reset"]').onclick=function(){
-      if(id){clearInterval(id);id=null}
-      left=total;t.classList.remove('done');paint();
-      t.querySelector('[data-t="start"]').textContent='Iniciar';
-    };
-    paint();
+    w.querySelector('.reset').onclick=function(){clearInterval(id);id=null;left=total;bs.textContent='Iniciar';draw();};
+    draw();
   });
-  var h=parseInt((location.hash||'').replace('#',''),10);
-  show(isNaN(h)?0:h-1);
 })();
 </script>
 </body>
