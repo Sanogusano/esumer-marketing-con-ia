@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guion del facilitador · Taller de ventas</title>
+<style>
+:root{--ink:#14141C;--paper:#F6F5F2;--coral:#C23A18;--line:#E2E0DA;--muted:#4A4A55}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif;padding:32px 20px}
+.wrap{max-width:900px;margin:0 auto}
+h1{font:700 28px/1.2 Georgia,serif;margin-bottom:6px}
+h2{font:700 20px/1.3 Georgia,serif;margin:28px 0 10px}
+.sub{color:var(--muted);margin-bottom:24px}
+.rule{background:var(--ink);color:#F6F5F2;border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.rule b{color:#FF8A6B}
+table{width:100%;border-collapse:collapse;background:#FFFFFC;border:1px solid var(--line)}
+th{background:var(--ink);color:#F6F5F2;text-align:left;padding:10px 12px;font-size:14px}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top;font-size:15px}
+td:first-child{white-space:nowrap;font-weight:700}
+td:nth-child(2){white-space:nowrap;color:var(--muted)}
+tr.live td{background:#FFF1EC}
+.tag{display:inline-block;background:var(--coral);color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;margin-bottom:4px}
+ul{padding-left:20px}
+li{margin-bottom:6px}
+@media print{body{padding:0}.rule{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Guion del facilitador</h1>
+<p class="sub">Taller “Vender con IA sin sonar a IA” · 180 min virtual · Solo para ti: no lo subas a GitHub.</p>
+
+<div class="rule"><b>Objetivo:</b> que salgan usando la IA para ser más productivos en ventas: organizar clientes, decidir a quién llamar y preparar cada llamada en minutos, con su propia voz. <b>Tu dinámica en cada bloque:</b> explicas con el slide, los lanzas con la franja “Ahora tú” y, a mitad del tiempo, lees 2 o 3 respuestas del chat. <b>Solo cambias de ventana dos veces:</b> slide 4 (Claude) y slide 9 (tu Skill ya creada).</div>
+
+<table>
+<tr><th>Slide</th><th>Min</th><th>Qué haces y qué dices</th></tr>
+<tr><td>1 · Portada</td><td>1</td><td>Promesa: salen con un CRM funcionando y un guionista que escribe como ellos. Nada de software pago.</td></tr>
+<tr><td>2 · Cuatro cosas</td><td>1</td><td>Todo se conecta: la base alimenta el CRM, el CRM da los segmentos, el segmento cambia el guion y la llamada vuelve al CRM.</td></tr>
+<tr><td>3 · Agenda</td><td>1</td><td>Si el tiempo se acorta, recorta la práctica por voz, nunca el guionista.</td></tr>
+<tr class="live"><td>4 · El mensaje robot</td><td>4</td><td><span class="tag">Cambio de ventana 1</span><br>Lee el mensaje en voz alta y pregunta en el chat quién le respondería. Luego pasa a Claude y pídele: “Escríbeme un WhatsApp para reactivar a un cliente de ANDINA.” Saldrá algo parecido. Vuelve al slide: “Hoy vamos a lograr que escriba como ustedes.”</td></tr>
+<tr><td>5 · Antes de empezar</td><td>3</td><td>Pega en el chat el enlace de la guía. Verifica que todos activaron “Crear y editar archivos” en Claude: sin eso no hay Skill.</td></tr>
+<tr><td>6 · El CRM</td><td>30</td><td>Lanza los pasos 1A y 1B. El punto donde más se traban es pegar solo valores (Ctrl + Shift + V). A los 15 min pregunta quién ya ve los 240 clientes en la pestaña CRM.</td></tr>
+<tr><td>7 · RFM</td><td>25</td><td>Explica R, F y M con un cliente real de la base. Lanza 2A y 2B. Si alguien tiene Sheets en inglés, que le pase el error a Claude. A los 20 min pide en el chat cuántos clientes En riesgo tienen (con la fecha de corte del ejercicio deberían ser alrededor de 73).</td></tr>
+<tr><td>8 · Tabla de segmentos</td><td>3</td><td>Es la estrategia del guionista: cada segmento tiene un objetivo de llamada distinto. Pide que la tengan presente al probar la Skill.</td></tr>
+<tr class="live"><td>9 · La Skill</td><td>5</td><td><span class="tag">Cambio de ventana 2</span><br>Muestra tu propia Skill ya creada: genera en vivo el guion para un cliente En riesgo y léelo en voz alta. Así ven el resultado antes de construir el suyo.</td></tr>
+<tr><td>10 · Tu voz</td><td>40</td><td>Lanza 3A, 3B y 3C. El dictado en Google Docs solo funciona en Chrome. A los 25 min pide que peguen en el chat una frase de su guion que suene a ellos. Si alguien no logra subir la Skill, mándalo al plan B (Gem de Gemini) sin perder tiempo.</td></tr>
+<tr><td>11 · Pausa</td><td>10</td><td>Elige dos guiones del chat: uno que suena humano y uno que suena a IA. Al volver, léelos sin decir de quién son.</td></tr>
+<tr><td>12 · Práctica por voz</td><td>25</td><td>Lanza el paso 4. Pide voluntarios que compartan su calificación y “la frase que sonó a robot”. Es el momento más divertido del taller: déjalo respirar.</td></tr>
+<tr><td>13 · Registro</td><td>20</td><td>Lanza 5A y 5B. Muestra que al pegar la tabla de la IA en la celda O los datos caen solos en cuatro columnas.</td></tr>
+<tr><td>14 · Cierre</td><td>15</td><td>Cada uno deja en su CRM sus 5 llamadas del lunes con fecha y guion. Pregunta cuánto tiempo les tomaba antes preparar 5 llamadas así.</td></tr>
+</table>
+
+<h2>Antes de la sesión</h2>
+<ul>
+<li>Sube <b>ventas-slides.html</b> y <b>ventas.html</b> a GitHub. Este guion no se sube.</li>
+<li>Haz tú el taller completo una vez: crea tu Skill con tu voz, ensaya la práctica por voz y deja el CRM armado para mostrarlo.</li>
+<li>Envía 48 horas antes: cuentas de Google, Claude (con “Crear y editar archivos” activado) y la app de Gemini o ChatGPT en el celular.</li>
+<li>Revisa esa semana que en Claude siga existiendo el menú Personalizar → Skills; los menús cambian.</li>
+</ul>
+</div>
+</body>
+</html>

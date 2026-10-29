@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía · Vender con IA sin sonar a IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:2.4vh;padding:6.5vh 6vw 11vh;overflow-y:auto;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.slide.coral{background:var(--coral);color:var(--ink)}
+.eyebrow{font-size:clamp(13px,1.2vw,19px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+.coral .eyebrow{color:var(--ink)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(34px,5vw,88px)}
+h2{font-size:clamp(26px,3.2vw,54px)}
+h3{font-size:clamp(17px,1.7vw,28px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(15px,1.45vw,24px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,32px);color:var(--soft);max-width:70ch}
+.coral .lead{color:var(--ink)}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.1vw,36px);line-height:1.3}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex-wrap:wrap}
+.row>*{flex:1 1 240px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2vw}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2.2vh 1.8vw;display:flex;flex-direction:column;gap:1.1vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p,.card.ink li{color:var(--soft)}
+.card.ink b{color:#F6F5F2}
+.card.ink .eyebrow{color:var(--coral)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border-left:6px solid var(--coral)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(26px,3vw,50px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+ol,ul{padding-left:1.4em;display:flex;flex-direction:column;gap:.6vh}
+.split{display:flex;gap:2.4vw;flex:1;min-height:0;flex-wrap:wrap}
+.split>.left{flex:0 1 30%;min-width:250px;display:flex;flex-direction:column;gap:1.8vh}
+.split>.right{flex:1 1 420px;display:flex;flex-direction:column;gap:1.8vh}
+.prompt{position:relative;background:var(--ink);border-radius:14px;padding:2.4vh 1.8vw;color:#F1F1F4;display:flex;flex-direction:column;gap:1vh}
+.dark .prompt{background:var(--ink2)}
+.prompt .tag{font-size:clamp(12px,1.05vw,17px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);min-height:2.6em;padding-right:9em;display:flex;align-items:center}
+.prompt pre{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(12px,1.08vw,19px);line-height:1.45;white-space:pre-wrap;word-wrap:break-word;color:#F1F1F4}
+.copy{position:absolute;top:2.2vh;right:1.2vw;background:var(--coral);color:var(--ink);border:0;border-radius:999px;padding:.7em 1.3em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.copy:hover{background:#FF7B5E}
+.copy.done{background:#F1F1F4}
+.reto{background:#FFF1EC;border:2px dashed var(--coral-d);border-radius:14px;padding:1.8vh 1.6vw;display:flex;flex-direction:column;gap:.8vh}
+.reto b{color:var(--coral-d)}
+.reveal{align-self:flex-start;background:var(--ink);color:#F6F5F2;border:0;border-radius:999px;padding:.7em 1.4em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.prompt.hid{display:none}
+.callout{display:flex;gap:1.4vw;align-items:center;background:var(--ink);color:#F6F5F2;border-radius:14px;padding:2vh 2vw}
+.callout .ic{font-size:clamp(14px,1.2vw,20px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);white-space:nowrap}
+.callout p{font-weight:600;color:#F6F5F2}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.3em;line-height:1.2}
+.foot{position:absolute;left:6vw;bottom:3.6vh;right:6vw;font-size:clamp(12px,1.05vw,17px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.coral .foot{color:var(--ink)}
+.spacer{flex:1}
+.timer{display:flex;align-items:center;gap:1vw;flex-wrap:wrap}
+.timer .t{font-family:'JetBrains Mono',monospace;font-size:clamp(20px,2.2vw,36px);font-weight:600;min-width:5ch;color:var(--ink)}
+.dark .timer .t{color:#F6F5F2}
+.timer button{border:1px solid var(--coral-d);background:transparent;color:var(--coral-d);border-radius:999px;padding:.45em 1.1em;font:700 clamp(12px,1vw,16px) 'DM Sans',Arial,sans-serif;cursor:pointer}
+.coral .timer button{border-color:var(--ink);color:var(--ink)}
+.timer .t.over{color:var(--coral-d)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:2vw;flex-wrap:wrap}
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:10}
+.nav button{width:44px;height:44px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:10;transition:width .2s}
+@media (max-width:900px){
+  .grid2,.grid4{grid-template-columns:1fr}
+  .slide{padding:5vh 5vw 14vh}
+  .foot{position:static;margin-top:2vh}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Guía del participante · 180 min · Google Sheets, Claude y Gemini</p>
+  <h1>Vender con IA sin sonar a IA</h1>
+  <p class="lead">Aquí están todos los pasos y los prompts para copiar con un clic. Tu facilitador explica cada bloque; tú vienes aquí a trabajar.</p>
+  <p class="foot">Usa las flechas ← → para avanzar. Caso: ANDINA, empresa ficticia con 240 clientes.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">Paso 0 · antes de empezar · 5 min</p>
+  <h2>Deja todo listo</h2>
+  <div class="grid2" style="flex:1">
+    <div class="card"><span class="num">1</span><h3>Google Sheets</h3><p class="muted">Abre sheets.google.com con tu cuenta de Google y crea una hoja en blanco. Ponle de nombre <b>CRM ANDINA</b>.</p></div>
+    <div class="card"><span class="num">2</span><h3>Claude</h3><p class="muted">Entra a claude.ai → Configuración → Capacidades y activa <b>Crear y editar archivos</b>. Sin esto no puedes crear tu Skill.</p></div>
+    <div class="card"><span class="num">3</span><h3>Gemini o ChatGPT en el celular</h3><p class="muted">Ten la app instalada y con sesión iniciada. La vas a usar para practicar una llamada hablando.</p></div>
+    <div class="card ink"><span class="num">4</span><h3>La regla del día</h3><p>Todo guion se lee en voz alta antes de usarlo. Si no lo dirías así por teléfono, no sirve.</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">Paso 1A · CRM · Google Sheets</p>
+  <h2>Trae la base de clientes a tu Drive</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>En tu hoja, haz clic en la celda <b>A1</b>.</li>
+        <li>Copia la fórmula de la derecha, pégala y presiona Enter. Aparecen 240 clientes.</li>
+        <li>Selecciona todo con <b>Ctrl + A</b> (Cmd + A en Mac) y copia.</li>
+        <li>Crea una pestaña nueva con el <b>+</b> de abajo a la izquierda y llámala <b>CRM</b>.</li>
+        <li>En A1 de la pestaña CRM pega solo los valores: <b>Ctrl + Shift + V</b>.</li>
+      </ol>
+    </div>
+    <div class="right">
+      <div class="prompt"><span class="tag">Fórmula para A1</span><button class="copy">Copiar</button>
+<pre>=IMPORTDATA("https://raw.githubusercontent.com/Sanogusano/esumer-marketing-con-ia/main/clientes-andina.csv")</pre></div>
+      <div class="card hl"><p><b>¿Por qué pegar solo valores?</b> La fórmula trae los datos, pero no te deja editarlos. En la pestaña CRM los datos son tuyos y puedes agregar columnas.</p></div>
+      <div class="card"><p class="muted">Columnas que llegan: ClienteID, Nombre, Tipo, Ciudad, UltimaCompra, Compras, ValorTotal, Categoria y Canal.</p></div>
+    </div>
+  </div>
+  <p class="foot">Si trabajas con tu propia base: súbela a Drive como archivo de Google Sheets y usa sus columnas.</p>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Paso 1B · CRM · Google Sheets · 30 min en total con el 1A</p>
+  <h2>Convierte la lista en un CRM</h2>
+  <div class="split">
+    <div class="left">
+      <p>Agrega estos encabezados en la fila 1 de la pestaña CRM:</p>
+      <div class="card"><p><b>J</b> Días · <b>K</b> R · <b>L</b> F · <b>M</b> M · <b>N</b> Segmento</p><p><b>O</b> Estado · <b>P</b> Próximo paso · <b>Q</b> Fecha próximo contacto · <b>R</b> Notas</p></div>
+      <p class="muted">J a N se llenan en el paso 2. O a R son tu seguimiento comercial.</p>
+    </div>
+    <div class="right">
+      <div class="card"><p class="eyebrow">El menú de estados en la columna O</p><ol>
+        <li>Selecciona la columna <b>O</b> haciendo clic en la letra.</li>
+        <li>Menú <b>Insertar → Menú desplegable</b>.</li>
+        <li>Escribe una opción por casilla: Nuevo, Contactado, En negociación, Ganado y Perdido.</li>
+        <li>Haz clic en <b>Listo</b>.</li></ol></div>
+      <div class="card"><p class="eyebrow">La fecha en la columna Q</p><p>Selecciona la columna Q → <b>Formato → Número → Fecha</b>.</p></div>
+      <div class="card ink"><p><b>Inmoviliza la fila 1:</b> Ver → Inmovilizar → 1 fila. Así los encabezados no se pierden al bajar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="eyebrow">Paso 2A · RFM · Claude · 25 min en total</p>
+  <h2>Pídele a la IA la fórmula, no el resultado</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>Abre un chat en Claude y pega el prompt.</li>
+        <li>Copia cada fórmula en la fila 2 de su columna (J, K, L, M y N).</li>
+        <li>Selecciona J2:N2, copia, selecciona J3:N241 y pega. Así se llenan los 240 clientes.</li>
+        <li>Si sale error, pégale el error a Claude y dile si tu Sheets está en español o en inglés.</li>
+      </ol>
+      <div class="card hl"><p><b>¿Por qué?</b> Si le pegas 240 filas a la IA, se salta datos y suma mal. Si le pides la fórmula, Sheets hace la cuenta exacta.</p></div>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 2A</span><button class="copy">Copiar</button>
+<pre>Tengo un CRM en Google Sheets con estas columnas: A ClienteID, B Nombre, C Tipo, D Ciudad, E UltimaCompra (fecha), F Compras (número de compras), G ValorTotal (pesos), H Categoria, I Canal.
+
+Mi Google Sheets está en español. Escríbeme las fórmulas para la fila 2:
+- J Días: días entre E2 y la fecha de corte 31/10/2026.
+- K R: 3 si los días son 120 o menos, 2 si son 240 o menos, 1 si son más.
+- L F: 3 si las compras son 8 o más, 2 si son 3 o más, 1 si son menos.
+- M M: 3 si el valor es 10.000.000 o más, 2 si es 3.000.000 o más, 1 si es menos.
+- N Segmento: Campeón si R=3 y F=3; Leal si R≥2 y F≥2; Prometedor si R=3 y F=1; En riesgo si R=1 y F≥2; Dormido si R=2 y F=1; Perdido en cualquier otro caso.
+
+Dame cada fórmula lista para pegar y explícame en una línea qué hace.</pre></div></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">Paso 2B · RFM · fórmulas de referencia y resumen</p>
+  <h2>Compara y mira tus segmentos</h2>
+  <div class="prompt"><span class="tag">Fórmulas de referencia · Sheets en español</span><button class="copy">Copiar</button>
+<pre>J2  =FECHA(2026;10;31)-E2
+K2  =SI(J2<=120;3;SI(J2<=240;2;1))
+L2  =SI(F2>=8;3;SI(F2>=3;2;1))
+M2  =SI(G2>=10000000;3;SI(G2>=3000000;2;1))
+N2  =SI(Y(K2=3;L2=3);"Campeón";SI(Y(K2>=2;L2>=2);"Leal";SI(Y(K2=3;L2=1);"Prometedor";SI(Y(K2=1;L2>=2);"En riesgo";SI(Y(K2=2;L2=1);"Dormido";"Perdido")))))</pre></div>
+  <div class="row" style="flex:1">
+    <div class="card" style="flex:2"><p class="eyebrow">El resumen en 1 minuto</p><p>Selecciona toda la pestaña CRM → <b>Insertar → Tabla dinámica → Hoja nueva → Crear</b>. En Filas agrega <b>Segmento</b>; en Valores, <b>ClienteID</b> (contar) y <b>ValorTotal</b> (suma).</p></div>
+    <div class="card ink" style="flex:1"><p>Pega en el chat de la reunión cuántos clientes tienes <b>En riesgo</b> y cuánto valen.</p></div>
+  </div>
+  <p class="foot">Si la columna J sale con un número raro: selecciónala → Formato → Número → Número.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">Paso 3A · Tu voz · 10 min</p>
+  <h2>Habla, no escribas</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Graba 1 minuto</p><ol>
+      <li>Abre un Google Doc nuevo.</li>
+      <li><b>Herramientas → Escribir por voz</b> y toca el micrófono.</li>
+      <li>Habla como si llamaras a un cliente: quién eres, por qué llamas y qué le ofreces. Sin guion.</li>
+      <li>Detén el micrófono. El texto que quedó es tu voz real.</li></ol></div>
+    <div class="card"><p class="eyebrow">Suma 3 mensajes reales</p><p>Copia 3 mensajes de WhatsApp o correos que tú hayas enviado a clientes. Borra nombres y datos personales.</p></div>
+    <div class="card ink"><p class="eyebrow">Por qué funciona</p><p>Un guion suena a IA porque la IA escribe con su voz. Si le das tu forma de hablar como ejemplo, escribe como tú.</p></div>
+  </div>
+  <p class="foot">Guarda la transcripción y los 3 mensajes en el mismo Doc: los vas a pegar en el paso 3B.</p>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">Paso 3B · Crea tu Skill · Claude · 20 min</p>
+  <h2>Tu guionista de ventas</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>Abre un chat nuevo en Claude.</li>
+        <li>Pega el prompt y reemplaza [PEGA TU VOZ] por tu transcripción y tus 3 mensajes.</li>
+        <li>Responde las preguntas que te haga.</li>
+        <li>Descarga el archivo .zip que te entrega.</li>
+      </ol>
+      <div class="card hl"><p><b>¿Qué es una Skill?</b> Un archivo de instrucciones que Claude guarda y usa solo cuando lo necesita. Lo escribes una vez y lo usas siempre.</p></div>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 3B</span><button class="copy">Copiar</button>
+<pre>Quiero crear una Skill de Claude llamada guionista-ventas. Antes de crearla, hazme hasta 3 preguntas sobre cómo vendo, una a la vez.
+
+La Skill debe:
+1. Recibir una fila de mi CRM: nombre, tipo, ciudad, última compra, compras, valor, categoría, canal, segmento RFM y notas.
+2. Entregar un guion de llamada (apertura de 2 frases, motivo con un dato real del cliente, una pregunta abierta, respuesta a las 2 objeciones más probables y cierre proponiendo día y hora) y un mensaje de WhatsApp de máximo 60 palabras.
+3. Ajustar el objetivo al segmento: Campeón, agradecer; Leal, producto complementario; Prometedor, segunda compra; En riesgo, preguntar qué pasó; Dormido, algo útil sin vender; Perdido, una sola pregunta.
+4. Escribir con mi voz. Esta es mi voz: [PEGA TU VOZ]
+5. No sonar a IA: frases de máximo 15 palabras, una sola pregunta por mensaje, nada de "espero que te encuentres bien", "solución", "no dudes en" ni listas de tres adjetivos.
+
+Cuando termines, entrégame la Skill como archivo .zip listo para subir.</pre></div></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="eyebrow">Paso 3C · Súbela y pruébala · Claude · 15 min</p>
+  <h2>Pon a trabajar tu guionista</h2>
+  <div class="split">
+    <div class="left">
+      <div class="card"><p class="eyebrow">Subir la Skill</p><ol>
+        <li>En Claude, menú <b>Personalizar → Skills</b> (en inglés: Customize → Skills).</li>
+        <li>Toca <b>Subir</b> y elige el .zip.</li>
+        <li>Verifica que quede activada.</li></ol></div>
+      <div class="card ink"><p><b>El test en voz alta:</b> lee el guion como si estuvieras al teléfono. Si algo no lo dirías así, escríbele: “más hablado, como en mis ejemplos”.</p></div>
+    </div>
+    <div class="right">
+      <div class="prompt"><span class="tag">Prueba en un chat nuevo</span><button class="copy">Copiar</button>
+<pre>Usa mi guionista de ventas con este cliente de mi CRM:
+[COPIA AQUÍ UNA FILA COMPLETA DE TU PESTAÑA CRM, DE LA COLUMNA A A LA N]
+
+Quiero llamarlo esta semana.</pre></div>
+      <p class="muted">Pruébala con 3 clientes de segmentos distintos: un Campeón, uno En riesgo y uno Perdido. Los guiones deben ser muy diferentes.</p>
+    </div>
+  </div>
+  <p class="foot">¿No ves la opción Skills o no se activa? Usa el plan B de la página siguiente.</p>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">Plan B · Gem de Gemini</p>
+  <h2>El mismo guionista en Gemini</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>En gemini.google.com, menú lateral → <b>Gems → Nuevo Gem</b>.</li>
+        <li>Nombre: Guionista de ventas.</li>
+        <li>En Instrucciones pega el texto de la derecha y reemplaza [PEGA TU VOZ].</li>
+        <li>Guarda y pruébalo con una fila de tu CRM.</li>
+      </ol>
+      <p class="muted">Este texto también sirve de referencia para comparar con la Skill que te creó Claude.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Instrucciones del guionista</span><button class="copy">Copiar</button>
+<pre>Eres mi guionista de ventas. Recibes una fila de mi CRM y entregas:
+1. Guion de llamada: apertura de máximo 2 frases, motivo con un dato real del historial del cliente, una pregunta abierta, respuesta a las 2 objeciones más probables de su segmento y cierre proponiendo día y hora.
+2. Mensaje de WhatsApp de máximo 60 palabras.
+
+Objetivo por segmento:
+- Campeón: agradecer y dar acceso anticipado. Sin descuentos.
+- Leal: proponer un producto complementario a su categoría.
+- Prometedor: lograr la segunda compra.
+- En riesgo: preguntar qué pasó antes de ofrecer algo.
+- Dormido: recordarle algo útil, sin vender.
+- Perdido: una sola pregunta corta para saber por qué se fue.
+
+Mi voz (escribe como hablo yo: mismo largo de frase, mismas palabras, mismo trato): [PEGA TU VOZ]
+
+Reglas para no sonar a IA: frases de máximo 15 palabras; una sola pregunta por mensaje; máximo un emoji en WhatsApp; nunca "espero que te encuentres bien", "solución", "innovador", "no dudes en" ni "quedo atento"; sin listas de tres adjetivos. Antes de entregar, revisa si cada frase se diría en voz alta por teléfono; si no, reescríbela.</pre></div></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Pausa · 10 min</p>
+  <h1>Ya tienes CRM y guionista.</h1>
+  <p class="lead">Ahora vas a practicar la llamada y a registrarla.</p>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Paso 4 · Práctica por voz · celular · 25 min</p>
+  <h2>Practica con un cliente difícil</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>Elige un cliente <b>En riesgo</b> de tu CRM y genera su guion con tu guionista.</li>
+        <li>En el celular, abre Gemini o ChatGPT y pega el prompt con los datos del cliente.</li>
+        <li>En esa misma conversación activa el modo de voz (Gemini: Live; ChatGPT: ícono de voz).</li>
+        <li>Haz la llamada hablando. Di “fin de la llamada” para recibir tu calificación.</li>
+      </ol>
+      <p class="muted">Si tu app no conserva lo que pegaste al pasar a voz, haz la práctica escribiendo.</p>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 4</span><button class="copy">Copiar</button>
+<pre>Vamos a practicar una llamada de ventas. Tú eres el cliente y yo soy el vendedor de ANDINA.
+
+Tu personaje: [NOMBRE], [TIPO] de [CIUDAD]. Compraste [CATEGORÍA] [NÚMERO] veces; la última hace [DÍAS] días. Dejaste de comprar porque un competidor te ofreció mejor precio, pero su servicio fue lento. Estás ocupado y algo molesto.
+
+Reglas: responde corto, como en una llamada real. Pon al menos 2 objeciones. No me ayudes ni salgas del personaje.
+
+Cuando diga "fin de la llamada", califícame de 1 a 5 en apertura, escucha, manejo de objeciones y cierre. Dime la frase mía que más te convenció y la que sonó más a robot.</pre></div></div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Paso 5A · Registro · Claude o Gemini · 10 min</p>
+  <h2>Cada llamada termina en una fila del CRM</h2>
+  <div class="split">
+    <div class="left">
+      <ol>
+        <li>Escribe tus notas de la llamada como te salgan, o pega la calificación del paso 4.</li>
+        <li>Pega el prompt con tus notas.</li>
+        <li>Copia la tabla que te devuelve.</li>
+        <li>En tu CRM, haz clic en la celda <b>O</b> de ese cliente y pega. Los 4 datos caen en O, P, Q y R.</li>
+      </ol>
+    </div>
+    <div class="right"><div class="prompt"><span class="tag">Prompt 5A</span><button class="copy">Copiar</button>
+<pre>Convierte estas notas de una llamada en una fila para mi CRM.
+
+Devuélvela como una tabla de 1 fila, sin encabezados, con 4 columnas en este orden:
+1. Estado: solo puede ser Nuevo, Contactado, En negociación, Ganado o Perdido.
+2. Próximo paso: máximo 8 palabras, empezando con un verbo.
+3. Fecha próximo contacto: en formato dd/mm/aaaa.
+4. Notas: máximo 20 palabras, con la objeción principal del cliente.
+
+Mis notas: [PEGA TUS NOTAS]</pre></div></div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="eyebrow">Paso 5B · Registro · Google Sheets · 10 min</p>
+  <h2>La vista “A quién llamo hoy”</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">Crear la vista</p><ol>
+      <li>En la pestaña CRM: <b>Datos → Crear una vista de filtro</b>.</li>
+      <li>Ponle de nombre <b>Llamar hoy</b>.</li>
+      <li>En el encabezado de la columna Q toca el ícono de filtro → <b>Filtrar por condición → La fecha es anterior a → mañana</b>.</li>
+      <li>Haz clic en Aceptar.</li></ol></div>
+    <div class="card"><p class="eyebrow">Ordenar por prioridad</p><ol>
+      <li>En la misma vista, toca el filtro de la columna G (ValorTotal).</li>
+      <li><b>Ordenar de Z → A</b>.</li>
+      <li>Arriba quedan los clientes con más valor que tienes que llamar hoy.</li></ol></div>
+    <div class="card ink"><p class="eyebrow">Tu CRM está completo</p><p>Base en Drive, segmentos RFM, estados de seguimiento, un guionista con tu voz y la lista de llamadas del día.</p></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">Lo que te llevas para tu trabajo</p>
+  <h2>Seis técnicas que sirven para cualquier proceso comercial</h2>
+  <div class="grid2" style="flex:1">
+    <div class="card"><p><b>La IA construye la calculadora:</b> pídele fórmulas, no resultados. Sirve para cualquier análisis de datos.</p></div>
+    <div class="card"><p><b>Habla, no escribas:</b> tu voz dictada es el mejor ejemplo para que la IA escriba como tú.</p></div>
+    <div class="card"><p><b>La Skill o el Gem:</b> escribe una vez las instrucciones de una tarea que repites y úsalas siempre.</p></div>
+    <div class="card"><p><b>Objetivo por segmento:</b> no se le habla igual a un Campeón que a un cliente En riesgo.</p></div>
+    <div class="card"><p><b>El cliente difícil:</b> practica con la IA antes de llamar al cliente real.</p></div>
+    <div class="card"><p><b>De notas a fila:</b> la IA ordena lo que anotaste en el formato exacto de tu CRM.</p></div>
+    <div class="card ink" style="grid-column:span 2"><p><b>El test en voz alta:</b> si no lo dirías así por teléfono, no se envía.</p></div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="slide dark">
+  <p class="eyebrow">Cierre</p>
+  <h2>Tus 5 llamadas del lunes</h2>
+  <div class="row" style="flex:1">
+    <div class="card"><p class="eyebrow">En tu CRM</p><ol>
+      <li>Elige 5 clientes En riesgo con el mayor ValorTotal.</li>
+      <li>Ponles Estado “Nuevo” y fecha de próximo contacto el lunes.</li>
+      <li>Genera sus 5 guiones con tu guionista.</li></ol></div>
+    <div class="card hl"><p class="eyebrow">En el chat</p><p class="quote" style="color:#F6F5F2">¿Cuánto tiempo te tomaba antes preparar 5 llamadas así? ¿Cuánto te tomó hoy?</p></div>
+  </div>
+</section>
+
+</div>
+
+<div class="nav"><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 16</span><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+  });
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+
+  document.querySelectorAll('.reveal').forEach(function(b){
+    b.addEventListener('click',function(){var p=b.parentNode.querySelector('.prompt.hid');if(p){p.classList.remove('hid');}var r=b.parentNode.querySelector('.reto');if(r){r.style.display='none';}b.style.display='none';});
+  });
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=b.parentNode.querySelector('pre').innerText;
+      var done=function(){var o=b.textContent;b.textContent='Copiado';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done');},1600);};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done);}
+      else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');}catch(err){}document.body.removeChild(t);done();}
+    });
+  });
+
+  document.querySelectorAll('.timer').forEach(function(w){
+    var total=parseInt(w.getAttribute('data-min'),10)*60,left=total,id=null;
+    var out=w.querySelector('.t'),bs=w.querySelector('.start');
+    function fmt(s){var a=Math.abs(s);return (s<0?'-':'')+String(Math.floor(a/60)).padStart(2,'0')+':'+String(a%60).padStart(2,'0');}
+    function draw(){out.textContent=fmt(left);out.classList.toggle('over',left<=0);}
+    bs.onclick=function(){
+      if(id){clearInterval(id);id=null;bs.textContent='Continuar';return;}
+      bs.textContent='Pausar';
+      id=setInterval(function(){left--;draw();},1000);
+    };
+    w.querySelector('.reset').onclick=function(){clearInterval(id);id=null;left=total;bs.textContent='Iniciar';draw();};
+    draw();
+  });
+})();
+</script>
+</body>
+</html>
