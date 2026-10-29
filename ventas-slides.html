@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vender con IA sin sonar a IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14141C; --ink2:#23232E; --paper:#F6F5F2; --card:#FFFFFC; --line:#E2E0DA;
+  --coral:#FF5C39; --coral-d:#C23A18; --soft:#C9C9D2; --muted:#4A4A55; --gray:#6E6E78;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);font-family:'DM Sans',Arial,sans-serif;color:var(--ink)}
+.deck{height:100%;width:100%;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;gap:3vh;padding:8vh 7vw 11vh;background:var(--paper);color:#2A2A33}
+.slide.active{display:flex}
+.slide.dark{background:var(--ink);color:#F1F1F4}
+.slide.coral{background:var(--coral);color:var(--ink)}
+.eyebrow{font-size:clamp(13px,1.25vw,22px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d)}
+.dark .eyebrow{color:var(--coral)}
+.coral .eyebrow{color:var(--ink)}
+h1,h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+.dark h1,.dark h2{color:#F6F5F2}
+h1{font-size:clamp(36px,5.4vw,100px)}
+h2{font-size:clamp(28px,3.6vw,66px)}
+h3{font-size:clamp(18px,1.75vw,32px);font-weight:700;color:var(--ink)}
+.dark h3{color:#F6F5F2}
+p,li{font-size:clamp(16px,1.55vw,28px);line-height:1.45}
+.lead{font-size:clamp(18px,1.9vw,34px);color:var(--soft);max-width:70ch}
+.coral .lead{color:var(--ink)}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--soft)}
+.quote{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.3vw,42px);line-height:1.28}
+.accent{color:var(--coral-d)} .dark .accent{color:var(--coral)}
+.bar{width:7vw;height:6px;background:var(--coral)}
+.row{display:flex;gap:1.6vw;flex:1;min-height:0}
+.row>*{flex:1}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:3vh 2vw;display:flex;flex-direction:column;gap:1.4vh}
+.card.ink{background:var(--ink);border-color:var(--ink);color:#F1F1F4}
+.card.ink h3{color:#F6F5F2}
+.card.ink p,.card.ink li{color:var(--soft)}
+.card.ink .eyebrow{color:var(--coral)}
+.dark .card{background:var(--ink2);border-color:var(--ink2);color:#F1F1F4}
+.card.hl{border-left:8px solid var(--coral)}
+.num{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(28px,3.2vw,58px);font-weight:700;line-height:1;color:var(--coral-d)}
+.card.ink .num,.dark .num{color:var(--coral)}
+ol,ul{padding-left:1.3em;display:flex;flex-direction:column;gap:.8vh}
+.mono{font-family:'JetBrains Mono','Courier New',monospace;font-size:clamp(15px,1.5vw,27px);line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:.8vw}
+.chips span{font-size:clamp(14px,1.4vw,26px);background:#ECEAE4;padding:.4em 1em;border-radius:999px}
+.go{display:flex;gap:1.6vw;align-items:center;background:var(--ink);border-radius:16px;padding:2.4vh 2.4vw}
+.dark .go{background:var(--coral)}
+.go .k{font-size:clamp(13px,1.2vw,22px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);white-space:nowrap}
+.dark .go .k{color:var(--ink)}
+.go p{font-weight:600;color:#F6F5F2;font-size:clamp(16px,1.7vw,30px)}
+.dark .go p{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.35vw,24px)}
+th{background:var(--ink);color:#F6F5F2;text-align:left;padding:1.1vh 1vw;font-weight:700}
+td{padding:1.1vh 1vw;border-bottom:1px solid var(--line)}
+tr:nth-child(even) td{background:#ECEAE4}
+.r{text-align:right}
+.check{display:flex;gap:.8vw;align-items:flex-start}
+.check::before{content:"✓";color:var(--coral-d);font-weight:700;font-size:1.25em;line-height:1.2}
+.foot{position:absolute;left:7vw;bottom:4vh;right:14vw;font-size:clamp(12px,1.1vw,20px);color:var(--gray)}
+.dark .foot{color:#8E8E9A}
+.coral .foot{color:var(--ink)}
+.spacer{flex:1}
+.notes{display:none}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#FFF8E6;color:#14141C;border-top:4px solid var(--coral);padding:2vh 3vw 2vh;font:400 clamp(14px,1.2vw,19px)/1.5 'DM Sans',Arial,sans-serif;z-index:20;display:none}
+#notes.on{display:block}
+#notes b{font-weight:700}
+.nav{position:fixed;right:1.6vw;bottom:2.4vh;display:flex;gap:.6vw;align-items:center;z-index:30}
+.nav button{width:42px;height:42px;border-radius:50%;border:0;background:var(--coral);color:var(--ink);font-size:18px;font-weight:700;cursor:pointer}
+.nav .count{font:600 14px 'DM Sans',Arial,sans-serif;color:#8E8E9A;background:rgba(20,20,28,.85);padding:.5em .9em;border-radius:999px}
+.nav .help{width:auto;padding:0 14px;border-radius:999px;font-size:13px}
+.progress{position:fixed;left:0;top:0;height:4px;background:var(--coral);z-index:30;transition:width .2s}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide dark" style="justify-content:center">
+  <div class="bar"></div>
+  <p class="eyebrow">Taller virtual · 3 horas</p>
+  <h1>Vender con IA sin sonar a IA</h1>
+  <p class="lead">Un CRM en Google Sheets, tus clientes segmentados y un guionista que escribe con tu voz.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>Hoy construyes cuatro cosas</h2>
+  <div class="grid4">
+    <div class="card"><span class="num">1</span><h3>Un CRM</h3><p class="muted">En Google Sheets, con 240 clientes.</p></div>
+    <div class="card"><span class="num">2</span><h3>Segmentos RFM</h3><p class="muted">Quién es Campeón y quién está En riesgo.</p></div>
+    <div class="card ink"><span class="num">3</span><h3>Tu guionista</h3><p>Una Skill que escribe llamadas y mensajes con tu voz.</p></div>
+    <div class="card"><span class="num">4</span><h3>Práctica y registro</h3><p class="muted">Una llamada de prueba que termina en tu CRM.</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <h2>Las 3 horas</h2>
+  <table>
+    <tr><th>Bloque</th><th>Herramienta</th><th class="r">Min</th></tr>
+    <tr><td>Apertura</td><td>—</td><td class="r">10</td></tr>
+    <tr><td>1 · El CRM</td><td>Google Sheets</td><td class="r">30</td></tr>
+    <tr><td>2 · Segmentos RFM</td><td>Claude + Sheets</td><td class="r">25</td></tr>
+    <tr><td>3 · Tu guionista</td><td>Claude (Skill)</td><td class="r">45</td></tr>
+    <tr><td>Pausa</td><td>—</td><td class="r">10</td></tr>
+    <tr><td>4 · Práctica por voz</td><td>Gemini o ChatGPT</td><td class="r">25</td></tr>
+    <tr><td>5 · Registro y vista del día</td><td>Claude + Sheets</td><td class="r">20</td></tr>
+    <tr><td>Cierre</td><td>—</td><td class="r">15</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section class="slide dark">
+  <h2>¿Le responderías a este mensaje?</h2>
+  <div class="card" style="flex:1;justify-content:center">
+    <p class="quote" style="color:#F1F1F4">“¡Hola, Juan! 😊 Espero que te encuentres muy bien. En ANDINA queremos ofrecerte una solución innovadora para potenciar tu negocio. No dudes en contactarnos. ¡Quedamos atentos!”</p>
+  </div>
+  <p class="quote accent">Así escribe la IA cuando no sabe nada del cliente ni de quien vende.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <h2>Abre la guía y tres pestañas</h2>
+  <div class="grid4">
+    <div class="card ink"><h3>La guía</h3><p>Pasos y prompts para copiar.</p></div>
+    <div class="card"><h3>Google Sheets</h3><p class="muted">Tu CRM.</p></div>
+    <div class="card"><h3>Claude</h3><p class="muted">Con “Crear y editar archivos” activado.</p></div>
+    <div class="card"><h3>Gemini o ChatGPT</h3><p class="muted">En el celular, para practicar.</p></div>
+  </div>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Guía</span><p>sanogusano.github.io/esumer-marketing-con-ia/ventas.html</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 1 · El CRM</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Un CRM es una lista de clientes con un próximo paso.</h2>
+  <p class="lead" style="color:#4A4A55">No necesitas un software caro para empezar. Necesitas saber en qué va cada cliente y cuándo lo vuelves a llamar.</p>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 1A y 1B · 30 min</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 2 · Segmentos RFM</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">La IA escribe la fórmula y Sheets hace la cuenta.</h2>
+  <p class="lead" style="color:#4A4A55">Si le pegas 240 clientes a un chat, se salta filas y suma mal. Si le pides la fórmula, el resultado es exacto.</p>
+  <div class="chips"><span>R · hace cuánto compró</span><span>F · cuántas veces compró</span><span>M · cuánto ha gastado</span></div>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 2A y 2B · 25 min</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 2 · Segmentos RFM</p>
+  <h2>A cada segmento se le llama para algo distinto</h2>
+  <table>
+    <tr><th>Segmento</th><th>Quién es</th><th>Para qué lo llamas</th></tr>
+    <tr><td>Campeón</td><td>Compra seguido y compró hace poco</td><td>Agradecer y darle algo primero</td></tr>
+    <tr><td>Leal</td><td>Compra con frecuencia</td><td>Ofrecer algo complementario</td></tr>
+    <tr><td>Prometedor</td><td>Compró hace poco, una sola vez</td><td>Lograr la segunda compra</td></tr>
+    <tr><td>En riesgo</td><td>Compraba seguido y dejó de hacerlo</td><td>Preguntar qué pasó</td></tr>
+    <tr><td>Dormido</td><td>Compró una vez hace meses</td><td>Recordarle algo útil</td></tr>
+    <tr><td>Perdido</td><td>No compra hace mucho</td><td>Saber por qué se fue</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="slide dark">
+  <p class="eyebrow">Bloque 3 · Tu guionista</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Una Skill guarda cómo vendes tú.</h2>
+  <div class="row" style="flex:none">
+    <div class="card"><h3>Instrucciones</h3><p class="muted">Qué entregar y qué buscar en cada segmento.</p></div>
+    <div class="card"><h3>Tu voz</h3><p class="muted">Cómo hablas tú con un cliente.</p></div>
+    <div class="card"><h3>Reglas</h3><p class="muted">Lo que nunca dirías.</p></div>
+  </div>
+  <div class="spacer"></div>
+  <p class="lead">La escribes una vez. Claude la usa cada vez que le pides un guion.</p>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 3 · Tu guionista</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Tu voz grabada es el mejor ejemplo.</h2>
+  <p class="lead" style="color:#4A4A55">Un minuto hablando como si llamaras a un cliente. Esa transcripción le enseña a la IA tu largo de frase, tus palabras y tu trato.</p>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 3A, 3B y 3C · 45 min</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Pausa · 10 min</p>
+  <h1>Ya tienes CRM y guionista.</h1>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 4 · Práctica por voz</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Practica con un cliente que no te la pone fácil.</h2>
+  <p class="lead" style="color:#4A4A55">La IA hace de cliente En riesgo. Tú haces la llamada hablando. Al final te califica y te dice qué frase sonó a robot.</p>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Paso 4 · celular · 25 min</p></div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Bloque 5 · Registro</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Cada llamada termina en una fila del CRM.</h2>
+  <p class="lead" style="color:#4A4A55">Escribes tus notas como te salgan. La IA las ordena en el formato de tu CRM. Una vista de filtro te dice a quién llamar hoy.</p>
+  <div class="spacer"></div>
+  <div class="go"><span class="k">Ahora tú</span><p>Guía · Pasos 5A y 5B · 20 min</p></div>
+</section>
+
+<!-- 14 -->
+<section class="slide dark">
+  <p class="eyebrow">Cierre</p>
+  <h2 style="font-size:clamp(32px,4.4vw,80px)">Tus 5 llamadas del lunes</h2>
+  <p class="lead">Cinco clientes En riesgo con más valor, cinco guiones con tu voz y la fecha puesta en el CRM.</p>
+  <div class="spacer"></div>
+  <p class="quote accent">¿Cuánto te tomaba antes preparar 5 llamadas así?</p>
+</section>
+
+</div>
+
+<div class="nav"><button id="prev" aria-label="Anterior">‹</button><span class="count" id="count">1 / 14</span><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  var start=parseInt((location.hash||'').replace('#',''),10);
+  if(start>=1&&start<=slides.length){i=start-1;}
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function full(){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+    if(e.key==='f'||e.key==='F'){full();}
+  });
+  window.addEventListener('hashchange',function(){var n=parseInt(location.hash.replace('#',''),10);if(n&&n-1!==i){show(n-1);}});
+  show(i);
+})();
+</script>
+</body>
+</html>
