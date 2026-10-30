@@ -1,0 +1,201 @@
+ClienteID,Nombre,Barrio,Categoria,CicloDias,UltimaCompra,Compras12m,Valor12m,CanalPreferido,Domicilio,TieneWhatsApp,TieneCorreo,UsaDescuentos,AutorizaContacto
+D1001,Camila Zapata Londoño,Buenos Aires,Formulado,30,2026-10-15,10,1055000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1002,Álvaro Henao Londoño,Bello Niquía,Formulado,30,2026-10-13,11,918000,WhatsApp,Sí,Sí,No,No,Sí
+D1003,Daniela Vélez Montoya,San Javier,Formulado,30,2026-10-03,9,914000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1004,Santiago Mejía Gómez,Bello Niquía,Venta libre,,2026-02-10,4,203000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1005,Daniela Posada Valencia,Bello Niquía,Formulado,30,2026-05-27,6,588000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1006,Hernán Álvarez Osorio,Belén,Venta libre,,2026-08-17,2,121000,WhatsApp,No,Sí,No,Sí,Sí
+D1007,Rosa Montoya Arango,Robledo,Formulado,30,2026-09-22,4,499000,WhatsApp,No,Sí,No,No,Sí
+D1008,Mauricio Posada Uribe,San Javier,Cosmética,60,2026-09-07,6,646000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1009,Patricia Restrepo Valencia,Envigado Centro,Formulado,30,2026-08-12,4,421000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1010,Santiago Ríos Osorio,Manrique,Cosmética,60,2026-09-02,4,487000,WhatsApp,No,Sí,No,No,Sí
+D1011,Luz Jaramillo Castaño,La América,Formulado,30,2026-09-12,10,680000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1012,Paula Vélez Álvarez,San Javier,Venta libre,,2026-07-17,4,235000,WhatsApp,No,Sí,No,Sí,Sí
+D1013,Carlos Correa Zapata,Robledo,Venta libre,,2026-07-25,2,98000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1014,Paula Osorio Montoya,Buenos Aires,Formulado,30,2026-09-22,3,240000,Llamada,No,Sí,No,No,No
+D1015,Claudia Echeverri Echeverri,Manrique,Venta libre,,2026-03-29,1,21000,WhatsApp,No,Sí,Sí,No,Sí
+D1016,Natalia Restrepo Muñoz,Robledo,Cosmética,60,2026-09-07,4,259000,Llamada,No,Sí,No,No,Sí
+D1017,Óscar Castaño Arango,El Poblado,Formulado,30,2026-09-10,9,1170000,Llamada,Sí,No,Sí,No,No
+D1018,Jaime Osorio Jaramillo,Belén,Formulado,30,2026-10-14,12,1329000,WhatsApp,Sí,Sí,No,No,Sí
+D1019,Mateo Cardona Tobón,La América,Venta libre,,2026-09-06,5,148000,Llamada,No,Sí,No,Sí,Sí
+D1020,Carmen Cardona Uribe,La América,Pediátrico,40,2026-08-21,2,132000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1021,Andrea Montoya Tobón,Buenos Aires,Venta libre,,2026-08-14,3,185000,WhatsApp,No,Sí,No,Sí,No
+D1022,Mauricio Henao Castaño,Belén,Venta libre,,2026-09-11,1,37000,WhatsApp,No,Sí,No,Sí,Sí
+D1023,Alejandro Castaño Valencia,Manrique,Formulado,30,2026-09-15,9,608000,Mostrador,Sí,Sí,No,No,Sí
+D1024,Valentina Ochoa Ríos,Laureles,Cosmética,60,2026-09-03,6,475000,WhatsApp,No,Sí,Sí,No,Sí
+D1025,Daniela Castaño Jaramillo,Robledo,Formulado,30,2026-10-02,4,360000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1026,Patricia Uribe Posada,Buenos Aires,Formulado,30,2026-10-14,10,890000,WhatsApp,Sí,Sí,No,No,No
+D1027,Ana Arango Restrepo,Belén,Cosmética,60,2026-07-26,2,303000,WhatsApp,No,Sí,No,No,Sí
+D1028,Lucía Montoya Muñoz,Manrique,Cosmética,60,2026-09-30,4,397000,WhatsApp,No,Sí,No,No,Sí
+D1029,Camila Castaño Jaramillo,Laureles,Formulado,30,2026-09-06,6,585000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1030,Ricardo Álvarez Jaramillo,Castilla,Formulado,30,2026-10-15,11,804000,WhatsApp,Sí,Sí,No,No,Sí
+D1031,Álvaro Restrepo Uribe,Itagüí Centro,Cosmética,60,2026-09-06,3,191000,Correo,No,Sí,Sí,No,Sí
+D1032,Camila Osorio Muñoz,Laureles,Venta libre,,2026-10-10,2,35000,WhatsApp,No,Sí,No,Sí,Sí
+D1033,Diego Osorio Álvarez,Belén,Pediátrico,40,2026-09-27,8,659000,Llamada,No,Sí,No,No,Sí
+D1034,Santiago Muñoz Uribe,Belén,Pediátrico,40,2026-09-21,5,415000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1035,Juliana Ríos Zapata,El Poblado,Cosmética,60,2026-08-01,2,213000,Llamada,No,No,No,Sí,Sí
+D1036,Mateo Muñoz Ochoa,San Javier,Venta libre,,2026-08-29,1,33000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1037,Luis Restrepo Giraldo,Castilla,Pediátrico,40,2026-10-11,2,133000,WhatsApp,No,Sí,No,No,Sí
+D1038,Ana Muñoz Ochoa,Laureles,Venta libre,,2026-09-01,4,103000,Llamada,No,No,No,Sí,Sí
+D1039,Jaime Londoño Cardona,San Javier,Venta libre,,2026-08-25,2,107000,Correo,No,Sí,Sí,No,Sí
+D1040,Valentina Betancur Betancur,Bello Niquía,Formulado,30,2026-09-28,4,452000,Llamada,No,No,No,No,Sí
+D1041,Juan Mejía Arango,El Poblado,Formulado,30,2026-08-11,9,839000,WhatsApp,Sí,Sí,No,Sí,No
+D1042,Fernando Muñoz Giraldo,Laureles,Formulado,30,2026-10-07,11,847000,Llamada,Sí,Sí,No,No,Sí
+D1043,Sandra Gómez Mejía,San Javier,Pediátrico,40,2026-09-20,4,177000,WhatsApp,Sí,Sí,Sí,No,No
+D1044,Patricia Betancur Tobón,Bello Niquía,Venta libre,,2026-10-07,1,54000,Llamada,No,Sí,Sí,Sí,No
+D1045,Andrés Tobón Jaramillo,Belén,Venta libre,,2026-10-12,1,23000,Llamada,Sí,No,No,Sí,Sí
+D1046,Camila Osorio Castaño,Robledo,Formulado,30,2026-09-26,8,980000,Llamada,No,Sí,No,No,Sí
+D1047,Andrea Osorio Gómez,San Javier,Cosmética,60,2026-08-18,6,587000,WhatsApp,No,Sí,Sí,No,No
+D1048,Paula Vélez Ríos,Robledo,Formulado,30,2026-08-07,4,409000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1049,Luz Echeverri Arango,Buenos Aires,Formulado,30,2026-05-27,8,548000,Correo,No,No,Sí,No,Sí
+D1050,Diego Gómez Henao,Bello Niquía,Formulado,30,2026-05-09,12,937000,Llamada,No,No,No,Sí,No
+D1051,Daniela Mejía Zapata,Laureles,Cosmética,60,2026-02-13,1,92000,Correo,Sí,Sí,Sí,No,Sí
+D1052,Fernando Gómez Ríos,Belén,Cosmética,60,2026-02-08,5,463000,WhatsApp,No,Sí,No,No,Sí
+D1053,Laura Henao Restrepo,San Javier,Venta libre,,2026-09-18,5,153000,WhatsApp,No,Sí,No,No,Sí
+D1054,Lucía Restrepo Betancur,La América,Venta libre,,2026-09-23,4,62000,WhatsApp,No,Sí,Sí,Sí,No
+D1055,Carmen Posada Gómez,Manrique,Venta libre,,2026-07-17,3,157000,WhatsApp,No,Sí,Sí,No,Sí
+D1056,Diego Echeverri Uribe,Robledo,Cosmética,60,2026-09-02,4,261000,Correo,No,Sí,Sí,Sí,Sí
+D1057,Gustavo Cardona Giraldo,Belén,Venta libre,,2026-08-21,4,131000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1058,Jorge Gómez Henao,Robledo,Pediátrico,40,2026-09-11,6,405000,Llamada,No,No,Sí,No,Sí
+D1059,Mauricio Correa Cardona,Laureles,Formulado,30,2026-09-17,9,1183000,Mostrador,No,Sí,No,Sí,Sí
+D1060,Daniela Zapata Cardona,Laureles,Pediátrico,40,2026-09-08,7,257000,WhatsApp,No,Sí,Sí,No,Sí
+D1061,Juliana Uribe Henao,Buenos Aires,Venta libre,,2026-09-16,1,20000,WhatsApp,No,Sí,Sí,No,Sí
+D1062,Andrés Montoya Mejía,Belén,Venta libre,,2026-06-17,2,102000,WhatsApp,No,Sí,No,Sí,No
+D1063,Mateo Montoya Arango,Castilla,Venta libre,,2026-02-23,1,51000,Llamada,Sí,Sí,No,Sí,Sí
+D1064,Ricardo Posada Álvarez,Belén,Formulado,30,2026-07-28,10,626000,Llamada,No,Sí,Sí,No,Sí
+D1065,Diana Arango Vélez,San Javier,Venta libre,,2026-06-11,3,163000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1066,Gustavo Vélez Mejía,Buenos Aires,Venta libre,,2026-10-05,2,37000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1067,Felipe Álvarez Ochoa,Belén,Cosmética,60,2026-09-09,3,329000,WhatsApp,No,Sí,Sí,No,Sí
+D1068,Mateo Álvarez Posada,Envigado Centro,Formulado,30,2026-05-29,4,400000,Correo,Sí,Sí,Sí,No,Sí
+D1069,Carlos Echeverri Jaramillo,La América,Formulado,30,2026-09-28,11,1459000,WhatsApp,Sí,Sí,No,No,Sí
+D1070,Martha Posada Muñoz,Bello Niquía,Formulado,30,2026-09-13,8,901000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1071,Patricia Muñoz Londoño,Bello Niquía,Formulado,30,2026-10-05,4,303000,WhatsApp,No,Sí,No,No,No
+D1072,Sebastián Muñoz Henao,Bello Niquía,Venta libre,,2026-07-29,1,32000,WhatsApp,No,Sí,Sí,No,Sí
+D1073,Gloria Restrepo Gómez,Laureles,Venta libre,,2026-09-11,1,10000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1074,Camila Tobón Arango,Manrique,Cosmética,60,2026-06-29,4,235000,WhatsApp,No,Sí,Sí,No,Sí
+D1075,Sebastián Betancur Osorio,Robledo,Formulado,30,2026-07-22,10,1399000,WhatsApp,Sí,Sí,No,No,Sí
+D1076,Óscar Cardona Castaño,Itagüí Centro,Formulado,30,2026-10-16,12,715000,Correo,Sí,No,Sí,No,Sí
+D1077,Diego Zapata Betancur,Bello Niquía,Cosmética,60,2026-09-01,2,255000,Mostrador,No,Sí,No,Sí,Sí
+D1078,Andrés Uribe Castaño,La América,Pediátrico,40,2026-09-11,6,245000,Mostrador,Sí,Sí,No,Sí,Sí
+D1079,Fernando Posada Tobón,Bello Niquía,Formulado,30,2026-10-17,9,588000,Llamada,No,Sí,Sí,No,Sí
+D1080,Martha Arango Gómez,Laureles,Venta libre,,2026-10-03,1,48000,Llamada,No,Sí,No,Sí,Sí
+D1081,Alejandro Uribe Zapata,San Javier,Formulado,30,2026-10-18,10,987000,Llamada,No,Sí,No,No,Sí
+D1082,Felipe Ochoa Arango,Belén,Venta libre,,2026-09-16,4,118000,Llamada,No,No,No,No,Sí
+D1083,Ricardo Castaño Osorio,La América,Venta libre,,2026-08-05,2,66000,Correo,No,No,Sí,No,Sí
+D1084,Álvaro Henao Montoya,Buenos Aires,Cosmética,60,2026-09-26,6,871000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1085,Valentina Valencia Montoya,La América,Formulado,30,2026-10-17,9,814000,WhatsApp,No,Sí,Sí,No,Sí
+D1086,Hernán Betancur Zapata,Buenos Aires,Venta libre,,2026-09-13,2,89000,Mostrador,Sí,Sí,No,Sí,Sí
+D1087,Ricardo Posada Gómez,Castilla,Venta libre,,2026-08-27,5,188000,WhatsApp,No,Sí,No,Sí,Sí
+D1088,Mateo Cardona Muñoz,La América,Cosmética,60,2026-07-16,2,130000,WhatsApp,No,Sí,Sí,No,Sí
+D1089,Patricia Cardona Álvarez,Envigado Centro,Venta libre,,2026-07-28,3,70000,Correo,Sí,Sí,Sí,Sí,No
+D1090,Andrés Tobón Vélez,El Poblado,Venta libre,,2026-08-28,2,69000,WhatsApp,No,Sí,No,Sí,Sí
+D1091,Óscar Vélez Uribe,San Javier,Venta libre,,2026-09-16,2,83000,WhatsApp,No,Sí,No,Sí,Sí
+D1092,Martha Muñoz Mejía,Manrique,Cosmética,60,2026-08-10,1,131000,Correo,Sí,Sí,Sí,Sí,Sí
+D1093,Paula Castaño Correa,Belén,Pediátrico,40,2026-09-13,3,209000,Llamada,No,Sí,No,No,Sí
+D1094,Mateo Jaramillo Ochoa,San Javier,Venta libre,,2026-03-14,1,47000,Llamada,No,Sí,Sí,No,Sí
+D1095,Patricia Vélez Henao,San Javier,Venta libre,,2026-08-28,1,50000,WhatsApp,Sí,Sí,No,No,Sí
+D1096,Claudia Correa Uribe,Bello Niquía,Pediátrico,40,2026-05-07,6,517000,WhatsApp,No,Sí,No,No,Sí
+D1097,Lucía Osorio Restrepo,San Javier,Venta libre,,2026-09-08,1,43000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1098,Ana Zapata Valencia,Castilla,Venta libre,,2026-08-27,1,35000,WhatsApp,No,Sí,No,No,Sí
+D1099,Juan Correa Arango,Robledo,Venta libre,,2026-10-07,3,144000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1100,Juan Uribe Ochoa,El Poblado,Venta libre,,2026-09-19,3,166000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1101,María Montoya Giraldo,Manrique,Formulado,30,2026-06-04,4,333000,Llamada,No,No,No,Sí,Sí
+D1102,Gloria Uribe Betancur,Castilla,Cosmética,60,2026-01-17,3,389000,WhatsApp,No,Sí,Sí,No,Sí
+D1103,Felipe Jaramillo Castaño,El Poblado,Venta libre,,2026-02-24,4,190000,WhatsApp,Sí,Sí,No,No,Sí
+D1104,Mateo Correa Cardona,Bello Niquía,Venta libre,,2026-08-01,2,67000,WhatsApp,Sí,Sí,Sí,Sí,No
+D1105,Alejandro Valencia Gómez,Buenos Aires,Pediátrico,40,2026-08-05,8,446000,WhatsApp,No,Sí,No,No,No
+D1106,Ricardo Uribe Zapata,Robledo,Formulado,30,2026-05-23,12,718000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1107,Daniela Londoño Tobón,La América,Formulado,30,2026-09-30,3,402000,WhatsApp,Sí,Sí,No,No,Sí
+D1108,Óscar Valencia Tobón,Buenos Aires,Venta libre,,2026-08-16,3,118000,Correo,No,No,Sí,Sí,Sí
+D1109,Diana Zapata Cardona,Belén,Pediátrico,40,2026-09-19,9,703000,Mostrador,No,Sí,No,No,Sí
+D1110,Jaime Tobón Osorio,Manrique,Formulado,30,2026-09-21,12,1084000,Mostrador,Sí,Sí,No,No,Sí
+D1111,Santiago Echeverri Gómez,Castilla,Cosmética,60,2026-10-02,4,199000,WhatsApp,No,Sí,Sí,No,No
+D1112,Juan Muñoz Jaramillo,Itagüí Centro,Pediátrico,40,2026-09-21,2,135000,Correo,Sí,No,Sí,No,Sí
+D1113,Fernando Álvarez Uribe,Buenos Aires,Formulado,30,2026-08-19,8,500000,WhatsApp,No,Sí,No,No,No
+D1114,Álvaro Arango Muñoz,El Poblado,Cosmética,60,2026-07-25,5,742000,Mostrador,No,Sí,No,Sí,Sí
+D1115,Diego Tobón Cardona,La América,Cosmética,60,2026-09-10,3,270000,Llamada,No,Sí,No,No,Sí
+D1116,Sebastián Giraldo Osorio,El Poblado,Cosmética,60,2025-12-27,6,877000,WhatsApp,No,Sí,Sí,No,No
+D1117,Santiago Correa Ochoa,Castilla,Cosmética,60,2026-09-15,5,358000,Correo,No,Sí,Sí,Sí,No
+D1118,Gustavo Valencia Cardona,La América,Cosmética,60,2026-06-27,1,52000,WhatsApp,No,Sí,Sí,No,Sí
+D1119,Luz Gómez Gómez,El Poblado,Venta libre,,2026-02-18,2,80000,WhatsApp,No,Sí,No,No,Sí
+D1120,Hernán Montoya Ríos,Envigado Centro,Pediátrico,40,2026-06-08,2,128000,WhatsApp,No,Sí,No,No,Sí
+D1121,Mateo Tobón Betancur,Bello Niquía,Pediátrico,40,2026-09-27,6,484000,WhatsApp,No,Sí,No,No,Sí
+D1122,José Correa Muñoz,Buenos Aires,Venta libre,,2026-09-20,1,14000,WhatsApp,No,Sí,Sí,No,Sí
+D1123,Andrea Zapata Echeverri,Castilla,Formulado,30,2026-06-18,3,306000,Mostrador,No,No,No,No,Sí
+D1124,Luis Vélez Betancur,Laureles,Venta libre,,2026-05-26,3,125000,Llamada,Sí,No,Sí,Sí,Sí
+D1125,Valentina Osorio Ochoa,Castilla,Formulado,30,2026-05-10,3,372000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1126,Jorge Mejía Muñoz,Robledo,Pediátrico,40,2026-10-04,2,81000,WhatsApp,No,Sí,No,Sí,Sí
+D1127,Mateo Arango Ríos,Laureles,Venta libre,,2026-05-28,4,155000,Correo,No,No,Sí,Sí,Sí
+D1128,Paula Echeverri Zapata,Belén,Venta libre,,2026-07-10,2,52000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1129,Óscar Betancur Gómez,El Poblado,Venta libre,,2026-09-10,1,29000,WhatsApp,No,Sí,No,Sí,Sí
+D1130,Jorge Gómez Montoya,San Javier,Venta libre,,2026-04-23,1,38000,WhatsApp,No,Sí,No,Sí,Sí
+D1131,Ana Henao Ochoa,San Javier,Pediátrico,40,2026-03-08,9,516000,Llamada,Sí,Sí,No,No,Sí
+D1132,Patricia Tobón Betancur,Robledo,Pediátrico,40,2026-09-29,9,615000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1133,Diana Ochoa Ochoa,Buenos Aires,Formulado,30,2026-06-21,3,361000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1134,Gloria Álvarez Gómez,Castilla,Venta libre,,2026-02-25,2,55000,WhatsApp,No,Sí,No,Sí,Sí
+D1135,María Correa Ochoa,El Poblado,Formulado,30,2026-08-19,9,874000,WhatsApp,No,Sí,Sí,No,Sí
+D1136,Gloria Gómez Posada,Itagüí Centro,Formulado,30,2026-10-15,6,658000,WhatsApp,No,Sí,No,No,No
+D1137,Martha Ochoa Gómez,Itagüí Centro,Formulado,30,2026-10-14,8,1083000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1138,Alejandro Henao Ríos,Itagüí Centro,Venta libre,,2026-09-14,2,42000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1139,Andrea Cardona Castaño,El Poblado,Cosmética,60,2026-08-17,5,641000,WhatsApp,No,Sí,No,No,Sí
+D1140,Jaime Zapata Echeverri,Castilla,Pediátrico,40,2026-09-15,3,105000,Llamada,Sí,Sí,Sí,Sí,Sí
+D1141,Paula Echeverri Echeverri,La América,Pediátrico,40,2026-04-20,9,613000,Llamada,Sí,Sí,No,No,Sí
+D1142,Óscar Muñoz Echeverri,Itagüí Centro,Venta libre,,2026-09-18,4,179000,WhatsApp,Sí,Sí,No,No,Sí
+D1143,Fernando Ríos Henao,Envigado Centro,Formulado,30,2026-09-03,3,338000,WhatsApp,No,Sí,No,No,No
+D1144,Andrés Restrepo Restrepo,Laureles,Cosmética,60,2026-04-29,1,64000,WhatsApp,No,Sí,No,Sí,Sí
+D1145,Carlos Ríos Restrepo,Bello Niquía,Formulado,30,2026-09-13,3,282000,WhatsApp,No,Sí,No,No,Sí
+D1146,Gustavo Giraldo Tobón,El Poblado,Formulado,30,2026-08-27,9,604000,Llamada,No,Sí,No,No,Sí
+D1147,Óscar Posada Montoya,El Poblado,Venta libre,,2026-08-07,4,100000,Correo,No,Sí,Sí,No,No
+D1148,María Restrepo Henao,San Javier,Formulado,30,2026-08-09,9,1069000,WhatsApp,No,Sí,No,No,Sí
+D1149,Mateo Arango Valencia,Robledo,Cosmética,60,2026-09-07,6,499000,WhatsApp,Sí,Sí,No,No,No
+D1150,María Uribe Jaramillo,Itagüí Centro,Pediátrico,40,2026-10-06,8,349000,WhatsApp,Sí,Sí,No,No,Sí
+D1151,Ana Vélez Álvarez,Itagüí Centro,Formulado,30,2026-10-02,9,899000,Llamada,Sí,No,No,No,Sí
+D1152,Óscar Echeverri Muñoz,Manrique,Venta libre,,2026-09-13,5,210000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1153,Lucía Montoya Correa,Buenos Aires,Venta libre,,2026-06-05,4,125000,WhatsApp,Sí,Sí,No,No,Sí
+D1154,Fernando Cardona Ríos,La América,Formulado,30,2026-09-07,8,843000,Llamada,No,Sí,No,No,Sí
+D1155,Diego Vélez Montoya,Castilla,Pediátrico,40,2026-10-12,3,110000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1156,Juan Valencia Correa,El Poblado,Pediátrico,40,2026-09-14,3,182000,WhatsApp,No,Sí,No,No,Sí
+D1157,Lucía Jaramillo Vélez,Castilla,Formulado,30,2026-10-05,9,635000,Llamada,No,Sí,Sí,Sí,Sí
+D1158,Juliana Correa Álvarez,Manrique,Formulado,30,2026-08-19,11,696000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1159,Hernán Correa Posada,Belén,Venta libre,,2026-10-04,3,93000,WhatsApp,No,Sí,Sí,No,Sí
+D1160,Lucía Valencia Vélez,Itagüí Centro,Formulado,30,2026-09-22,11,983000,Llamada,Sí,Sí,Sí,No,Sí
+D1161,Ana Vélez Uribe,Belén,Pediátrico,40,2026-07-30,5,315000,WhatsApp,No,Sí,Sí,No,Sí
+D1162,Andrés Ríos Giraldo,San Javier,Formulado,30,2026-10-03,6,486000,WhatsApp,Sí,Sí,No,Sí,No
+D1163,Jaime Muñoz Montoya,El Poblado,Pediátrico,40,2026-09-11,2,129000,WhatsApp,No,Sí,No,No,Sí
+D1164,Felipe Vélez Tobón,Robledo,Formulado,30,2026-09-18,9,1115000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1165,Martha Uribe Uribe,Envigado Centro,Formulado,30,2026-08-27,3,221000,WhatsApp,No,Sí,No,No,Sí
+D1166,Diana Montoya Giraldo,Manrique,Cosmética,60,2026-08-30,3,457000,Llamada,Sí,Sí,Sí,Sí,Sí
+D1167,Santiago Mejía Osorio,Robledo,Pediátrico,40,2026-10-02,4,209000,Correo,No,Sí,Sí,No,Sí
+D1168,Luz Jaramillo Álvarez,Envigado Centro,Venta libre,,2026-09-18,1,15000,WhatsApp,No,Sí,No,Sí,Sí
+D1169,Jorge Arango Londoño,Castilla,Formulado,30,2026-10-01,10,1363000,WhatsApp,No,Sí,Sí,No,Sí
+D1170,Martha Henao Echeverri,Itagüí Centro,Venta libre,,2026-10-07,2,55000,Mostrador,No,Sí,No,Sí,Sí
+D1171,María Gómez Echeverri,El Poblado,Cosmética,60,2026-09-05,5,663000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1172,María Ríos Valencia,Bello Niquía,Pediátrico,40,2026-10-08,5,200000,Llamada,No,Sí,Sí,No,Sí
+D1173,Ana Betancur Uribe,Castilla,Pediátrico,40,2026-08-09,6,386000,Mostrador,No,No,No,No,Sí
+D1174,Andrea Uribe Betancur,Manrique,Cosmética,60,2026-03-30,4,472000,WhatsApp,No,Sí,No,No,Sí
+D1175,Paula Londoño Betancur,Belén,Cosmética,60,2026-06-28,5,649000,WhatsApp,No,Sí,Sí,Sí,No
+D1176,Gustavo Valencia Zapata,Buenos Aires,Formulado,30,2026-09-23,8,1100000,WhatsApp,No,Sí,No,No,Sí
+D1177,Felipe Jaramillo Zapata,Envigado Centro,Cosmética,60,2026-09-06,1,98000,WhatsApp,No,Sí,No,No,Sí
+D1178,Rosa Echeverri Cardona,Itagüí Centro,Pediátrico,40,2026-10-13,9,538000,Llamada,No,No,No,Sí,No
+D1179,Santiago Gómez Echeverri,Castilla,Formulado,30,2026-08-20,6,456000,WhatsApp,No,Sí,Sí,No,No
+D1180,Luz Osorio Ochoa,Belén,Formulado,30,2026-10-09,6,788000,WhatsApp,Sí,Sí,No,No,Sí
+D1181,Juan Restrepo Restrepo,Castilla,Venta libre,,2026-08-10,3,75000,WhatsApp,No,Sí,No,No,Sí
+D1182,Juan Álvarez Vélez,Itagüí Centro,Venta libre,,2026-10-06,1,49000,WhatsApp,Sí,Sí,No,No,No
+D1183,Fernando Correa Giraldo,Laureles,Pediátrico,40,2026-09-16,4,227000,WhatsApp,No,Sí,Sí,No,Sí
+D1184,Valentina Correa Valencia,Itagüí Centro,Formulado,30,2026-10-14,3,289000,WhatsApp,Sí,Sí,No,Sí,Sí
+D1185,Claudia Uribe Zapata,La América,Cosmética,60,2026-08-31,5,665000,Correo,No,Sí,Sí,Sí,Sí
+D1186,Mateo Correa Vélez,Robledo,Venta libre,,2026-09-07,1,41000,WhatsApp,No,Sí,No,No,Sí
+D1187,Daniela Betancur Henao,La América,Venta libre,,2026-10-01,3,67000,WhatsApp,No,Sí,No,Sí,Sí
+D1188,Andrés Betancur Zapata,Manrique,Cosmética,60,2026-09-01,2,258000,WhatsApp,No,Sí,Sí,No,No
+D1189,Mateo Posada Ochoa,Robledo,Formulado,30,2026-10-10,10,899000,WhatsApp,Sí,Sí,Sí,Sí,Sí
+D1190,María Posada Giraldo,Laureles,Formulado,30,2026-10-13,12,856000,WhatsApp,No,Sí,No,Sí,Sí
+D1191,Ricardo Álvarez Muñoz,Manrique,Formulado,30,2026-06-04,6,353000,Llamada,No,Sí,No,No,Sí
+D1192,Rosa Correa Correa,Buenos Aires,Venta libre,,2026-08-14,5,179000,WhatsApp,No,Sí,Sí,Sí,Sí
+D1193,Diego Londoño Muñoz,Castilla,Pediátrico,40,2026-08-17,7,543000,Llamada,Sí,Sí,No,No,No
+D1194,Luz Echeverri Arango,Belén,Cosmética,60,2026-10-01,4,243000,Llamada,No,Sí,Sí,No,Sí
+D1195,Carlos Jaramillo Tobón,Robledo,Formulado,30,2026-09-07,9,1131000,Mostrador,No,No,No,No,Sí
+D1196,Hernán Uribe Correa,Laureles,Pediátrico,40,2026-07-28,2,101000,WhatsApp,No,Sí,No,No,Sí
+D1197,Daniela Osorio Cardona,Itagüí Centro,Formulado,30,2026-10-02,4,429000,WhatsApp,Sí,Sí,Sí,No,Sí
+D1198,Natalia Valencia Gómez,Robledo,Venta libre,,2026-08-29,1,29000,WhatsApp,Sí,Sí,Sí,Sí,No
+D1199,Daniela Arango Castaño,San Javier,Venta libre,,2026-09-17,1,19000,WhatsApp,No,Sí,Sí,No,Sí
+D1200,Paula Posada Tobón,Laureles,Pediátrico,40,2026-07-21,7,453000,WhatsApp,No,Sí,Sí,No,Sí
