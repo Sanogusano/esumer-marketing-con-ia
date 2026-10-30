@@ -405,7 +405,7 @@ Lo que la droguería puede ofrecer.
     <div class="do">
       <p class="lbl">Ahora tú <span>8 min</span></p>
       <ol>
-        <li>Descarga la base: <a id="plantilla" href="#" target="_blank" style="color:#fff">clientes-drogueria.csv</a>.</li>
+        <li>Descarga la base:<br><a id="plantilla" class="copy" download="clientes-drogueria.csv" href="clientes-drogueria.csv" style="display:inline-block;margin-top:10px;text-decoration:none">Descargar clientes-drogueria.csv</a></li>
         <li>Abre <b>sheets.new</b> para crear una hoja nueva.</li>
         <li><kbd>Archivo</kbd> → <kbd>Importar</kbd> → <kbd>Subir</kbd> → elige el archivo → <kbd>Reemplazar hoja actual</kbd>.</li>
         <li>Llámala <b>Retoma – Droguería</b> y el nombre de la tuya.</li>
@@ -777,7 +777,7 @@ const PLANTILLA_URL = "https://sanogusano.github.io/esumer-marketing-con-ia/clie
   });
 
   const pl = document.getElementById('plantilla');
-  if (PLANTILLA_URL) pl.href = PLANTILLA_URL;
+  if (PLANTILLA_URL) pl.href = PLANTILLA_URL.split('/').pop();
   else { pl.removeAttribute('href'); pl.textContent = 'el enlace que te comparte el facilitador'; }
 
   fit();
