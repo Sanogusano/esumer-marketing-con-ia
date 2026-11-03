@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prospectar con IA</title>
+<style>
+:root{
+  --ink:#16161D; --paper:#F6F5F1; --white:#FFFFFC; --line:#DEDBD3;
+  --muted:#55555F; --coral:#C23A18; --coral2:#FF5C39; --green:#1F7A4D;
+  --serif:Cambria,"Cambria Math",Georgia,"Times New Roman",serif;
+  --sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;
+  --mono:Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E0E12;overflow:hidden}
+body{font-family:var(--sans);color:var(--ink)}
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1600px;height:900px;background:var(--paper);padding:72px 96px 88px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.coral{background:var(--coral);color:#fff}
+
+/* type */
+h1{font:700 88px/1.04 var(--serif);letter-spacing:-.5px}
+h2{font:700 56px/1.08 var(--serif);margin-bottom:28px;letter-spacing:-.3px}
+h3{font:700 30px/1.2 var(--serif);margin-bottom:8px}
+p,li,td,th{font-size:25px;line-height:1.42}
+.lead{font-size:32px;line-height:1.38;max-width:1180px}
+.muted{color:var(--muted)}
+.dark .muted{color:#A9A9B4}
+.eyebrow{font:700 19px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+.dark .eyebrow,.coral .eyebrow{color:var(--coral2)}
+.coral .eyebrow{color:#FFD9CE}
+b.c,.c{color:var(--coral)}
+.dark .c{color:var(--coral2)}
+.sp{flex:1}
+
+/* layout */
+.cols{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;flex:1;min-height:0}
+.cols.even{grid-template-columns:1fr 1fr}
+.stack>*+*{margin-top:22px}
+
+/* blocks */
+.obj{border-top:2px solid var(--ink);padding-top:14px}
+.obj b{display:block;font:700 18px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ex{background:var(--white);border-left:5px solid var(--coral);padding:20px 26px}
+.ex .lbl{font:700 17px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+.ex p{font-size:24px}
+.say{font-family:var(--serif);font-style:italic}
+.do{background:var(--ink);color:var(--paper);padding:30px 34px;border-radius:4px;display:flex;flex-direction:column}
+.do .lbl{font:700 18px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral2);margin-bottom:18px;display:flex;justify-content:space-between}
+.do .lbl span{color:#A9A9B4;letter-spacing:1px}
+.do ol{padding-left:30px}
+.do li{font-size:24px;margin-bottom:12px}
+.do li b{color:#fff}
+.do .note{font-size:20px;color:#B9B9C4;border-top:1px solid #34343E;padding-top:12px;margin-top:auto}
+kbd{font:600 21px var(--sans);background:#2A2A33;border:1px solid #444;border-radius:3px;padding:0 7px;white-space:nowrap}
+.paper kbd,.slide:not(.dark) .stack kbd{background:#ECEAE4;border-color:#CFCBC1}
+
+table{width:100%;border-collapse:collapse}
+th{font:700 18px/1.2 var(--sans);letter-spacing:1.5px;text-transform:uppercase;text-align:left;padding:0 18px 12px 0;border-bottom:2px solid var(--ink)}
+td{padding:13px 18px 13px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:23px}
+td:first-child{font-weight:700;white-space:nowrap}
+.dark th{border-color:var(--paper)}
+.dark td{border-color:#34343E}
+td.n,th.n{text-align:right;white-space:nowrap}
+
+pre.code{font:18px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:20px 24px;white-space:pre-wrap;overflow:auto;flex:1;min-height:0}
+.copy{font:700 18px var(--sans);letter-spacing:1px;text-transform:uppercase;background:var(--coral);color:#fff;border:0;padding:12px 20px;border-radius:3px;cursor:pointer;align-self:flex-start}
+.copy.ok{background:var(--green)}
+.row{display:flex;gap:16px;align-items:center}
+
+.flow{display:flex;align-items:stretch;gap:0;margin:8px 0 28px}
+.flow .n{flex:1;border:2px solid var(--ink);padding:16px 16px;background:var(--white)}
+.flow .n b{font:700 24px/1.15 var(--serif);display:block;margin-bottom:6px}
+.flow .n p{font-size:19px;line-height:1.3;color:var(--muted)}
+.flow .n.k{background:var(--ink);color:var(--paper)}
+.flow .n.k p{color:#B9B9C4}
+.flow .a{width:34px;display:flex;align-items:center;justify-content:center;font:700 28px var(--serif);color:var(--coral)}
+
+.big{font:700 120px/1 var(--serif);color:var(--coral)}
+.num{font:700 64px/1 var(--serif);color:var(--coral);margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.grid3 > div{border-top:2px solid currentColor;padding-top:16px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+.grid5 > div{border-top:2px solid var(--ink);padding-top:14px}
+.grid5 p{font-size:21px}
+
+.md{font:21px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:22px 26px;white-space:pre-wrap}
+.md .h{color:var(--coral);font-weight:700}
+
+.qr{background:#fff;padding:22px;width:330px}
+.qr svg{display:block;width:100%;height:auto}
+
+.verdict{font:700 18px/1 var(--sans);letter-spacing:1.5px;padding:5px 10px;border-radius:2px;display:inline-block;margin-bottom:8px}
+.v-no{background:#F8DCD3;color:var(--coral)}
+.v-ok{background:#D6EBDD;color:var(--green)}
+s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
+
+.foot{position:absolute;left:96px;right:96px;bottom:30px;display:flex;justify-content:space-between;font:16px var(--sans);letter-spacing:1px;color:#8A8A93}
+.dark .foot{color:#6E6E78}
+.coral .foot{color:#FFD9CE}
+
+#nav{position:fixed;right:12px;top:10px;opacity:.35;display:flex;gap:6px;z-index:9}
+#nav button{background:rgba(255,255,255,.12);color:#fff;border:0;width:40px;height:34px;font-size:18px;border-radius:3px;cursor:pointer}
+#nav:hover{opacity:1}#nav button:hover{background:rgba(255,255,255,.25)}
+@media print{#nav{display:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+<!-- ============ APERTURA ============ -->
+
+<section class="slide dark">
+  <div class="cols" style="grid-template-columns:1fr 330px;align-items:center">
+    <div>
+      <p class="eyebrow">Taller virtual · 3 horas</p>
+      <h1>Prospectar con IA</h1>
+      <p class="lead" style="margin-top:24px">Encuentra empresas que necesitan lo que vendes y escríbele a cada una un mensaje que demuestre que la miraste.</p>
+      <p class="muted" style="margin-top:40px;font-size:22px">Inteligencia artificial para ventas · Gemini y Google Sheets</p>
+    </div>
+    <div>
+      <div class="qr"><svg  version="1.1" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM13,1H14V2H13zM15,1H16V2H15zM16,1H17V2H16zM19,1H20V2H19zM23,1H24V2H23zM24,1H25V2H24zM27,1H28V2H27zM28,1H29V2H28zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM34,1H35V2H34zM35,1H36V2H35zM36,1H37V2H36zM37,1H38V2H37zM1,2H2V3H1zM7,2H8V3H7zM10,2H11V3H10zM11,2H12V3H11zM13,2H14V3H13zM15,2H16V3H15zM17,2H18V3H17zM18,2H19V3H18zM19,2H20V3H19zM20,2H21V3H20zM23,2H24V3H23zM24,2H25V3H24zM28,2H29V3H28zM29,2H30V3H29zM31,2H32V3H31zM37,2H38V3H37zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM11,3H12V4H11zM13,3H14V4H13zM18,3H19V4H18zM20,3H21V4H20zM21,3H22V4H21zM23,3H24V4H23zM24,3H25V4H24zM27,3H28V4H27zM29,3H30V4H29zM31,3H32V4H31zM33,3H34V4H33zM34,3H35V4H34zM35,3H36V4H35zM37,3H38V4H37zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM11,4H12V5H11zM12,4H13V5H12zM14,4H15V5H14zM15,4H16V5H15zM16,4H17V5H16zM19,4H20V5H19zM24,4H25V5H24zM27,4H28V5H27zM28,4H29V5H28zM31,4H32V5H31zM33,4H34V5H33zM34,4H35V5H34zM35,4H36V5H35zM37,4H38V5H37zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM10,5H11V6H10zM14,5H15V6H14zM17,5H18V6H17zM22,5H23V6H22zM24,5H25V6H24zM26,5H27V6H26zM27,5H28V6H27zM28,5H29V6H28zM29,5H30V6H29zM31,5H32V6H31zM33,5H34V6H33zM34,5H35V6H34zM35,5H36V6H35zM37,5H38V6H37zM1,6H2V7H1zM7,6H8V7H7zM9,6H10V7H9zM10,6H11V7H10zM11,6H12V7H11zM13,6H14V7H13zM17,6H18V7H17zM20,6H21V7H20zM22,6H23V7H22zM23,6H24V7H23zM25,6H26V7H25zM26,6H27V7H26zM28,6H29V7H28zM29,6H30V7H29zM31,6H32V7H31zM37,6H38V7H37zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM29,7H30V8H29zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM34,7H35V8H34zM35,7H36V8H35zM36,7H37V8H36zM37,7H38V8H37zM11,8H12V9H11zM15,8H16V9H15zM16,8H17V9H16zM18,8H19V9H18zM19,8H20V9H19zM21,8H22V9H21zM22,8H23V9H22zM24,8H25V9H24zM25,8H26V9H25zM27,8H28V9H27zM29,8H30V9H29zM1,9H2V10H1zM4,9H5V10H4zM6,9H7V10H6zM7,9H8V10H7zM9,9H10V10H9zM12,9H13V10H12zM16,9H17V10H16zM17,9H18V10H17zM18,9H19V10H18zM19,9H20V10H19zM20,9H21V10H20zM21,9H22V10H21zM22,9H23V10H22zM24,9H25V10H24zM26,9H27V10H26zM27,9H28V10H27zM30,9H31V10H30zM32,9H33V10H32zM2,10H3V11H2zM4,10H5V11H4zM5,10H6V11H5zM6,10H7V11H6zM8,10H9V11H8zM10,10H11V11H10zM12,10H13V11H12zM13,10H14V11H13zM14,10H15V11H14zM16,10H17V11H16zM17,10H18V11H17zM18,10H19V11H18zM19,10H20V11H19zM20,10H21V11H20zM25,10H26V11H25zM29,10H30V11H29zM30,10H31V11H30zM31,10H32V11H31zM37,10H38V11H37zM2,11H3V12H2zM4,11H5V12H4zM7,11H8V12H7zM10,11H11V12H10zM12,11H13V12H12zM13,11H14V12H13zM16,11H17V12H16zM18,11H19V12H18zM19,11H20V12H19zM20,11H21V12H20zM22,11H23V12H22zM23,11H24V12H23zM25,11H26V12H25zM29,11H30V12H29zM31,11H32V12H31zM33,11H34V12H33zM34,11H35V12H34zM35,11H36V12H35zM36,11H37V12H36zM37,11H38V12H37zM5,12H6V13H5zM6,12H7V13H6zM11,12H12V13H11zM12,12H13V13H12zM13,12H14V13H13zM14,12H15V13H14zM15,12H16V13H15zM17,12H18V13H17zM20,12H21V13H20zM21,12H22V13H21zM22,12H23V13H22zM26,12H27V13H26zM27,12H28V13H27zM30,12H31V13H30zM31,12H32V13H31zM32,12H33V13H32zM34,12H35V13H34zM1,13H2V14H1zM4,13H5V14H4zM5,13H6V14H5zM6,13H7V14H6zM7,13H8V14H7zM8,13H9V14H8zM9,13H10V14H9zM16,13H17V14H16zM18,13H19V14H18zM19,13H20V14H19zM21,13H22V14H21zM22,13H23V14H22zM24,13H25V14H24zM26,13H27V14H26zM30,13H31V14H30zM31,13H32V14H31zM32,13H33V14H32zM36,13H37V14H36zM37,13H38V14H37zM1,14H2V15H1zM3,14H4V15H3zM4,14H5V15H4zM5,14H6V15H5zM6,14H7V15H6zM11,14H12V15H11zM12,14H13V15H12zM15,14H16V15H15zM20,14H21V15H20zM21,14H22V15H21zM23,14H24V15H23zM25,14H26V15H25zM30,14H31V15H30zM31,14H32V15H31zM32,14H33V15H32zM35,14H36V15H35zM36,14H37V15H36zM37,14H38V15H37zM4,15H5V16H4zM7,15H8V16H7zM8,15H9V16H8zM9,15H10V16H9zM11,15H12V16H11zM13,15H14V16H13zM15,15H16V16H15zM21,15H22V16H21zM24,15H25V16H24zM25,15H26V16H25zM26,15H27V16H26zM30,15H31V16H30zM31,15H32V16H31zM32,15H33V16H32zM33,15H34V16H33zM35,15H36V16H35zM37,15H38V16H37zM2,16H3V17H2zM3,16H4V17H3zM4,16H5V17H4zM5,16H6V17H5zM9,16H10V17H9zM10,16H11V17H10zM11,16H12V17H11zM12,16H13V17H12zM14,16H15V17H14zM15,16H16V17H15zM16,16H17V17H16zM17,16H18V17H17zM20,16H21V17H20zM21,16H22V17H21zM22,16H23V17H22zM24,16H25V17H24zM26,16H27V17H26zM27,16H28V17H27zM28,16H29V17H28zM29,16H30V17H29zM33,16H34V17H33zM36,16H37V17H36zM37,16H38V17H37zM1,17H2V18H1zM3,17H4V18H3zM4,17H5V18H4zM5,17H6V18H5zM6,17H7V18H6zM7,17H8V18H7zM13,17H14V18H13zM15,17H16V18H15zM17,17H18V18H17zM20,17H21V18H20zM21,17H22V18H21zM24,17H25V18H24zM25,17H26V18H25zM29,17H30V18H29zM31,17H32V18H31zM32,17H33V18H32zM34,17H35V18H34zM35,17H36V18H35zM36,17H37V18H36zM2,18H3V19H2zM4,18H5V19H4zM5,18H6V19H5zM6,18H7V19H6zM8,18H9V19H8zM11,18H12V19H11zM13,18H14V19H13zM14,18H15V19H14zM16,18H17V19H16zM18,18H19V19H18zM20,18H21V19H20zM24,18H25V19H24zM25,18H26V19H25zM27,18H28V19H27zM29,18H30V19H29zM31,18H32V19H31zM33,18H34V19H33zM35,18H36V19H35zM36,18H37V19H36zM37,18H38V19H37zM3,19H4V20H3zM4,19H5V20H4zM5,19H6V20H5zM6,19H7V20H6zM7,19H8V20H7zM8,19H9V20H8zM10,19H11V20H10zM11,19H12V20H11zM15,19H16V20H15zM20,19H21V20H20zM21,19H22V20H21zM23,19H24V20H23zM25,19H26V20H25zM26,19H27V20H26zM31,19H32V20H31zM32,19H33V20H32zM33,19H34V20H33zM34,19H35V20H34zM35,19H36V20H35zM36,19H37V20H36zM37,19H38V20H37zM2,20H3V21H2zM4,20H5V21H4zM12,20H13V21H12zM13,20H14V21H13zM15,20H16V21H15zM16,20H17V21H16zM17,20H18V21H17zM18,20H19V21H18zM19,20H20V21H19zM20,20H21V21H20zM21,20H22V21H21zM22,20H23V21H22zM25,20H26V21H25zM27,20H28V21H27zM32,20H33V21H32zM33,20H34V21H33zM35,20H36V21H35zM36,20H37V21H36zM1,21H2V22H1zM5,21H6V22H5zM7,21H8V22H7zM10,21H11V22H10zM11,21H12V22H11zM17,21H18V22H17zM20,21H21V22H20zM21,21H22V22H21zM22,21H23V22H22zM25,21H26V22H25zM26,21H27V22H26zM28,21H29V22H28zM31,21H32V22H31zM33,21H34V22H33zM36,21H37V22H36zM3,22H4V23H3zM5,22H6V23H5zM6,22H7V23H6zM10,22H11V23H10zM11,22H12V23H11zM13,22H14V23H13zM17,22H18V23H17zM18,22H19V23H18zM21,22H22V23H21zM25,22H26V23H25zM26,22H27V23H26zM29,22H30V23H29zM30,22H31V23H30zM31,22H32V23H31zM32,22H33V23H32zM34,22H35V23H34zM36,22H37V23H36zM37,22H38V23H37zM2,23H3V24H2zM4,23H5V24H4zM5,23H6V24H5zM7,23H8V24H7zM8,23H9V24H8zM12,23H13V24H12zM17,23H18V24H17zM19,23H20V24H19zM20,23H21V24H20zM22,23H23V24H22zM23,23H24V24H23zM25,23H26V24H25zM27,23H28V24H27zM29,23H30V24H29zM30,23H31V24H30zM36,23H37V24H36zM37,23H38V24H37zM1,24H2V25H1zM9,24H10V25H9zM10,24H11V25H10zM13,24H14V25H13zM14,24H15V25H14zM19,24H20V25H19zM21,24H22V25H21zM25,24H26V25H25zM26,24H27V25H26zM29,24H30V25H29zM30,24H31V25H30zM31,24H32V25H31zM36,24H37V25H36zM1,25H2V26H1zM2,25H3V26H2zM3,25H4V26H3zM4,25H5V26H4zM7,25H8V26H7zM8,25H9V26H8zM9,25H10V26H9zM11,25H12V26H11zM13,25H14V26H13zM16,25H17V26H16zM17,25H18V26H17zM19,25H20V26H19zM25,25H26V26H25zM26,25H27V26H26zM29,25H30V26H29zM30,25H31V26H30zM31,25H32V26H31zM34,25H35V26H34zM4,26H5V27H4zM5,26H6V27H5zM6,26H7V27H6zM9,26H10V27H9zM11,26H12V27H11zM13,26H14V27H13zM16,26H17V27H16zM19,26H20V27H19zM23,26H24V27H23zM26,26H27V27H26zM31,26H32V27H31zM34,26H35V27H34zM35,26H36V27H35zM36,26H37V27H36zM37,26H38V27H37zM1,27H2V28H1zM3,27H4V28H3zM7,27H8V28H7zM8,27H9V28H8zM9,27H10V28H9zM11,27H12V28H11zM12,27H13V28H12zM13,27H14V28H13zM14,27H15V28H14zM15,27H16V28H15zM16,27H17V28H16zM17,27H18V28H17zM18,27H19V28H18zM21,27H22V28H21zM22,27H23V28H22zM24,27H25V28H24zM25,27H26V28H25zM26,27H27V28H26zM27,27H28V28H27zM29,27H30V28H29zM33,27H34V28H33zM34,27H35V28H34zM37,27H38V28H37zM2,28H3V29H2zM3,28H4V29H3zM4,28H5V29H4zM5,28H6V29H5zM9,28H10V29H9zM17,28H18V29H17zM18,28H19V29H18zM19,28H20V29H19zM20,28H21V29H20zM22,28H23V29H22zM23,28H24V29H23zM25,28H26V29H25zM26,28H27V29H26zM30,28H31V29H30zM31,28H32V29H31zM33,28H34V29H33zM1,29H2V30H1zM2,29H3V30H2zM3,29H4V30H3zM4,29H5V30H4zM7,29H8V30H7zM8,29H9V30H8zM9,29H10V30H9zM11,29H12V30H11zM12,29H13V30H12zM13,29H14V30H13zM14,29H15V30H14zM16,29H17V30H16zM18,29H19V30H18zM20,29H21V30H20zM22,29H23V30H22zM24,29H25V30H24zM29,29H30V30H29zM30,29H31V30H30zM31,29H32V30H31zM32,29H33V30H32zM33,29H34V30H33zM35,29H36V30H35zM36,29H37V30H36zM37,29H38V30H37zM9,30H10V31H9zM11,30H12V31H11zM17,30H18V31H17zM18,30H19V31H18zM22,30H23V31H22zM24,30H25V31H24zM25,30H26V31H25zM27,30H28V31H27zM28,30H29V31H28zM29,30H30V31H29zM33,30H34V31H33zM34,30H35V31H34zM37,30H38V31H37zM1,31H2V32H1zM2,31H3V32H2zM3,31H4V32H3zM4,31H5V32H4zM5,31H6V32H5zM6,31H7V32H6zM7,31H8V32H7zM10,31H11V32H10zM14,31H15V32H14zM15,31H16V32H15zM17,31H18V32H17zM18,31H19V32H18zM23,31H24V32H23zM27,31H28V32H27zM28,31H29V32H28zM29,31H30V32H29zM31,31H32V32H31zM33,31H34V32H33zM34,31H35V32H34zM36,31H37V32H36zM37,31H38V32H37zM1,32H2V33H1zM7,32H8V33H7zM9,32H10V33H9zM11,32H12V33H11zM12,32H13V33H12zM15,32H16V33H15zM17,32H18V33H17zM21,32H22V33H21zM22,32H23V33H22zM24,32H25V33H24zM27,32H28V33H27zM29,32H30V33H29zM33,32H34V33H33zM34,32H35V33H34zM35,32H36V33H35zM36,32H37V33H36zM1,33H2V34H1zM3,33H4V34H3zM4,33H5V34H4zM5,33H6V34H5zM7,33H8V34H7zM10,33H11V34H10zM13,33H14V34H13zM18,33H19V34H18zM23,33H24V34H23zM25,33H26V34H25zM26,33H27V34H26zM27,33H28V34H27zM29,33H30V34H29zM30,33H31V34H30zM31,33H32V34H31zM32,33H33V34H32zM33,33H34V34H33zM34,33H35V34H34zM37,33H38V34H37zM1,34H2V35H1zM3,34H4V35H3zM4,34H5V35H4zM5,34H6V35H5zM7,34H8V35H7zM9,34H10V35H9zM11,34H12V35H11zM12,34H13V35H12zM13,34H14V35H13zM14,34H15V35H14zM15,34H16V35H15zM16,34H17V35H16zM18,34H19V35H18zM20,34H21V35H20zM21,34H22V35H21zM23,34H24V35H23zM25,34H26V35H25zM26,34H27V35H26zM29,34H30V35H29zM32,34H33V35H32zM33,34H34V35H33zM35,34H36V35H35zM36,34H37V35H36zM1,35H2V36H1zM3,35H4V36H3zM4,35H5V36H4zM5,35H6V36H5zM7,35H8V36H7zM10,35H11V36H10zM11,35H12V36H11zM13,35H14V36H13zM14,35H15V36H14zM15,35H16V36H15zM17,35H18V36H17zM19,35H20V36H19zM21,35H22V36H21zM22,35H23V36H22zM23,35H24V36H23zM28,35H29V36H28zM29,35H30V36H29zM32,35H33V36H32zM33,35H34V36H33zM34,35H35V36H34zM35,35H36V36H35zM36,35H37V36H36zM37,35H38V36H37zM1,36H2V37H1zM7,36H8V37H7zM12,36H13V37H12zM15,36H16V37H15zM16,36H17V37H16zM19,36H20V37H19zM22,36H23V37H22zM23,36H24V37H23zM24,36H25V37H24zM25,36H26V37H25zM26,36H27V37H26zM29,36H30V37H29zM32,36H33V37H32zM1,37H2V38H1zM2,37H3V38H2zM3,37H4V38H3zM4,37H5V38H4zM5,37H6V38H5zM6,37H7V38H6zM7,37H8V38H7zM9,37H10V38H9zM10,37H11V38H10zM11,37H12V38H11zM12,37H13V38H12zM14,37H15V38H14zM15,37H16V38H15zM18,37H19V38H18zM20,37H21V38H20zM21,37H22V38H21zM22,37H23V38H22zM24,37H25V38H24zM25,37H26V38H25zM26,37H27V38H26zM28,37H29V38H28zM29,37H30V38H29zM31,37H32V38H31zM36,37H37V38H36zM37,37H38V38H37z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg></div>
+      <p style="font-size:19px;margin-top:14px">Escanea y sigue el taller desde tu computador.</p>
+      <p class="muted" style="font-size:16px;margin-top:6px">sanogusano.github.io/esumer-marketing-con-ia/prospeccion.html</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">El problema</p>
+  <h2>Nadie responde un mensaje que le podría llegar a cualquiera.</h2>
+  <div class="cols even">
+    <div class="stack">
+      <p class="eyebrow" style="margin:0;color:var(--muted)">El mensaje de siempre</p>
+      <div class="ex" style="border-color:#B9B5AB"><p class="say">“Buenas tardes. Somos una agencia con amplia experiencia en soluciones digitales para restaurantes. Nos gustaría agendar una reunión para presentarle nuestro portafolio.”</p></div>
+      <p class="muted">Se lo puedes mandar a 500 restaurantes. Por eso no te contesta ninguno.</p>
+    </div>
+    <div class="stack">
+      <p class="eyebrow" style="margin:0">El mensaje de hoy</p>
+      <div class="ex"><p class="say">“Hola, vi que en Google les repiten que la bandeja paisa es la mejor de Laureles, pero en su Instagram no aparece desde marzo. Hacemos fotos de platos para restaurantes del barrio. ¿Les sirve que les muestre cómo quedaría?”</p></div>
+      <p class="muted">Solo le sirve a un restaurante. Por eso lo lee.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué vamos a construir</p>
+  <h2>De una búsqueda a mensajes listos para enviar</h2>
+  <div class="flow">
+    <div class="n"><b>Cliente ideal</b><p>A quién le vendes y cómo lo reconoces.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Lista</b><p>Gemini busca empresas en Google Maps.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Verificación</b><p>Revisas que los datos sean reales.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Investigación</b><p>Un detalle concreto de cada empresa.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Prospector</b><p>Un Gem califica y escribe con tu voz.</p></div>
+    <div class="a">→</div>
+    <div class="n k"><b>Envío</b><p>A mano, uno por uno.</p></div>
+  </div>
+  <div class="grid3">
+    <div><h3>Tu lista</h3><p class="muted">15 empresas de tu cliente ideal en Google Sheets, con los datos revisados.</p></div>
+    <div><h3>Tu Prospector</h3><p class="muted">Un Gem de Gemini que conoce tu oferta y tu forma de escribir. Lo vuelves a usar cada semana.</p></div>
+    <div><h3>Tus mensajes</h3><p class="muted">Un mensaje por empresa, con un motivo real para escribirle.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Las 3 horas</p>
+  <h2>Cada uno trabaja con su propia empresa.</h2>
+  <table>
+    <tr><th>Bloque</th><th>Qué haces</th><th class="n">Min</th></tr>
+    <tr><td>Apertura</td><td>Qué vamos a construir y recorderis de prompts</td><td class="n">20</td></tr>
+    <tr><td>Paso 1</td><td>Tu cliente ideal</td><td class="n">20</td></tr>
+    <tr><td>Pasos 2 y 3</td><td>La lista y la verificación</td><td class="n">35</td></tr>
+    <tr><td>Pausa</td><td>—</td><td class="n">10</td></tr>
+    <tr><td>Paso 4</td><td>La investigación: un gancho por empresa</td><td class="n">25</td></tr>
+    <tr><td>Pasos 5 y 6</td><td>Tu Prospector y tus mensajes</td><td class="n">40</td></tr>
+    <tr><td>Paso 7</td><td>Envío y seguimiento</td><td class="n">10</td></tr>
+    <tr><td>Complemento</td><td>Cuando necesitas más volumen</td><td class="n">10</td></tr>
+    <tr><td>Cierre</td><td>Tus envíos del lunes</td><td class="n">10</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Antes de empezar</p>
+  <h2>Ten esto a la mano.</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="ex"><p class="lbl">El ejemplo del taller</p><p>En las diapositivas vas a ver a <b>Pixel</b>, una agencia de Medellín que hace fotos de platos y menús digitales para restaurantes. Tú haces cada paso con tu empresa.</p></div>
+      <p class="muted">Trabaja en computador, con Chrome. Deja esta presentación abierta para copiar los prompts.</p>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li><b>Gemini</b> abierto en gemini.google.com, con tu cuenta de Google.</li>
+        <li><b>Qué vendes</b>, en tres líneas: qué es, a quién le sirve y qué problema resuelve.</li>
+        <li><b>Dos mensajes tuyos</b> que alguna vez te respondieron. Son el ejemplo de cómo escribes.</li>
+      </ol>
+      <p class="note">Si no tienes mensajes guardados, escribe dos como si le escribieras a un cliente que ya conoces.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Recorderis</p>
+  <h1>La IA redacta. No copia.</h1>
+  <p class="lead muted" style="margin-top:24px">Cuando le pides un dato, Gemini escribe lo que suena correcto, que no siempre es lo verdadero. Un teléfono, un correo o el nombre del dueño pueden salir inventados. Por eso hoy hay un paso que nadie se salta: verificar.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Recorderis · Buenos prompts</p>
+  <h2>C.R.E.A.R. aplicado a buscar clientes</h2>
+  <table>
+    <tr><th>Letra</th><th>Qué le das</th><th>En el ejemplo de Pixel</th></tr>
+    <tr><td>Contexto</td><td>Qué vendes y a quién</td><td>Hacemos fotos de platos y menús digitales para restaurantes de Medellín.</td></tr>
+    <tr><td>Rol</td><td>Quién es la IA en este encargo</td><td>Eres un investigador comercial que conoce el sector de restaurantes.</td></tr>
+    <tr><td>Entregable</td><td>Qué devuelve y en qué forma</td><td>Una tabla con 15 restaurantes y estas columnas.</td></tr>
+    <tr><td>Ancla</td><td>Un ejemplo de lo que quieres</td><td>Un buen candidato es como La Fonda de Laureles: muchas reseñas y fotos viejas.</td></tr>
+    <tr><td>Restricciones</td><td>Lo que no debe hacer</td><td>Si no encuentras un dato, escribe “No encontrado”. No lo inventes.</td></tr>
+  </table>
+</section>
+
+<!-- ============ CONSTRUCCIÓN ============ -->
+
+<section class="slide">
+  <p class="eyebrow">Paso 1 · Tu cliente ideal</p>
+  <h2>Antes de buscar, define a quién buscas.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> una ficha que describe a la empresa que más probablemente te compra, y las señales para reconocerla desde afuera.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Gemini no puede buscar “clientes”. Puede buscar “restaurantes de Laureles con más de 200 reseñas y pocas fotos”.</p></div>
+      <div class="ex"><p class="lbl">Una señal sirve si se ve desde afuera</p><p><b>Sirve:</b> “publica en Instagram menos de una vez al mes”. <b>No sirve:</b> “tiene presupuesto para mercadeo”: eso no se ve en Google.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Abre un chat nuevo en <b>Gemini</b>.</li>
+        <li>Copia el prompt de la siguiente diapositiva y pégalo.</li>
+        <li>Responde sus preguntas pensando en tus mejores clientes.</li>
+        <li>Guarda la ficha que te entrega: la vas a usar tres veces hoy.</li>
+      </ol>
+      <p class="note">Si tu mejor cliente fue de casualidad, descríbelo igual: la ficha se corrige con el tiempo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 1 · El prompt del cliente ideal</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:18px">
+    <h2 style="margin:0">Cópialo y pégalo en Gemini.</h2>
+    <button class="copy" data-copy="p-icp">Copiar prompt</button>
+  </div>
+<pre class="code" id="p-icp">Actúa como consultor comercial B2B en Colombia. Vas a ayudarme a definir mi cliente ideal para buscar empresas en Google Maps.
+
+CÓMO TRABAJAS
+- Hazme UNA pregunta a la vez y espera mi respuesta. Máximo 8 preguntas.
+- Pregúntame qué vendo, quiénes son mis mejores clientes actuales, por qué me compraron y qué tenían en común.
+- Si respondo algo vago, pídeme un ejemplo concreto.
+
+AL TERMINAR, entrégame una ficha con estas partes:
+1. Qué vendo (una línea).
+2. Tipo de empresa: categoría como aparece en Google Maps, ciudad y zonas.
+3. Señales de que me necesita: entre 3 y 5, y cada una tiene que poder verse desde afuera (en Google Maps, en su sitio web, en sus redes o en sus reseñas).
+4. Señales de descarte: cuándo NO es buen cliente.
+5. Quién decide la compra normalmente (el cargo, no un nombre).
+6. Una búsqueda de ejemplo para Google Maps.
+
+No inventes datos de mi empresa. Empieza con la primera pregunta.</pre>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 2 · La lista</p>
+  <h2>Gemini busca en Google Maps por ti.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> Gemini está conectado a Google Maps. Le das tu ficha y te devuelve una tabla con empresas que la cumplen.</p>
+      <div class="obj"><b>Para qué sirve</b><p>En 5 minutos tienes la lista que antes armabas en una tarde, y cada empresa trae la razón por la que está ahí.</p></div>
+      <div class="ex"><p class="lbl">Lo normal</p><p>Gemini devuelve entre 10 y 20 empresas por búsqueda. Si quieres más, pide otra zona: “Ahora en El Poblado”.</p></div>
+      <div class="row"><button class="copy" data-copy="p-lista">Copiar prompt</button><span class="muted" style="font-size:20px">Pégalo en el mismo chat de la ficha</span></div>
+      <pre id="p-lista" hidden>Con la ficha de cliente ideal que acabamos de hacer, busca en Google Maps 15 empresas que la cumplan.
+
+Entrégame una tabla con estas columnas:
+Empresa | Categoría | Barrio | Dirección | Calificación | Número de reseñas | Sitio web | Instagram | Teléfono | Enlace de Google Maps | Por qué encaja
+
+Reglas:
+- Solo empresas que existan en Google Maps.
+- Si no encuentras un dato, escribe "No encontrado". No lo inventes ni lo deduzcas.
+- En "Por qué encaja", nombra la señal de la ficha que cumple.
+- No incluyas empresas que cumplan una señal de descarte.</pre>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Copia el prompt y pégalo en el mismo chat de tu ficha.</li>
+        <li>Debajo de la tabla, toca <kbd>Exportar a Hojas de cálculo</kbd>.</li>
+        <li>Abre la hoja y llámala <b>Prospección</b> y el nombre de tu empresa.</li>
+        <li>Agrega tres columnas al final: <b>Verificado</b>, <b>Gancho</b> y <b>Mensaje</b>.</li>
+      </ol>
+      <p class="note">¿No aparece el botón de exportar? Selecciona la tabla, cópiala y pégala en una hoja nueva de sheets.new.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 3 · La verificación</p>
+  <h2>Revisa antes de escribirle a nadie.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> comparas lo que dijo Gemini con la ficha real de Google Maps.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Un teléfono equivocado te hace perder tiempo. Un dato inventado en el mensaje te hace perder al cliente.</p></div>
+      <div class="ex"><p class="lbl">Lo que suele fallar</p><p>Teléfonos con un número cambiado, sitios web que ya no existen y empresas que cerraron. Casi nunca falla el nombre ni la dirección.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>15 min</span></p>
+      <ol>
+        <li>Abre el <b>Enlace de Google Maps</b> de las primeras 5 empresas.</li>
+        <li>Compara el teléfono, el sitio web y si la empresa sigue abierta.</li>
+        <li>Corrige en la hoja lo que esté mal.</li>
+        <li>En <b>Verificado</b> escribe <b>Sí</b> o <b>Descartada</b>.</li>
+        <li>Cuenta cuántos datos tuviste que corregir.</li>
+      </ol>
+      <p class="note">Esa cifra te dice cuánto confiar en la IA para tu sector.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Pausa · 10 minutos</p>
+  <h1>Ya sabes a quién escribirle.</h1>
+  <p class="lead muted" style="margin-top:24px">Al volver, buscamos qué decirle a cada uno.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 4 · La investigación</p>
+  <h2>Un gancho: lo que hace que el mensaje sea solo para esa empresa</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> Gemini revisa el sitio web, las redes y las reseñas de cada empresa, y encuentra un hecho concreto que conecta con lo que vendes.</p>
+      <div class="obj"><b>Para qué sirve</b><p>El gancho demuestra que miraste a esa empresa. Es la diferencia entre un mensaje que se lee y uno que se borra.</p></div>
+      <table>
+        <tr><td>Gancho</td><td>“12 reseñas de este mes elogian la bandeja paisa; la foto del plato en Maps es de 2022.”</td></tr>
+        <tr><td>No es gancho</td><td>“Tienen buenas reseñas.” Le sirve a cualquiera.</td></tr>
+      </table>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>25 min</span></p>
+      <ol>
+        <li>Copia tus 5 empresas verificadas: nombre, sitio web e Instagram.</li>
+        <li>Copia el prompt de la siguiente diapositiva y pégalo en el mismo chat.</li>
+        <li>Abre la fuente de cada gancho y confirma que dice eso.</li>
+        <li>Pega cada gancho en la columna <b>Gancho</b> de tu hoja.</li>
+      </ol>
+      <p class="note">Un gancho sin fuente no se usa. Si Gemini no dio el enlace, pídeselo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 4 · El prompt de investigación</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:18px">
+    <h2 style="margin:0">Pega tus 5 empresas al final.</h2>
+    <button class="copy" data-copy="p-inv">Copiar prompt</button>
+  </div>
+<pre class="code" id="p-inv">Investiga estas 5 empresas. Para cada una revisa su sitio web, su Instagram y sus reseñas recientes de Google.
+
+Para cada empresa dame:
+1. Lo que hace bien (una línea).
+2. Una oportunidad relacionada con lo que vendo, según mi ficha de cliente ideal.
+3. Un gancho: UN hecho concreto y verificable que pueda mencionar en un primer mensaje. Tiene que ser específico de esa empresa: una reseña, una publicación, algo de su sitio, un cambio reciente.
+4. La fuente del gancho: el enlace exacto donde se ve.
+
+Reglas:
+- Si no encuentras un gancho real, escribe "Sin gancho". No lo inventes.
+- No uses datos personales de empleados ni clientes de la empresa.
+- Responde en una tabla: Empresa | Lo que hace bien | Oportunidad | Gancho | Fuente.
+
+Las empresas son:
+[pega aquí nombre, sitio web e Instagram de cada una]</pre>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Recorderis</p>
+  <h1>Un Gem es un asistente que ya sabe cómo trabajas.</h1>
+  <p class="lead muted" style="margin-top:24px">Le escribes una vez qué vendes, a quién y cómo hablas. Después solo le pegas la empresa y te devuelve el mensaje. Es el mismo principio de las Skills: instrucciones que la IA lee antes de trabajar.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 5 · Tu Prospector</p>
+  <h2>Un Gem que califica a cada empresa y le escribe.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> un Gem de Gemini con tres cosas: tus instrucciones, tu ficha de cliente ideal y tus dos mensajes de ejemplo.</p>
+      <div class="obj"><b>Para qué sirve</b><p>No vuelves a explicar nada. El lunes le pegas 10 empresas nuevas y en minutos tienes 10 mensajes con tu voz.</p></div>
+      <div class="ex"><p class="lbl">Por qué tus dos mensajes</p><p>Son el Ancla. Con ellos, el Gem aprende cómo saludas, qué tan largo escribes y cómo cierras. Sin ellos, escribe como un robot.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>En Gemini, abre <kbd>Gems</kbd> → <kbd>Nuevo Gem</kbd>.</li>
+        <li>Nombre: <b>Prospector</b> y el nombre de tu empresa.</li>
+        <li>En <b>Instrucciones</b>, pega el texto de la siguiente diapositiva.</li>
+        <li>Al final de las instrucciones, pega tu ficha de cliente ideal, lo que vendes y tus dos mensajes.</li>
+        <li>Toca <kbd>Guardar</kbd>.</li>
+      </ol>
+      <p class="note">Los menús de Gemini cambian. Si no ves “Gems”, búscalo en el menú lateral.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 5 · Las instrucciones del Prospector</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:18px">
+    <h2 style="margin:0">Pégalas en el campo Instrucciones del Gem.</h2>
+    <button class="copy" data-copy="p-gem">Copiar instrucciones</button>
+  </div>
+<pre class="code" id="p-gem">Eres mi Prospector: calificas empresas y escribes el primer mensaje para cada una, con mi voz.
+
+LO QUE RECIBES
+Una o varias empresas con: nombre, categoría, por qué encaja, gancho y fuente del gancho.
+
+LO QUE HACES CON CADA EMPRESA
+1. Puntaje de 1 a 5 según mi ficha de cliente ideal, con la razón en una línea.
+2. Canal: correo si tiene correo o sitio web con formulario; WhatsApp si el número es comercial; llamada si no hay otra opción.
+3. Mensaje:
+   - Empieza por el gancho, con palabras normales.
+   - Une el gancho con lo que vendo en una sola frase.
+   - Termina con UNA pregunta fácil de responder (sí o no, o un día).
+   - WhatsApp: máximo 60 palabras. Correo: asunto de máximo 6 palabras y cuerpo de máximo 90.
+   - Escribe como en mis mensajes de ejemplo: mismo trato, mismo largo de frase, mismo tipo de saludo.
+
+NUNCA
+- Inventes datos que no estén en el gancho.
+- Uses: "espero que se encuentre bien", "no dude en", "solución integral", "amplia experiencia", "potenciar", "sinergia".
+- Prometas resultados con cifras.
+- Escribas más de una pregunta.
+
+FORMATO DE RESPUESTA
+Una tabla: Empresa | Puntaje | Razón | Canal | Mensaje.
+Si el puntaje es 1 o 2, no escribas mensaje: pon "No contactar" y la razón.
+
+MI EMPRESA, MI CLIENTE IDEAL Y MIS MENSAJES DE EJEMPLO
+[pega aquí lo que vendes, tu ficha y tus dos mensajes]</pre>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 6 · Tus mensajes</p>
+  <h2>Pégale tus empresas y revisa lo que escribe.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> usas el Prospector con las 5 empresas que tienen gancho.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Ver si suena a ti. Si no, el problema casi siempre está en las instrucciones o en tus mensajes de ejemplo, no en el Gem.</p></div>
+      <div class="ex"><p class="lbl">Así responde</p><p class="say">“Hola, ¿qué tal? Vi que en Google les repiten que la bandeja paisa es la mejor de Laureles, pero la foto del plato en Maps es de 2022. Hacemos fotos de platos para restaurantes del barrio. ¿Les muestro cómo quedaría la suya?”</p><p class="muted" style="font-size:20px;margin-top:6px">Puntaje 5 · WhatsApp · 44 palabras</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Abre tu Gem Prospector.</li>
+        <li>Pega tus 5 empresas con su gancho y su fuente.</li>
+        <li>Lee cada mensaje en voz alta: ¿lo mandarías tal cual?</li>
+        <li>Si algo no suena a ti, dile qué cambiar. Si lo vas a corregir siempre, agrégalo a las instrucciones del Gem.</li>
+        <li>Pega cada mensaje en la columna <b>Mensaje</b>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 7 · Envío y seguimiento</p>
+  <h2>La IA prepara. Tú envías.</h2>
+  <div class="cols">
+    <div class="stack">
+      <table>
+        <tr><td>A mano</td><td>Uno por uno, revisado. Un mensaje personal enviado de forma masiva deja de ser personal.</td></tr>
+        <tr><td>Canal de la empresa</td><td>Solo datos publicados por la empresa: su correo, su WhatsApp comercial o su formulario. Nunca el celular personal de un empleado.</td></tr>
+        <tr><td>Seguimiento</td><td>Si no responde, un segundo mensaje a los 3 días hábiles, con otro gancho. Después, no insistas.</td></tr>
+        <tr><td>Si dice que no</td><td>Lo marcas en la hoja y no le vuelves a escribir.</td></tr>
+      </table>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>10 min</span></p>
+      <ol>
+        <li>Agrega dos columnas: <b>Enviado</b> (fecha) y <b>Respuesta</b>.</li>
+        <li>Elige tus 3 mejores empresas: puntaje 5 y gancho verificado.</li>
+        <li>Déjalas listas para enviar el lunes.</li>
+      </ol>
+      <p class="note">WhatsApp puede bloquear tu número si muchas personas reportan tus mensajes. Menos y mejores.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Complemento · Cuando necesitas más volumen</p>
+  <h2>Maps2Sheets: la lista directo en Google Sheets</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> un complemento de Google Sheets que copia los resultados de una búsqueda de Google Maps directamente en tu hoja.</p>
+      <div class="obj"><b>Cuándo usarlo</b><p>Cuando 15 empresas no alcanzan. Promete hasta 100 empresas gratis al día, con los datos tal como están en Google Maps.</p></div>
+      <div class="ex"><p class="lbl">Gemini o Maps2Sheets</p><p><b>Gemini</b> entiende tu criterio, pero trae pocos resultados y puede inventar datos. <b>Maps2Sheets</b> trae muchos resultados y copia los datos tal cual, pero no filtra por señales. Los pasos 3 a 7 se hacen igual con cualquiera de los dos.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Míralo <span>10 min</span></p>
+      <ol>
+        <li>En una hoja: <kbd>Extensiones</kbd> → <kbd>Complementos</kbd> → <kbd>Descargar complementos</kbd>.</li>
+        <li>Busca <b>Maps2Sheets</b> e instálalo.</li>
+        <li>Abre el complemento, escribe la búsqueda de tu ficha y la ciudad.</li>
+        <li>Revisa qué columnas trae y compáralas con tu lista de Gemini.</li>
+      </ol>
+      <p class="note">Pide permiso para leer tus hojas y conectarse a un servicio externo. Úsalo en una hoja aparte.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark">
+  <p class="eyebrow">Cierre</p>
+  <h2>Hoy te llevas</h2>
+  <div class="grid3" style="margin-top:10px">
+    <div><h3>Tu cliente ideal</h3><p class="muted">Escrito con señales que se pueden ver desde afuera.</p></div>
+    <div><h3>Tu Prospector</h3><p class="muted">Un Gem que califica y escribe con tu voz. Lo vuelves a usar cada semana.</p></div>
+    <div><h3>Tu lista</h3><p class="muted">Empresas verificadas, con gancho y mensaje listos.</p></div>
+  </div>
+  <div class="sp"></div>
+  <p class="eyebrow" style="margin-bottom:12px">Tu lunes</p>
+  <p class="lead">Envía tus 3 mejores mensajes y anota qué pasa. Si nadie responde, cambia el gancho antes de cambiar el mensaje.</p>
+</section>
+
+</div>
+
+<div id="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const total = slides.length;
+  let i = 0;
+
+  slides.forEach((s, k) => {
+    const f = document.createElement('div');
+    f.className = 'foot';
+    f.innerHTML = '<span>Prospectar con IA</span><span>' + (k + 1) + ' / ' + total + '</span>';
+    s.appendChild(f);
+  });
+
+  function fit(){
+    const sc = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = 'scale(' + sc + ')';
+    stage.style.left = (innerWidth - 1600 * sc) / 2 + 'px';
+    stage.style.top = (innerHeight - 900 * sc) / 2 + 'px';
+  }
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(total - 1);
+  });
+  document.getElementById('prev').onclick = () => go(i - 1);
+  document.getElementById('next').onclick = () => go(i + 1);
+
+  let x0 = null;
+  addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+
+  document.querySelectorAll('.copy').forEach(b => {
+    b.addEventListener('click', async () => {
+      const txt = document.getElementById(b.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(txt); }
+      catch (e) {
+        const t = document.createElement('textarea');
+        t.value = txt; document.body.appendChild(t); t.select();
+        document.execCommand('copy'); t.remove();
+      }
+      const old = b.textContent;
+      b.textContent = 'Copiado'; b.classList.add('ok');
+      setTimeout(() => { b.textContent = old; b.classList.remove('ok'); }, 1600);
+    });
+  });
+
+
+  fit();
+  let start = 1;
+  try { start = parseInt(location.hash.slice(1), 10) || 1; } catch (e) {}
+  go(start - 1);
+})();
+</script>
+</body>
+</html>
