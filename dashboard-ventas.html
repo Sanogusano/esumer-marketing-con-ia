@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de ventas</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#F2F1ED;--card:#FFFFFF;--ink:#16161D;--muted:#6B6B75;--line:#E3E0D8;--coral:#C23A18;--coral2:#FF5C39;--green:#1F7A4D;--red:#B42318;
+  --sans:"Segoe UI",Calibri,Carlito,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 var(--sans)}
+header{background:var(--ink);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+header h1{font-size:19px;font-weight:700;letter-spacing:.2px}
+header h1 span{color:var(--coral2)}
+.sp{flex:1}
+.estado{font-size:13px;color:#B9B9C4}
+button{font:600 14px var(--sans);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+.btn{background:var(--coral);color:#fff}.btn:hover{background:#A9300F}
+.btn2{background:#2B2B35;color:#fff}.btn2:hover{background:#3A3A46}
+.btn3{background:#fff;color:var(--ink);border:1px solid var(--line)}
+main{padding:20px 24px 40px;max-width:1440px;margin:0 auto}
+.filtros{display:flex;gap:14px;flex-wrap:wrap;align-items:end;margin-bottom:18px}
+.filtros label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+select{font:15px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:190px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:14px}
+.kpi{background:var(--card);border-radius:10px;padding:16px 18px;border:1px solid var(--line)}
+.kpi .t{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-size:28px;font-weight:700;margin:6px 0 4px;letter-spacing:-.5px}
+.kpi .d{font-size:13px;color:var(--muted)}
+.up{color:var(--green);font-weight:700}.down{color:var(--red);font-weight:700}
+.bar{height:8px;border-radius:4px;background:#EEE;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--coral)}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--card);border-radius:10px;padding:16px 18px;border:1px solid var(--line);min-width:0}
+.card h2{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card h2 small{font-weight:400;color:var(--muted);font-size:13px}
+.ch{position:relative;height:280px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:2px solid var(--ink)}
+td{padding:9px 8px;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right;white-space:nowrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border-radius:0;padding:5px 10px;font-size:12px;background:#fff;color:var(--muted)}
+.seg button.on{background:var(--ink);color:#fff}
+#config{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:18px;display:none}
+#config.on{display:block}
+#config label{display:block;font-size:13px;font-weight:700;margin:10px 0 4px}
+#config input{width:100%;font:14px var(--sans);padding:9px 10px;border:1px solid var(--line);border-radius:6px}
+#config .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+#config p{font-size:13px;color:var(--muted);margin-top:6px}
+#msg{display:none;background:#FDECEA;color:var(--red);border:1px solid #F5C2BC;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:14px}
+#vacio{background:#fff;border:1px dashed var(--line);border-radius:10px;padding:40px;text-align:center;color:var(--muted)}
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+@media (max-width:560px){main{padding:16px}.kpis{grid-template-columns:1fr}header{padding:12px 16px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Droguería <span>·</span> Tablero de ventas</h1>
+  <div class="sp"></div>
+  <span class="estado" id="estado">Sin datos</span>
+  <button class="btn2" id="bConfig">Conexión</button>
+  <button class="btn" id="bAct">Actualizar</button>
+</header>
+<main>
+  <div id="msg"></div>
+  <section id="config">
+    <b>Conecta tus hojas</b>
+    <p>En tu hoja de Google: Archivo → Compartir → Publicar en la web → elige la pestaña → CSV → Publicar. Pega aquí cada enlace.</p>
+    <label for="uV">Enlace de la pestaña Ventas (CSV)</label>
+    <input id="uV" placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?gid=0&single=true&output=csv">
+    <label for="uP">Enlace de la pestaña Presupuesto (CSV) · opcional</label>
+    <input id="uP" placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?gid=...&single=true&output=csv">
+    <div class="row">
+      <button class="btn" id="bGuardar">Guardar y actualizar</button>
+      <button class="btn3" id="bEjemplo">Usar datos de ejemplo</button>
+    </div>
+  </section>
+
+  <div class="filtros">
+    <label>Sucursal <select id="fSuc"><option value="">Todas</option></select></label>
+    <label>Periodo <select id="fPer">
+      <option value="7">Últimos 7 días</option>
+      <option value="30" selected>Últimos 30 días</option>
+      <option value="mes">Este mes</option>
+      <option value="mesant">Mes anterior</option>
+      <option value="todo">Todo</option>
+    </select></label>
+  </div>
+
+  <div id="vacio">Conecta tu hoja de ventas con el botón <b>Conexión</b>, o usa los datos de ejemplo.</div>
+
+  <div id="tablero" style="display:none">
+    <div class="kpis">
+      <div class="kpi"><div class="t">Ventas</div><div class="v" id="kV">—</div><div class="d" id="dV"></div></div>
+      <div class="kpi"><div class="t">Pedidos</div><div class="v" id="kP">—</div><div class="d" id="dP"></div></div>
+      <div class="kpi"><div class="t">Ticket promedio</div><div class="v" id="kT">—</div><div class="d" id="dT"></div></div>
+      <div class="kpi"><div class="t">Unidades por pedido</div><div class="v" id="kU">—</div><div class="d" id="dU"></div></div>
+      <div class="kpi"><div class="t">Cumplimiento del mes</div><div class="v" id="kC">—</div><div class="d" id="dC"></div><div class="bar"><i id="bC" style="width:0"></i></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Ventas por día <small id="sDia"></small></h2><div class="ch"><canvas id="cDia"></canvas></div></div>
+      <div class="card"><h2>Ventas por categoría</h2><div class="ch"><canvas id="cCat"></canvas></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Top 10 productos <span class="seg"><button class="on" data-m="valor">Valor</button><button data-m="unidades">Unidades</button></span></h2><div class="ch" style="height:320px"><canvas id="cTop"></canvas></div></div>
+      <div class="card"><h2>Sucursales <small>mes en curso vs. meta</small></h2>
+        <table><thead><tr><th>Sucursal</th><th class="n">Ventas</th><th class="n">Ticket</th><th class="n">Meta mes</th><th class="n">Cumpl.</th></tr></thead><tbody id="tSuc"></tbody></table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + Math.round(n).toLocaleString('es-CO');
+const fmtM = n => n >= 1e6 ? '$' + (n / 1e6).toLocaleString('es-CO', { maximumFractionDigits: 1 }) + ' M' : fmt(n);
+const DIA = 86400000;
+let VENTAS = [], PRES = [], charts = {}, modoTop = 'valor';
+
+// ---------- almacenamiento ----------
+const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const leer = k => { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } };
+
+// ---------- CSV ----------
+function parseCSV(txt) {
+  const sep = (txt.split('\n')[0].match(/\t/) ? '\t' : (txt.split('\n')[0].split(';').length > txt.split('\n')[0].split(',').length ? ';' : ','));
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < txt.length; i++) {
+    const c = txt[i];
+    if (q) { if (c === '"') { if (txt[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === sep) { row.push(cur); cur = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && txt[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+    else cur += c;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.some(x => String(x).trim()));
+}
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+function num(v) {
+  let s = String(v || '').replace(/[$\s]/g, '');
+  if (!s) return 0;
+  if (s.includes(',') && s.includes('.')) s = s.lastIndexOf(',') > s.lastIndexOf('.') ? s.replace(/\./g, '').replace(',', '.') : s.replace(/,/g, '');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+  else if (/^\d{1,3}(,\d{3})+$/.test(s)) s = s.replace(/,/g, '');
+  else s = s.replace(',', '.');
+  const n = parseFloat(s); return isNaN(n) ? 0 : n;
+}
+function columnas(h, nombres) {
+  const H = h.map(norm);
+  const out = {};
+  for (const [k, alias] of Object.entries(nombres)) out[k] = H.findIndex(x => alias.some(a => x === a || x.startsWith(a)));
+  return out;
+}
+function fechas(valores) {
+  // detecta día/mes o mes/día mirando todos los valores
+  let dmy = 0, mdy = 0;
+  valores.forEach(v => { const m = String(v).match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/); if (m) { if (+m[1] > 12) dmy++; if (+m[2] > 12) mdy++; } });
+  const diaPrimero = dmy >= mdy;
+  return v => {
+    const s = String(v).trim();
+    let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+    m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/);
+    if (m) { const y = +m[3] < 100 ? 2000 + +m[3] : +m[3]; return diaPrimero ? new Date(y, +m[2] - 1, +m[1]) : new Date(y, +m[1] - 1, +m[2]); }
+    return null;
+  };
+}
+function cargarVentas(txt) {
+  const r = parseCSV(txt);
+  if (r.length < 2) throw new Error('La hoja de ventas está vacía.');
+  const c = columnas(r[0], { fecha: ['fecha'], pedido: ['pedido', 'factura'], sucursal: ['sucursal', 'tienda', 'punto'], producto: ['producto', 'descripcion', 'articulo'], categoria: ['categoria', 'linea'], unidades: ['unidades', 'cantidad'], valor: ['valor', 'venta', 'total'] });
+  ['fecha', 'pedido', 'valor'].forEach(k => { if (c[k] < 0) throw new Error('Falta la columna "' + k + '" en la hoja de ventas.'); });
+  const toFecha = fechas(r.slice(1).map(x => x[c.fecha]));
+  return r.slice(1).map(x => ({
+    fecha: toFecha(x[c.fecha]), pedido: String(x[c.pedido]).trim(),
+    sucursal: c.sucursal >= 0 ? String(x[c.sucursal]).trim() : 'Única',
+    producto: c.producto >= 0 ? String(x[c.producto]).trim() : '',
+    categoria: c.categoria >= 0 ? String(x[c.categoria]).trim() : '',
+    unidades: c.unidades >= 0 ? num(x[c.unidades]) : 1, valor: num(x[c.valor])
+  })).filter(v => v.fecha && v.pedido);
+}
+function cargarPres(txt) {
+  const r = parseCSV(txt);
+  if (r.length < 2) return [];
+  const c = columnas(r[0], { sucursal: ['sucursal', 'tienda'], mes: ['mes', 'periodo'], meta: ['meta', 'presupuesto', 'valor'] });
+  return r.slice(1).map(x => {
+    const m = String(x[c.mes]).match(/(\d{4})\D(\d{1,2})|(\d{1,2})\D(\d{4})/);
+    const ym = m ? (m[1] ? m[1] + '-' + m[2].padStart(2, '0') : m[4] + '-' + m[3].padStart(2, '0')) : '';
+    return { sucursal: String(x[c.sucursal]).trim(), mes: ym, meta: num(x[c.meta]) };
+  }).filter(p => p.mes);
+}
+
+// ---------- carga ----------
+async function traer(url) {
+  const sep = url.includes('?') ? '&' : '?';
+  const res = await fetch(url + sep + 't=' + Date.now(), { cache: 'no-store' });
+  if (!res.ok) throw new Error('No pude leer el enlace (código ' + res.status + '). Revisa que la hoja esté publicada como CSV.');
+  const t = await res.text();
+  if (/^\s*<!doctype html|<html/i.test(t)) throw new Error('El enlace abre una página, no un CSV. Al publicar, elige el formato CSV.');
+  return t;
+}
+async function actualizar() {
+  const uV = leer('uV'), uP = leer('uP');
+  if (!uV) { $('config').classList.add('on'); return; }
+  $('estado').textContent = 'Actualizando…'; $('msg').style.display = 'none';
+  try {
+    VENTAS = cargarVentas(await traer(uV));
+    PRES = uP ? cargarPres(await traer(uP)) : [];
+    llenarSucursales(); pintar();
+    $('estado').textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' }) + ' · ' + VENTAS.length.toLocaleString('es-CO') + ' filas';
+  } catch (e) {
+    $('estado').textContent = 'Error';
+    $('msg').innerHTML = '<b>No se pudo actualizar.</b> ' + e.message + (e instanceof TypeError ? ' Si estás en una vista previa, descarga este archivo y ábrelo en Chrome.' : '');
+    $('msg').style.display = 'block';
+  }
+}
+
+// ---------- cálculos ----------
+const ymd = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const ym = d => ymd(d).slice(0, 7);
+function rango(max, per) {
+  const fin = new Date(max.getFullYear(), max.getMonth(), max.getDate());
+  if (per === 'todo') return [new Date(1900, 0, 1), fin, null];
+  if (per === 'mes') { const ini = new Date(fin.getFullYear(), fin.getMonth(), 1); const largo = Math.round((fin - ini) / DIA) + 1; return [ini, fin, [new Date(ini.getFullYear(), ini.getMonth() - 1, 1), new Date(ini.getFullYear(), ini.getMonth() - 1, largo)]]; }
+  if (per === 'mesant') { const ini = new Date(fin.getFullYear(), fin.getMonth() - 1, 1), f = new Date(fin.getFullYear(), fin.getMonth(), 0); return [ini, f, [new Date(ini.getFullYear(), ini.getMonth() - 1, 1), new Date(ini.getFullYear(), ini.getMonth(), 0)]]; }
+  const n = +per, ini = new Date(fin - (n - 1) * DIA);
+  return [ini, fin, [new Date(ini - n * DIA), new Date(ini - DIA)]];
+}
+function resumen(f) {
+  const v = f.reduce((s, x) => s + x.valor, 0), u = f.reduce((s, x) => s + x.unidades, 0), p = new Set(f.map(x => x.pedido)).size;
+  return { v, u, p, t: p ? v / p : 0, up: p ? u / p : 0 };
+}
+function variacion(a, b, el) {
+  if (!b) { $(el).innerHTML = ''; return; }
+  const d = (a - b) / b * 100;
+  $(el).innerHTML = '<span class="' + (d >= 0 ? 'up' : 'down') + '">' + (d >= 0 ? '▲ ' : '▼ ') + Math.abs(d).toFixed(1).replace('.', ',') + ' %</span> vs. periodo anterior';
+}
+
+// ---------- pintar ----------
+function llenarSucursales() {
+  const s = $('fSuc'), actual = s.value;
+  const lista = [...new Set(VENTAS.map(v => v.sucursal))].sort();
+  s.innerHTML = '<option value="">Todas</option>' + lista.map(x => '<option>' + x + '</option>').join('');
+  if (lista.includes(actual)) s.value = actual;
+}
+function grafico(id, cfg) { if (charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
+const opts = (extra) => Object.assign({ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+  scales: { x: { grid: { display: false } }, y: { grid: { color: '#EEE' }, ticks: { callback: v => fmtM(v) } } } }, extra || {});
+
+function pintar() {
+  if (!VENTAS.length) return;
+  $('vacio').style.display = 'none'; $('tablero').style.display = 'block';
+  const suc = $('fSuc').value, per = $('fPer').value;
+  const base = suc ? VENTAS.filter(v => v.sucursal === suc) : VENTAS;
+  const max = new Date(Math.max(...VENTAS.map(v => v.fecha)));
+  const [ini, fin, prev] = rango(max, per);
+  const en = (v, a, b) => v.fecha >= a && v.fecha <= b;
+  const F = base.filter(v => en(v, ini, fin));
+  const A = resumen(F), B = prev ? resumen(base.filter(v => en(v, prev[0], prev[1]))) : null;
+
+  $('kV').textContent = fmtM(A.v); variacion(A.v, B && B.v, 'dV');
+  $('kP').textContent = A.p.toLocaleString('es-CO'); variacion(A.p, B && B.p, 'dP');
+  $('kT').textContent = fmt(A.t); variacion(A.t, B && B.t, 'dT');
+  $('kU').textContent = A.up.toFixed(2).replace('.', ','); variacion(A.up, B && B.up, 'dU');
+
+  // cumplimiento del mes en curso (mes del último dato)
+  const mes = ym(max), diasMes = new Date(max.getFullYear(), max.getMonth() + 1, 0).getDate();
+  const ventaMes = base.filter(v => ym(v.fecha) === mes).reduce((s, x) => s + x.valor, 0);
+  const meta = PRES.filter(p => p.mes === mes && (!suc || p.sucursal === suc)).reduce((s, p) => s + p.meta, 0);
+  if (meta) {
+    const c = ventaMes / meta * 100, proy = ventaMes / max.getDate() * diasMes / meta * 100;
+    $('kC').textContent = c.toFixed(1).replace('.', ',') + ' %';
+    $('dC').innerHTML = fmtM(ventaMes) + ' de ' + fmtM(meta) + ' · cierre proyectado <b class="' + (proy >= 100 ? 'up' : 'down') + '">' + proy.toFixed(0) + ' %</b>';
+    $('bC').style.width = Math.min(100, c) + '%';
+  } else { $('kC').textContent = '—'; $('dC').textContent = 'Conecta la pestaña Presupuesto'; $('bC').style.width = '0'; }
+
+  // ventas por día
+  const porDia = {}; F.forEach(v => { const k = ymd(v.fecha); porDia[k] = (porDia[k] || 0) + v.valor; });
+  const dias = Object.keys(porDia).sort();
+  $('sDia').textContent = dias.length ? dias[0].split('-').reverse().join('/') + ' a ' + dias[dias.length - 1].split('-').reverse().join('/') : '';
+  grafico('cDia', { type: 'line', data: { labels: dias.map(d => d.slice(8) + '/' + d.slice(5, 7)), datasets: [{ data: dias.map(d => porDia[d]), borderColor: '#C23A18', backgroundColor: 'rgba(194,58,24,.08)', fill: true, tension: .3, pointRadius: 0, borderWidth: 2 }] },
+    options: opts({ plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } } }) });
+
+  // categorías
+  const porCat = {}; F.forEach(v => { const k = v.categoria || 'Sin categoría'; porCat[k] = (porCat[k] || 0) + v.valor; });
+  const cats = Object.entries(porCat).sort((a, b) => b[1] - a[1]);
+  grafico('cCat', { type: 'bar', data: { labels: cats.map(c => c[0]), datasets: [{ data: cats.map(c => c[1]), backgroundColor: '#16161D', borderRadius: 4 }] },
+    options: opts({ indexAxis: 'y', scales: { x: { grid: { color: '#EEE' }, ticks: { callback: v => fmtM(v) } }, y: { grid: { display: false } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } } }) });
+
+  // top productos
+  const porProd = {}; F.forEach(v => { if (!v.producto) return; const k = v.producto; porProd[k] = (porProd[k] || 0) + (modoTop === 'valor' ? v.valor : v.unidades); });
+  const top = Object.entries(porProd).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  grafico('cTop', { type: 'bar', data: { labels: top.map(t => t[0]), datasets: [{ data: top.map(t => t[1]), backgroundColor: '#C23A18', borderRadius: 4 }] },
+    options: opts({ indexAxis: 'y', scales: { x: { grid: { color: '#EEE' }, ticks: { callback: v => modoTop === 'valor' ? fmtM(v) : v.toLocaleString('es-CO') } }, y: { grid: { display: false } } },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => modoTop === 'valor' ? fmt(c.raw) : c.raw.toLocaleString('es-CO') + ' unidades' } } } }) });
+
+  // sucursales (mes en curso)
+  const lista = [...new Set(VENTAS.map(v => v.sucursal))];
+  const filas = lista.map(s => {
+    const f = VENTAS.filter(v => v.sucursal === s && ym(v.fecha) === mes), r = resumen(f);
+    const m = PRES.filter(p => p.mes === mes && p.sucursal === s).reduce((a, p) => a + p.meta, 0);
+    return { s, v: r.v, t: r.t, m, c: m ? r.v / m * 100 : null };
+  }).sort((a, b) => b.v - a.v);
+  $('tSuc').innerHTML = filas.map(f => '<tr' + (suc && f.s !== suc ? ' style="opacity:.45"' : '') + '><td><b>' + f.s + '</b></td><td class="n">' + fmtM(f.v) + '</td><td class="n">' + fmt(f.t) + '</td><td class="n">' + (f.m ? fmtM(f.m) : '—') + '</td><td class="n">' +
+    (f.c === null ? '—' : '<span class="' + (f.c >= 100 * max.getDate() / diasMes ? 'up' : 'down') + '">' + f.c.toFixed(0) + ' %</span>') + '</td></tr>').join('');
+}
+
+// ---------- eventos ----------
+$('bAct').onclick = actualizar;
+$('bConfig').onclick = () => $('config').classList.toggle('on');
+$('bGuardar').onclick = () => { guardar('uV', $('uV').value.trim()); guardar('uP', $('uP').value.trim()); $('config').classList.remove('on'); actualizar(); };
+$('bEjemplo').onclick = () => { const b = location.href.replace(/[^\/]*$/, ''); $('uV').value = b + 'ventas-ejemplo.csv'; $('uP').value = b + 'presupuesto-ejemplo.csv'; $('bGuardar').click(); };
+$('fSuc').onchange = pintar; $('fPer').onchange = pintar;
+document.querySelectorAll('.seg button').forEach(b => b.onclick = () => { document.querySelectorAll('.seg button').forEach(x => x.classList.remove('on')); b.classList.add('on'); modoTop = b.dataset.m; pintar(); });
+$('uV').value = leer('uV'); $('uP').value = leer('uP');
+if (leer('uV')) actualizar();
+</script>
+</body>
+</html>
