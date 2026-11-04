@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente de WhatsApp</title>
+<style>
+:root{
+  --ink:#16161D; --paper:#F6F5F1; --white:#FFFFFC; --line:#DEDBD3;
+  --muted:#55555F; --coral:#C23A18; --coral2:#FF5C39; --green:#1F7A4D;
+  --serif:Cambria,"Cambria Math",Georgia,"Times New Roman",serif;
+  --sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;
+  --mono:Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E0E12;overflow:hidden}
+body{font-family:var(--sans);color:var(--ink)}
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1600px;height:900px;background:var(--paper);padding:72px 96px 88px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.coral{background:var(--coral);color:#fff}
+
+/* type */
+h1{font:700 88px/1.04 var(--serif);letter-spacing:-.5px}
+h2{font:700 56px/1.08 var(--serif);margin-bottom:28px;letter-spacing:-.3px}
+h3{font:700 30px/1.2 var(--serif);margin-bottom:8px}
+p,li,td,th{font-size:25px;line-height:1.42}
+.lead{font-size:32px;line-height:1.38;max-width:1180px}
+.muted{color:var(--muted)}
+.dark .muted{color:#A9A9B4}
+.eyebrow{font:700 19px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+.dark .eyebrow,.coral .eyebrow{color:var(--coral2)}
+.coral .eyebrow{color:#FFD9CE}
+b.c,.c{color:var(--coral)}
+.dark .c{color:var(--coral2)}
+.sp{flex:1}
+
+/* layout */
+.cols{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;flex:1;min-height:0}
+.cols.even{grid-template-columns:1fr 1fr}
+.stack>*+*{margin-top:22px}
+
+/* blocks */
+.obj{border-top:2px solid var(--ink);padding-top:14px}
+.obj b{display:block;font:700 18px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ex{background:var(--white);border-left:5px solid var(--coral);padding:20px 26px}
+.ex .lbl{font:700 17px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+.ex p{font-size:24px}
+.say{font-family:var(--serif);font-style:italic}
+.do{background:var(--ink);color:var(--paper);padding:30px 34px;border-radius:4px;display:flex;flex-direction:column}
+.do .lbl{font:700 18px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral2);margin-bottom:18px;display:flex;justify-content:space-between}
+.do .lbl span{color:#A9A9B4;letter-spacing:1px}
+.do ol{padding-left:30px}
+.do li{font-size:24px;margin-bottom:12px}
+.do li b{color:#fff}
+.do .note{font-size:20px;color:#B9B9C4;border-top:1px solid #34343E;padding-top:12px;margin-top:auto}
+kbd{font:600 21px var(--sans);background:#2A2A33;border:1px solid #444;border-radius:3px;padding:0 7px;white-space:nowrap}
+.paper kbd,.slide:not(.dark) .stack kbd{background:#ECEAE4;border-color:#CFCBC1}
+
+table{width:100%;border-collapse:collapse}
+th{font:700 18px/1.2 var(--sans);letter-spacing:1.5px;text-transform:uppercase;text-align:left;padding:0 18px 12px 0;border-bottom:2px solid var(--ink)}
+td{padding:13px 18px 13px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:23px}
+td:first-child{font-weight:700;white-space:nowrap}
+.dark th{border-color:var(--paper)}
+.dark td{border-color:#34343E}
+td.n,th.n{text-align:right;white-space:nowrap}
+
+pre.code{font:18px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:20px 24px;white-space:pre-wrap;overflow:auto;flex:1;min-height:0}
+.copy{font:700 18px var(--sans);letter-spacing:1px;text-transform:uppercase;background:var(--coral);color:#fff;border:0;padding:12px 20px;border-radius:3px;cursor:pointer;align-self:flex-start}
+.copy.ok{background:var(--green)}
+.row{display:flex;gap:16px;align-items:center}
+
+.flow{display:flex;align-items:stretch;gap:0;margin:8px 0 28px}
+.flow .n{flex:1;border:2px solid var(--ink);padding:16px 16px;background:var(--white)}
+.flow .n b{font:700 24px/1.15 var(--serif);display:block;margin-bottom:6px}
+.flow .n p{font-size:19px;line-height:1.3;color:var(--muted)}
+.flow .n.k{background:var(--ink);color:var(--paper)}
+.flow .n.k p{color:#B9B9C4}
+.flow .a{width:34px;display:flex;align-items:center;justify-content:center;font:700 28px var(--serif);color:var(--coral)}
+
+.big{font:700 120px/1 var(--serif);color:var(--coral)}
+.num{font:700 64px/1 var(--serif);color:var(--coral);margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.grid3 > div{border-top:2px solid currentColor;padding-top:16px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+.grid5 > div{border-top:2px solid var(--ink);padding-top:14px}
+.grid5 p{font-size:21px}
+
+.md{font:21px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:22px 26px;white-space:pre-wrap}
+.md .h{color:var(--coral);font-weight:700}
+
+.qr{background:#fff;padding:22px;width:330px}
+.qr svg{display:block;width:100%;height:auto}
+
+.verdict{font:700 18px/1 var(--sans);letter-spacing:1.5px;padding:5px 10px;border-radius:2px;display:inline-block;margin-bottom:8px}
+.v-no{background:#F8DCD3;color:var(--coral)}
+.v-ok{background:#D6EBDD;color:var(--green)}
+s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
+
+.foot{position:absolute;left:96px;right:96px;bottom:30px;display:flex;justify-content:space-between;font:16px var(--sans);letter-spacing:1px;color:#8A8A93}
+.dark .foot{color:#6E6E78}
+.coral .foot{color:#FFD9CE}
+
+#nav{position:fixed;right:12px;top:10px;opacity:.35;display:flex;gap:6px;z-index:9}
+#nav button{background:rgba(255,255,255,.12);color:#fff;border:0;width:40px;height:34px;font-size:18px;border-radius:3px;cursor:pointer}
+#nav:hover{opacity:1}#nav button:hover{background:rgba(255,255,255,.25)}
+@media print{#nav{display:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark">
+  <div class="cols" style="grid-template-columns:1fr 330px;align-items:center">
+    <div>
+      <p class="eyebrow">Taller · Agentes de IA en WhatsApp</p>
+      <h1>Tu agente de ventas en WhatsApp</h1>
+      <p class="lead" style="margin-top:24px">Configura el agente oficial de Meta para que responda, recomiende y te pase los clientes listos para comprar. Sin código y sin riesgo de bloqueo.</p>
+    </div>
+    <div>
+      <div class="qr"><svg  version="1.1" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM11,1H12V2H11zM12,1H13V2H12zM13,1H14V2H13zM17,1H18V2H17zM18,1H19V2H18zM19,1H20V2H19zM20,1H21V2H20zM22,1H23V2H22zM26,1H27V2H26zM27,1H28V2H27zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM34,1H35V2H34zM35,1H36V2H35zM36,1H37V2H36zM37,1H38V2H37zM1,2H2V3H1zM7,2H8V3H7zM9,2H10V3H9zM10,2H11V3H10zM16,2H17V3H16zM20,2H21V3H20zM22,2H23V3H22zM25,2H26V3H25zM31,2H32V3H31zM37,2H38V3H37zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM9,3H10V4H9zM10,3H11V4H10zM11,3H12V4H11zM12,3H13V4H12zM13,3H14V4H13zM16,3H17V4H16zM20,3H21V4H20zM21,3H22V4H21zM22,3H23V4H22zM25,3H26V4H25zM27,3H28V4H27zM28,3H29V4H28zM29,3H30V4H29zM31,3H32V4H31zM33,3H34V4H33zM34,3H35V4H34zM35,3H36V4H35zM37,3H38V4H37zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM9,4H10V5H9zM10,4H11V5H10zM12,4H13V5H12zM13,4H14V5H13zM14,4H15V5H14zM15,4H16V5H15zM16,4H17V5H16zM18,4H19V5H18zM20,4H21V5H20zM21,4H22V5H21zM22,4H23V5H22zM23,4H24V5H23zM25,4H26V5H25zM26,4H27V5H26zM29,4H30V5H29zM31,4H32V5H31zM33,4H34V5H33zM34,4H35V5H34zM35,4H36V5H35zM37,4H38V5H37zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM11,5H12V6H11zM14,5H15V6H14zM17,5H18V6H17zM20,5H21V6H20zM21,5H22V6H21zM22,5H23V6H22zM24,5H25V6H24zM29,5H30V6H29zM31,5H32V6H31zM33,5H34V6H33zM34,5H35V6H34zM35,5H36V6H35zM37,5H38V6H37zM1,6H2V7H1zM7,6H8V7H7zM11,6H12V7H11zM16,6H17V7H16zM17,6H18V7H17zM19,6H20V7H19zM21,6H22V7H21zM27,6H28V7H27zM29,6H30V7H29zM31,6H32V7H31zM37,6H38V7H37zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM29,7H30V8H29zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM34,7H35V8H34zM35,7H36V8H35zM36,7H37V8H36zM37,7H38V8H37zM9,8H10V9H9zM12,8H13V9H12zM16,8H17V9H16zM17,8H18V9H17zM21,8H22V9H21zM27,8H28V9H27zM28,8H29V9H28zM1,9H2V10H1zM7,9H8V10H7zM9,9H10V10H9zM10,9H11V10H10zM12,9H13V10H12zM13,9H14V10H13zM15,9H16V10H15zM19,9H20V10H19zM20,9H21V10H20zM21,9H22V10H21zM26,9H27V10H26zM28,9H29V10H28zM29,9H30V10H29zM30,9H31V10H30zM31,9H32V10H31zM34,9H35V10H34zM35,9H36V10H35zM36,9H37V10H36zM1,10H2V11H1zM4,10H5V11H4zM8,10H9V11H8zM9,10H10V11H9zM12,10H13V11H12zM13,10H14V11H13zM14,10H15V11H14zM21,10H22V11H21zM22,10H23V11H22zM23,10H24V11H23zM24,10H25V11H24zM26,10H27V11H26zM27,10H28V11H27zM28,10H29V11H28zM32,10H33V11H32zM33,10H34V11H33zM34,10H35V11H34zM35,10H36V11H35zM36,10H37V11H36zM1,11H2V12H1zM3,11H4V12H3zM6,11H7V12H6zM7,11H8V12H7zM8,11H9V12H8zM12,11H13V12H12zM15,11H16V12H15zM18,11H19V12H18zM19,11H20V12H19zM21,11H22V12H21zM23,11H24V12H23zM26,11H27V12H26zM27,11H28V12H27zM28,11H29V12H28zM31,11H32V12H31zM32,11H33V12H32zM35,11H36V12H35zM36,11H37V12H36zM37,11H38V12H37zM3,12H4V13H3zM4,12H5V13H4zM6,12H7V13H6zM8,12H9V13H8zM12,12H13V13H12zM15,12H16V13H15zM16,12H17V13H16zM17,12H18V13H17zM19,12H20V13H19zM25,12H26V13H25zM28,12H29V13H28zM29,12H30V13H29zM30,12H31V13H30zM33,12H34V13H33zM37,12H38V13H37zM4,13H5V14H4zM5,13H6V14H5zM7,13H8V14H7zM8,13H9V14H8zM9,13H10V14H9zM10,13H11V14H10zM11,13H12V14H11zM13,13H14V14H13zM19,13H20V14H19zM20,13H21V14H20zM21,13H22V14H21zM24,13H25V14H24zM31,13H32V14H31zM34,13H35V14H34zM37,13H38V14H37zM2,14H3V15H2zM3,14H4V15H3zM5,14H6V15H5zM9,14H10V15H9zM12,14H13V15H12zM15,14H16V15H15zM16,14H17V15H16zM17,14H18V15H17zM18,14H19V15H18zM19,14H20V15H19zM20,14H21V15H20zM21,14H22V15H21zM22,14H23V15H22zM24,14H25V15H24zM26,14H27V15H26zM28,14H29V15H28zM29,14H30V15H29zM32,14H33V15H32zM34,14H35V15H34zM1,15H2V16H1zM2,15H3V16H2zM7,15H8V16H7zM8,15H9V16H8zM9,15H10V16H9zM14,15H15V16H14zM15,15H16V16H15zM16,15H17V16H16zM17,15H18V16H17zM18,15H19V16H18zM21,15H22V16H21zM23,15H24V16H23zM25,15H26V16H25zM27,15H28V16H27zM28,15H29V16H28zM29,15H30V16H29zM31,15H32V16H31zM32,15H33V16H32zM33,15H34V16H33zM34,15H35V16H34zM36,15H37V16H36zM37,15H38V16H37zM1,16H2V17H1zM2,16H3V17H2zM3,16H4V17H3zM4,16H5V17H4zM5,16H6V17H5zM6,16H7V17H6zM8,16H9V17H8zM10,16H11V17H10zM14,16H15V17H14zM18,16H19V17H18zM19,16H20V17H19zM23,16H24V17H23zM25,16H26V17H25zM30,16H31V17H30zM31,16H32V17H31zM32,16H33V17H32zM34,16H35V17H34zM35,16H36V17H35zM1,17H2V18H1zM2,17H3V18H2zM3,17H4V18H3zM7,17H8V18H7zM9,17H10V18H9zM10,17H11V18H10zM12,17H13V18H12zM14,17H15V18H14zM16,17H17V18H16zM17,17H18V18H17zM23,17H24V18H23zM24,17H25V18H24zM25,17H26V18H25zM26,17H27V18H26zM27,17H28V18H27zM28,17H29V18H28zM31,17H32V18H31zM33,17H34V18H33zM35,17H36V18H35zM36,17H37V18H36zM1,18H2V19H1zM3,18H4V19H3zM5,18H6V19H5zM8,18H9V19H8zM12,18H13V19H12zM13,18H14V19H13zM18,18H19V19H18zM19,18H20V19H19zM21,18H22V19H21zM22,18H23V19H22zM24,18H25V19H24zM26,18H27V19H26zM27,18H28V19H27zM28,18H29V19H28zM29,18H30V19H29zM32,18H33V19H32zM34,18H35V19H34zM35,18H36V19H35zM36,18H37V19H36zM1,19H2V20H1zM2,19H3V20H2zM3,19H4V20H3zM5,19H6V20H5zM6,19H7V20H6zM7,19H8V20H7zM8,19H9V20H8zM9,19H10V20H9zM10,19H11V20H10zM11,19H12V20H11zM12,19H13V20H12zM15,19H16V20H15zM16,19H17V20H16zM18,19H19V20H18zM21,19H22V20H21zM22,19H23V20H22zM23,19H24V20H23zM24,19H25V20H24zM28,19H29V20H28zM30,19H31V20H30zM31,19H32V20H31zM33,19H34V20H33zM35,19H36V20H35zM37,19H38V20H37zM1,20H2V21H1zM3,20H4V21H3zM6,20H7V21H6zM8,20H9V21H8zM9,20H10V21H9zM11,20H12V21H11zM12,20H13V21H12zM20,20H21V21H20zM21,20H22V21H21zM23,20H24V21H23zM24,20H25V21H24zM25,20H26V21H25zM27,20H28V21H27zM29,20H30V21H29zM30,20H31V21H30zM31,20H32V21H31zM32,20H33V21H32zM33,20H34V21H33zM34,20H35V21H34zM37,20H38V21H37zM1,21H2V22H1zM3,21H4V22H3zM7,21H8V22H7zM10,21H11V22H10zM13,21H14V22H13zM14,21H15V22H14zM15,21H16V22H15zM16,21H17V22H16zM18,21H19V22H18zM20,21H21V22H20zM21,21H22V22H21zM23,21H24V22H23zM25,21H26V22H25zM26,21H27V22H26zM28,21H29V22H28zM29,21H30V22H29zM30,21H31V22H30zM31,21H32V22H31zM33,21H34V22H33zM34,21H35V22H34zM35,21H36V22H35zM1,22H2V23H1zM3,22H4V23H3zM5,22H6V23H5zM6,22H7V23H6zM12,22H13V23H12zM13,22H14V23H13zM16,22H17V23H16zM19,22H20V23H19zM20,22H21V23H20zM22,22H23V23H22zM23,22H24V23H23zM24,22H25V23H24zM27,22H28V23H27zM28,22H29V23H28zM33,22H34V23H33zM35,22H36V23H35zM2,23H3V24H2zM6,23H7V24H6zM7,23H8V24H7zM10,23H11V24H10zM11,23H12V24H11zM14,23H15V24H14zM16,23H17V24H16zM17,23H18V24H17zM19,23H20V24H19zM21,23H22V24H21zM22,23H23V24H22zM25,23H26V24H25zM26,23H27V24H26zM27,23H28V24H27zM28,23H29V24H28zM29,23H30V24H29zM30,23H31V24H30zM32,23H33V24H32zM33,23H34V24H33zM34,23H35V24H34zM36,23H37V24H36zM37,23H38V24H37zM1,24H2V25H1zM2,24H3V25H2zM3,24H4V25H3zM4,24H5V25H4zM6,24H7V25H6zM15,24H16V25H15zM16,24H17V25H16zM20,24H21V25H20zM27,24H28V25H27zM28,24H29V25H28zM29,24H30V25H29zM30,24H31V25H30zM32,24H33V25H32zM33,24H34V25H33zM34,24H35V25H34zM36,24H37V25H36zM37,24H38V25H37zM1,25H2V26H1zM2,25H3V26H2zM3,25H4V26H3zM4,25H5V26H4zM7,25H8V26H7zM8,25H9V26H8zM10,25H11V26H10zM11,25H12V26H11zM14,25H15V26H14zM15,25H16V26H15zM17,25H18V26H17zM18,25H19V26H18zM19,25H20V26H19zM20,25H21V26H20zM21,25H22V26H21zM24,25H25V26H24zM28,25H29V26H28zM29,25H30V26H29zM31,25H32V26H31zM32,25H33V26H32zM36,25H37V26H36zM1,26H2V27H1zM2,26H3V27H2zM4,26H5V27H4zM5,26H6V27H5zM8,26H9V27H8zM9,26H10V27H9zM10,26H11V27H10zM12,26H13V27H12zM15,26H16V27H15zM17,26H18V27H17zM18,26H19V27H18zM22,26H23V27H22zM23,26H24V27H23zM24,26H25V27H24zM26,26H27V27H26zM28,26H29V27H28zM29,26H30V27H29zM1,27H2V28H1zM7,27H8V28H7zM8,27H9V28H8zM10,27H11V28H10zM12,27H13V28H12zM14,27H15V28H14zM15,27H16V28H15zM23,27H24V28H23zM25,27H26V28H25zM26,27H27V28H26zM27,27H28V28H27zM28,27H29V28H28zM29,27H30V28H29zM30,27H31V28H30zM33,27H34V28H33zM35,27H36V28H35zM36,27H37V28H36zM37,27H38V28H37zM1,28H2V29H1zM3,28H4V29H3zM4,28H5V29H4zM6,28H7V29H6zM9,28H10V29H9zM13,28H14V29H13zM14,28H15V29H14zM15,28H16V29H15zM16,28H17V29H16zM27,28H28V29H27zM28,28H29V29H28zM32,28H33V29H32zM34,28H35V29H34zM35,28H36V29H35zM36,28H37V29H36zM37,28H38V29H37zM1,29H2V30H1zM6,29H7V30H6zM7,29H8V30H7zM8,29H9V30H8zM9,29H10V30H9zM10,29H11V30H10zM12,29H13V30H12zM14,29H15V30H14zM15,29H16V30H15zM18,29H19V30H18zM20,29H21V30H20zM21,29H22V30H21zM26,29H27V30H26zM27,29H28V30H27zM28,29H29V30H28zM29,29H30V30H29zM30,29H31V30H30zM31,29H32V30H31zM32,29H33V30H32zM33,29H34V30H33zM34,29H35V30H34zM35,29H36V30H35zM9,30H10V31H9zM11,30H12V31H11zM12,30H13V31H12zM13,30H14V31H13zM16,30H17V31H16zM17,30H18V31H17zM18,30H19V31H18zM19,30H20V31H19zM20,30H21V31H20zM21,30H22V31H21zM24,30H25V31H24zM26,30H27V31H26zM29,30H30V31H29zM33,30H34V31H33zM1,31H2V32H1zM2,31H3V32H2zM3,31H4V32H3zM4,31H5V32H4zM5,31H6V32H5zM6,31H7V32H6zM7,31H8V32H7zM10,31H11V32H10zM11,31H12V32H11zM15,31H16V32H15zM16,31H17V32H16zM17,31H18V32H17zM20,31H21V32H20zM22,31H23V32H22zM24,31H25V32H24zM26,31H27V32H26zM27,31H28V32H27zM29,31H30V32H29zM31,31H32V32H31zM33,31H34V32H33zM37,31H38V32H37zM1,32H2V33H1zM7,32H8V33H7zM12,32H13V33H12zM13,32H14V33H13zM14,32H15V33H14zM16,32H17V33H16zM18,32H19V33H18zM19,32H20V33H19zM21,32H22V33H21zM25,32H26V33H25zM28,32H29V33H28zM29,32H30V33H29zM33,32H34V33H33zM37,32H38V33H37zM1,33H2V34H1zM3,33H4V34H3zM4,33H5V34H4zM5,33H6V34H5zM7,33H8V34H7zM11,33H12V34H11zM15,33H16V34H15zM16,33H17V34H16zM17,33H18V34H17zM23,33H24V34H23zM24,33H25V34H24zM26,33H27V34H26zM27,33H28V34H27zM28,33H29V34H28zM29,33H30V34H29zM30,33H31V34H30zM31,33H32V34H31zM32,33H33V34H32zM33,33H34V34H33zM35,33H36V34H35zM36,33H37V34H36zM37,33H38V34H37zM1,34H2V35H1zM3,34H4V35H3zM4,34H5V35H4zM5,34H6V35H5zM7,34H8V35H7zM10,34H11V35H10zM11,34H12V35H11zM12,34H13V35H12zM14,34H15V35H14zM17,34H18V35H17zM19,34H20V35H19zM20,34H21V35H20zM22,34H23V35H22zM23,34H24V35H23zM24,34H25V35H24zM27,34H28V35H27zM28,34H29V35H28zM30,34H31V35H30zM31,34H32V35H31zM34,34H35V35H34zM37,34H38V35H37zM1,35H2V36H1zM3,35H4V36H3zM4,35H5V36H4zM5,35H6V36H5zM7,35H8V36H7zM11,35H12V36H11zM12,35H13V36H12zM13,35H14V36H13zM14,35H15V36H14zM16,35H17V36H16zM17,35H18V36H17zM19,35H20V36H19zM21,35H22V36H21zM23,35H24V36H23zM26,35H27V36H26zM27,35H28V36H27zM29,35H30V36H29zM35,35H36V36H35zM36,35H37V36H36zM37,35H38V36H37zM1,36H2V37H1zM7,36H8V37H7zM10,36H11V37H10zM12,36H13V37H12zM14,36H15V37H14zM15,36H16V37H15zM21,36H22V37H21zM23,36H24V37H23zM25,36H26V37H25zM27,36H28V37H27zM29,36H30V37H29zM31,36H32V37H31zM33,36H34V37H33zM34,36H35V37H34zM37,36H38V37H37zM1,37H2V38H1zM2,37H3V38H2zM3,37H4V38H3zM4,37H5V38H4zM5,37H6V38H5zM6,37H7V38H6zM7,37H8V38H7zM9,37H10V38H9zM10,37H11V38H10zM12,37H13V38H12zM16,37H17V38H16zM21,37H22V38H21zM24,37H25V38H24zM25,37H26V38H25zM29,37H30V38H29zM31,37H32V38H31zM32,37H33V38H32zM34,37H35V38H34zM37,37H38V38H37z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg></div>
+      <p style="font-size:19px;margin-top:14px">Escanea y sigue los pasos desde tu celular o tu computador.</p>
+      <p class="muted" style="font-size:16px;margin-top:6px">sanogusano.github.io/esumer-marketing-con-ia/agente-whatsapp.html</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué es</p>
+  <h2>Meta Business Agent: el agente de IA de la app de WhatsApp Business</h2>
+  <div class="cols even">
+    <div class="stack">
+      <p class="lead" style="font-size:28px">Es un agente que atiende a tus clientes en tu nombre. Aprende de tus chats, tu catálogo y tus documentos, y te pasa la conversación cuando hace falta una persona.</p>
+      <div class="ex"><p class="lbl">Lo que el cliente ve</p><p>Cada respuesta del agente lleva la etiqueta <b>IA</b>. Nadie se siente engañado, y eso también te protege a ti.</p></div>
+    </div>
+    <table>
+      <tr><td>Responde</td><td>Precios, horarios, envíos y disponibilidad</td></tr>
+      <tr><td>Recomienda</td><td>Productos de tu catálogo</td></tr>
+      <tr><td>Agenda</td><td>Citas y visitas</td></tr>
+      <tr><td>Califica</td><td>Detecta quién está listo para comprar</td></tr>
+      <tr><td>Te pasa el chat</td><td>Cuando el cliente pide una persona o el caso es delicado</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Lo primero</p>
+  <h2>Lo que hace que WhatsApp te bloquee</h2>
+  <div class="grid3" style="margin-top:8px">
+    <div><p class="num">1</p><h3>Conectar una IA por la puerta de atrás</h3><p class="muted">Herramientas que conectan ChatGPT a tu número a través de WhatsApp Web o de una app modificada. Están prohibidas por los términos de WhatsApp, aunque las enseñen en YouTube.</p></div>
+    <div><p class="num">2</p><h3>Montar un asistente “para todo”</h3><p class="muted">Desde enero de 2026 WhatsApp prohíbe los chatbots de propósito general. Un agente que atiende a los clientes de tu negocio sí está permitido.</p></div>
+    <div><p class="num">3</p><h3>Escribir de forma masiva a quien no te escribió</h3><p class="muted">Aunque uses una herramienta oficial. Si muchas personas reportan tus mensajes, pierdes el número.</p></div>
+  </div>
+  <div class="sp"></div>
+  <div class="ex"><p class="lbl">La regla</p><p>Solo caminos oficiales: el agente de Meta dentro de la app de WhatsApp Business o la API oficial a través de un socio de Meta.</p></div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Antes de empezar</p>
+  <h2>Revisa esto antes de activar nada.</h2>
+  <div class="cols">
+    <div class="stack">
+      <table>
+        <tr><td>La app correcta</td><td>WhatsApp <b>Business</b>, no el WhatsApp normal, con el número del negocio registrado.</td></tr>
+        <tr><td>La versión</td><td>La más reciente. Actualízala en la App Store o en Google Play.</td></tr>
+        <tr><td>Tu catálogo</td><td>Precios y productos al día. El agente repite lo que encuentra: si el catálogo está mal, el agente se equivoca.</td></tr>
+        <tr><td>Tus preguntas frecuentes</td><td>Un documento con horarios, envíos, cambios, medios de pago y garantías.</td></tr>
+      </table>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li>Actualiza WhatsApp Business.</li>
+        <li>Abre la pestaña <kbd>Herramientas</kbd>.</li>
+        <li>Busca <b>Meta Business Agent</b>. También puede llamarse <b>Agente de IA</b> o <b>Business AI</b>.</li>
+      </ol>
+      <p class="note">¿No aparece? Meta lo está habilitando por etapas. Sigue el taller con tu documento de preguntas frecuentes: es lo que más trabajo toma y te sirve igual.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 1 · Activa el agente</p>
+  <h2>Dos minutos desde la app</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> vincular el agente a tu cuenta de WhatsApp Business. Activarlo no significa que empiece a responder: eso es el Paso 5.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Abre el espacio donde vas a enseñarle sobre tu negocio y probarlo sin que tus clientes lo vean.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li><kbd>Herramientas</kbd> → <kbd>Meta Business Agent</kbd>.</li>
+        <li>Confirma tu identidad con huella, rostro o código.</li>
+        <li>Si te lo pide, vincula tu cuenta de Meta.</li>
+        <li>Toca <kbd>Confirmar</kbd>.</li>
+      </ol>
+      <p class="note">Los nombres de los menús cambian con las actualizaciones. Si no coinciden, busca la palabra “IA” dentro de Herramientas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 2 · Enséñale tu negocio</p>
+  <h2>Lo que sabe el agente es lo que tú le das.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> le das tres fuentes de información: tus chats anteriores, tu catálogo o sitio web, y tus documentos.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Las fuentes le enseñan <b>qué</b> decir. Las instrucciones del Paso 3 le enseñan <b>cómo</b> comportarse.</p></div>
+      <div class="ex"><p class="lbl">Ojo con los chats anteriores</p><p>De ahí aprende cómo respondes. Si en tus chats das descuentos que ya no existen o respondes con monosílabos, eso también lo aprende.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Permite que aprenda de tus <b>chats anteriores</b>.</li>
+        <li>Agrega tu <b>catálogo</b> de WhatsApp o tu <b>sitio web</b>.</li>
+        <li>En <b>Conocimientos</b>, sube tu documento de preguntas frecuentes.</li>
+        <li>Agrega fotos de tus productos más vendidos con su descripción.</li>
+      </ol>
+      <p class="note">Mejor un documento corto y correcto que uno largo y desactualizado.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 2 · Tu documento de preguntas frecuentes</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:18px">
+    <h2 style="margin:0">Hazlo con Gemini en 10 minutos.</h2>
+    <button class="copy" data-copy="p-faq">Copiar prompt</button>
+  </div>
+<pre class="code" id="p-faq">Ayúdame a escribir el documento de preguntas frecuentes para el agente de IA de WhatsApp de mi negocio.
+
+CÓMO TRABAJAS
+- Hazme UNA pregunta a la vez. Máximo 12 preguntas.
+- Pregúntame por: qué vendo, horarios, cobertura y costo de envíos, tiempos de entrega, medios de pago, cambios y devoluciones, garantías, descuentos vigentes y lo que NO hacemos.
+- Si respondo algo vago, pídeme el dato exacto (un valor, un día, un plazo).
+
+AL TERMINAR, entrégame el documento así:
+# Preguntas frecuentes de [mi negocio]
+## Sobre nosotros (3 líneas)
+## Preguntas y respuestas (una pregunta como la escribiría un cliente y su respuesta en máximo 2 frases)
+## Lo que el agente nunca debe prometer
+## Cuándo pasarme la conversación
+
+Usa mis palabras. No inventes precios, plazos ni políticas: si falta algo, escribe [PENDIENTE].</pre>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 3 · Instrucciones y traspaso</p>
+  <h2>Dile cómo hablar y cuándo pasarte el chat.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> defines el tono y las situaciones en las que el agente se detiene y te pasa la conversación.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Un agente que no sabe cuándo parar es el que daña la marca. El traspaso a tiempo es lo que protege tus ventas.</p></div>
+      <div class="ex"><p class="lbl">Siempre te pasa el chat cuando</p><p>El cliente pide una persona · hay un reclamo · el cliente pregunta por un pago o un reembolso · piden un descuento especial · es un pedido grande o de empresa · el cliente está molesto.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>15 min</span></p>
+      <ol>
+        <li>Elige el tono: trato de tú o de usted, formal o cercano.</li>
+        <li>Escribe 2 frases tuyas de ejemplo: un saludo y un cierre.</li>
+        <li>Configura las situaciones de traspaso de la lista de la izquierda.</li>
+        <li>Define qué hace fuera de horario: responde y te deja el caso para el día siguiente.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 4 · Prueba antes de activar</p>
+  <h2>Intenta hacerlo fallar.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> el modo de prueba. Conversas con el agente como si fueras un cliente, y ningún cliente real lo ve.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Corregir aquí es gratis. Corregir con un cliente molesto, no. Cuando una respuesta esté mal, edítala o reescríbela: así aprende.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú · 10 pruebas <span>20 min</span></p>
+      <ol style="font-size:22px">
+        <li>¿Cuánto vale [tu producto más vendido]?</li>
+        <li>¿Hacen envíos a [una ciudad a la que no llegas]?</li>
+        <li>¿Tienen [un producto agotado]?</li>
+        <li>Me hacen un descuento si llevo dos.</li>
+        <li>El pedido me llegó dañado.</li>
+        <li>Quiero hablar con una persona.</li>
+        <li>¿Qué opinas de las elecciones?</li>
+        <li>Una pregunta con errores de ortografía y sin signos.</li>
+        <li>Una nota de voz o una foto de un producto.</li>
+        <li>Escribe a las 11 de la noche.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 5 · Activa</p>
+  <h2>Enciéndelo y quédate cerca la primera semana.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> encender las respuestas de la IA para tus clientes.</p>
+      <div class="obj"><b>Para qué sirve</b><p>A partir de aquí el agente atiende las 24 horas. Tú atiendes lo que él no puede.</p></div>
+      <div class="ex"><p class="lbl">Tú sigues teniendo el control</p><p>Si respondes a mano en un chat, la IA se pausa en esa conversación. También puedes quitarla de un chat o desactivarla cuando quieras.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li><kbd>Herramientas</kbd> → tu agente → <kbd>Respuestas de la IA</kbd> → <kbd>Activar</kbd>.</li>
+        <li>Si la app lo permite, empieza solo con <b>contactos nuevos</b>.</li>
+        <li>Agenda 15 minutos diarios para leer sus conversaciones durante la primera semana.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Buenas prácticas</p>
+  <h2>Lo que separa un agente que vende de uno que espanta</h2>
+  <table>
+    <tr><td>Catálogo al día</td><td>Cada cambio de precio o de existencias, actualízalo el mismo día. Un precio mal dicho es un reclamo.</td></tr>
+    <tr><td>Reglas que se puedan comprobar</td><td>“Envío gratis desde $150.000” sirve. “Ofrecer buen servicio” no le dice nada a la IA.</td></tr>
+    <tr><td>Lo que nunca promete</td><td>Descuentos que no existen, fechas de entrega que no controlas, productos sin existencias.</td></tr>
+    <tr><td>Revisión semanal</td><td>Lee 10 conversaciones cada semana. Corrige la respuesta que más se repite mal.</td></tr>
+    <tr><td>Traspaso rápido</td><td>Si el agente te pasa un chat, respóndelo pronto. Un cliente que pidió una persona y no la tuvo no vuelve.</td></tr>
+    <tr><td>Datos sensibles</td><td>No le cargues información de clientes, cédulas ni datos de salud en los documentos.</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Tips</p>
+  <h2>Seis trucos que ahorran semanas</h2>
+  <div class="cols even">
+    <table>
+      <tr><td>Empieza por lo repetido</td><td>Las 20 preguntas que más te hacen resuelven la mayoría de los chats.</td></tr>
+      <tr><td>Copia a tus clientes</td><td>Escribe las preguntas como las escriben ellos: “cuanto vale el envio”, no “costo de despacho”.</td></tr>
+      <tr><td>Una respuesta, una idea</td><td>Respuestas cortas. En WhatsApp nadie lee párrafos.</td></tr>
+    </table>
+    <table>
+      <tr><td>Siempre un siguiente paso</td><td>Cada respuesta termina en algo: “¿Te lo aparto?” o “¿Te mando el enlace de pago?”.</td></tr>
+      <tr><td>Prueba con alguien de afuera</td><td>Pídele a un amigo que lo use sin explicarle nada. Él encuentra lo que tú no ves.</td></tr>
+      <tr><td>Mide una sola cosa</td><td>De cada 10 chats, ¿cuántos resolvió sin pasarte? Esa cifra te dice si mejora.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Cuándo te quedas corto</p>
+  <h2>El agente de Meta o tu propio agente por la API</h2>
+  <table>
+    <tr><th>Necesitas</th><th>Agente de Meta (app)</th><th>Agente propio (API oficial)</th></tr>
+    <tr><td>Responder preguntas frecuentes</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Conectarlo a tu CRM, Shopify o inventario</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Varios asesores en el mismo número</td><td>No</td><td>Sí</td></tr>
+    <tr><td>Métricas y reportes</td><td>Básicas</td><td>Completas</td></tr>
+    <tr><td>Elegir el modelo de IA</td><td>No, usa el de Meta</td><td>Sí</td></tr>
+    <tr><td>Cómo se contrata</td><td>Dentro de la app</td><td>Con un socio oficial de Meta</td></tr>
+  </table>
+  <p class="muted" style="margin-top:20px">Empieza con el de Meta. Pasa a la API solo cuando tengas una razón concreta, no antes.</p>
+</section>
+
+<section class="slide dark">
+  <p class="eyebrow">Cierre</p>
+  <h2>Tu primera semana</h2>
+  <div class="grid3" style="margin-top:10px">
+    <div><h3>Hoy</h3><p class="muted">Documento de preguntas frecuentes listo y agente probado con las 10 pruebas.</p></div>
+    <div><h3>Días 1 a 7</h3><p class="muted">Agente activo y 15 minutos diarios leyendo sus conversaciones y corrigiendo.</p></div>
+    <div><h3>Día 8</h3><p class="muted">Cuenta: de cada 10 chats, ¿cuántos resolvió solo? Esa es tu línea base.</p></div>
+  </div>
+  <div class="sp"></div>
+  <p class="lead">El agente es tan bueno como la información que le das. Dedícale más tiempo al documento que a la configuración.</p>
+</section>
+
+</div>
+
+<div id="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const total = slides.length;
+  let i = 0;
+
+  slides.forEach((s, k) => {
+    const f = document.createElement('div');
+    f.className = 'foot';
+    f.innerHTML = '<span>Agente de IA en WhatsApp</span><span>' + (k + 1) + ' / ' + total + '</span>';
+    s.appendChild(f);
+  });
+
+  function fit(){
+    const sc = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = 'scale(' + sc + ')';
+    stage.style.left = (innerWidth - 1600 * sc) / 2 + 'px';
+    stage.style.top = (innerHeight - 900 * sc) / 2 + 'px';
+  }
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(total - 1);
+  });
+  document.getElementById('prev').onclick = () => go(i - 1);
+  document.getElementById('next').onclick = () => go(i + 1);
+
+  let x0 = null;
+  addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+
+  document.querySelectorAll('.copy').forEach(b => {
+    b.addEventListener('click', async () => {
+      const txt = document.getElementById(b.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(txt); }
+      catch (e) {
+        const t = document.createElement('textarea');
+        t.value = txt; document.body.appendChild(t); t.select();
+        document.execCommand('copy'); t.remove();
+      }
+      const old = b.textContent;
+      b.textContent = 'Copiado'; b.classList.add('ok');
+      setTimeout(() => { b.textContent = old; b.classList.remove('ok'); }, 1600);
+    });
+  });
+
+
+  fit();
+  let start = 1;
+  try { start = parseInt(location.hash.slice(1), 10) || 1; } catch (e) {}
+  go(start - 1);
+})();
+</script>
+</body>
+</html>
