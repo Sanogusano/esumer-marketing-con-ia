@@ -150,7 +150,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <div class="a">→</div>
     <div class="n"><b>Regente</b><p>La revisa. Si algo falla, la devuelve.</p></div>
     <div class="a">→</div>
-    <div class="n k"><b>Historia final</b><p>Aprobada y lista para Canva.</p></div>
+    <div class="n k"><b>Historia final</b><p>Aprobada, con los prompts de imagen y video.</p></div>
   </div>
   <div class="grid3">
     <div><h3>Es un loop</h3><p class="muted">Si el Regente rechaza, le devuelve el trabajo al agente que se equivocó, y este lo corrige. Hasta 3 vueltas.</p></div>
@@ -168,7 +168,8 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <tr><td>El estudio</td><td>Un Gem de Gemini</td><td>Es la oficina: ahí viven los agentes</td></tr>
     <tr><td>Los agentes</td><td>Un párrafo por agente en las instrucciones del Gem</td><td>Dividir el trabajo para que cada parte salga bien</td></tr>
     <tr><td>El loop</td><td>La regla que dice qué pasa cuando el Regente rechaza</td><td>Que el equipo se corrija solo antes de entregarte la historia</td></tr>
-    <tr><td>Canva</td><td>Tu plantilla de historia con tus colores</td><td>Convertir el texto aprobado en una historia publicable</td></tr>
+    <tr><td>El personaje</td><td>La mascota de tu droguería, creada con Gemini</td><td>Que tus historias tengan una cara reconocible</td></tr>
+    <tr><td>Imagen y video</td><td>Gemini genera las pantallas y el video del personaje</td><td>Convertir el guion aprobado en una historia publicable</td></tr>
   </table>
   <p class="muted" style="margin-top:22px">Todo con herramientas que ya conoces. Sin instalar nada y sin código.</p>
 </section>
@@ -184,7 +185,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <tr><td>8:50</td><td>Paso 4 · Crea tu estudio en Gemini</td><td>Tu equipo de agentes</td></tr>
     <tr><td>9:10</td><td>Pasos 5 y 6 · Tu primera historia y la prueba del loop</td><td>Tu primera historia aprobada</td></tr>
     <tr><td>9:40</td><td>Paso 7 · Crea tu propio agente</td><td>Un agente diseñado por ti</td></tr>
-    <tr><td>10:00</td><td>Paso 8 · De texto a historia en Canva</td><td>Tu historia publicable</td></tr>
+    <tr><td>10:00</td><td>Pasos 8 y 9 · Tu personaje, las imágenes y el video</td><td>Tu historia publicable</td></tr>
     <tr><td>10:40</td><td>Si algo falla y cierre</td><td>Tu plan de la semana</td></tr>
   </table>
 </section>
@@ -201,7 +202,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
       <p class="lbl">Ahora tú <span>5 min</span></p>
       <ol>
         <li><b>Tu cuenta de Google</b> abierta en Chrome, con <b>gemini.google.com</b> funcionando.</li>
-        <li><b>Tu cuenta de Canva</b>, la gratuita sirve.</li>
+        <li><b>Una foto de tu droguería</b> o de tu fachada en el computador, para crear tu personaje.</li>
         <li><b>Esta presentación</b> abierta, para copiar los textos.</li>
       </ol>
     </div>
@@ -258,7 +259,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 <section class="slide coral" style="justify-content:center">
   <p class="eyebrow">Ahora sí</p>
   <h1>Construyamos tu estudio.</h1>
-  <p class="lead" style="margin-top:24px">8 pasos, sin instalar nada. En cada uno vas a ver qué es, para qué sirve y exactamente qué tocar.</p>
+  <p class="lead" style="margin-top:24px">9 pasos, sin instalar nada. En cada uno vas a ver qué es, para qué sirve y exactamente qué tocar.</p>
 </section>
 
 <section class="slide">
@@ -440,7 +441,11 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
 EL EQUIPO
 1. ESTRATEGA. Lee "Kit de marca" y "Productos y temporadas". Elige el tema de hoy según la fecha, la temporada, la quincena y las promociones vigentes. Si el usuario sugiere un tema, úsalo; si el Regente lo rechaza, propone una alternativa segura y parecida. Solo productos de venta libre, cuidado personal, cosmética, bebé o bienestar. Entrega: Tema, Producto o categoría, Qué queremos que haga el cliente, Por qué hoy.
 2. GUIONISTA. Lee "Kit de marca". Con lo del Estratega, escribe una historia de 15 segundos en 3 pantallas: para cada una, Texto en pantalla (máximo 8 palabras) e Imagen sugerida. Al final, Texto para publicar (máximo 25 palabras) que invite a escribir por WhatsApp o pedir domicilio.
-3. REGENTE (supervisor). Lee "Reglas del Regente" y "Kit de marca". Revisa todo. RECHAZA si menciona medicamentos de venta con fórmula, promete curar o aliviar, da dosis, usa "garantizado", "100 %" o "el mejor", incumple una regla de la droguería o no suena al kit de marca. Si el problema es el tema o el producto, lo devuelve al ESTRATEGA; si es el texto, al GUIONISTA. Siempre dice el motivo en una línea.
+3. PRODUCTOR. Lee "Kit de marca". Convierte el guion en prompts para generar la historia con IA:
+   - Para cada pantalla, un PROMPT DE IMAGEN: formato vertical 9:16, el personaje de la droguería descrito igual en todas, la escena, los colores del kit de marca y el texto en pantalla entre comillas.
+   - Un PROMPT DE VIDEO de 8 segundos, vertical 9:16: el personaje dice una frase corta del guion en español colombiano, con la escena y el tono de voz.
+   Nunca muestra medicamentos, cajas con marcas, batas médicas ni personas tomando pastillas.
+4. REGENTE (supervisor). Lee "Reglas del Regente" y "Kit de marca". Revisa todo, incluidos los prompts del Productor. RECHAZA si menciona medicamentos de venta con fórmula, promete curar o aliviar, da dosis, usa "garantizado", "100 %" o "el mejor", incumple una regla de la droguería o no suena al kit de marca. Si el problema es el tema o el producto, lo devuelve al ESTRATEGA; si es el texto, al GUIONISTA; si son los prompts, al PRODUCTOR. Siempre dice el motivo en una línea.
 
 EL LOOP
 - Corre los agentes en orden. Después del Regente:
@@ -452,9 +457,10 @@ FORMATO DE RESPUESTA
 VUELTA 1
 ESTRATEGA: ...
 GUIONISTA: ...
+PRODUCTOR: ...
 REGENTE: APROBADO o RECHAZADO → [agente] · motivo
 (VUELTA 2 si hace falta)
-HISTORIA FINAL: las 3 pantallas y el texto para publicar, listos para copiar a Canva.
+HISTORIA FINAL: las 3 pantallas, el texto para publicar, los 3 prompts de imagen y el prompt de video, listos para copiar.
 
 Nunca inventes precios ni promociones que no estén en "Productos y temporadas".</pre>
 </section>
@@ -528,24 +534,49 @@ Nunca inventes precios ni promociones que no estén en "Productos y temporadas".
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 8 · De texto a historia en Canva</p>
-  <h2>Una plantilla tuya y 3 minutos cada mañana</h2>
+  <p class="eyebrow">Paso 8 · Tu personaje y tus imágenes</p>
+  <h2>Una mascota para tu droguería, creada con Gemini</h2>
   <div class="cols">
     <div class="stack">
-      <p><b>Qué es:</b> una plantilla de historia con tus colores y 3 páginas. Cada mañana cambias los textos por los que te entrega el Gem.</p>
-      <div class="obj"><b>Para qué sirve</b><p>Publicar todos los días sin diseñar desde cero. La plantilla se hace una vez.</p></div>
-      <div class="ex"><p class="lbl">Tip</p><p>Usa fotos reales de tu droguería y de tus productos. Se ven más confiables que las imágenes de banco y que las hechas con IA.</p></div>
+      <p><b>Qué es:</b> creas una vez el personaje de tu droguería. Después Gemini lo pone en cada pantalla de la historia, con los prompts que te entrega el Productor.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Que tus historias tengan una cara que el barrio reconozca, sin contratar diseñador.</p></div>
+      <div class="row"><button class="copy" data-copy="p-pers">Copiar prompt del personaje</button></div>
+<pre id="p-pers" hidden>Crea el personaje mascota de mi droguería de barrio en Medellín para usarlo en historias de Instagram y WhatsApp. Usa los colores y el tono de mi kit de marca. Estilo: ilustración 3D amable, como de película animada, fondo neutro, cuerpo entero, de frente. No debe parecer médico: sin bata, sin estetoscopio y sin medicamentos. Nombre del personaje: [inventa un nombre]. Entrégame la imagen y una descripción de una línea del personaje para repetirla igual en otras imágenes.</pre>
+      <div class="ex"><p class="lbl">El truco para que salga igual</p><p>Cada vez que pidas una imagen nueva, adjunta la imagen del personaje y pide: “Usa este mismo personaje”.</p></div>
     </div>
     <div class="do">
-      <p class="lbl">Ahora tú <span>30 min</span></p>
+      <p class="lbl">Ahora tú <span>20 min</span></p>
       <ol>
-        <li>En Canva: <kbd>Crear un diseño</kbd> → <kbd>Historia de Instagram</kbd>.</li>
-        <li>Elige una plantilla y cámbiale los colores por los de tu Kit de marca.</li>
-        <li>Deja <b>3 páginas</b>, una por pantalla del guion.</li>
-        <li>Pega el <b>Texto en pantalla</b> de cada pantalla y pon tu foto según la <b>Imagen sugerida</b>.</li>
-        <li><kbd>Animar</kbd> → elige un movimiento → <kbd>Compartir</kbd> → <kbd>Descargar</kbd> en MP4.</li>
-        <li>Publícala en Instagram y en tu estado de WhatsApp, con el <b>Texto para publicar</b>.</li>
+        <li>Abre un chat nuevo en <b>Gemini</b>, adjunta tu <b>Kit de marca</b> con <kbd>+</kbd> y pega el prompt del personaje.</li>
+        <li>Pide cambios hasta que te guste. Descarga la imagen.</li>
+        <li>Copia el <b>PROMPT DE IMAGEN</b> de la pantalla 1 que te dio tu Gem.</li>
+        <li>En el chat, adjunta la imagen del personaje, pega el prompt y agrega: “Usa este mismo personaje”.</li>
+        <li>Repite con las pantallas 2 y 3. Revisa que el texto no tenga errores de ortografía.</li>
       </ol>
+      <p class="note">Si el texto sale mal escrito en la imagen, pídele la imagen sin texto y agrégalo en el editor de Instagram.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 9 · El video del personaje</p>
+  <h2>Tu personaje habla en la historia.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> Gemini genera un video de 8 segundos en el que tu personaje dice la frase del guion, con voz.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Un video con un personaje que habla detiene el dedo mucho más que un texto con fondo de color.</p></div>
+      <div class="ex"><p class="lbl">Antes de empezar</p><p>La generación de video depende de tu plan de Gemini y tiene un límite de videos por día. Si no te aparece la opción de video, usa las 3 imágenes del Paso 8: también son una historia publicable.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>En Gemini, abre <kbd>Herramientas</kbd> y elige <kbd>Video</kbd>.</li>
+        <li>Adjunta la imagen de tu personaje.</li>
+        <li>Pega el <b>PROMPT DE VIDEO</b> que te dio tu Gem y agrega: “Usa este mismo personaje”.</li>
+        <li>Espera uno o dos minutos y míralo. Si no te gusta, pide un solo cambio a la vez.</li>
+        <li>Descárgalo y publícalo en tu estado de WhatsApp o en Instagram, con el <b>Texto para publicar</b>.</li>
+      </ol>
+      <p class="note">Revisa el video completo antes de publicarlo: la IA a veces cambia palabras de la frase.</p>
     </div>
   </div>
 </section>
@@ -570,7 +601,7 @@ Nunca inventes precios ni promociones que no estén en "Productos y temporadas".
   <div class="grid3" style="margin-top:10px">
     <div><h3>Un equipo de agentes</h3><p class="muted">Que trabaja en loop, se corrige solo y lo escribiste tú en español, sin código.</p></div>
     <div><h3>Un cerebro</h3><p class="muted">Tu marca, tus productos y tus reglas. Te sirve aunque no uses el sistema: es el manual de tu droguería.</p></div>
-    <div><h3>Una rutina</h3><p class="muted">Una historia revisada en un minuto cada mañana, lista para Canva.</p></div>
+    <div><h3>Una rutina</h3><p class="muted">Una historia revisada cada mañana, con sus imágenes y su video.</p></div>
   </div>
   <div class="sp"></div>
   <p class="eyebrow" style="margin-bottom:12px">Tu semana</p>
