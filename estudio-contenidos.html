@@ -109,10 +109,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 </style>
 </head>
 <body>
-<div id="stage">
-<!-- ============ APERTURA ============ -->
-
-<section class="slide dark">
+<div id="stage"><section class="slide dark">
   <div class="cols" style="grid-template-columns:1fr 330px;align-items:center">
     <div>
       <p class="eyebrow">Taller presencial · 4 horas</p>
@@ -143,9 +140,9 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 
 <section class="slide">
   <p class="eyebrow">Qué vamos a construir</p>
-  <h2>Un equipo de agentes que trabaja mientras duermes</h2>
+  <h2>Un equipo de agentes que trabaja por ti</h2>
   <div class="flow">
-    <div class="n"><b>6:00 a.m.</b><p>El sistema arranca solo.</p></div>
+    <div class="n"><b>Tú</b><p>Escribes “Historia de hoy”.</p></div>
     <div class="a">→</div>
     <div class="n"><b>Estratega</b><p>Elige el tema y el producto de hoy.</p></div>
     <div class="a">→</div>
@@ -153,11 +150,11 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <div class="a">→</div>
     <div class="n"><b>Regente</b><p>La revisa. Si algo falla, la devuelve.</p></div>
     <div class="a">→</div>
-    <div class="n k"><b>Tu correo</b><p>La historia aprobada, lista para Canva.</p></div>
+    <div class="n k"><b>Historia final</b><p>Aprobada y lista para Canva.</p></div>
   </div>
   <div class="grid3">
     <div><h3>Es un loop</h3><p class="muted">Si el Regente rechaza, le devuelve el trabajo al agente que se equivocó, y este lo corrige. Hasta 3 vueltas.</p></div>
-    <div><h3>Lo construyes tú</h3><p class="muted">Los agentes los escribes tú, en español, en una hoja de cálculo. Puedes cambiarlos o agregar los que quieras.</p></div>
+    <div><h3>Lo construyes tú</h3><p class="muted">Los agentes los escribes tú, en español, en un Gem de Gemini. Sin código. Puedes cambiarlos o agregar los que quieras.</p></div>
     <div><h3>Sabe de tu droguería</h3><p class="muted">Cada agente lee los documentos que tú escribes: tu marca, tus productos y tus reglas.</p></div>
   </div>
 </section>
@@ -167,13 +164,13 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
   <h2>Cada pieza tiene un objetivo.</h2>
   <table>
     <tr><th>Pieza</th><th>Qué es</th><th>Para qué sirve</th></tr>
-    <tr><td>La hoja</td><td>Una hoja de Google con 4 pestañas</td><td>Es la oficina: ahí viven los agentes y su trabajo</td></tr>
-    <tr><td>El motor</td><td>Un código que pegas una sola vez</td><td>Pone a trabajar a los agentes en orden y manda el correo</td></tr>
-    <tr><td>El cerebro</td><td>3 documentos: Kit de marca, Productos y temporadas, Reglas del Regente</td><td>Que los agentes sepan cómo es tu droguería</td></tr>
-    <tr><td>Los agentes</td><td>Una fila por agente, con su oficio y sus instrucciones</td><td>Dividir el trabajo para que cada parte salga bien</td></tr>
-    <tr><td>El registro</td><td>Una pestaña con lo que hizo cada agente</td><td>Ver al equipo trabajar y entender por qué rechazó algo</td></tr>
+    <tr><td>El cerebro</td><td>3 Google Docs: Kit de marca, Productos y temporadas, Reglas del Regente</td><td>Que los agentes sepan cómo es tu droguería</td></tr>
+    <tr><td>El estudio</td><td>Un Gem de Gemini</td><td>Es la oficina: ahí viven los agentes</td></tr>
+    <tr><td>Los agentes</td><td>Un párrafo por agente en las instrucciones del Gem</td><td>Dividir el trabajo para que cada parte salga bien</td></tr>
+    <tr><td>El loop</td><td>La regla que dice qué pasa cuando el Regente rechaza</td><td>Que el equipo se corrija solo antes de entregarte la historia</td></tr>
     <tr><td>Canva</td><td>Tu plantilla de historia con tus colores</td><td>Convertir el texto aprobado en una historia publicable</td></tr>
   </table>
+  <p class="muted" style="margin-top:22px">Todo con herramientas que ya conoces. Sin instalar nada y sin código.</p>
 </section>
 
 <section class="slide">
@@ -182,38 +179,34 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
   <table>
     <tr><th>Hora</th><th>Qué hacemos</th><th>Sales con</th></tr>
     <tr><td>7:00</td><td>Qué vamos a construir y recorderis</td><td>—</td></tr>
-    <tr><td>7:30</td><td>Pasos 1 y 2 · La hoja y el motor</td><td>Tu estudio instalado</td></tr>
-    <tr><td>7:55</td><td>Pasos 3, 4 y 5 · El cerebro</td><td>Tus 3 documentos</td></tr>
-    <tr><td>8:50</td><td>Pausa</td><td>—</td></tr>
-    <tr><td>9:05</td><td>Pasos 6 y 7 · Tus agentes y el primer loop</td><td>Tu primera historia en el correo</td></tr>
-    <tr><td>9:35</td><td>Pasos 8 y 9 · Ponlo a prueba y crea tu propio agente</td><td>Un agente diseñado por ti</td></tr>
-    <tr><td>10:00</td><td>Pasos 10 y 11 · Correo diario y Canva</td><td>Tu historia publicable</td></tr>
-    <tr><td>10:45</td><td>Si algo falla y cierre</td><td>Tu plan de la semana</td></tr>
+    <tr><td>7:30</td><td>Pasos 1, 2 y 3 · El cerebro</td><td>Tus 3 documentos</td></tr>
+    <tr><td>8:35</td><td>Pausa</td><td>—</td></tr>
+    <tr><td>8:50</td><td>Paso 4 · Crea tu estudio en Gemini</td><td>Tu equipo de agentes</td></tr>
+    <tr><td>9:10</td><td>Pasos 5 y 6 · Tu primera historia y la prueba del loop</td><td>Tu primera historia aprobada</td></tr>
+    <tr><td>9:40</td><td>Paso 7 · Crea tu propio agente</td><td>Un agente diseñado por ti</td></tr>
+    <tr><td>10:00</td><td>Paso 8 · De texto a historia en Canva</td><td>Tu historia publicable</td></tr>
+    <tr><td>10:40</td><td>Si algo falla y cierre</td><td>Tu plan de la semana</td></tr>
   </table>
 </section>
 
 <section class="slide">
   <p class="eyebrow">Antes de empezar</p>
-  <h2>Revisa que tengas estas cuatro cosas.</h2>
+  <h2>Revisa que tengas estas tres cosas.</h2>
   <div class="cols">
     <div class="stack">
-      <div class="ex"><p class="lbl">Por qué la clave</p><p>La clave de Gemini es la llave que le permite a tu hoja hablar con la IA. Sin ella, los agentes no trabajan.</p></div>
-      <p class="muted">Trabaja en computador, en Chrome, con una sola cuenta de Google abierta. Si tienes varias abiertas, los permisos fallan.</p>
+      <div class="ex"><p class="lbl">Una sola cuenta</p><p>Trabaja en Chrome con una sola cuenta de Google abierta. Con varias cuentas, Gemini y Drive se confunden de documentos.</p></div>
+      <p class="muted">Trabaja en computador. En el celular no se ven bien los Gems ni los documentos.</p>
     </div>
     <div class="do">
       <p class="lbl">Ahora tú <span>5 min</span></p>
       <ol>
-        <li><b>Tu cuenta de Google</b> abierta en Chrome.</li>
-        <li><b>Tu clave de Gemini.</b> Si no la tienes: entra a <b>aistudio.google.com/apikey</b> → <kbd>Create API key</kbd> → cópiala en una nota.</li>
+        <li><b>Tu cuenta de Google</b> abierta en Chrome, con <b>gemini.google.com</b> funcionando.</li>
         <li><b>Tu cuenta de Canva</b>, la gratuita sirve.</li>
         <li><b>Esta presentación</b> abierta, para copiar los textos.</li>
       </ol>
-      <p class="note">La clave es personal. No la compartas ni la pegues en un chat.</p>
     </div>
   </div>
 </section>
-
-<!-- ============ RECORDERIS ============ -->
 
 <section class="slide dark" style="justify-content:center">
   <p class="eyebrow">Recorderis 1</p>
@@ -262,419 +255,14 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
   </div>
 </section>
 
-<!-- ============ CONSTRUCCIÓN ============ -->
-
 <section class="slide coral" style="justify-content:center">
   <p class="eyebrow">Ahora sí</p>
   <h1>Construyamos tu estudio.</h1>
-  <p class="lead" style="margin-top:24px">11 pasos. En cada uno vas a ver qué es, para qué sirve y exactamente qué tocar.</p>
+  <p class="lead" style="margin-top:24px">8 pasos, sin instalar nada. En cada uno vas a ver qué es, para qué sirve y exactamente qué tocar.</p>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 1 · La hoja y el motor</p>
-  <h2>Crea la oficina donde van a trabajar tus agentes.</h2>
-  <div class="cols">
-    <div class="stack">
-      <p><b>Qué es:</b> una hoja de Google nueva y el motor, un código que pegas una sola vez. No lo tienes que escribir ni entender: lo pegas, como cuando instalas una app.</p>
-      <div class="obj"><b>Para qué sirve</b><p>El motor pone a trabajar a los agentes en orden, maneja las devoluciones del supervisor y envía el correo.</p></div>
-      <div class="row"><button class="copy" data-copy="motor">Copiar motor</button><a href="estudio.gs" download style="font-size:20px;color:var(--muted)">o descárgalo</a></div>
-      <pre id="motor" hidden>/**
- * ESTUDIO DE CONTENIDOS · Loop de agentes para droguerías
- *
- * Los agentes los escribes tú en la pestaña "Agentes". Este motor:
- * 1. Lee tus agentes y tu cerebro (Google Docs).
- * 2. Corre los agentes en orden. El Supervisor revisa y devuelve el trabajo al agente que corresponda.
- * 3. Guarda la historia del día y te la envía por correo.
- *
- * Instalación: Extensiones → Apps Script → borrar todo → pegar → guardar → recargar la hoja →
- * menú Estudio → Instalar.
- */
-
-// ===================== CONFIGURACIÓN =====================
-
-const H_CONFIG = 'Config';
-const H_AGENTES = 'Agentes';
-const H_HISTORIAS = 'Historias';
-const H_REGISTRO = 'Registro';
-
-const DOCS = ['Kit de marca', 'Productos y temporadas', 'Reglas del Regente'];
-const PAUSA_MS = 5000; // el plan gratuito de Gemini permite pocas solicitudes por minuto
-
-// Palabras que el Regente nunca deja pasar (regla fija, sin IA)
-const PROHIBIDAS = ['amoxicilina', 'azitromicina', 'cefalexina', 'ciprofloxacino', 'antibiotico', 'losartan', 'metformina',
-  'insulina', 'clonazepam', 'alprazolam', 'tramadol', 'codeina', 'sildenafil', 'anticonceptiv', 'corticoide', 'prednisolona',
-  'cura', 'curar', 'elimina la', 'garantizado', 'garantizada', '100 %', '100%', 'milagro', 'recomendado por medicos'];
-
-// ===================== MENÚ =====================
-
-function onOpen() {
-  SpreadsheetApp.getUi().createMenu('Estudio')
-    .addItem('Instalar', 'instalar')
-    .addSeparator()
-    .addItem('Crear la historia de hoy', 'crearHistoriaAhora')
-    .addSeparator()
-    .addItem('Activar correo diario', 'activarCorreoDiario')
-    .addItem('Detener correo diario', 'detenerCorreoDiario')
-    .addToUi();
-}
-
-// Al pegar la clave o un enlace en Config, se actualiza el estado
-function onEdit(e) {
-  try { if (e &amp;&amp; e.range.getSheet().getName() === H_CONFIG) actualizarEstado_(); } catch (err) {}
-}
-
-// ===================== INSTALACIÓN =====================
-
-function instalar() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const ui = SpreadsheetApp.getUi();
-  const negro = h =&gt; h.setBackground('#16161D').setFontColor('#FFFFFF').setFontWeight('bold');
-
-  if (!ss.getSheetByName(H_CONFIG)) {
-    const h = ss.getSheets().length === 1 &amp;&amp; ss.getSheets()[0].getLastRow() === 0 ? ss.getSheets()[0].setName(H_CONFIG) : ss.insertSheet(H_CONFIG);
-    const filas = [
-      ['Dato', 'Valor', 'Qué es'],
-      ['Clave de Gemini', '', 'Pégala aquí. La sacas en aistudio.google.com/apikey'],
-      ['Droguería', 'Mi droguería', 'El nombre de tu droguería'],
-      ['Correo', Session.getEffectiveUser().getEmail(), 'A dónde llega la historia del día'],
-      ['Hora del correo', 7, 'Hora del día (0 a 23) en que llega el correo'],
-      ['Tema de hoy (opcional)', '', 'Si lo llenas, el Estratega trabaja sobre este tema'],
-      ['Vueltas máximas', 3, 'Cuántas veces puede devolver el Supervisor antes de pasarlo a revisión humana'],
-      ['Modelo', 'gemini-flash-latest', 'Modelo de Gemini'],
-      ['Kit de marca', '', 'Enlace al Google Doc'],
-      ['Productos y temporadas', '', 'Enlace al Google Doc'],
-      ['Reglas del Regente', '', 'Enlace al Google Doc'],
-      ['Estado', '', '']
-    ];
-    h.getRange(1, 1, filas.length, 3).setValues(filas);
-    negro(h.getRange('A1:C1'));
-    h.getRange('A2:A12').setFontWeight('bold');
-    h.setColumnWidth(1, 200); h.setColumnWidth(2, 430); h.setColumnWidth(3, 470);
-    h.setFrozenRows(1);
-  }
-  if (!ss.getSheetByName(H_AGENTES)) {
-    const h = ss.insertSheet(H_AGENTES);
-    negro(h.getRange(1, 1, 1, 6).setValues([['Orden', 'Agente', 'Tipo', 'Lee del cerebro', 'Instrucciones', 'Activo']]));
-    h.setFrozenRows(1);
-    h.setColumnWidth(2, 130); h.setColumnWidth(3, 110); h.setColumnWidth(4, 260); h.setColumnWidth(5, 640);
-    h.getRange('E:E').setWrap(true);
-    h.getRange('C2:C30').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['Trabajador', 'Supervisor']).build());
-    h.getRange('F2:F30').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['Sí', 'No']).build());
-  }
-  if (!ss.getSheetByName(H_HISTORIAS)) {
-    const h = ss.insertSheet(H_HISTORIAS);
-    negro(h.getRange(1, 1, 1, 5).setValues([['Fecha', 'Estado', 'Vueltas', 'Historia', 'Correo']]));
-    h.setFrozenRows(1); h.setColumnWidth(4, 700); h.getRange('D:D').setWrap(true);
-  }
-  if (!ss.getSheetByName(H_REGISTRO)) {
-    const h = ss.insertSheet(H_REGISTRO);
-    negro(h.getRange(1, 1, 1, 5).setValues([['Fecha', 'Vuelta', 'Agente', 'Resultado', 'Detalle']]));
-    h.setFrozenRows(1); h.setColumnWidth(4, 220); h.setColumnWidth(5, 700); h.getRange('E:E').setWrap(true);
-  }
-  actualizarEstado_();
-  ss.setActiveSheet(ss.getSheetByName(H_CONFIG));
-  ui.alert('El Estudio quedó instalado. Pega tu clave de Gemini en la pestaña Config, celda B2.');
-}
-
-// ===================== DISPARADORES =====================
-
-function crearHistoriaAhora() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  ss.toast('Los agentes están trabajando. Mira la pestaña Registro.', 'Estudio', 10);
-  const r = historiaDelDia();
-  if (r) SpreadsheetApp.getUi().alert('Historia ' + r.estado.toLowerCase() + ' en ' + r.vueltas + ' vuelta(s). ' +
-    (r.correo ? 'Te llegó al correo.' : 'No se pudo enviar el correo.') + ' Mírala en la pestaña Historias.');
-}
-
-function activarCorreoDiario() {
-  detenerCorreoDiario(true);
-  const hora = Math.min(23, Math.max(0, Number(config_()['Hora del correo']) || 7));
-  ScriptApp.newTrigger('historiaDelDia').timeBased().everyDays(1).atHour(hora).create();
-  actualizarEstado_();
-  SpreadsheetApp.getUi().alert('Listo. Todos los días, entre las ' + hora + ' y las ' + (hora + 1) + ', te llega la historia del día.');
-}
-
-function detenerCorreoDiario(silencioso) {
-  ScriptApp.getProjectTriggers().filter(t =&gt; t.getHandlerFunction() === 'historiaDelDia').forEach(t =&gt; ScriptApp.deleteTrigger(t));
-  actualizarEstado_();
-  if (silencioso !== true) SpreadsheetApp.getUi().alert('Correo diario detenido.');
-}
-
-// ===================== EL LOOP =====================
-
-function historiaDelDia() {
-  const cfg = config_();
-  if (!cfg['Clave de Gemini']) { actualizarEstado_(); return null; }
-  const { trabajadores, supervisor } = leerAgentes_();
-  if (!trabajadores.length) throw new Error('No hay agentes Trabajador activos en la pestaña Agentes.');
-
-  const cerebro = cerebro_(cfg);
-  const fecha = new Date();
-  const contexto = {
-    droguería: cfg['Droguería'],
-    fecha_de_hoy: Utilities.formatDate(fecha, Session.getScriptTimeZone(), "EEEE d 'de' MMMM 'de' yyyy"),
-    es_quincena: [14, 15, 16, 29, 30, 31, 1].indexOf(fecha.getDate()) &gt;= 0 ? 'Sí' : 'No',
-    tema_sugerido_por_el_dueño: String(cfg['Tema de hoy (opcional)'] || ''),
-    historias_recientes: historiasRecientes_(5)
-  };
-  const maxVueltas = Number(cfg['Vueltas máximas']) || 3;
-  registrar_(0, 'Motor', 'INICIO', 'Agentes: ' + trabajadores.map(a =&gt; a.nombre).join(' → ') + (supervisor ? ' · Supervisor: ' + supervisor.nombre : ''));
-
-  const salidas = {};
-  let desde = 0, comentario = null, aprobado = false, vuelta = 1;
-
-  while (vuelta &lt;= maxVueltas) {
-    for (let i = desde; i &lt; trabajadores.length; i++) {
-      const ag = trabajadores[i];
-      const previas = trabajadores.slice(0, i).map(a =&gt; ({ agente: a.nombre, entrega: salidas[a.nombre] }));
-      const fb = (i === desde &amp;&amp; comentario) ? { tu_entrega_anterior: salidas[ag.nombre], el_supervisor_la_devolvio_por: comentario } : null;
-      salidas[ag.nombre] = correrTrabajador_(ag, contexto, previas, fb, cerebro, cfg);
-      registrar_(vuelta, ag.nombre, 'ENTREGA', salidas[ag.nombre]);
-    }
-    if (!supervisor) { aprobado = true; break; }
-
-    let rev = reglaFija_(trabajadores, salidas);
-    if (rev) {
-      registrar_(vuelta, supervisor.nombre + ' (regla fija)', 'RECHAZADO → ' + rev.devolver, rev.motivo);
-    } else {
-      rev = correrSupervisor_(supervisor, trabajadores, salidas, contexto, cerebro, cfg);
-      registrar_(vuelta, supervisor.nombre, rev.ok ? 'APROBADO' : 'RECHAZADO → ' + rev.devolver, rev.motivo);
-    }
-    if (rev.ok) { aprobado = true; break; }
-
-    vuelta++;
-    if (vuelta &gt; maxVueltas) break;
-    desde = Math.max(0, trabajadores.findIndex(a =&gt; norm_(a.nombre) === norm_(rev.devolver)));
-    if (desde &lt; 0) desde = trabajadores.length - 1;
-    comentario = rev.motivo;
-  }
-
-  const vueltas = Math.min(vuelta, maxVueltas);
-  const estado = aprobado ? 'Aprobada' : 'Revisión humana';
-  if (!aprobado) registrar_(vueltas, 'Motor', 'REVISIÓN HUMANA', 'No pasó la revisión en ' + maxVueltas + ' vueltas.');
-
-  const final = salidas[trabajadores[trabajadores.length - 1].nombre];
-  let correo = false;
-  try { enviarCorreo_(cfg, contexto, trabajadores, salidas, estado, vueltas); correo = true; }
-  catch (err) { registrar_(vueltas, 'Motor', 'ERROR DE CORREO', err.message); }
-
-  hoja_(H_HISTORIAS).appendRow([fecha, estado, vueltas, final, correo ? 'Enviado' : 'No enviado']);
-  const f = hoja_(H_HISTORIAS).getLastRow();
-  hoja_(H_HISTORIAS).getRange(f, 2).setFontColor(aprobado ? '#1F7A4D' : '#C23A18').setFontWeight('bold');
-  return { estado: estado, vueltas: vueltas, correo: correo };
-}
-
-// ===================== AGENTES =====================
-
-function correrTrabajador_(ag, contexto, previas, fb, cerebro, cfg) {
-  const sistema = 'Eres el agente "' + ag.nombre + '" de un equipo de contenidos de una droguería de barrio en Colombia.\n' +
-    'TUS INSTRUCCIONES:\n' + ag.instrucciones + '\n\n' +
-    'REGLAS DEL EQUIPO: escribe en español colombiano, claro y corto. No uses formato Markdown con asteriscos. ' +
-    'Nunca menciones medicamentos de venta con fórmula médica, dosis ni promesas de curar.\n\n' +
-    'TU CEREBRO (documentos de la droguería):\n' + leerCerebro_(ag.lee, cerebro);
-  const entrada = { contexto: contexto, trabajo_de_los_agentes_anteriores: previas };
-  if (fb) entrada.correccion = fb;
-  return gemini_(sistema, JSON.stringify(entrada), cfg, false);
-}
-
-function correrSupervisor_(sup, trabajadores, salidas, contexto, cerebro, cfg) {
-  const nombres = trabajadores.map(a =&gt; a.nombre);
-  const sistema = 'Eres el agente "' + sup.nombre + '", el supervisor del equipo de contenidos de una droguería.\n' +
-    'TUS INSTRUCCIONES:\n' + sup.instrucciones + '\n\n' +
-    'TU CEREBRO:\n' + leerCerebro_(sup.lee, cerebro) + '\n\n' +
-    'Revisa el trabajo del equipo. Si todo cumple, apruébalo. Si algo falla, di qué y a qué agente se lo devuelves.\n' +
-    'Los agentes del equipo son: ' + nombres.join(', ') + '.\n' +
-    'Responde SOLO un JSON: {"veredicto": "APROBADO" o "RECHAZADO", "motivo": "una línea concreta", "devolver_a": "nombre exacto de un agente o vacío"}';
-  const entrada = { contexto: contexto, trabajo_del_equipo: nombres.map(n =&gt; ({ agente: n, entrega: salidas[n] })) };
-  const r = gemini_(sistema, JSON.stringify(entrada), cfg, true);
-  const ok = String(r.veredicto || '').toUpperCase().indexOf('APROBADO') === 0;
-  const dev = nombres.find(n =&gt; norm_(n) === norm_(r.devolver_a)) || nombres[nombres.length - 1];
-  return { ok: ok, motivo: String(r.motivo || (ok ? 'Cumple.' : 'Sin motivo.')), devolver: dev };
-}
-
-/** Regla fija del supervisor: palabras que nunca pasan. */
-function reglaFija_(trabajadores, salidas) {
-  for (const ag of trabajadores) {
-    const t = ' ' + norm_(salidas[ag.nombre]) + ' ';
-    const p = PROHIBIDAS.find(w =&gt; new RegExp('(^|[^a-z0-9])' + norm_(w).replace(/[.*+?^${}()|[\]\\%]/g, '\\$&amp;')).test(t));
-    if (p) return { ok: false, devolver: ag.nombre, motivo: 'La entrega de ' + ag.nombre + ' menciona "' + p.trim() + '". En una droguería eso no se puede publicar. Cambia el tema o el producto por uno de venta libre.' };
-    if (/\d+\s?(mg|ml|mcg|tabletas|capsulas|gotas)\b/.test(t)) return { ok: false, devolver: ag.nombre, motivo: 'La entrega de ' + ag.nombre + ' menciona una dosis. Eso no se publica.' };
-  }
-  return null;
-}
-
-// ===================== CORREO =====================
-
-function enviarCorreo_(cfg, contexto, trabajadores, salidas, estado, vueltas) {
-  const para = String(cfg['Correo'] || Session.getEffectiveUser().getEmail());
-  const esc = s =&gt; String(s || '').replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/\n/g, '&lt;br&gt;');
-  const ultimo = trabajadores[trabajadores.length - 1].nombre;
-  const color = estado === 'Aprobada' ? '#1F7A4D' : '#C23A18';
-  let html = '&lt;div style="font-family:Arial,sans-serif;max-width:640px;color:#16161D"&gt;' +
-    '&lt;p style="color:#C23A18;font-weight:bold;letter-spacing:1px;font-size:12px"&gt;ESTUDIO DE CONTENIDOS · ' + esc(cfg['Droguería']).toUpperCase() + '&lt;/p&gt;' +
-    '&lt;h2 style="margin:0 0 6px"&gt;La historia de hoy&lt;/h2&gt;' +
-    '&lt;p style="margin:0 0 18px;color:#55555F"&gt;' + esc(contexto.fecha_de_hoy) + ' · &lt;b style="color:' + color + '"&gt;' + estado + '&lt;/b&gt; en ' + vueltas + ' vuelta(s)&lt;/p&gt;' +
-    '&lt;div style="background:#F6F5F1;border-left:4px solid #C23A18;padding:16px 20px;font-size:15px;line-height:1.5"&gt;' + esc(salidas[ultimo]) + '&lt;/div&gt;' +
-    '&lt;p style="margin:22px 0 8px;font-weight:bold"&gt;Lo que hizo cada agente&lt;/p&gt;';
-  trabajadores.slice(0, -1).forEach(a =&gt; {
-    html += '&lt;p style="margin:0 0 4px;font-size:13px;color:#55555F"&gt;&lt;b&gt;' + esc(a.nombre) + '&lt;/b&gt;&lt;/p&gt;&lt;p style="margin:0 0 14px;font-size:13px"&gt;' + esc(salidas[a.nombre]) + '&lt;/p&gt;';
-  });
-  html += '&lt;p style="font-size:12px;color:#8A8A93;margin-top:20px"&gt;Monta los textos en tu plantilla de Canva y publícala en tus historias.&lt;/p&gt;&lt;/div&gt;';
-  MailApp.sendEmail({ to: para, subject: 'Historia del día · ' + cfg['Droguería'] + ' · ' + estado, htmlBody: html });
-}
-
-// ===================== GEMINI =====================
-
-let ultima_ = 0;
-
-function gemini_(sistema, texto, cfg, json) {
-  const espera = PAUSA_MS - (Date.now() - ultima_);
-  if (espera &gt; 0) Utilities.sleep(espera);
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg['Modelo'] || 'gemini-flash-latest') + ':generateContent';
-  const gen = { temperature: json ? 0.2 : 0.8 };
-  if (json) gen.responseMimeType = 'application/json';
-  const cuerpo = { systemInstruction: { parts: [{ text: sistema }] }, contents: [{ role: 'user', parts: [{ text: texto }] }], generationConfig: gen };
-  for (let intento = 1; intento &lt;= 3; intento++) {
-    ultima_ = Date.now();
-    const res = UrlFetchApp.fetch(url, { method: 'post', contentType: 'application/json', muteHttpExceptions: true,
-      headers: { 'x-goog-api-key': String(cfg['Clave de Gemini']).trim() }, payload: JSON.stringify(cuerpo) });
-    const code = res.getResponseCode();
-    if (code === 200) {
-      const j = JSON.parse(res.getContentText());
-      const t = ((((j.candidates || [])[0] || {}).content || {}).parts || []).map(p =&gt; p.text || '').join('').trim();
-      if (!json) return t.replace(/\*\*/g, '');
-      try { return JSON.parse(t.replace(/^```(json)?/i, '').replace(/```$/, '').trim()); }
-      catch (e) { return { veredicto: 'RECHAZADO', motivo: 'El supervisor no respondió en el formato esperado.', devolver_a: '' }; }
-    }
-    if (code === 429 || code &gt;= 500) { Utilities.sleep(15000 * intento); continue; }
-    if (code === 404) throw new Error('El modelo "' + cfg['Modelo'] + '" no existe. Cámbialo en Config.');
-    throw new Error('Gemini rechazó la solicitud (código ' + code + '). Revisa la clave en Config.');
-  }
-  throw new Error('Se agotaron las solicitudes gratuitas de Gemini por ahora. Espera un minuto.');
-}
-
-// ===================== UTILIDADES =====================
-
-function hoja_(n) {
-  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(n);
-  if (!h) throw new Error('Falta la pestaña ' + n + '. Usa Estudio → Instalar.');
-  return h;
-}
-
-function config_() {
-  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(H_CONFIG);
-  const m = {};
-  if (h) h.getRange(1, 1, Math.max(h.getLastRow(), 1), 2).getValues().forEach(r =&gt; { m[String(r[0]).trim()] = r[1]; });
-  return m;
-}
-
-function leerAgentes_() {
-  const h = hoja_(H_AGENTES);
-  const n = h.getLastRow();
-  const filas = n &lt; 2 ? [] : h.getRange(2, 1, n - 1, 6).getValues();
-  const agentes = filas
-    .filter(f =&gt; String(f[1]).trim() &amp;&amp; String(f[4]).trim() &amp;&amp; norm_(f[5]) !== 'no')
-    .map(f =&gt; ({ orden: Number(f[0]) || 99, nombre: String(f[1]).trim(), tipo: norm_(f[2]), lee: String(f[3]), instrucciones: String(f[4]).trim() }))
-    .sort((a, b) =&gt; a.orden - b.orden);
-  return { trabajadores: agentes.filter(a =&gt; a.tipo !== 'supervisor'), supervisor: agentes.find(a =&gt; a.tipo === 'supervisor') || null };
-}
-
-function cerebro_(cfg) {
-  const out = {};
-  DOCS.forEach(d =&gt; {
-    const url = String(cfg[d] || '').trim();
-    out[d] = '';
-    if (!url) return;
-    try { out[d] = DocumentApp.openByUrl(url).getBody().getText().trim(); }
-    catch (e) { registrar_(0, 'Motor', 'AVISO', 'No pude abrir el documento "' + d + '". Revisa el enlace en Config.'); }
-  });
-  return out;
-}
-
-function leerCerebro_(lee, cerebro) {
-  const pedidos = String(lee || '').split(/[,;\n]/).map(s =&gt; norm_(s)).filter(Boolean);
-  const textos = DOCS.filter(d =&gt; pedidos.some(p =&gt; norm_(d).indexOf(p) &gt;= 0 || p.indexOf(norm_(d)) &gt;= 0))
-    .map(d =&gt; '=== ' + d + ' ===\n' + (cerebro[d] || '(documento vacío o sin conectar)'));
-  return textos.join('\n\n') || '(Este agente no lee documentos del cerebro.)';
-}
-
-function historiasRecientes_(n) {
-  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(H_HISTORIAS);
-  if (!h || h.getLastRow() &lt; 2) return [];
-  const desde = Math.max(2, h.getLastRow() - n + 1);
-  return h.getRange(desde, 4, h.getLastRow() - desde + 1, 1).getValues().map(r =&gt; String(r[0]).slice(0, 200));
-}
-
-function registrar_(vuelta, agente, resultado, detalle) {
-  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(H_REGISTRO);
-  if (!h) return;
-  h.appendRow([new Date(), vuelta, agente, resultado, String(detalle || '').slice(0, 3000)]);
-  const f = h.getLastRow(), r = String(resultado);
-  if (r.indexOf('APROBADO') === 0) h.getRange(f, 4).setFontColor('#1F7A4D').setFontWeight('bold');
-  else if (/^(RECHAZADO|REVISIÓN|ERROR)/.test(r)) h.getRange(f, 4).setFontColor('#C23A18').setFontWeight('bold');
-  SpreadsheetApp.flush();
-}
-
-function actualizarEstado_() {
-  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(H_CONFIG);
-  if (!h) return;
-  const cfg = config_();
-  const docs = DOCS.filter(d =&gt; String(cfg[d] || '').trim()).length;
-  let diario = false;
-  try { diario = ScriptApp.getProjectTriggers().some(t =&gt; t.getHandlerFunction() === 'historiaDelDia'); } catch (e) {}
-  const txt = !cfg['Clave de Gemini'] ? 'Falta la clave de Gemini en B2'
-    : 'Estudio activo · ' + docs + ' de 3 documentos conectados · Correo diario: ' + (diario ? 'activado' : 'apagado');
-  h.getRange('B12').setValue(txt).setFontWeight('bold').setFontColor(cfg['Clave de Gemini'] ? '#1F7A4D' : '#C23A18');
-}
-
-function norm_(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim(); }
-</pre>
-    </div>
-    <div class="do">
-      <p class="lbl">Ahora tú <span>10 min</span></p>
-      <ol>
-        <li>Abre <b>sheets.new</b>. Arriba a la izquierda, ponle de nombre <b>Estudio – Droguería</b> y el nombre de la tuya.</li>
-        <li>Toca <kbd>Extensiones</kbd> → <kbd>Apps Script</kbd>. Se abre otra pestaña.</li>
-        <li>Selecciona todo lo que hay con <kbd>Ctrl + A</kbd> y bórralo.</li>
-        <li>Toca <b>Copiar motor</b> aquí y pega con <kbd>Ctrl + V</kbd>.</li>
-        <li>Guarda con el ícono del disquete o con <kbd>Ctrl + S</kbd>.</li>
-        <li>Cierra esa pestaña y vuelve a tu hoja.</li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <p class="eyebrow">Paso 2 · Instala y conecta la IA</p>
-  <h2>El motor arma las pestañas y se conecta a Gemini.</h2>
-  <div class="cols">
-    <div class="stack">
-      <p><b>Qué es:</b> el motor crea 4 pestañas y tú le das permiso para trabajar en tu cuenta.</p>
-      <table>
-        <tr><td>Config</td><td>Tu clave, tu correo y los enlaces del cerebro</td></tr>
-        <tr><td>Agentes</td><td>Tu equipo, una fila por agente</td></tr>
-        <tr><td>Historias</td><td>Todas las historias creadas</td></tr>
-        <tr><td>Registro</td><td>Lo que hizo cada agente</td></tr>
-      </table>
-      <div class="ex"><p class="lbl">El aviso que va a salir</p><p>Google dice <b>“Google no verificó esta app”</b> porque el motor es tuyo y no de una empresa. Es normal.</p></div>
-    </div>
-    <div class="do">
-      <p class="lbl">Ahora tú <span>15 min</span></p>
-      <ol>
-        <li>Recarga la hoja con <kbd>F5</kbd>. Espera 10 segundos: arriba aparece el menú <kbd>Estudio</kbd>.</li>
-        <li><kbd>Estudio</kbd> → <kbd>Instalar</kbd> → <kbd>Continuar</kbd> → elige tu cuenta.</li>
-        <li>En el aviso: <kbd>Configuración avanzada</kbd> → <kbd>Ir a … (no seguro)</kbd> → <kbd>Permitir</kbd>.</li>
-        <li>Toca otra vez <kbd>Estudio</kbd> → <kbd>Instalar</kbd>.</li>
-        <li>En <b>Config</b>: pega tu clave en <b>B2</b> y el nombre de tu droguería en <b>B3</b>.</li>
-        <li>Revisa que <b>B4</b> tenga tu correo.</li>
-      </ol>
-      <p class="note">Listo si en B12 dice <b>Estudio activo</b>.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <p class="eyebrow">Paso 3 · El cerebro: Kit de marca</p>
+  <p class="eyebrow">Paso 1 · El cerebro: Kit de marca</p>
   <h2>Cómo habla y cómo se ve tu droguería</h2>
   <div class="cols">
     <div class="stack">
@@ -689,14 +277,14 @@ function norm_(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, 
         <li>Copia el prompt de la siguiente diapositiva y pégalo.</li>
         <li>Responde sus preguntas con tus palabras.</li>
         <li>Abre <b>docs.new</b>, ponle de nombre <b>Kit de marca</b> y pega el documento que te entregó Gemini.</li>
-        <li>Copia el enlace del documento (la barra de direcciones) y pégalo en <b>Config</b>, celda <b>B9</b>.</li>
+        <li>Déjalo guardado en tu Drive: lo conectas al estudio en el Paso 4.</li>
       </ol>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 3 · El prompt del Kit de marca</p>
+  <p class="eyebrow">Paso 1 · El prompt del Kit de marca</p>
   <div class="row" style="justify-content:space-between;margin-bottom:18px">
     <h2 style="margin:0">Cópialo completo y pégalo en Gemini.</h2>
     <button class="copy" data-copy="p-kit">Copiar prompt</button>
@@ -723,7 +311,7 @@ Empieza con la primera pregunta.</pre>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 4 · El cerebro: Productos y temporadas</p>
+  <p class="eyebrow">Paso 2 · El cerebro: Productos y temporadas</p>
   <h2>Qué puedes promocionar y cuándo</h2>
   <div class="cols">
     <div class="stack">
@@ -737,15 +325,14 @@ Empieza con la primera pregunta.</pre>
         <li>En el mismo chat de Gemini, copia y pega el prompt de la siguiente diapositiva.</li>
         <li>Responde sus preguntas.</li>
         <li>Abre <b>docs.new</b>, ponle de nombre <b>Productos y temporadas</b> y pega el documento.</li>
-        <li>Copia el enlace y pégalo en <b>Config</b>, celda <b>B10</b>.</li>
-      </ol>
+              </ol>
       <p class="note">Las promociones cambian: actualiza este documento cada quincena.</p>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 4 · El prompt de Productos y temporadas</p>
+  <p class="eyebrow">Paso 2 · El prompt de Productos y temporadas</p>
   <div class="row" style="justify-content:space-between;margin-bottom:18px">
     <h2 style="margin:0">Pégalo en el mismo chat de Gemini.</h2>
     <button class="copy" data-copy="p-prod">Copiar prompt</button>
@@ -769,12 +356,12 @@ No incluyas medicamentos de venta con fórmula médica. No inventes precios ni p
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 5 · El cerebro: Reglas del Regente</p>
+  <p class="eyebrow">Paso 3 · El cerebro: Reglas del Regente</p>
   <h2>Lo que nunca se publica en una droguería</h2>
   <div class="cols">
     <div class="stack">
       <p><b>Qué es:</b> el documento que usa el Regente para revisar cada historia. Te damos una base y tú le agregas tus propias reglas.</p>
-      <div class="obj"><b>Para qué sirve</b><p>Es lo que te protege. Además, el motor tiene una regla fija que bloquea nombres de medicamentos con fórmula, dosis y promesas de curar, aunque el documento falle.</p></div>
+      <div class="obj"><b>Para qué sirve</b><p>Es lo que te protege.</p></div>
       <div class="row"><button class="copy" data-copy="p-reglas">Copiar reglas base</button></div>
 <pre id="p-reglas" hidden># Reglas del Regente
 
@@ -806,9 +393,9 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
         <li>Toca <b>Copiar reglas base</b>.</li>
         <li>Abre <b>docs.new</b>, ponle de nombre <b>Reglas del Regente</b> y pega.</li>
         <li>Al final, en <b>Reglas de mi droguería</b>, escribe 2 reglas tuyas. Por ejemplo: “No hablar de la competencia” o “No publicar precios de leches de fórmula”.</li>
-        <li>Copia el enlace y pégalo en <b>Config</b>, celda <b>B11</b>.</li>
+        <li>Revisa que tengas los 3 documentos en tu Drive.</li>
       </ol>
-      <p class="note">En B12 debe decir: Estudio activo · 3 de 3 documentos conectados.</p>
+      <p class="note">Estas reglas son una base prudente, no asesoría legal. Ante dudas, consulta la norma vigente.</p>
     </div>
   </div>
 </section>
@@ -820,88 +407,96 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 6 · Escribe tus agentes</p>
-  <h2>Cada fila de la pestaña Agentes es un agente.</h2>
+  <p class="eyebrow">Paso 4 · Crea tu estudio en Gemini</p>
+  <h2>Un Gem con todo el equipo adentro</h2>
   <div class="cols">
     <div class="stack">
-      <p><b>Qué es:</b> aquí creas a tu equipo. El motor ejecuta los agentes que estén en esta pestaña, en el orden que digas.</p>
-      <table>
-        <tr><td>Orden</td><td>En qué turno trabaja: 1, 2, 3…</td></tr>
-        <tr><td>Agente</td><td>Su nombre</td></tr>
-        <tr><td>Tipo</td><td><b>Trabajador</b> produce. <b>Supervisor</b> revisa y devuelve.</td></tr>
-        <tr><td>Lee del cerebro</td><td>Qué documentos lee, separados por coma</td></tr>
-        <tr><td>Instrucciones</td><td>Su oficio, en español, como se lo dirías a un empleado</td></tr>
-        <tr><td>Activo</td><td><b>Sí</b> trabaja. <b>No</b> descansa.</td></tr>
-      </table>
+      <p><b>Qué es:</b> un Gem es un asistente de Gemini con instrucciones fijas. En sus instrucciones escribes a tu equipo: quién es cada agente, qué hace y cómo se corrigen entre ellos.</p>
+      <div class="obj"><b>Para qué sirve</b><p>No vuelves a explicar nada. Cada vez que escribes “Historia de hoy”, el equipo completo trabaja, se revisa y te entrega la historia.</p></div>
+      <div class="ex"><p class="lbl">El conocimiento del Gem</p><p>Ahí conectas tus 3 documentos. Así cada agente lee tu marca, tus productos y tus reglas antes de trabajar.</p></div>
     </div>
     <div class="do">
       <p class="lbl">Ahora tú <span>15 min</span></p>
       <ol>
-        <li>Abre la pestaña <b>Agentes</b>.</li>
-        <li>Copia el <b>Estratega</b> (siguiente diapositiva), haz clic en <b>A2</b> y pega.</li>
-        <li>Copia el <b>Guionista</b>, haz clic en <b>A3</b> y pega.</li>
-        <li>Copia el <b>Regente</b>, haz clic en <b>A4</b> y pega.</li>
-        <li>Lee las instrucciones de cada uno y cambia una palabra para que suene a ti.</li>
+        <li>Entra a <b>gemini.google.com</b>. En el menú de la izquierda busca <kbd>Gems</kbd> → <kbd>Nuevo Gem</kbd>.</li>
+        <li>Nombre: <b>Estudio de contenidos</b> y el nombre de tu droguería.</li>
+        <li>En <b>Instrucciones</b>, pega el texto de la siguiente diapositiva.</li>
+        <li>En <b>Conocimiento</b>, toca <kbd>+</kbd> → <kbd>Drive</kbd> y elige tus 3 documentos.</li>
+        <li>Toca <kbd>Guardar</kbd>.</li>
       </ol>
-      <p class="note">Los órdenes son 1, 3 y 9 a propósito: dejamos espacio para el agente que vas a crear en el Paso 9.</p>
+      <p class="note">¿No te deja elegir desde Drive? En cada documento: Archivo → Descargar → .docx, y súbelos al Gem desde tu computador.</p>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 6 · Tu equipo inicial</p>
-  <h2>Copia cada agente y pégalo en su fila.</h2>
-  <table>
-    <tr><th>Agente</th><th>Su oficio</th><th>Pégalo en</th><th></th></tr>
-    <tr><td>Estratega</td><td>Elige el tema y el producto del día según la temporada y tus promociones. Si el Regente lo rechaza, propone una alternativa segura.</td><td>A2</td><td><button class="copy" data-copy="a-est">Copiar</button></td></tr>
-    <tr><td>Guionista</td><td>Escribe la historia en 3 pantallas, con máximo 8 palabras cada una, y el texto para publicar.</td><td>A3</td><td><button class="copy" data-copy="a-gui">Copiar</button></td></tr>
-    <tr><td>Regente</td><td>Supervisor. Revisa contra tus reglas y devuelve el trabajo al Estratega o al Guionista.</td><td>A4</td><td><button class="copy" data-copy="a-reg">Copiar</button></td></tr>
-  </table>
-<pre id="a-est" hidden>1	Estratega	Trabajador	Kit de marca, Productos y temporadas	Eres el estratega de contenidos de la droguería. Elige el tema de la historia de hoy según la fecha, la temporada, si es quincena y las promociones vigentes. Si el dueño sugirió un tema, úsalo; si el supervisor lo rechazó, propón una alternativa segura y parecida. Solo productos de venta libre, cuidado personal, cosmética, bebé o bienestar. No repitas temas de las historias recientes. Entrega 4 líneas: Tema. Producto o categoría. Qué queremos que haga el cliente. Por qué hoy.	Sí</pre>
-<pre id="a-gui" hidden>3	Guionista	Trabajador	Kit de marca	Eres el guionista. Con lo que te entregan los agentes anteriores escribe una historia de 15 segundos para Instagram y estados de WhatsApp. Entrega Pantalla 1, Pantalla 2 y Pantalla 3, cada una con Texto en pantalla (máximo 8 palabras) e Imagen sugerida. Al final escribe Texto para publicar (máximo 25 palabras) que invite a escribir por WhatsApp o pedir domicilio. Usa el tono y las frases del kit de marca.	Sí</pre>
-<pre id="a-reg" hidden>9	Regente	Supervisor	Reglas del Regente, Kit de marca	Eres el regente de farmacia que revisa cada historia antes de publicarla. Rechaza si menciona medicamentos de venta con fórmula, promete curar o aliviar una enfermedad, da dosis, usa palabras como garantizado o el mejor, incumple una regla de la droguería o no suena al kit de marca. Si el problema es el tema o el producto, devuélvelo al Estratega. Si es el texto, devuélvelo al Guionista.	Sí</pre>
-  <p class="muted" style="margin-top:20px">Cada botón copia la fila completa. Al pegarla en la columna A, cada dato cae en su columna.</p>
+  <p class="eyebrow">Paso 4 · Las instrucciones de tu equipo</p>
+  <div class="row" style="justify-content:space-between;margin-bottom:18px">
+    <h2 style="margin:0">Pégalas en el campo Instrucciones del Gem.</h2>
+    <button class="copy" data-copy="p-gem">Copiar instrucciones</button>
+  </div>
+<pre class="code" id="p-gem">Eres el Estudio de contenidos de mi droguería: un equipo de agentes que crea la historia del día para Instagram y estados de WhatsApp. Trabajan en loop y siempre muestras el trabajo de cada agente.
+
+EL EQUIPO
+1. ESTRATEGA. Lee "Kit de marca" y "Productos y temporadas". Elige el tema de hoy según la fecha, la temporada, la quincena y las promociones vigentes. Si el usuario sugiere un tema, úsalo; si el Regente lo rechaza, propone una alternativa segura y parecida. Solo productos de venta libre, cuidado personal, cosmética, bebé o bienestar. Entrega: Tema, Producto o categoría, Qué queremos que haga el cliente, Por qué hoy.
+2. GUIONISTA. Lee "Kit de marca". Con lo del Estratega, escribe una historia de 15 segundos en 3 pantallas: para cada una, Texto en pantalla (máximo 8 palabras) e Imagen sugerida. Al final, Texto para publicar (máximo 25 palabras) que invite a escribir por WhatsApp o pedir domicilio.
+3. REGENTE (supervisor). Lee "Reglas del Regente" y "Kit de marca". Revisa todo. RECHAZA si menciona medicamentos de venta con fórmula, promete curar o aliviar, da dosis, usa "garantizado", "100 %" o "el mejor", incumple una regla de la droguería o no suena al kit de marca. Si el problema es el tema o el producto, lo devuelve al ESTRATEGA; si es el texto, al GUIONISTA. Siempre dice el motivo en una línea.
+
+EL LOOP
+- Corre los agentes en orden. Después del Regente:
+  - Si APRUEBA: termina.
+  - Si RECHAZA: vuelve a correr desde el agente al que se devolvió, corrigiendo según el motivo, y el Regente revisa otra vez.
+- Máximo 3 vueltas. Si no pasa, termina con "REVISIÓN HUMANA" y explica por qué.
+
+FORMATO DE RESPUESTA
+VUELTA 1
+ESTRATEGA: ...
+GUIONISTA: ...
+REGENTE: APROBADO o RECHAZADO → [agente] · motivo
+(VUELTA 2 si hace falta)
+HISTORIA FINAL: las 3 pantallas y el texto para publicar, listos para copiar a Canva.
+
+Nunca inventes precios ni promociones que no estén en "Productos y temporadas".</pre>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 7 · Corre el loop</p>
-  <h2>Tu equipo crea su primera historia.</h2>
+  <p class="eyebrow">Paso 5 · Tu primera historia</p>
+  <h2>Escribe dos palabras y mira al equipo trabajar.</h2>
   <div class="cols">
     <div class="stack">
-      <p><b>Qué es:</b> le das la orden al equipo. El motor corre al Estratega, luego al Guionista, y el Regente revisa. Todo queda anotado en <b>Registro</b>.</p>
-      <div class="obj"><b>Para qué sirve</b><p>Ver al equipo trabajar antes de dejarlo solo todos los días.</p></div>
-      <div class="ex"><p class="lbl">Cómo leer el Registro</p><p><b>ENTREGA</b>: lo que hizo un agente. <b style="color:var(--green)">APROBADO</b>: el Regente lo dejó pasar. <b style="color:var(--coral)">RECHAZADO → Guionista</b>: se lo devolvió, con el motivo en Detalle.</p></div>
+      <p><b>Qué es:</b> le das la orden al equipo. El Estratega propone, el Guionista escribe y el Regente revisa. Todo aparece en la respuesta, por vueltas.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Ver cómo piensa cada agente antes de confiarle tus redes.</p></div>
+      <div class="ex"><p class="lbl">Cómo leer la respuesta</p><p><b>VUELTA 1</b>: el trabajo de cada agente. <b style="color:var(--green)">REGENTE: APROBADO</b>: lista para publicar. <b style="color:var(--coral)">REGENTE: RECHAZADO → GUIONISTA</b>: se la devolvió, con el motivo, y viene la vuelta 2.</p></div>
     </div>
     <div class="do">
       <p class="lbl">Ahora tú <span>15 min</span></p>
       <ol>
-        <li><kbd>Estudio</kbd> → <kbd>Crear la historia de hoy</kbd>.</li>
-        <li>Abre la pestaña <b>Registro</b> y mira cómo van apareciendo las filas. Tarda entre 30 y 60 segundos.</li>
-        <li>Cuando salga el aviso, abre tu correo: te llegó <b>Historia del día</b>.</li>
-        <li>Lee lo que entregó cada agente. ¿Suena a tu droguería?</li>
+        <li>Abre tu Gem y escribe: <b>Historia de hoy</b>.</li>
+        <li>Lee lo que entregó cada agente.</li>
+        <li>¿Suena a tu droguería? Si no, no corrijas la historia a mano: corrige el <b>Kit de marca</b> o las instrucciones del Gem.</li>
+        <li>Para editar el Gem: <kbd>Gems</kbd> → tu Gem → <kbd>Editar</kbd>.</li>
       </ol>
-      <p class="note">¿No suena a ti? No toques el motor: corrige el Kit de marca o las instrucciones del agente y vuelve a correrlo.</p>
+      <p class="note">Si un día quieres un tema, pídelo: “Historia de hoy sobre protector solar”.</p>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 8 · Ponlo a prueba</p>
+  <p class="eyebrow">Paso 6 · Ponlo a prueba</p>
   <h2>Pídele algo prohibido y mira cómo se corrige.</h2>
   <div class="cols">
     <div class="stack">
-      <p><b>Qué es:</b> le das al Estratega un tema que no se puede publicar, para ver el loop en acción.</p>
+      <p><b>Qué es:</b> le pides al equipo un tema que no se puede publicar, para ver el loop en acción.</p>
       <div class="obj"><b>Para qué sirve</b><p>Confiar en el sistema. Si el Regente frena esto, frena los errores de verdad.</p></div>
-      <div class="row"><button class="copy" data-copy="p-tema">Copiar tema prohibido</button><span id="p-tema" class="muted" style="font-size:20px">jarabe con codeína para la tos</span></div>
+      <div class="row"><button class="copy" data-copy="p-tema">Copiar pedido</button><span id="p-tema" class="muted" style="font-size:20px">Historia de hoy sobre jarabe con codeína para la tos</span></div>
     </div>
     <div class="do">
       <p class="lbl">Ahora tú <span>10 min</span></p>
       <ol>
-        <li>En <b>Config</b>, pega el tema prohibido en <b>B6</b> (Tema de hoy).</li>
-        <li><kbd>Estudio</kbd> → <kbd>Crear la historia de hoy</kbd>.</li>
-        <li>En <b>Registro</b> busca la fila <b style="color:var(--coral2)">RECHAZADO → Estratega</b> y lee el motivo.</li>
+        <li>Copia el pedido y pégalo en tu Gem.</li>
+        <li>Busca <b style="color:var(--coral2)">REGENTE: RECHAZADO → ESTRATEGA</b> y lee el motivo.</li>
         <li>Mira la vuelta 2: el Estratega propone una alternativa segura.</li>
-        <li><b>Borra B6</b> cuando termines.</li>
+        <li>Si el Regente lo dejó pasar, agrega en tus <b>Reglas del Regente</b>: “Nunca nombrar jarabes con codeína” y repite.</li>
       </ol>
       <p class="note">Si en 3 vueltas no pasa, queda en Revisión humana. Eso también es un buen resultado.</p>
     </div>
@@ -909,56 +504,35 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 9 · Crea tu propio agente</p>
-  <h2>Contrata un agente nuevo escribiendo una fila.</h2>
+  <p class="eyebrow">Paso 7 · Crea tu propio agente</p>
+  <h2>Contrata un agente nuevo escribiendo un párrafo.</h2>
   <div class="cols">
     <div class="stack">
       <p><b>Qué es:</b> agregas un Promotor entre el Estratega y el Guionista. Su oficio: sumar una oferta real de tus promociones.</p>
-      <div class="obj"><b>Para qué sirve</b><p>Entender que el equipo es tuyo: agregas, cambias o apagas agentes sin tocar el motor.</p></div>
+      <div class="obj"><b>Para qué sirve</b><p>Entender que el equipo es tuyo: agregas, cambias o quitas agentes escribiendo en español.</p></div>
       <div class="row"><button class="copy" data-copy="a-pro">Copiar Promotor</button></div>
-<pre id="a-pro" hidden>2	Promotor	Trabajador	Productos y temporadas	Eres el promotor. Toma la propuesta del Estratega y agrégale una sola oferta concreta de la sección Promociones vigentes que tenga que ver con el tema, con su precio o descuento exacto. Si ninguna aplica, escribe: Sin promoción hoy. Nunca inventes descuentos.	Sí</pre>
-      <div class="ex"><p class="lbl">Otras ideas de agentes</p><p><b>Horario:</b> si es domingo, recuerda el horario especial. <b>Cliente fiel:</b> agrega un saludo a los clientes de siempre. <b>Bilingüe:</b> traduce para turistas.</p></div>
+<pre id="a-pro" hidden>PROMOTOR (trabaja entre el Estratega y el Guionista). Lee "Productos y temporadas". Toma la propuesta del Estratega y agrégale una sola oferta concreta de las promociones vigentes que tenga que ver con el tema, con su precio o descuento exacto. Si ninguna aplica, escribe: Sin promoción hoy. Nunca inventa descuentos.</pre>
+      <div class="ex"><p class="lbl">Otras ideas de agentes</p><p><b>Horario:</b> si es domingo, recuerda el horario especial. <b>Cliente fiel:</b> agrega un saludo para los clientes de siempre. <b>Bilingüe:</b> traduce para turistas.</p></div>
     </div>
     <div class="do">
       <p class="lbl">Ahora tú <span>15 min</span></p>
       <ol>
-        <li>Toca <b>Copiar Promotor</b>, haz clic en <b>A5</b> de Agentes y pega.</li>
-        <li><kbd>Estudio</kbd> → <kbd>Crear la historia de hoy</kbd>.</li>
-        <li>En <b>Registro</b> busca la entrega del Promotor, entre el Estratega y el Guionista.</li>
-        <li>Inventa tu propio agente: escribe una fila nueva con tu idea y córrelo.</li>
+        <li><kbd>Gems</kbd> → tu Gem → <kbd>Editar</kbd>.</li>
+        <li>En <b>EL EQUIPO</b>, pega el Promotor después del Estratega.</li>
+        <li>En <b>FORMATO DE RESPUESTA</b>, agrega la línea <b>PROMOTOR: ...</b> después de ESTRATEGA.</li>
+        <li><kbd>Actualizar</kbd> y pide otra vez: <b>Historia de hoy</b>.</li>
+        <li>Inventa tu propio agente y agrégalo igual.</li>
       </ol>
-      <p class="note">El orden manda, no la fila: el Promotor trabaja en el turno 2 aunque esté en la fila 5.</p>
     </div>
   </div>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Paso 10 · El correo diario</p>
-  <h2>Déjalo trabajando solo.</h2>
-  <div class="cols">
-    <div class="stack">
-      <p><b>Qué es:</b> programas al equipo para que corra el loop todos los días a la hora que elijas, aunque tu computador esté apagado.</p>
-      <div class="obj"><b>Para qué sirve</b><p>Llegas a la droguería y la historia del día ya está en tu correo, revisada.</p></div>
-      <div class="ex"><p class="lbl">Para apagarlo</p><p><kbd>Estudio</kbd> → <kbd>Detener correo diario</kbd>. Puedes volver a activarlo cuando quieras.</p></div>
-    </div>
-    <div class="do">
-      <p class="lbl">Ahora tú <span>5 min</span></p>
-      <ol>
-        <li>En <b>Config</b>, escribe en <b>B5</b> la hora en que quieres el correo, de 0 a 23. Por ejemplo, <b>6</b> para las 6 de la mañana.</li>
-        <li><kbd>Estudio</kbd> → <kbd>Activar correo diario</kbd>.</li>
-        <li>En <b>B12</b> debe decir <b>Correo diario: activado</b>.</li>
-      </ol>
-      <p class="note">Google lo ejecuta dentro de esa hora, no en el minuto exacto.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <p class="eyebrow">Paso 11 · De texto a historia en Canva</p>
+  <p class="eyebrow">Paso 8 · De texto a historia en Canva</p>
   <h2>Una plantilla tuya y 3 minutos cada mañana</h2>
   <div class="cols">
     <div class="stack">
-      <p><b>Qué es:</b> una plantilla de historia con tus colores y 3 páginas. Cada mañana cambias los textos por los del correo.</p>
+      <p><b>Qué es:</b> una plantilla de historia con tus colores y 3 páginas. Cada mañana cambias los textos por los que te entrega el Gem.</p>
       <div class="obj"><b>Para qué sirve</b><p>Publicar todos los días sin diseñar desde cero. La plantilla se hace una vez.</p></div>
       <div class="ex"><p class="lbl">Tip</p><p>Usa fotos reales de tu droguería y de tus productos. Se ven más confiables que las imágenes de banco y que las hechas con IA.</p></div>
     </div>
@@ -976,19 +550,17 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
   </div>
 </section>
 
-<!-- ============ CIERRE ============ -->
-
 <section class="slide">
   <p class="eyebrow">Si algo falla</p>
   <h2>Los 6 tropiezos más comunes</h2>
   <table>
     <tr><th>Lo que ves</th><th>Qué hacer</th></tr>
-    <tr><td>No aparece el menú Estudio</td><td>Recarga la hoja y espera 10 segundos. Si sigue sin salir, revisa que guardaste el motor.</td></tr>
-    <tr><td>“Falta la clave de Gemini”</td><td>Pega la clave en Config B2, sin espacios al principio ni al final.</td></tr>
-    <tr><td>“Gemini rechazó la solicitud”</td><td>La clave está mal copiada. Cópiala otra vez desde aistudio.google.com/apikey.</td></tr>
-    <tr><td>“El modelo no existe”</td><td>En Config B8 cambia el modelo por el nombre que aparece en AI Studio.</td></tr>
-    <tr><td>“No pude abrir el documento”</td><td>El enlace de Config está incompleto. Ábrelo y copia la dirección completa.</td></tr>
-    <tr><td>“Se agotaron las solicitudes”</td><td>El plan gratuito tiene un límite por minuto. Espera un minuto y vuelve a intentar.</td></tr>
+    <tr><td>No aparece “Gems”</td><td>Abre el menú de la izquierda en gemini.google.com. Si no está, revisa que no estés en una cuenta del colegio o de la empresa.</td></tr>
+    <tr><td>No puedo agregar desde Drive</td><td>Descarga cada documento como .docx y súbelo al Gem desde tu computador.</td></tr>
+    <tr><td>No muestra las vueltas</td><td>Escríbele: “Muestra el trabajo de cada agente por vueltas, como dicen tus instrucciones”.</td></tr>
+    <tr><td>Inventa precios o promociones</td><td>Revisa que estén en Productos y temporadas. Si no están, el agente no debe usarlos.</td></tr>
+    <tr><td>No suena a mi droguería</td><td>Agrega frases tuyas al Kit de marca. Una frase real enseña más que diez adjetivos.</td></tr>
+    <tr><td>El Regente deja pasar algo</td><td>Escribe esa regla en Reglas del Regente, con la palabra exacta que no debe pasar.</td></tr>
   </table>
 </section>
 
@@ -996,15 +568,14 @@ Que ninguna historia de la droguería incumpla las normas ni ponga en riesgo a u
   <p class="eyebrow">Cierre</p>
   <h2>Hoy construiste</h2>
   <div class="grid3" style="margin-top:10px">
-    <div><h3>Un equipo de agentes</h3><p class="muted">Que trabaja en loop, se corrige solo y lo escribiste tú en español.</p></div>
+    <div><h3>Un equipo de agentes</h3><p class="muted">Que trabaja en loop, se corrige solo y lo escribiste tú en español, sin código.</p></div>
     <div><h3>Un cerebro</h3><p class="muted">Tu marca, tus productos y tus reglas. Te sirve aunque no uses el sistema: es el manual de tu droguería.</p></div>
-    <div><h3>Una rutina</h3><p class="muted">Una historia revisada cada mañana en tu correo, lista para Canva.</p></div>
+    <div><h3>Una rutina</h3><p class="muted">Una historia revisada en un minuto cada mañana, lista para Canva.</p></div>
   </div>
   <div class="sp"></div>
   <p class="eyebrow" style="margin-bottom:12px">Tu semana</p>
   <p class="lead">Publica las 7 historias. El día que una no suene a ti, no la corrijas a mano: corrige el documento o el agente. Así el equipo mejora solo.</p>
 </section>
-
 </div>
 
 <div id="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
