@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Droguería OPC</title>
+<style>
+:root{
+  --ink:#16161D; --paper:#F6F5F1; --white:#FFFFFC; --line:#DEDBD3;
+  --muted:#55555F; --coral:#C23A18; --coral2:#FF5C39; --green:#1F7A4D;
+  --serif:Cambria,"Cambria Math",Georgia,"Times New Roman",serif;
+  --sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;
+  --mono:Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0E0E12;overflow:hidden}
+body{font-family:var(--sans);color:var(--ink)}
+#stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1600px;height:900px;background:var(--paper);padding:72px 96px 88px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.coral{background:var(--coral);color:#fff}
+
+/* type */
+h1{font:700 88px/1.04 var(--serif);letter-spacing:-.5px}
+h2{font:700 56px/1.08 var(--serif);margin-bottom:28px;letter-spacing:-.3px}
+h3{font:700 30px/1.2 var(--serif);margin-bottom:8px}
+p,li,td,th{font-size:25px;line-height:1.42}
+.lead{font-size:32px;line-height:1.38;max-width:1180px}
+.muted{color:var(--muted)}
+.dark .muted{color:#A9A9B4}
+.eyebrow{font:700 19px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+.dark .eyebrow,.coral .eyebrow{color:var(--coral2)}
+.coral .eyebrow{color:#FFD9CE}
+b.c,.c{color:var(--coral)}
+.dark .c{color:var(--coral2)}
+.sp{flex:1}
+
+/* layout */
+.cols{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;flex:1;min-height:0}
+.cols.even{grid-template-columns:1fr 1fr}
+.stack>*+*{margin-top:22px}
+
+/* blocks */
+.obj{border-top:2px solid var(--ink);padding-top:14px}
+.obj b{display:block;font:700 18px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ex{background:var(--white);border-left:5px solid var(--coral);padding:20px 26px}
+.ex .lbl{font:700 17px/1 var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+.ex p{font-size:24px}
+.say{font-family:var(--serif);font-style:italic}
+.do{background:var(--ink);color:var(--paper);padding:30px 34px;border-radius:4px;display:flex;flex-direction:column}
+.do .lbl{font:700 18px/1 var(--sans);letter-spacing:2.5px;text-transform:uppercase;color:var(--coral2);margin-bottom:18px;display:flex;justify-content:space-between}
+.do .lbl span{color:#A9A9B4;letter-spacing:1px}
+.do ol{padding-left:30px}
+.do li{font-size:24px;margin-bottom:12px}
+.do li b{color:#fff}
+.do .note{font-size:20px;color:#B9B9C4;border-top:1px solid #34343E;padding-top:12px;margin-top:auto}
+kbd{font:600 21px var(--sans);background:#2A2A33;border:1px solid #444;border-radius:3px;padding:0 7px;white-space:nowrap}
+.paper kbd,.slide:not(.dark) .stack kbd{background:#ECEAE4;border-color:#CFCBC1}
+
+table{width:100%;border-collapse:collapse}
+th{font:700 18px/1.2 var(--sans);letter-spacing:1.5px;text-transform:uppercase;text-align:left;padding:0 18px 12px 0;border-bottom:2px solid var(--ink)}
+td{padding:13px 18px 13px 0;border-bottom:1px solid var(--line);vertical-align:top;font-size:23px}
+td:first-child{font-weight:700;white-space:nowrap}
+.dark th{border-color:var(--paper)}
+.dark td{border-color:#34343E}
+td.n,th.n{text-align:right;white-space:nowrap}
+
+pre.code{font:18px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:20px 24px;white-space:pre-wrap;overflow:auto;flex:1;min-height:0}
+.copy{font:700 18px var(--sans);letter-spacing:1px;text-transform:uppercase;background:var(--coral);color:#fff;border:0;padding:12px 20px;border-radius:3px;cursor:pointer;align-self:flex-start}
+.copy.ok{background:var(--green)}
+.row{display:flex;gap:16px;align-items:center}
+
+.flow{display:flex;align-items:stretch;gap:0;margin:8px 0 28px}
+.flow .n{flex:1;border:2px solid var(--ink);padding:16px 16px;background:var(--white)}
+.flow .n b{font:700 24px/1.15 var(--serif);display:block;margin-bottom:6px}
+.flow .n p{font-size:19px;line-height:1.3;color:var(--muted)}
+.flow .n.k{background:var(--ink);color:var(--paper)}
+.flow .n.k p{color:#B9B9C4}
+.flow .a{width:34px;display:flex;align-items:center;justify-content:center;font:700 28px var(--serif);color:var(--coral)}
+
+.big{font:700 120px/1 var(--serif);color:var(--coral)}
+.num{font:700 64px/1 var(--serif);color:var(--coral);margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.grid3 > div{border-top:2px solid currentColor;padding-top:16px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+.grid5 > div{border-top:2px solid var(--ink);padding-top:14px}
+.grid5 p{font-size:21px}
+
+.md{font:21px/1.5 var(--mono);background:var(--white);border:1px solid var(--line);padding:22px 26px;white-space:pre-wrap}
+.md .h{color:var(--coral);font-weight:700}
+
+.qr{background:#fff;padding:22px;width:330px}
+.qr svg{display:block;width:100%;height:auto}
+
+.verdict{font:700 18px/1 var(--sans);letter-spacing:1.5px;padding:5px 10px;border-radius:2px;display:inline-block;margin-bottom:8px}
+.v-no{background:#F8DCD3;color:var(--coral)}
+.v-ok{background:#D6EBDD;color:var(--green)}
+s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
+
+.foot{position:absolute;left:96px;right:96px;bottom:30px;display:flex;justify-content:space-between;font:16px var(--sans);letter-spacing:1px;color:#8A8A93}
+.dark .foot{color:#6E6E78}
+.coral .foot{color:#FFD9CE}
+
+#nav{position:fixed;right:12px;top:10px;opacity:.35;display:flex;gap:6px;z-index:9}
+#nav button{background:rgba(255,255,255,.12);color:#fff;border:0;width:40px;height:34px;font-size:18px;border-radius:3px;cursor:pointer}
+#nav:hover{opacity:1}#nav button:hover{background:rgba(255,255,255,.25)}
+@media print{#nav{display:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark">
+  <div class="cols" style="grid-template-columns:1fr 330px;align-items:center">
+    <div>
+      <p class="eyebrow">Cierre del curso · Taller presencial</p>
+      <h1>Droguería OPC</h1>
+      <p class="lead" style="margin-top:24px">Una droguería que trabaja con una oficina de agentes de IA: inventario, ventas, estrategia y clientes, coordinados por un orquestador y revisados por un regente.</p>
+    </div>
+    <div>
+      <div class="qr"><svg  version="1.1" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM13,1H14V2H13zM14,1H15V2H14zM17,1H18V2H17zM18,1H19V2H18zM20,1H21V2H20zM21,1H22V2H21zM22,1H23V2H22zM23,1H24V2H23zM24,1H25V2H24zM27,1H28V2H27zM28,1H29V2H28zM29,1H30V2H29zM30,1H31V2H30zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM1,2H2V3H1zM7,2H8V3H7zM9,2H10V3H9zM11,2H12V3H11zM13,2H14V3H13zM17,2H18V3H17zM19,2H20V3H19zM22,2H23V3H22zM23,2H24V3H23zM24,2H25V3H24zM25,2H26V3H25zM27,2H28V3H27zM33,2H34V3H33zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM10,3H11V4H10zM11,3H12V4H11zM14,3H15V4H14zM16,3H17V4H16zM19,3H20V4H19zM20,3H21V4H20zM24,3H25V4H24zM25,3H26V4H25zM27,3H28V4H27zM29,3H30V4H29zM30,3H31V4H30zM31,3H32V4H31zM33,3H34V4H33zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM9,4H10V5H9zM13,4H14V5H13zM18,4H19V5H18zM20,4H21V5H20zM25,4H26V5H25zM27,4H28V5H27zM29,4H30V5H29zM30,4H31V5H30zM31,4H32V5H31zM33,4H34V5H33zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM10,5H11V6H10zM15,5H16V6H15zM16,5H17V6H16zM17,5H18V6H17zM18,5H19V6H18zM20,5H21V6H20zM21,5H22V6H21zM25,5H26V6H25zM27,5H28V6H27zM29,5H30V6H29zM30,5H31V6H30zM31,5H32V6H31zM33,5H34V6H33zM1,6H2V7H1zM7,6H8V7H7zM13,6H14V7H13zM14,6H15V7H14zM15,6H16V7H15zM19,6H20V7H19zM20,6H21V7H20zM21,6H22V7H21zM27,6H28V7H27zM33,6H34V7H33zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM28,7H29V8H28zM29,7H30V8H29zM30,7H31V8H30zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM9,8H10V9H9zM10,8H11V9H10zM13,8H14V9H13zM17,8H18V9H17zM18,8H19V9H18zM21,8H22V9H21zM23,8H24V9H23zM25,8H26V9H25zM1,9H2V10H1zM3,9H4V10H3zM4,9H5V10H4zM6,9H7V10H6zM7,9H8V10H7zM8,9H9V10H8zM11,9H12V10H11zM15,9H16V10H15zM16,9H17V10H16zM17,9H18V10H17zM18,9H19V10H18zM19,9H20V10H19zM20,9H21V10H20zM22,9H23V10H22zM24,9H25V10H24zM27,9H28V10H27zM30,9H31V10H30zM32,9H33V10H32zM33,9H34V10H33zM1,10H2V11H1zM3,10H4V11H3zM4,10H5V11H4zM5,10H6V11H5zM10,10H11V11H10zM11,10H12V11H11zM13,10H14V11H13zM14,10H15V11H14zM15,10H16V11H15zM18,10H19V11H18zM19,10H20V11H19zM20,10H21V11H20zM21,10H22V11H21zM23,10H24V11H23zM24,10H25V11H24zM27,10H28V11H27zM28,10H29V11H28zM30,10H31V11H30zM31,10H32V11H31zM33,10H34V11H33zM3,11H4V12H3zM4,11H5V12H4zM5,11H6V12H5zM6,11H7V12H6zM7,11H8V12H7zM8,11H9V12H8zM9,11H10V12H9zM11,11H12V12H11zM12,11H13V12H12zM13,11H14V12H13zM14,11H15V12H14zM17,11H18V12H17zM19,11H20V12H19zM23,11H24V12H23zM24,11H25V12H24zM25,11H26V12H25zM27,11H28V12H27zM28,11H29V12H28zM29,11H30V12H29zM30,11H31V12H30zM32,11H33V12H32zM33,11H34V12H33zM2,12H3V13H2zM4,12H5V13H4zM6,12H7V13H6zM8,12H9V13H8zM9,12H10V13H9zM11,12H12V13H11zM16,12H17V13H16zM19,12H20V13H19zM21,12H22V13H21zM24,12H25V13H24zM25,12H26V13H25zM26,12H27V13H26zM27,12H28V13H27zM28,12H29V13H28zM30,12H31V13H30zM1,13H2V14H1zM2,13H3V14H2zM3,13H4V14H3zM5,13H6V14H5zM7,13H8V14H7zM8,13H9V14H8zM9,13H10V14H9zM10,13H11V14H10zM11,13H12V14H11zM12,13H13V14H12zM13,13H14V14H13zM15,13H16V14H15zM18,13H19V14H18zM23,13H24V14H23zM24,13H25V14H24zM25,13H26V14H25zM26,13H27V14H26zM29,13H30V14H29zM30,13H31V14H30zM32,13H33V14H32zM33,13H34V14H33zM1,14H2V15H1zM6,14H7V15H6zM9,14H10V15H9zM10,14H11V15H10zM11,14H12V15H11zM15,14H16V15H15zM16,14H17V15H16zM17,14H18V15H17zM19,14H20V15H19zM20,14H21V15H20zM25,14H26V15H25zM28,14H29V15H28zM32,14H33V15H32zM1,15H2V16H1zM2,15H3V16H2zM3,15H4V16H3zM4,15H5V16H4zM6,15H7V16H6zM7,15H8V16H7zM9,15H10V16H9zM10,15H11V16H10zM12,15H13V16H12zM14,15H15V16H14zM17,15H18V16H17zM20,15H21V16H20zM21,15H22V16H21zM22,15H23V16H22zM23,15H24V16H23zM25,15H26V16H25zM27,15H28V16H27zM28,15H29V16H28zM29,15H30V16H29zM30,15H31V16H30zM1,16H2V17H1zM2,16H3V17H2zM4,16H5V17H4zM6,16H7V17H6zM8,16H9V17H8zM10,16H11V17H10zM12,16H13V17H12zM13,16H14V17H13zM16,16H17V17H16zM17,16H18V17H17zM19,16H20V17H19zM22,16H23V17H22zM23,16H24V17H23zM25,16H26V17H25zM26,16H27V17H26zM27,16H28V17H27zM28,16H29V17H28zM30,16H31V17H30zM31,16H32V17H31zM1,17H2V18H1zM2,17H3V18H2zM5,17H6V18H5zM7,17H8V18H7zM12,17H13V18H12zM13,17H14V18H13zM15,17H16V18H15zM19,17H20V18H19zM20,17H21V18H20zM21,17H22V18H21zM22,17H23V18H22zM23,17H24V18H23zM26,17H27V18H26zM27,17H28V18H27zM29,17H30V18H29zM31,17H32V18H31zM2,18H3V19H2zM3,18H4V19H3zM4,18H5V19H4zM6,18H7V19H6zM8,18H9V19H8zM10,18H11V19H10zM11,18H12V19H11zM14,18H15V19H14zM15,18H16V19H15zM16,18H17V19H16zM19,18H20V19H19zM21,18H22V19H21zM23,18H24V19H23zM24,18H25V19H24zM25,18H26V19H25zM27,18H28V19H27zM29,18H30V19H29zM30,18H31V19H30zM32,18H33V19H32zM33,18H34V19H33zM2,19H3V20H2zM3,19H4V20H3zM4,19H5V20H4zM5,19H6V20H5zM6,19H7V20H6zM7,19H8V20H7zM9,19H10V20H9zM13,19H14V20H13zM14,19H15V20H14zM16,19H17V20H16zM17,19H18V20H17zM19,19H20V20H19zM25,19H26V20H25zM27,19H28V20H27zM28,19H29V20H28zM29,19H30V20H29zM31,19H32V20H31zM32,19H33V20H32zM9,20H10V21H9zM10,20H11V21H10zM11,20H12V21H11zM13,20H14V21H13zM18,20H19V21H18zM20,20H21V21H20zM23,20H24V21H23zM25,20H26V21H25zM26,20H27V21H26zM29,20H30V21H29zM32,20H33V21H32zM33,20H34V21H33zM2,21H3V22H2zM3,21H4V22H3zM4,21H5V22H4zM6,21H7V22H6zM7,21H8V22H7zM8,21H9V22H8zM11,21H12V22H11zM15,21H16V22H15zM16,21H17V22H16zM18,21H19V22H18zM19,21H20V22H19zM22,21H23V22H22zM24,21H25V22H24zM30,21H31V22H30zM31,21H32V22H31zM1,22H2V23H1zM2,22H3V23H2zM4,22H5V23H4zM6,22H7V23H6zM9,22H10V23H9zM10,22H11V23H10zM12,22H13V23H12zM13,22H14V23H13zM14,22H15V23H14zM15,22H16V23H15zM17,22H18V23H17zM19,22H20V23H19zM20,22H21V23H20zM21,22H22V23H21zM22,22H23V23H22zM24,22H25V23H24zM27,22H28V23H27zM31,22H32V23H31zM33,22H34V23H33zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM7,23H8V24H7zM10,23H11V24H10zM14,23H15V24H14zM18,23H19V24H18zM19,23H20V24H19zM24,23H25V24H24zM27,23H28V24H27zM28,23H29V24H28zM30,23H31V24H30zM31,23H32V24H31zM32,23H33V24H32zM33,23H34V24H33zM2,24H3V25H2zM3,24H4V25H3zM4,24H5V25H4zM6,24H7V25H6zM9,24H10V25H9zM10,24H11V25H10zM12,24H13V25H12zM15,24H16V25H15zM17,24H18V25H17zM19,24H20V25H19zM20,24H21V25H20zM21,24H22V25H21zM25,24H26V25H25zM27,24H28V25H27zM28,24H29V25H28zM1,25H2V26H1zM4,25H5V26H4zM6,25H7V26H6zM7,25H8V26H7zM9,25H10V26H9zM11,25H12V26H11zM12,25H13V26H12zM13,25H14V26H13zM14,25H15V26H14zM18,25H19V26H18zM20,25H21V26H20zM23,25H24V26H23zM25,25H26V26H25zM26,25H27V26H26zM27,25H28V26H27zM28,25H29V26H28zM29,25H30V26H29zM32,25H33V26H32zM33,25H34V26H33zM9,26H10V27H9zM10,26H11V27H10zM11,26H12V27H11zM12,26H13V27H12zM16,26H17V27H16zM17,26H18V27H17zM18,26H19V27H18zM20,26H21V27H20zM21,26H22V27H21zM22,26H23V27H22zM24,26H25V27H24zM25,26H26V27H25zM29,26H30V27H29zM30,26H31V27H30zM32,26H33V27H32zM1,27H2V28H1zM2,27H3V28H2zM3,27H4V28H3zM4,27H5V28H4zM5,27H6V28H5zM6,27H7V28H6zM7,27H8V28H7zM9,27H10V28H9zM11,27H12V28H11zM13,27H14V28H13zM14,27H15V28H14zM17,27H18V28H17zM18,27H19V28H18zM20,27H21V28H20zM21,27H22V28H21zM22,27H23V28H22zM24,27H25V28H24zM25,27H26V28H25zM27,27H28V28H27zM29,27H30V28H29zM1,28H2V29H1zM7,28H8V29H7zM9,28H10V29H9zM10,28H11V29H10zM11,28H12V29H11zM12,28H13V29H12zM14,28H15V29H14zM17,28H18V29H17zM20,28H21V29H20zM21,28H22V29H21zM22,28H23V29H22zM23,28H24V29H23zM24,28H25V29H24zM25,28H26V29H25zM29,28H30V29H29zM30,28H31V29H30zM31,28H32V29H31zM32,28H33V29H32zM33,28H34V29H33zM1,29H2V30H1zM3,29H4V30H3zM4,29H5V30H4zM5,29H6V30H5zM7,29H8V30H7zM10,29H11V30H10zM12,29H13V30H12zM14,29H15V30H14zM15,29H16V30H15zM16,29H17V30H16zM20,29H21V30H20zM21,29H22V30H21zM22,29H23V30H22zM23,29H24V30H23zM24,29H25V30H24zM25,29H26V30H25zM26,29H27V30H26zM27,29H28V30H27zM28,29H29V30H28zM29,29H30V30H29zM31,29H32V30H31zM33,29H34V30H33zM1,30H2V31H1zM3,30H4V31H3zM4,30H5V31H4zM5,30H6V31H5zM7,30H8V31H7zM9,30H10V31H9zM10,30H11V31H10zM11,30H12V31H11zM13,30H14V31H13zM15,30H16V31H15zM16,30H17V31H16zM22,30H23V31H22zM23,30H24V31H23zM24,30H25V31H24zM28,30H29V31H28zM30,30H31V31H30zM31,30H32V31H31zM33,30H34V31H33zM1,31H2V32H1zM3,31H4V32H3zM4,31H5V32H4zM5,31H6V32H5zM7,31H8V32H7zM9,31H10V32H9zM14,31H15V32H14zM16,31H17V32H16zM18,31H19V32H18zM19,31H20V32H19zM23,31H24V32H23zM25,31H26V32H25zM27,31H28V32H27zM28,31H29V32H28zM30,31H31V32H30zM31,31H32V32H31zM1,32H2V33H1zM7,32H8V33H7zM10,32H11V33H10zM11,32H12V33H11zM13,32H14V33H13zM15,32H16V33H15zM16,32H17V33H16zM17,32H18V33H17zM18,32H19V33H18zM20,32H21V33H20zM25,32H26V33H25zM26,32H27V33H26zM27,32H28V33H27zM28,32H29V33H28zM29,32H30V33H29zM33,32H34V33H33zM1,33H2V34H1zM2,33H3V34H2zM3,33H4V34H3zM4,33H5V34H4zM5,33H6V34H5zM6,33H7V34H6zM7,33H8V34H7zM9,33H10V34H9zM12,33H13V34H12zM14,33H15V34H14zM15,33H16V34H15zM16,33H17V34H16zM17,33H18V34H17zM18,33H19V34H18zM22,33H23V34H22zM24,33H25V34H24zM29,33H30V34H29zM31,33H32V34H31z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg></div>
+      <p style="font-size:19px;margin-top:14px">Escanea y sigue el taller desde tu computador.</p>
+      <p class="muted" style="font-size:16px;margin-top:6px">sanogusano.github.io/esumer-marketing-con-ia/opc.html</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">La idea</p>
+  <h2>OPC: One Person Company</h2>
+  <div class="cols even">
+    <div class="stack">
+      <p class="lead">Una empresa de una persona que funciona como una de veinte. El dueño pone el objetivo y decide. El trabajo repetitivo lo hace un equipo de agentes de IA.</p>
+      <p class="muted">No reemplaza a tu gente del mostrador. Le quita al dueño las horas de revisar lotes, sacar cuentas y pensar a quién llamar.</p>
+    </div>
+    <div class="stack">
+      <div class="ex"><p class="lbl">Lo que hace hoy el dueño de una droguería</p><p>Revisa vencimientos, cuenta qué falta en las vitrinas, arma el pedido a Coopidrogas, mira cuánto vendió, piensa qué promocionar y recuerda a quién no ha vuelto. Todo, a mano, todas las semanas.</p></div>
+      <div class="ex"><p class="lbl">Lo que hace con la oficina</p><p>Escribe: <b>“Prepara la semana”</b>. Oprime Ejecutar. Revisa y decide.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué vamos a usar</p>
+  <h2>La oficina: seis puestos y un loop</h2>
+  <div class="flow">
+    <div class="n k"><b>Orquestador</b><p>Recibe tu objetivo y reparte.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Reportes</b><p>Cómo van las ventas.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Inventario</b><p>Vencidos, surtido y pedido.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>Comercial</b><p>Qué vender esta semana.</p></div>
+    <div class="a">→</div>
+    <div class="n"><b>CRM</b><p>A quién llamar y qué decirle.</p></div>
+    <div class="a">→</div>
+    <div class="n k"><b>Regente</b><p>Revisa y devuelve lo que falle.</p></div>
+  </div>
+  <div class="grid3">
+    <div><h3>Se pasan el trabajo</h3><p class="muted">Lo que encuentra Inventario le llega a Comercial. La estrategia de Comercial le llega al CRM.</p></div>
+    <div><h3>Se corrigen</h3><p class="muted">Si el Regente encuentra un error, le devuelve el trabajo al agente que se equivocó. Hasta 3 vueltas.</p></div>
+    <div><h3>Lo ves trabajar</h3><p class="muted">Cada agente se ilumina en su puesto, dice qué hace y todo queda en el registro en vivo.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Los agentes</p>
+  <h2>Qué hace cada uno y qué te entrega</h2>
+  <table>
+    <tr><th>Agente</th><th>Qué hace</th><th>Qué te entrega</th></tr>
+    <tr><td>Reportes</td><td>Mide ventas, pedidos, ticket y metas, y los compara con el mes anterior</td><td>Indicadores y un informe: qué pasó, qué preocupa, qué haría</td></tr>
+    <tr><td>Inventario</td><td>Revisa cada lote: vencidos, por vencer, vitrinas por debajo del mínimo y existencias que no alcanzan</td><td>Lotes a cuarentena, lista de surtido y pedido a Coopidrogas</td></tr>
+    <tr><td>Comercial</td><td>Cruza lo que se vende con lo que sobra y lo que vence</td><td>3 estrategias de venta con acción y meta</td></tr>
+    <tr><td>CRM</td><td>Encuentra a los clientes atrasados y los prioriza</td><td>A quién contactar hoy y el mensaje para cada uno</td></tr>
+    <tr><td>Regente</td><td>Revisa todo contra las reglas de una droguería</td><td>Aprobado, o devuelto con el motivo</td></tr>
+    <tr><td>Orquestador</td><td>Reparte el objetivo y une el trabajo</td><td>El plan de la semana</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">La regla que lo hace confiable</p>
+  <h2>La oficina saca las cuentas. Los agentes deciden y redactan.</h2>
+  <div class="cols even">
+    <div class="stack">
+      <p class="lead" style="font-size:28px">Una IA que suma 6.500 ventas se equivoca. Por eso los números los calcula la oficina, con fórmulas fijas, y son exactos. La IA hace lo que hace bien: interpretar, priorizar y escribir.</p>
+    </div>
+    <table>
+      <tr><th>La oficina calcula</th><th>El agente decide</th></tr>
+      <tr><td>4 lotes vencidos, 76 unidades</td><td>Cuál separar primero y por qué</td></tr>
+      <tr><td>Protector solar vence en 32 días</td><td>Promocionarlo esta semana</td></tr>
+      <tr><td>35 formulados no volvieron</td><td>A quién llamar primero y qué decirle</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">La mañana</p>
+  <h2>De 7:00 a 11:00</h2>
+  <table>
+    <tr><th>Hora</th><th>Qué hacemos</th><th>Sales con</th></tr>
+    <tr><td>7:00</td><td>La idea del OPC y la oficina</td><td>—</td></tr>
+    <tr><td>7:25</td><td>Pasos 1 a 3 · Abre tu oficina, conecta la IA y ejecútala</td><td>Tu primera semana planeada</td></tr>
+    <tr><td>8:10</td><td>Pasos 4 a 6 · Lee el trabajo de cada agente</td><td>Pedido, estrategias y contactos</td></tr>
+    <tr><td>8:50</td><td>Pausa</td><td>—</td></tr>
+    <tr><td>9:05</td><td>Paso 7 · Pon a prueba al Regente</td><td>Confianza en el sistema</td></tr>
+    <tr><td>9:20</td><td>Pasos 8 y 9 · Contrata a tu equipo y crea tu propio agente</td><td>Tu oficina, a tu manera</td></tr>
+    <tr><td>10:05</td><td>Paso 10 · Carga tus datos</td><td>Tu droguería en la oficina</td></tr>
+    <tr><td>10:35</td><td>Cierre del curso</td><td>Tu plan del lunes</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Antes de empezar</p>
+  <h2>Revisa que tengas estas tres cosas.</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="ex"><p class="lbl">Sin clave también funciona</p><p>Sin clave de Gemini, la oficina trabaja en <b>modo demostración</b>: hace todos los cálculos y los textos salen de plantillas. Con clave, los agentes razonan y escriben con IA.</p></div>
+      <p class="muted">Trabaja en computador, en Chrome. Tus datos no salen de tu navegador: no se suben a ningún servidor.</p>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li><b>Chrome</b> en tu computador.</li>
+        <li><b>Tu clave de Gemini</b>, la misma de Retoma. Si no la tienes: <b>aistudio.google.com/apikey</b> → <kbd>Create API key</kbd>.</li>
+        <li><b>Esta presentación</b> abierta, para copiar los textos.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Ahora sí</p>
+  <h1>Abramos la oficina.</h1>
+  <p class="lead" style="margin-top:24px">10 pasos. En cada uno vas a ver qué es, para qué sirve y exactamente qué tocar.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 1 · Abre tu oficina</p>
+  <h2>Un recorrido por la pantalla</h2>
+  <div class="cols">
+    <div class="stack">
+      <table>
+        <tr><td>Arriba</td><td>El <b>objetivo</b> de la semana y los botones: Ejecutar, Contratar agentes, Datos y Configuración</td></tr>
+        <tr><td>Izquierda</td><td><b>La oficina</b>: cada agente en su puesto. El que trabaja se ilumina y habla</td></tr>
+        <tr><td>Derecha</td><td><b>El registro en vivo</b>: lo que hizo cada uno, en orden</td></tr>
+        <tr><td>Abajo</td><td><b>Los resultados</b>, en pestañas: plan, inventario, reportes, comercial y CRM</td></tr>
+      </table>
+      <div class="row"><a class="copy" href="drogueria-opc.html" target="_blank" style="text-decoration:none">Abrir la oficina</a></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>5 min</span></p>
+      <ol>
+        <li>Toca <b>Abrir la oficina</b>. Se abre en una pestaña nueva.</li>
+        <li>Ubica los 6 puestos: Orquestador en el centro, Reportes, Comercial, Inventario, CRM y Regente.</li>
+        <li>Mira la etiqueta arriba a la derecha de la oficina: dice <b>Modo demostración</b>.</li>
+      </ol>
+      <p class="note">Guarda la dirección en tus favoritos: es tu oficina desde hoy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 2 · Conecta la IA</p>
+  <h2>Dale cerebro a tu equipo.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> pegas tu clave de Gemini en la configuración. Desde ese momento, cada agente piensa y escribe con IA.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Sin clave, los textos son plantillas fijas. Con clave, cada agente lee los datos y razona como un empleado que conoce tu droguería.</p></div>
+      <div class="ex"><p class="lbl">La fecha de corte</p><p>Es el “hoy” de los datos. Con los datos de ejemplo es <b>31/10/2026</b>. Con tus datos, pon la fecha de tu última venta.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>10 min</span></p>
+      <ol>
+        <li>Toca <kbd>Configuración</kbd>.</li>
+        <li>Escribe el nombre de tu droguería.</li>
+        <li>Pega tu clave de Gemini.</li>
+        <li>Toca <kbd>Probar la clave</kbd>. Debe decir <b>La IA respondió</b>.</li>
+        <li><kbd>Guardar</kbd> → <kbd>Cerrar</kbd>. La etiqueta cambia a <b>IA conectada</b>.</li>
+      </ol>
+      <p class="note">Si dice “el modelo no existe”, cambia el campo Modelo por el que aparece en AI Studio.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 3 · Ejecuta la oficina</p>
+  <h2>Dale un objetivo y mira al equipo trabajar.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> el orquestador lee tu objetivo, le da a cada agente un foco y los pone a trabajar en orden. Al final, el Regente revisa todo.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Ver cómo se pasan el trabajo: lo que encuentra uno es la materia prima del siguiente.</p></div>
+      <div class="row"><button class="copy" data-copy="o1">Copiar objetivo</button><span id="o1" class="muted" style="font-size:20px">Prepara la semana: temporada de lluvias y cierre de quincena</span></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Pega el objetivo en la barra de arriba.</li>
+        <li>Toca <kbd>Ejecutar</kbd>.</li>
+        <li>Sigue el papel que viaja del Orquestador a cada puesto y lee los globos.</li>
+        <li>En el registro, busca la línea <b>Reparte el trabajo</b>: ahí está el foco que le dio a cada uno.</li>
+        <li>Espera a que el Orquestador diga <b>Plan de la semana listo</b>. Tarda 1 a 2 minutos.</li>
+      </ol>
+      <p class="note">Va despacio a propósito: la clave gratuita de Gemini permite pocas solicitudes por minuto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 4 · El agente de Inventario</p>
+  <h2>Vencidos a cuarentena, vitrinas surtidas y pedido listo</h2>
+  <div class="cols">
+    <div class="stack">
+      <table>
+        <tr><td>Separar por vencido</td><td>Lotes que ya vencieron. Salen de la venta y van a cuarentena</td></tr>
+        <tr><td>Surtir exhibición</td><td>Productos con la vitrina por debajo del mínimo. Dice qué lote llevar: el que vence primero</td></tr>
+        <tr><td>Pedido a Coopidrogas</td><td>Lo que no alcanza para 18 días de venta: 3 de entrega y 15 de cobertura</td></tr>
+        <tr><td>Por vencer</td><td>Lotes que vencen en menos de 60 días. Hay que venderlos primero</td></tr>
+      </table>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>15 min</span></p>
+      <ol>
+        <li>Abajo, abre la pestaña <kbd>Inventario</kbd>.</li>
+        <li>Verifica: deben ser <b>4 lotes vencidos</b> y <b>76 unidades</b>. Mira también el cuadro de cuarentena en la oficina.</li>
+        <li>Lee el informe del agente: ¿en qué orden lo haría?</li>
+        <li>Toca <kbd>Descargar CSV</kbd> en el pedido. Se abre en Excel, listo para Coopidrogas.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 5 · Reportes y Comercial</p>
+  <h2>Cómo vamos y qué vamos a vender</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Reportes</b> compara los últimos 30 días con los 30 anteriores y mide cada sucursal contra su meta.</p>
+      <p><b>Comercial</b> lee esos números y el inventario, y propone qué mover esta semana.</p>
+      <div class="ex"><p class="lbl">Fíjate en la conexión</p><p>Si Inventario encontró protector solar que vence en 32 días, Comercial debería proponer moverlo. Así se nota que trabajan como equipo.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>15 min</span></p>
+      <ol>
+        <li>Pestaña <kbd>Reportes</kbd>. Verifica: ventas de <b>$73,8 M</b> y ticket de <b>$38.759</b>.</li>
+        <li>¿Qué sucursal va más lejos de su meta?</li>
+        <li>Pestaña <kbd>Comercial</kbd>. Lee las 3 estrategias.</li>
+        <li>¿Alguna aprovecha un producto por vencer? ¿Cuál harías el lunes?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 6 · El agente CRM</p>
+  <h2>A quién llamar hoy y qué decirle</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> la oficina calcula el atraso de cada cliente según su ciclo de compra, el mismo RFM de Retoma, y elige a los 8 más importantes. El agente escribe el mensaje de cada uno.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Llegas en la mañana y ya sabes a quién llamar. El mensaje está listo para copiar en WhatsApp.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>10 min</span></p>
+      <ol>
+        <li>Pestaña <kbd>CRM</kbd>. Verifica: <b>35 formulados que no volvieron</b> y <b>$2.048.750</b> al mes en riesgo.</li>
+        <li>Lee los mensajes. ¿Alguno nombra un medicamento? No debería.</li>
+        <li>Toca <kbd>Copiar</kbd> en uno y pégalo en tu WhatsApp para ver cómo se ve.</li>
+        <li>Pestaña <kbd>Plan de la semana</kbd>: lee el resumen del Orquestador.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+  <p class="eyebrow">Pausa · 15 minutos</p>
+  <h1>Tu semana ya está planeada.</h1>
+  <p class="lead muted" style="margin-top:24px">Al volver, la ponemos a prueba y la hacemos tuya.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 7 · Pon a prueba al Regente</p>
+  <h2>Pídele al equipo algo prohibido.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> le das al agente Comercial una orden que una droguería no puede cumplir, para ver el loop de revisión.</p>
+      <div class="obj"><b>Para qué sirve</b><p>Confiar en la oficina. Si el Regente frena esto, frena los errores de verdad.</p></div>
+      <div class="row"><button class="copy" data-copy="o2">Copiar la orden prohibida</button></div>
+      <p id="o2" class="muted" style="font-size:20px">Esta semana promociona Losartán 50 mg con 20 % de descuento.</p>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>15 min</span></p>
+      <ol>
+        <li><kbd>Contratar agentes</kbd> → en <b>Comercial</b>, pega la orden al final de sus instrucciones.</li>
+        <li><kbd>Guardar y cerrar</kbd> → <kbd>Ejecutar</kbd>.</li>
+        <li>En el registro busca <b style="color:var(--coral2)">Regente · RECHAZADO</b> y luego <b>Comercial · Corrige</b>.</li>
+        <li>Quita la orden de las instrucciones cuando termines.</li>
+      </ol>
+      <p class="note">A veces el mismo Comercial se niega a promocionarlo. También es el sistema funcionando: la regla está en cada agente.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 8 · Contrata a tu equipo</p>
+  <h2>Cada agente trabaja como tú le digas.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> en <kbd>Contratar agentes</kbd> están las instrucciones de cada uno, en español. Las cambias como le hablarías a un empleado nuevo.</p>
+      <div class="obj"><b>Para qué sirve</b><p>La oficina viene genérica. Con tus instrucciones trabaja como tu droguería.</p></div>
+      <div class="ex"><p class="lbl">Ejemplos de cambios</p><p><b>CRM:</b> “Trata de usted a todos y firma como Don Jorge”. <b>Comercial:</b> “Nunca propongas descuentos mayores al 10 %”. <b>Inventario:</b> “El pedido a Coopidrogas se hace los martes”.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>20 min</span></p>
+      <ol>
+        <li>Abre <kbd>Contratar agentes</kbd>.</li>
+        <li>Cambia las instrucciones del <b>CRM</b> con tu forma de hablar.</li>
+        <li>Agrega una regla tuya al <b>Comercial</b>.</li>
+        <li>Si un agente no lo necesitas, desmarca <b>Activo</b>: en la oficina queda en gris.</li>
+        <li><kbd>Guardar y cerrar</kbd> → <kbd>Ejecutar</kbd>. Compara los mensajes con los de antes.</li>
+      </ol>
+      <p class="note">¿Lo dañaste? Toca Restaurar agentes de fábrica.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 9 · Crea tu propio agente</p>
+  <h2>Contrata un agente que no existía.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>Qué es:</b> escribes el nombre del agente, sus instrucciones y qué resultados lee. La oficina le arma un puesto y lo pone a trabajar antes del Regente.</p>
+      <div class="row"><button class="copy" data-copy="o3">Copiar agente de Domicilios</button></div>
+      <p id="o3" class="muted" style="font-size:19px">Eres el coordinador de domicilios. Con los contactos del CRM que tienen domicilio y con el pedido de la semana, arma la ruta de entregas por barrio para el domiciliario, en orden, con la hora sugerida. Máximo 120 palabras.</p>
+      <div class="ex"><p class="lbl">Otras ideas</p><p><b>Proveedores:</b> negocia el pedido. <b>Contenidos:</b> escribe la historia del día. <b>Cajero:</b> revisa el cuadre de caja.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>25 min</span></p>
+      <ol>
+        <li><kbd>Contratar agentes</kbd> → abajo, <b>Crear un agente nuevo</b>.</li>
+        <li>Nombre: <b>Domicilios</b>. Pega las instrucciones.</li>
+        <li>Deja marcados <b>Inventario</b> y <b>CRM</b> en “Qué resultados lee”.</li>
+        <li><kbd>Contratar</kbd> → <kbd>Guardar y cerrar</kbd>. Aparece su puesto en la oficina.</li>
+        <li><kbd>Ejecutar</kbd>. Su trabajo sale en la pestaña <kbd>Otros agentes</kbd>.</li>
+        <li>Inventa tu propio agente y contrátalo igual.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Paso 10 · Carga tus datos</p>
+  <h2>Tu droguería dentro de la oficina</h2>
+  <div class="cols">
+    <div class="stack">
+      <table>
+        <tr><th>Archivo</th><th>Columnas</th></tr>
+        <tr><td>Inventario</td><td>Producto, Categoría, Lote, Vencimiento, Bodega, Exhibición, Mínimo exhibición, Costo, Precio</td></tr>
+        <tr><td>Ventas</td><td>Fecha, Pedido, Sucursal, Producto, Categoría, Unidades, Valor</td></tr>
+        <tr><td>Clientes</td><td>Los de Retoma: ClienteID, Nombre, Categoria, CicloDias, UltimaCompra…</td></tr>
+        <tr><td>Presupuesto</td><td>Sucursal, Mes, Meta</td></tr>
+      </table>
+      <p class="muted" style="font-size:20px">Tus datos se quedan en tu navegador. No se suben a ningún servidor.</p>
+    </div>
+    <div class="do">
+      <p class="lbl">Ahora tú <span>30 min</span></p>
+      <ol>
+        <li>Toca <kbd>Datos</kbd> → <kbd>Descargar plantilla</kbd> del <b>Inventario</b>.</li>
+        <li>Ábrela en Excel o Google Sheets y pega tus productos con sus columnas.</li>
+        <li>Guárdala como <b>CSV</b>: Archivo → Descargar → .csv.</li>
+        <li>En <kbd>Datos</kbd> → <kbd>Subir CSV</kbd>. Debe decir <b>tus datos</b>.</li>
+        <li>En <kbd>Configuración</kbd>, cambia la fecha de corte por hoy y <kbd>Ejecutar</kbd>.</li>
+      </ol>
+      <p class="note">Empieza solo con el inventario. Ventas y clientes los cargas en la semana.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Si algo falla</p>
+  <h2>Los tropiezos más comunes</h2>
+  <table>
+    <tr><th>Lo que ves</th><th>Qué hacer</th></tr>
+    <tr><td>“Gemini rechazó la solicitud”</td><td>La clave está mal copiada. Cópiala otra vez desde aistudio.google.com/apikey.</td></tr>
+    <tr><td>“El modelo no existe”</td><td>En Configuración, cambia el Modelo por el nombre que aparece en AI Studio.</td></tr>
+    <tr><td>“Gemini pidió una pausa”</td><td>Es el límite de la clave gratuita. La oficina espera y reintenta sola.</td></tr>
+    <tr><td>Se detuvo a mitad de camino</td><td>Lee la última línea del registro. Corrige y vuelve a tocar Ejecutar.</td></tr>
+    <tr><td>“No pude leer el archivo”</td><td>Revisa que sea CSV y que la primera fila tenga los títulos de la plantilla.</td></tr>
+    <tr><td>No tengo clave</td><td>Usa el modo demostración: los cálculos y el loop funcionan igual.</td></tr>
+  </table>
+</section>
+
+<section class="slide dark">
+  <p class="eyebrow">Cierre del curso</p>
+  <h2>Lo que construiste en estas sesiones, ahora trabajando junto</h2>
+  <div class="grid3" style="margin-top:10px">
+    <div><h3>Prompts y Skills</h3><p class="muted">Aprendiste a darle a la IA un encargo claro y un cerebro con tus reglas. Es lo que hay en las instrucciones de cada agente.</p></div>
+    <div><h3>Retoma y el tablero</h3><p class="muted">El RFM de droguería y los indicadores de ventas. Hoy son los agentes CRM y Reportes.</p></div>
+    <div><h3>Tu OPC</h3><p class="muted">Una oficina de agentes con orquestador y regente, que trabaja para ti cada semana.</p></div>
+  </div>
+  <div class="sp"></div>
+  <p class="eyebrow" style="margin-bottom:12px">Tu lunes</p>
+  <p class="lead">Carga tu inventario, ejecuta “Prepara la semana” y haz tres cosas del plan: separa los vencidos, envía el pedido y llama a los tres primeros clientes del CRM.</p>
+</section>
+
+</div>
+
+<div id="nav"><button id="prev" aria-label="Anterior">‹</button><button id="next" aria-label="Siguiente">›</button></div>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const total = slides.length;
+  let i = 0;
+
+  slides.forEach((s, k) => {
+    const f = document.createElement('div');
+    f.className = 'foot';
+    f.innerHTML = '<span>Droguería OPC · Cierre del curso</span><span>' + (k + 1) + ' / ' + total + '</span>';
+    s.appendChild(f);
+  });
+
+  function fit(){
+    const sc = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = 'scale(' + sc + ')';
+    stage.style.left = (innerWidth - 1600 * sc) / 2 + 'px';
+    stage.style.top = (innerHeight - 900 * sc) / 2 + 'px';
+  }
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(total - 1);
+  });
+  document.getElementById('prev').onclick = () => go(i - 1);
+  document.getElementById('next').onclick = () => go(i + 1);
+
+  let x0 = null;
+  addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+
+  document.querySelectorAll('.copy').forEach(b => {
+    b.addEventListener('click', async () => {
+      const txt = document.getElementById(b.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(txt); }
+      catch (e) {
+        const t = document.createElement('textarea');
+        t.value = txt; document.body.appendChild(t); t.select();
+        document.execCommand('copy'); t.remove();
+      }
+      const old = b.textContent;
+      b.textContent = 'Copiado'; b.classList.add('ok');
+      setTimeout(() => { b.textContent = old; b.classList.remove('ok'); }, 1600);
+    });
+  });
+
+
+  fit();
+  let start = 1;
+  try { start = parseInt(location.hash.slice(1), 10) || 1; } catch (e) {}
+  go(start - 1);
+})();
+</script>
+</body>
+</html>
