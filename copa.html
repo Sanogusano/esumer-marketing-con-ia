@@ -138,13 +138,13 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 
 <section class="slide">
   <p class="eyebrow">Cómo se gana</p>
-  <h2>Cinco rondas, cien puntos</h2>
+  <h2>Cinco rondas, cien puntos y una carta sorpresa</h2>
   <table>
     <tr><th>Ronda</th><th>El reto</th><th>Lo que pone a prueba</th><th class="n">Puntos</th></tr>
     <tr><td>1 · El mensaje</td><td>Un mensaje de retoma que no suene a robot</td><td>Prompts y C.R.E.A.R.</td><td class="n">10</td></tr>
-    <tr><td>2 · La bodega</td><td>Vencidos, surtido y pedido a Coopidrogas con datos reales <span class="tag t-hard">difícil</span></td><td>Análisis de datos con IA</td><td class="n">25</td></tr>
-    <tr><td>3 · Los clientes</td><td>A quién llamar primero y qué decirle</td><td>RFM de droguería y Retoma</td><td class="n">20</td></tr>
-    <tr><td>4 · La app</td><td>Construir una aplicación para la droguería en 25 minutos</td><td>Construir con IA</td><td class="n">20</td></tr>
+    <tr><td>2 · La bodega</td><td>Vencidos, surtido y pedido a Coopidrogas con datos reales y sucios <span class="tag t-hard">difícil</span></td><td>Análisis de datos con IA</td><td class="n">20</td></tr>
+    <tr><td>3 · Los clientes</td><td>A quién llamar primero y qué decirle</td><td>RFM de droguería, Retoma y datos sensibles</td><td class="n">20</td></tr>
+    <tr><td>4 · Black Friday</td><td>Qué productos poner en descuento, cuánto, y la vitrina para venderlos</td><td>Datos, criterio y construir con IA</td><td class="n">25</td></tr>
     <tr><td>5 · El agente</td><td>Un asistente de mostrador que resista la prueba de fuego <span class="tag t-hard">difícil</span></td><td>Skills, agentes y cumplimiento</td><td class="n">25</td></tr>
   </table>
 </section>
@@ -229,10 +229,10 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <tr><th>Hora</th><th>Qué pasa</th><th class="n">Puntos</th></tr>
     <tr><td>7:00</td><td>Equipos, reglas y Claude</td><td class="n">—</td></tr>
     <tr><td>7:20</td><td>Ronda 1 · El mensaje</td><td class="n">10</td></tr>
-    <tr><td>7:40</td><td>Ronda 2 · La bodega</td><td class="n">25</td></tr>
+    <tr><td>7:40</td><td>Ronda 2 · La bodega</td><td class="n">20 + 5</td></tr>
     <tr><td>8:20</td><td>Ronda 3 · Los clientes</td><td class="n">20</td></tr>
     <tr><td>8:50</td><td>Pausa</td><td class="n">—</td></tr>
-    <tr><td>9:20</td><td>Ronda 4 · La app</td><td class="n">20</td></tr>
+    <tr><td>9:20</td><td>Ronda 4 · Black Friday</td><td class="n">25</td></tr>
     <tr><td>10:00</td><td>Ronda 5 · El agente</td><td class="n">25</td></tr>
     <tr><td>10:35</td><td>Evaluación individual y premiación</td><td class="n">—</td></tr>
   </table>
@@ -267,7 +267,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 
 <!-- RONDA 2 -->
 <section class="slide coral" style="justify-content:center">
-  <p class="eyebrow">Ronda 2 · 25 puntos · 35 minutos</p>
+  <p class="eyebrow">Ronda 2 · 20 puntos + carta sorpresa · 35 minutos</p>
   <h1>La bodega</h1>
 </section>
 
@@ -276,9 +276,9 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
   <h2>Mañana llega el pedido de Coopidrogas. ¿Qué piden?</h2>
   <div class="cols">
     <div class="stack">
-      <p>Tienen el inventario por lotes de la droguería y sus ventas de dos meses. La fecha de hoy es el <b>31/10/2026</b>.</p>
+      <p>Tienen el inventario por lotes y las ventas de dos meses. La fecha de hoy es el <b>31/10/2026</b>. <b>El inventario viene tal como sale del sistema: revísenlo antes de calcular.</b> Las existencias negativas son errores de digitación: cuéntenlas como cero.</p>
       <div class="row" style="flex-wrap:wrap">
-        <a class="copy" href="inventario-ejemplo.csv" download style="text-decoration:none">Inventario por lotes</a>
+        <a class="copy" href="inventario-copa.csv" download style="text-decoration:none">Inventario por lotes</a>
         <a class="copy" href="ventas-ejemplo.csv" download style="text-decoration:none">Ventas</a>
       </div>
       <table>
@@ -290,14 +290,14 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <div class="do">
       <p class="lbl">Entreguen 6 cifras <span>35 min</span></p>
       <ol>
-        <li>Número de lotes vencidos · 4 pts</li>
-        <li>Unidades a cuarentena · 4 pts</li>
-        <li>Valor de lo vencido, a costo · 4 pts</li>
-        <li>Número de productos por surtir · 4 pts</li>
-        <li>Número de productos por pedir · 4 pts</li>
+        <li>Número de lotes vencidos · 3 pts</li>
+        <li>Unidades a cuarentena · 3 pts</li>
+        <li>Valor de lo vencido, a costo · 3 pts</li>
+        <li>Número de productos por surtir · 3 pts</li>
+        <li>Número de productos por pedir · 3 pts</li>
         <li>Valor total del pedido, a costo · 5 pts</li>
       </ol>
-      <p class="note">Tip: suban los dos archivos y pídanle a Claude que calcule con código y les muestre la tabla de cada paso. El Analista revisa antes de entregar.</p>
+      <p class="note">Tip: pídanle a Claude que primero les muestre qué problemas tiene el archivo. A mitad de la ronda llega una carta sorpresa de Coopidrogas que vale 5 puntos extra.</p>
     </div>
   </div>
 </section>
@@ -313,8 +313,8 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
   <h2>¿A quién llaman primero el lunes?</h2>
   <div class="cols">
     <div class="stack">
-      <p>La base de 200 clientes de Retoma. Fecha de hoy: <b>31/10/2026</b>.</p>
-      <div class="row"><a class="copy" href="clientes-drogueria.csv" download style="text-decoration:none">Base de clientes</a></div>
+      <p>La base de clientes de la droguería. Fecha de hoy: <b>31/10/2026</b>.</p>
+      <div class="row"><a class="copy" href="clientes-copa.csv" download style="text-decoration:none">Base de clientes</a></div>
       <table>
         <tr><td>Atraso</td><td>Días desde la última compra − ciclo (si no tiene ciclo, 45 días)</td></tr>
         <tr><td>Estado</td><td>Al día: 0 o menos · Atrasado: 1 a 30 · Muy atrasado: 31 a 90 · Perdido: más de 90</td></tr>
@@ -327,9 +327,9 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
       <ol>
         <li>Cuántos clientes hay en cada estado · 4 pts</li>
         <li>Cuántos formulados no volvieron · 3 pts</li>
-        <li>El valor mensual en riesgo · 4 pts</li>
+        <li>El valor mensual en riesgo · 3 pts</li>
         <li>Los 5 formulados que no volvieron con más Valor12m (sus ClienteID) · 5 pts</li>
-        <li>El mensaje para el número 1, por su canal preferido · 4 pts</li>
+        <li>El mensaje para el número 1, por su canal preferido · 5 pts</li>
       </ol>
       <p class="note">El mensaje lo califica el profesor como Regente: sin medicamentos ni enfermedades, y con el tono del dueño.</p>
     </div>
@@ -339,37 +339,59 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 <section class="slide dark" style="justify-content:center">
   <p class="eyebrow">Pausa · 30 minutos</p>
   <h1>Así va la Copa.</h1>
-  <p class="lead muted" style="margin-top:24px">Miren el marcador. Al volver, toca construir.</p>
+  <p class="lead muted" style="margin-top:24px">Miren el marcador. Al volver: Black Friday.</p>
 </section>
 
 <!-- RONDA 4 -->
 <section class="slide coral" style="justify-content:center">
-  <p class="eyebrow">Ronda 4 · 20 puntos · 40 minutos</p>
-  <h1>La app</h1>
+  <p class="eyebrow">Ronda 4 · 25 puntos · 40 minutos</p>
+  <h1>Black Friday</h1>
 </section>
 
 <section class="slide">
-  <p class="eyebrow">Ronda 4 · La app</p>
-  <h2>Construyan una herramienta que su droguería usaría mañana.</h2>
+  <p class="eyebrow">Ronda 4 · Black Friday · parte 1</p>
+  <h2>¿Qué ponen en descuento y hasta dónde pueden bajar?</h2>
   <div class="cols">
     <div class="stack">
-      <p>Claude puede construir aplicaciones que funcionan ahí mismo. Elijan una de estas o propongan la suya:</p>
+      <p>Black Friday es el 27 de noviembre. Con el mismo inventario y las mismas ventas de la Ronda 2, elijan qué productos entran y cuál es el descuento máximo de cada uno.</p>
       <table>
-        <tr><td>Calculadora de domicilios</td><td>Barrio y valor del pedido → costo del domicilio y cuánto falta para que sea gratis</td></tr>
-        <tr><td>Simulador de promociones</td><td>Si bajo el precio un 10 %, ¿cuántas unidades más debo vender para ganar lo mismo?</td></tr>
-        <tr><td>Semáforo de vencimientos</td><td>Pego mis lotes y me dice qué separar, qué promocionar y qué está bien</td></tr>
-        <tr><td>Juego para clientes</td><td>Una ruleta de premios o una trivia de cuidado de la salud para la fila del mostrador</td></tr>
+        <tr><td>Entra si</td><td>Tiene un lote vigente que vence en 60 días o menos, <b>o</b> tiene existencias para más de 60 días (existencias vigentes ÷ venta diaria)</td></tr>
+        <tr><td>Nunca entran</td><td>Medicamentos de venta con fórmula ni leches de fórmula infantil: la norma colombiana no permite promocionarlos</td></tr>
+        <tr><td>Descuento máximo</td><td>El que deja un margen de al menos 15 % sobre el precio con descuento. Redondeado hacia abajo a un número entero</td></tr>
       </table>
     </div>
     <div class="do">
-      <p class="lbl">El reto <span>25 min + demos</span></p>
+      <p class="lbl">Entreguen <span>15 min</span></p>
       <ol>
-        <li>Describan la app con C.R.E.A.R.: quién la usa, qué datos entra, qué calcula y cómo debe verse.</li>
+        <li>La lista de productos que entran a Black Friday · 7 pts. Cada producto que no debía entrar resta 2.</li>
+        <li>El descuento máximo de cada uno. Se verifica el del <b>protector solar FPS 50</b> · 3 pts.</li>
+      </ol>
+      <p class="note">El margen es (precio con descuento − costo) ÷ precio con descuento. Pídanle a Claude la fórmula y verifiquen un producto a mano.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Ronda 4 · Black Friday · parte 2</p>
+  <h2>Construyan la vitrina de Black Friday de su droguería.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p>Claude construye aplicaciones que funcionan ahí mismo. Con su lista, construyan una de estas:</p>
+      <table>
+        <tr><td>Vitrina para clientes</td><td>Los productos con precio antes y después, el ahorro y un botón “Pedir por WhatsApp”</td></tr>
+        <tr><td>Simulador para el dueño</td><td>Elijo el descuento de cada producto y me dice el margen, la ganancia y cuántas unidades debo vender para ganar lo mismo que sin descuento</td></tr>
+        <tr><td>Juego para el mostrador</td><td>Una ruleta o un raspa y gana que solo entrega descuentos permitidos</td></tr>
+      </table>
+    </div>
+    <div class="do">
+      <p class="lbl">El reto <span>20 min + demos</span></p>
+      <ol>
+        <li>Describan la app con C.R.E.A.R.: quién la usa, qué datos entran, qué calcula y cómo debe verse.</li>
+        <li>Usen sus productos y descuentos reales de la parte 1.</li>
         <li>Pídanle cambios de a uno.</li>
-        <li>Pruébenla con datos reales de una droguería.</li>
         <li>El vocero la muestra en 1 minuto, proyectada.</li>
       </ol>
-      <p class="note">Se califica: funciona (8), es útil para una droguería (6), diseño claro (3) y presentación (3).</p>
+      <p class="note">Se califica: funciona (6), útil para una droguería (4), diseño claro (2) y presentación (3). Si la app muestra un descuento mayor al permitido o un producto prohibido, pierde los puntos de funcionamiento.</p>
     </div>
   </div>
 </section>
@@ -387,7 +409,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
     <div class="stack">
       <p>Construyan en Claude el asistente que atendería el WhatsApp de su droguería. Al final, el profesor lo somete a la <b>prueba de fuego</b>: 5 mensajes de clientes difíciles que no conocen de antemano.</p>
       <div class="ex"><p class="lbl">Lo que debe saber</p><p>Horario, barrios y costo del domicilio, medios de pago, tope de descuento, precios (del archivo de inventario) y las reglas del Regente: nunca recomendar medicamentos ni dosis, nunca vender con fórmula sin fórmula.</p></div>
-      <div class="row"><a class="copy" href="inventario-ejemplo.csv" download style="text-decoration:none">Inventario con precios</a></div>
+      <div class="row"><a class="copy" href="inventario-copa.csv" download style="text-decoration:none">Inventario con precios</a></div>
     </div>
     <div class="do">
       <p class="lbl">El reto <span>25 min + prueba</span></p>
@@ -398,7 +420,7 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
         <li>Pruébenlo ustedes: traten de hacerlo fallar.</li>
         <li>Cuando el profesor llegue, él escribe los 5 mensajes.</li>
       </ol>
-      <p class="note">Cada trampa superada vale 4 puntos. El tono, 5 más. Pista: piensen qué le preguntaría el cliente más difícil que conozcan.</p>
+      <p class="note">Son 7 mensajes trampa. Cada uno superado vale 3 puntos y el tono, 4 más. Pista: piensen en el cliente más difícil que conozcan… y en alguien que quiera engañar al asistente.</p>
     </div>
   </div>
 </section>
