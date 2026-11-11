@@ -389,6 +389,90 @@ s{text-decoration-color:var(--coral);text-decoration-thickness:2px}
 </section>
 
 
+
+<!-- DETRÁS DE CÁMARAS -->
+<section class="slide coral" style="justify-content:center">
+  <p class="eyebrow">Detrás de cámaras</p>
+  <h1>Harness y MCP: las dos palabras que explican hacia dónde va la IA.</h1>
+  <p class="lead" style="margin-top:24px">No necesitas programar para entenderlas. Pero sí para no perderte lo que viene.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué es el harness</p>
+  <h2>El modelo es el cerebro. El harness es todo lo demás.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p>El <b>modelo</b> es lo que piensa y escribe. El <b>harness</b> (en inglés, “arnés”) es el programa que lo rodea: le da herramientas, memoria, acceso a archivos, permisos y la capacidad de trabajar varios pasos seguidos sin que lo empujes.</p>
+      <div class="ex"><p class="lbl">En la droguería</p><p>El regente es el cerebro: sabe de medicamentos. La droguería es el harness: estantes, caja, teléfono, sistema de inventario. Un regente brillante sin droguería no despacha nada. Una buena droguería con un mal regente tampoco.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Mismo cerebro, distinto harness</p>
+      <ol>
+        <li><b>Claude en el chat:</b> conversa, busca, crea archivos y apps.</li>
+        <li><b>Claude en la app de escritorio:</b> además trabaja con carpetas de tu computador.</li>
+        <li><b>Claude en Chrome:</b> navega y llena formularios por ti.</li>
+        <li><b>Claude Code:</b> el harness de los programadores; construye software solo.</li>
+      </ol>
+      <p class="note">Por eso la misma pregunta da resultados distintos según dónde la hagas: no cambió el cerebro, cambiaron las herramientas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué es MCP</p>
+  <h2>El enchufe universal entre la IA y tus aplicaciones.</h2>
+  <div class="cols">
+    <div class="stack">
+      <p><b>MCP</b> (Model Context Protocol) es un estándar abierto que creó Anthropic en 2024 y que hoy usan también otras empresas de IA. Define una sola forma de conectar una IA con cualquier aplicación: tu correo, tu Drive, tu calendario, tu tienda en línea.</p>
+      <div class="ex"><p class="lbl">La comparación</p><p>Antes cada celular tenía su propio cargador. Llegó el USB-C y uno sirve para todos. MCP es el USB-C de la IA: la aplicación lo construye una vez y funciona con cualquier IA que lo soporte.</p></div>
+    </div>
+    <div class="do">
+      <p class="lbl">Cómo encajan las dos piezas</p>
+      <ol>
+        <li>El <b>harness</b> es la droguería.</li>
+        <li>Cada <b>MCP</b> es una línea directa con un proveedor: Gmail, Drive, Calendar.</li>
+        <li>En Claude, cada MCP aparece como un <b>conector</b>.</li>
+        <li>Con un MCP, Claude puede <b>leer</b> (buscar un archivo), <b>escribir</b> (un borrador de correo) o <b>actuar</b> (crear un evento).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Qué hacer con MCP</p>
+  <h2>Cinco encargos que antes eran imposibles sin copiar y pegar.</h2>
+  <table style="font-size:21px">
+    <tr><td style="width:250px"><b>Google Drive</b></td><td>“Busca en mi Drive el último inventario y dime qué productos vencen en los próximos 60 días.”</td></tr>
+    <tr><td><b>Gmail</b></td><td>“Revisa los correos de Coopidrogas de este mes y hazme una tabla con facturas, valores y fechas de pago.”</td></tr>
+    <tr><td><b>Google Calendar</b></td><td>“Agéndame cada lunes a las 8 a. m. ‘Revisar vencidos’ y el día 25 de cada mes ‘Pedido grande’.”</td></tr>
+    <tr><td><b>Drive + Gmail</b></td><td>“Con el inventario de mi Drive, redacta en Gmail el borrador del pedido al proveedor. No lo envíes.”</td></tr>
+    <tr><td><b>Drive + Calendar</b></td><td>“Lee las ventas de la semana y prepárame 5 puntos para la reunión del viernes con el equipo.”</td></tr>
+  </table>
+  <div class="sp"></div>
+  <p class="muted">El poder está en combinar: Claude lee en una aplicación y actúa en otra, en un solo pedido.</p>
+</section>
+
+<section class="slide">
+  <p class="eyebrow">Ahora tú · MCP con cuidado</p>
+  <h2>Conecta, prueba y pon tus reglas.</h2>
+  <div class="cols">
+    <div class="stack">
+      <div class="ex"><p class="lbl">Las 3 reglas</p><p><b>1. Lo mínimo.</b> Conecta solo las cuentas del negocio que necesitas.<br><b>2. Borradores, no envíos.</b> Pide siempre “no lo envíes” y revisa antes de aprobar.<br><b>3. Cuidado con lo que lee.</b> Un correo o un documento puede traer instrucciones escondidas para la IA. Si Claude te pide aprobar algo que no pediste, di que no.</p></div>
+      <p class="note">Ley 1581: nunca le pidas cruzar el nombre de un cliente con su medicamento.</p>
+    </div>
+    <div class="do">
+      <p class="lbl">Paso a paso <span>5 min</span></p>
+      <ol>
+        <li><kbd>Configuración</kbd> → <kbd>Conectores</kbd>.</li>
+        <li>Conecta Google Drive con la cuenta del negocio.</li>
+        <li>Sube a ese Drive el archivo <b>inventario-copa.csv</b>.</li>
+        <li>Abre un chat nuevo y pega el primer encargo de la diapositiva anterior.</li>
+        <li>Fíjate en el aviso de que Claude está usando el conector: eso es MCP trabajando.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="slide coral" style="justify-content:center">
   <p class="eyebrow">Nivel pro</p>
   <h1>10 trucos que usan los que de verdad sacan provecho.</h1>
