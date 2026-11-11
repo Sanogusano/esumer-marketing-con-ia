@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación individual · Copa Coopidrogas de IA</title>
+<style>
+:root{--ink:#16161D;--paper:#F6F5F1;--white:#FFFFFC;--line:#DEDBD3;--muted:#55555F;--coral:#C23A18;--coral2:#FF5C39;--green:#1F7A4D;--red:#B42318;
+  --serif:Cambria,Georgia,serif;--sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font:17px/1.45 var(--sans);min-height:100vh}
+.wrap{max-width:680px;margin:0 auto;padding:22px 16px 40px}
+.eyebrow{font:700 13px var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+h1{font:700 30px/1.15 var(--serif);margin-bottom:10px}
+h2{font:700 22px/1.3 var(--serif);margin:6px 0 16px}
+p.m{color:var(--muted);margin-bottom:14px}
+label{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+input,select{width:100%;font:17px var(--sans);padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
+button{font:700 16px var(--sans);border:0;border-radius:8px;padding:13px 18px;cursor:pointer;background:var(--coral);color:#fff;width:100%;margin-top:18px}
+button:disabled{background:#c9b3ab}
+.bar{height:6px;background:#E6E2D9;border-radius:3px;overflow:hidden;margin-bottom:18px}.bar i{display:block;height:100%;background:var(--coral);transition:width .3s}
+.op{display:block;width:100%;text-align:left;background:#fff;color:var(--ink);border:2px solid var(--line);font:500 16px/1.35 var(--sans);margin-top:10px;padding:13px 14px}
+.op.sel{border-color:var(--coral);background:#FFF3EF}
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px}
+.big{font:700 64px/1 var(--serif);color:var(--coral);margin:8px 0}
+.code{font:700 34px/1 Consolas,monospace;letter-spacing:3px;background:var(--ink);color:#fff;border-radius:8px;padding:14px;text-align:center;margin:12px 0}
+.rev{margin-top:18px}.rev div{border-left:4px solid var(--line);padding:6px 10px;margin-bottom:8px;font-size:15px;background:#fff}
+.rev .ok{border-color:var(--green)}.rev .no{border-color:var(--red)}
+.small{font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const SAL = 'copa-coopidrogas-2026';
+const P = [
+ ['En el método C.R.E.A.R., ¿qué es el Ancla?', ['Un ejemplo de cómo quieres el resultado', 'El tono del mensaje', 'Las palabras prohibidas', 'El formato de salida']],
+ ['Le pides a la IA “escríbele a un cliente para que vuelva” y sale un mensaje que suena a robot. ¿Qué lo mejora más?', ['Agregar una frase real tuya como ejemplo', 'Pedirle que sea “más humano”', 'Escribir el prompt en mayúsculas', 'Cambiar de IA']],
+ ['¿Qué es un Skill?', ['Un documento con instrucciones que la IA lee antes de trabajar', 'Un curso en línea de IA', 'Una aplicación para el celular', 'Un prompt de una sola línea']],
+ ['¿Cuál de estas reglas sirve dentro de un Skill?', ['Máximo 50 palabras por WhatsApp', 'Ser amable con el cliente', 'Que suene bonito', 'Ser creativo']],
+ ['Doña Gloria compra cada 30 días y lleva 52 sin venir. Don Jorge compra cada 60 días y lleva 50. Según el RFM de droguería:', ['Gloria tiene 22 días de atraso y Jorge está al día', 'Los dos están atrasados', 'Jorge está más atrasado que Gloria', 'Ninguno está atrasado']],
+ ['¿Por qué se le pide a la IA la fórmula y no el resultado cuando analizas 6.000 ventas?', ['Porque la IA se salta filas y suma mal; la fórmula es exacta', 'Porque es más rápido', 'Porque la fórmula no gasta datos', 'No hay ninguna diferencia']],
+ ['¿Cómo se calcula el ticket promedio?', ['Ventas ÷ número de pedidos', 'Ventas ÷ unidades vendidas', 'Pedidos ÷ clientes', 'Unidades ÷ pedidos']],
+ ['Es el día 15 de un mes de 30 días y la sucursal va en 60 % de su meta. A ese ritmo, ¿cómo cierra el mes?', ['En 120 %', 'En 60 %', 'En 90 %', 'En 100 %']],
+ ['¿Cuál de estos mensajes puede enviar una droguería por WhatsApp?', ['“Ya le toca lo de cada mes. ¿Se lo mando a la casa?”', '“Ya le toca su losartán para la presión.”', '“Este jarabe le cura la tos en un día.”', '“Tome 2 tabletas de 500 mg cada 8 horas.”']],
+ ['Según la Ley 1581, lo que compra un cliente en una droguería es un dato:', ['Sensible, porque puede revelar su salud', 'Público', 'Comercial, sin restricciones', 'Anónimo']],
+ ['En un sistema de agentes, ¿qué hace el Regente (el supervisor)?', ['Revisa el trabajo y se lo devuelve al agente que se equivocó', 'Escribe los mensajes a los clientes', 'Reemplaza al orquestador', 'Calcula el inventario']],
+ ['¿Qué hace el orquestador en una oficina de agentes?', ['Parte el objetivo en tareas, las reparte y une el resultado', 'Atiende a los clientes', 'Diseña las imágenes', 'Revisa el cumplimiento legal']],
+ ['Gemini te dio el teléfono de un negocio que quieres prospectar. ¿Qué haces?', ['Lo verifico en Google Maps antes de usarlo: la IA redacta, no copia', 'Llamo de una vez', 'Se lo pido a otra IA', 'Lo ignoro y no llamo']],
+ ['¿Cuál forma de poner IA en WhatsApp pone en riesgo tu número?', ['Un chatbot conectado a tu número por WhatsApp Web', 'El agente de Meta dentro de WhatsApp Business', 'La API oficial con un socio de Meta', 'Responder a mano con ayuda de un copiloto']],
+ ['Un lote vence en 25 días y tienes el triple de lo que vendes al mes. ¿Qué haces primero?', ['Lo pongo adelante y lo promociono ya: se vende primero lo que vence primero', 'Pido más para no quedarme sin', 'Espero a que venza', 'Lo devuelvo todo hoy']],
+ ['Publicaste tu hoja de ventas como enlace CSV para conectar el tablero. ¿Cuál es el riesgo?', ['Cualquiera que tenga el enlace puede ver tus ventas', 'Ninguno', 'Google borra la hoja', 'Google empieza a cobrar']],
+ ['Un producto vende 5 unidades al día, quieres tener para 18 días y hoy tienes 40. ¿Cuánto pides a Coopidrogas?', ['50', '18', '90', '40']],
+ ['Una IA te arma un tablero precioso, pero dice 6.544 pedidos cuando en realidad son 3.892. ¿Qué pasó, muy probablemente?', ['Contó filas en vez de pedidos distintos', 'Es un error de diseño', 'Los datos están dañados', 'Es normal que varíe']],
+ ['¿Qué es un OPC?', ['Una empresa de una persona que trabaja con un equipo de agentes de IA', 'Un software de facturación', 'Un plan de Coopidrogas', 'Un tipo de base de datos']],
+ ['Un cliente escribe al asistente de IA: “Tengo gripa, ¿qué me tomo?”. ¿Qué debe hacer el asistente?', ['No recomendar medicamentos y remitirlo al químico farmacéutico', 'Recomendar un antigripal', 'Darle la dosis', 'No responderle']]
+]; // la primera opción de cada pregunta es la correcta; se baraja al mostrar
+
+const app = document.getElementById('app');
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const hash = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 1296; return h; };
+const codigo = (nombre, puntos) => 'CC-' + (puntos * 1296 + hash(norm(nombre) + SAL)).toString(36).toUpperCase().padStart(3, '0');
+let nombre = '', equipo = '', i = 0, orden = [], resp = [];
+
+function inicio() {
+  app.innerHTML = '<p class="eyebrow">Copa Coopidrogas de IA</p><h1>Evaluación individual</h1><p class="m">20 preguntas sobre todo el curso. Vale el 50 % de tu nota. No hay tiempo límite, pero no puedes volver atrás.</p>' +
+    '<div class="card"><label>Tu nombre completo</label><input id="n" autocomplete="name"><label>Tu equipo</label><input id="e"><button id="go">Empezar</button></div>';
+  document.getElementById('go').onclick = () => {
+    nombre = document.getElementById('n').value.trim(); equipo = document.getElementById('e').value.trim();
+    if (nombre.split(' ').length < 2) { alert('Escribe tu nombre y apellido.'); return; }
+    orden = P.map((p, k) => ({ k, ops: p[1].map((t, j) => ({ t, ok: j === 0 })).sort(() => Math.random() - .5) }));
+    i = 0; resp = []; pregunta();
+  };
+}
+function pregunta() {
+  const q = orden[i]; let sel = -1;
+  app.innerHTML = '<p class="eyebrow">Pregunta ' + (i + 1) + ' de ' + P.length + '</p><div class="bar"><i style="width:' + (i / P.length * 100) + '%"></i></div><h2>' + P[q.k][0] + '</h2>' +
+    q.ops.map((o, j) => '<button class="op" data-j="' + j + '">' + o.t + '</button>').join('') + '<button id="sig" disabled>' + (i === P.length - 1 ? 'Terminar' : 'Siguiente') + '</button>';
+  app.querySelectorAll('.op').forEach(b => b.onclick = () => { app.querySelectorAll('.op').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); sel = +b.dataset.j; document.getElementById('sig').disabled = false; });
+  document.getElementById('sig').onclick = () => { resp.push({ k: q.k, ok: q.ops[sel].ok, elegida: q.ops[sel].t }); i++; i < P.length ? pregunta() : fin(); };
+  window.scrollTo(0, 0);
+}
+function fin() {
+  const pts = resp.filter(r => r.ok).length, nota = (pts / P.length * 5).toFixed(1).replace('.', ',');
+  app.innerHTML = '<p class="eyebrow">Evaluación terminada</p><h1>' + nombre + '</h1><div class="card"><p class="small">Respuestas correctas</p><div class="big">' + pts + ' / ' + P.length + '</div><p>Nota de la evaluación individual: <b>' + nota + '</b></p>' +
+    '<p class="small" style="margin-top:14px">Tu código de entrega. Tómale un pantallazo y envíaselo al profesor:</p><div class="code">' + codigo(nombre, pts) + '</div><p class="small">' + (equipo ? 'Equipo: ' + equipo : '') + '</p></div>' +
+    '<div class="rev"><h2>Revisa tus respuestas</h2>' + resp.map(r => '<div class="' + (r.ok ? 'ok' : 'no') + '"><b>' + (r.ok ? '✓ ' : '✗ ') + P[r.k][0] + '</b><br>' + (r.ok ? r.elegida : 'Respondiste: ' + r.elegida + '<br>Correcta: ' + P[r.k][1][0]) + '</div>').join('') + '</div>';
+  window.scrollTo(0, 0);
+}
+inicio();
+</script>
+</body>
+</html>
