@@ -1,0 +1,19 @@
+Pedido,Cliente,Direccion,Barrio,Zona,Valor,Pago,Franja
+D213,Diego Arango,Calle 49 # 40-25,Buenos Aires,Oriente,141000,Transferencia,Mañana
+D217,Óscar Echeverri,Calle 10 # 32-15,El Poblado,Poblado,225000,Transferencia,Mañana
+D206,Julián Muñoz,Calle 30 # 83-10,Belén Rosales,Sur,327000,Transferencia,Tarde
+D201,Mariana Cardona,Calle 44 # 74-30,Laureles,Occidente,336000,Transferencia,Tarde
+D215,Catalina Restrepo,Calle 56 # 32-08,Villa Hermosa,Oriente,109000,Efectivo,Mañana
+D216,Carolina Muñoz,Carrera 43A # 9-50,El Poblado,Poblado,196000,Transferencia,Tarde
+D212,Gloria Zapata,Calle 104 # 64-11,Doce de Octubre,Norte,226000,Efectivo,Mañana
+D218,Daniela Restrepo,Carrera 35 # 8A-20,Provenza,Poblado,275000,Transferencia,Mañana
+D204,Carolina Ospina,Calle 50 # 80-21,Floresta,Occidente,143000,Efectivo,Mañana
+D202,Mateo Vélez,Carrera 70 # 48-15,Estadio,Occidente,301000,Efectivo,Tarde
+D205,Paula Posada,Carrera 76 # 32-40,Belén,Sur,183000,Efectivo,Mañana
+D208,Paula Cardona,Calle 25 # 65-18,Campo Amor,Sur,45000,Transferencia,Tarde
+D207,Laura Mejía,Carrera 52 # 10-30,Guayabal,Sur,267000,Transferencia,Tarde
+D209,Isabela Londoño,Carrera 48 # 92-15,Aranjuez,Norte,385000,Transferencia,Tarde
+D203,Isabela Zapata,Circular 1 # 70-12,Laureles,Occidente,152000,Transferencia,Tarde
+D214,Carolina Ríos,Carrera 36 # 54-12,Boston,Oriente,159000,Efectivo,Mañana
+D211,Andrés Jaramillo,Carrera 65 # 98-40,Castilla,Norte,72000,Efectivo,Tarde
+D210,Carolina Posada,Calle 97 # 50-22,Manrique,Norte,199000,Efectivo,Tarde

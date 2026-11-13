@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mi CRM · versión lista</title>
+<style>
+:root{--ink:#16161D;--paper:#F6F5F1;--white:#FFFFFC;--line:#DEDBD3;--muted:#55555F;--coral:#C23A18;--coral2:#FF5C39;--green:#1F7A4D;--amber:#B7791F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;background:var(--paper);color:var(--ink);font-size:17px}
+header{background:var(--ink);color:var(--paper);padding:18px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+header h1{font:700 26px Cambria,Georgia,serif}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav button{background:#2A2A33;color:#fff;border:0;padding:10px 16px;font:700 15px inherit;font-family:inherit;border-radius:3px;cursor:pointer}
+nav button.on{background:var(--coral2)}
+main{padding:22px 24px;max-width:1200px;margin:auto}
+section{display:none}section.on{display:block}
+h2{font:700 24px Cambria,Georgia,serif;margin-bottom:12px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.btn{background:var(--coral);color:#fff;border:0;padding:10px 16px;font-weight:700;font-family:inherit;font-size:15px;border-radius:3px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.sec{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+.btn.wa{background:var(--green)}
+.btn:disabled{background:#bbb;color:#eee;cursor:not-allowed}
+input,select,textarea{font-family:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:3px;background:#fff}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.card{background:var(--white);border-top:4px solid var(--coral);padding:14px 16px;cursor:pointer}
+.card b{display:block;font:700 30px Cambria,Georgia,serif}
+.card span{color:var(--muted);font-size:14px}
+.card.sel{outline:2px solid var(--ink)}
+table{width:100%;border-collapse:collapse;background:var(--white)}
+th{text-align:left;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:10px;border-bottom:2px solid var(--ink)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tag{display:inline-block;padding:2px 8px;border-radius:2px;font-size:13px;font-weight:700}
+.t-VIP{background:#EADCF8;color:#5B2A86}.t-Frecuente{background:#D6EBDD;color:var(--green)}.t-Nuevo{background:#DCE8F8;color:#1F4F86}.t-Riesgo{background:#FBEBD0;color:var(--amber)}.t-Dormido{background:#F8DCD3;color:var(--coral)}
+.muted{color:var(--muted)}
+.alert{padding:12px 16px;margin-bottom:14px;font-weight:700;border-radius:3px}
+.alert.red{background:#F8DCD3;color:var(--coral)}.alert.ok{background:#D6EBDD;color:var(--green)}.alert.wait{background:#FBEBD0;color:var(--amber)}
+.tpl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:18px}
+.tpl label{font-weight:700;font-size:14px;display:block;margin-bottom:4px}
+.tpl textarea{width:100%;height:120px}
+.msg{white-space:pre-wrap;font-size:15px}
+tr.off{opacity:.45}tr.sent{background:#EEF6F0}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.kpi div{background:var(--white);padding:14px 16px;border-top:4px solid var(--ink)}
+.kpi b{display:block;font:700 26px Cambria,Georgia,serif}.kpi span{font-size:14px;color:var(--muted)}
+.chart{display:flex;align-items:flex-end;gap:3px;height:220px;background:var(--white);padding:14px;margin-bottom:18px}
+.chart i{flex:1;background:var(--coral2);display:block;min-width:4px;position:relative}
+.chart i:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font:12px sans-serif;padding:3px 6px;white-space:nowrap;font-style:normal}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hb{display:flex;align-items:center;gap:8px;margin:6px 0}.hb em{flex:0 0 150px;font-style:normal}.hb i{height:18px;background:var(--coral2);display:block}.hb s{text-decoration:none;font-size:14px;color:var(--muted)}
+.riders{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.rider{background:var(--white);padding:16px;border-top:4px solid var(--green)}
+.rider ol{padding-left:22px;margin:8px 0 12px}.rider li{margin-bottom:6px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Mi CRM</h1>
+  <nav>
+    <button class="on" data-tab="clientes">1. Clientes</button>
+    <button data-tab="mensajes">2. Mensajes</button>
+    <button data-tab="ventas">3. Ventas</button>
+    <button data-tab="domicilios">4. Domicilios</button>
+  </nav>
+</header>
+<main>
+
+<section id="clientes" class="on">
+  <div class="bar">
+    <label class="btn sec">Cargar clientes (CSV)<input type="file" accept=".csv" hidden data-load="cli"></label>
+    <button class="btn" data-demo="cli">Usar datos de ejemplo</button>
+    <span class="muted" id="cliInfo">Columnas: Nombre, WhatsApp, UltimaCompra, ComprasAnio, ValorAnio, CategoriaFavorita, AutorizaWhatsApp</span>
+  </div>
+  <div class="cards" id="segCards"></div>
+  <table><thead><tr><th>Cliente</th><th>Grupo</th><th>Días sin comprar</th><th>Compras año</th><th>Valor año</th><th>Le gusta</th><th>Objetivo</th></tr></thead><tbody id="cliBody"></tbody></table>
+</section>
+
+<section id="mensajes">
+  <h2>Plantillas con tu forma de hablar</h2>
+  <p class="muted" style="margin-bottom:10px">Usa {nombre} y {categoria}. Pega aquí las plantillas que te escribió la IA.</p>
+  <div class="tpl" id="tpls"></div>
+  <div id="status"></div>
+  <div class="bar">
+    <b id="counter">Mensajes hoy: 0 de 40</b>
+    <label>Límite diario <input type="number" id="limit" value="40" min="1" style="width:80px"></label>
+    <label>Espera (segundos) <input type="number" id="waitS" value="90" min="10" style="width:80px"></label>
+    <label>Grupo <select id="segFilter"><option value="">Todos</option></select></label>
+  </div>
+  <table><thead><tr><th>Cliente</th><th>Grupo</th><th>Mensaje</th><th></th></tr></thead><tbody id="msgBody"></tbody></table>
+</section>
+
+<section id="ventas">
+  <div class="bar">
+    <label class="btn sec">Cargar ventas (CSV)<input type="file" accept=".csv" hidden data-load="ven"></label>
+    <button class="btn" data-demo="ven">Usar datos de ejemplo</button>
+    <label>Meta del mes $ <input type="text" id="meta" value="70.000.000" style="width:140px"></label>
+  </div>
+  <div class="kpi" id="kpis"></div>
+  <h2>Ventas por día</h2>
+  <div class="chart" id="chart"></div>
+  <div class="two">
+    <div><h2>Top 5 productos</h2><div id="top"></div></div>
+    <div><h2>Ventas por canal</h2><div id="canal"></div></div>
+  </div>
+</section>
+
+<section id="domicilios">
+  <div class="bar">
+    <label class="btn sec">Cargar domicilios (CSV)<input type="file" accept=".csv" hidden data-load="dom"></label>
+    <button class="btn" data-demo="dom">Usar datos de ejemplo</button>
+    <label>Domiciliarios <input type="number" id="nRid" value="3" min="1" max="10" style="width:70px"></label>
+    <label>Sale desde <input type="text" id="origen" value="Carrera 50 # 45-20, Medellín" style="width:260px"></label>
+  </div>
+  <div class="riders" id="riders"></div>
+</section>
+
+</main>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const money=n=>'$'+Math.round(n).toLocaleString('es-CO');
+const num=v=>+String(v).replace(/[^\d-]/g,'')||0;
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let CLI=[],VEN=[],DOM=[];
+
+function parseCSV(t){
+  t=t.replace(/^﻿/,'');const rows=[];let row=[],f='',q=false;
+  for(let i=0;i<t.length;i++){const c=t[i];
+    if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+    else if(c=='"')q=true;else if(c==','||c==';'){row.push(f);f=''}
+    else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;row.push(f);f='';if(row.some(x=>x.trim()))rows.push(row);row=[]}
+    else f+=c}
+  row.push(f);if(row.some(x=>x.trim()))rows.push(row);
+  const h=rows.shift().map(x=>x.trim());return rows.map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()])));
+}
+function fecha(s){let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return new Date(+m[1],m[2]-1,+m[3]);m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);return m?new Date(+m[3],m[2]-1,+m[1]):null}
+
+/* ---------- 1. CLIENTES ---------- */
+const SEG={VIP:{n:'VIP',o:'Lanzamiento',c:'VIP'},Frecuente:{n:'Frecuente',o:'Upselling',c:'Frecuente'},Nuevo:{n:'Nuevo u ocasional',o:'Cross-selling',c:'Nuevo'},Riesgo:{n:'En riesgo',o:'Retoma promocional',c:'Riesgo'},Dormido:{n:'Dormido',o:'Retoma promocional',c:'Dormido'}};
+let segSel='';
+function segmentar(){
+  const hoy=new Date();hoy.setHours(0,0,0,0);
+  CLI.forEach(c=>{const f=fecha(c.UltimaCompra);c.dias=f?Math.round((hoy-f)/864e5):999;
+    const v=num(c.ValorAnio),k=num(c.ComprasAnio);
+    c.seg=c.dias>120?'Dormido':c.dias>60?'Riesgo':v>=1500000?'VIP':k>=4?'Frecuente':'Nuevo';
+    c.ok=/^s/i.test(c.AutorizaWhatsApp||'')});
+}
+function pintaClientes(){
+  $('#segCards').innerHTML=Object.keys(SEG).map(k=>`<div class="card ${segSel==k?'sel':''}" data-seg="${k}"><b>${CLI.filter(c=>c.seg==k).length}</b><span class="tag t-${k}">${SEG[k].n}</span><br><span>${SEG[k].o}</span></div>`).join('');
+  $$('#segCards .card').forEach(e=>e.onclick=()=>{segSel=segSel==e.dataset.seg?'':e.dataset.seg;pintaClientes()});
+  $('#cliBody').innerHTML=CLI.filter(c=>!segSel||c.seg==segSel).sort((a,b)=>b.dias-a.dias).map(c=>`<tr><td>${c.Nombre}</td><td><span class="tag t-${c.seg}">${SEG[c.seg].n}</span></td><td>${c.dias}</td><td>${num(c.ComprasAnio)}</td><td>${money(num(c.ValorAnio))}</td><td>${c.CategoriaFavorita}</td><td>${SEG[c.seg].o}</td></tr>`).join('');
+  $('#cliInfo').textContent=CLI.length+' clientes cargados';
+}
+
+/* ---------- 2. MENSAJES ---------- */
+const TPL_DEF={
+ 'Retoma promocional':'¡Hola {nombre}! Hace rato no te vemos por la tienda 😊 Te guardamos un 15 % de descuento en {categoria} esta semana. ¿Te aparto algo?\nSi no quieres recibir más mensajes, responde NO.',
+ 'Lanzamiento':'{nombre}, te escribo a ti primero: llegó la colección nueva de {categoria} y todavía nadie la ha visto. ¿Te mando fotos?\nSi no quieres recibir más mensajes, responde NO.',
+ 'Upselling':'¡Hola {nombre}! Como siempre te llevas {categoria}, te cuento que llegó una línea premium que te va a encantar. ¿Te muestro?\nSi no quieres recibir más mensajes, responde NO.',
+ 'Cross-selling':'¡Hola {nombre}! Gracias por tu compra de {categoria}. Tenemos accesorios que le combinan perfecto. ¿Te mando ideas?\nSi no quieres recibir más mensajes, responde NO.'};
+let TPL=store.get('crm_tpl',TPL_DEF);
+const hoyKey=()=>new Date().toISOString().slice(0,10);
+let ENV=store.get('crm_env',{dia:hoyKey(),n:0,ids:[]});if(ENV.dia!=hoyKey())ENV={dia:hoyKey(),n:0,ids:[]};
+let SENT=store.get('crm_sent',[]);let waitUntil=0;
+
+function pintaTpl(){
+  $('#tpls').innerHTML=Object.keys(TPL).map(k=>`<div><label>${k}</label><textarea data-k="${k}">${TPL[k]}</textarea></div>`).join('');
+  $$('#tpls textarea').forEach(t=>t.oninput=()=>{TPL[t.dataset.k]=t.value;store.set('crm_tpl',TPL);pintaMsgs()});
+}
+function horario(){
+  const d=new Date(),w=d.getDay(),h=d.getHours()+d.getMinutes()/60;
+  if(w==0)return'Hoy es domingo: no se envían mensajes comerciales.';
+  if(w==6&&(h<8||h>=15))return'Sábado: solo de 8 a. m. a 3 p. m.';
+  if(w>=1&&w<=5&&(h<7||h>=19))return'Entre semana: solo de 7 a. m. a 7 p. m.';
+  return'';
+}
+function bloqueo(){
+  const lim=num($('#limit').value)||40,fh=horario(),rest=Math.ceil((waitUntil-Date.now())/1000);
+  if(fh)return{msg:'Fuera del horario permitido. '+fh+' Recuerda que los festivos tampoco.',cls:'red'};
+  if(ENV.n>=lim)return{msg:`Llegaste al límite de ${lim} mensajes de hoy. Sigue mañana.`,cls:'red'};
+  if(rest>0)return{msg:`Espera antes del siguiente: ${rest} s`,cls:'wait'};
+  return null;
+}
+function arma(c){const t=TPL[SEG[c.seg].o]||'';return t.replaceAll('{nombre}',c.Nombre.split(' ')[0]).replaceAll('{categoria}',(c.CategoriaFavorita||'').toLowerCase())}
+function tel(n){n=String(n).replace(/\D/g,'');return n.startsWith('57')?n:'57'+n}
+function pintaMsgs(){
+  const lim=num($('#limit').value)||40,b=bloqueo(),f=$('#segFilter').value;
+  $('#counter').textContent=`Mensajes hoy: ${ENV.n} de ${lim}`;
+  $('#status').innerHTML=b?`<div class="alert ${b.cls}">${b.msg}</div>`:'<div class="alert ok">Puedes enviar el siguiente mensaje.</div>';
+  $('#msgBody').innerHTML=CLI.filter(c=>!f||c.seg==f).sort((a,b)=>(b.ok-a.ok)).map((c,i)=>{
+    const m=arma(c),sent=SENT.includes(c.Nombre);
+    if(!c.ok)return`<tr class="off"><td>${c.Nombre}</td><td><span class="tag t-${c.seg}">${SEG[c.seg].n}</span></td><td class="muted">No autoriza mensajes por WhatsApp.</td><td></td></tr>`;
+    return`<tr class="${sent?'sent':''}"><td>${c.Nombre}<br><span class="muted">${c.WhatsApp}</span></td><td><span class="tag t-${c.seg}">${SEG[c.seg].n}</span></td><td class="msg">${m}</td><td style="white-space:nowrap">${sent?'<b style="color:var(--green)">Enviado ✓</b><br>':''}<button class="btn wa" data-wa="${CLI.indexOf(c)}" ${b||sent?'disabled':''}>Abrir en WhatsApp</button><br><button class="btn sec" style="margin-top:6px" data-cp="${CLI.indexOf(c)}">Copiar mensaje</button></td></tr>`}).join('');
+  $$('[data-wa]').forEach(e=>e.onclick=()=>{
+    if(bloqueo())return;const c=CLI[e.dataset.wa];
+    window.open('https://wa.me/'+tel(c.WhatsApp)+'?text='+encodeURIComponent(arma(c)),'_blank');
+    ENV.n++;store.set('crm_env',ENV);SENT.push(c.Nombre);store.set('crm_sent',SENT);
+    const s=num($('#waitS').value)||90;waitUntil=Date.now()+s*1000;pintaMsgs()});
+  $$('[data-cp]').forEach(e=>e.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(arma(CLI[e.dataset.cp]));e.textContent='Copiado ✓'});
+}
+setInterval(()=>{if(waitUntil&&$('#mensajes').classList.contains('on')){const r=waitUntil-Date.now();pintaMsgs();if(r<=0)waitUntil=0}},1000);
+['#limit','#waitS','#segFilter'].forEach(s=>$(s).addEventListener('input',pintaMsgs));
+$('#segFilter').innerHTML+=Object.keys(SEG).map(k=>`<option value="${k}">${SEG[k].n}</option>`).join('');
+
+/* ---------- 3. VENTAS ---------- */
+function pintaVentas(){
+  if(!VEN.length)return;
+  const tot=VEN.reduce((s,r)=>s+num(r.Valor),0),ped=new Set(VEN.map(r=>r.Pedido)).size,uni=VEN.reduce((s,r)=>s+num(r.Unidades),0),meta=num($('#meta').value)||1;
+  $('#kpis').innerHTML=[['Ventas',money(tot)],['Pedidos',ped.toLocaleString('es-CO')],['Ticket promedio',money(tot/ped)],['Unidades',uni.toLocaleString('es-CO')],['Meta del mes',Math.round(tot/meta*100)+' %']].map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('');
+  const dia={};VEN.forEach(r=>dia[r.Fecha]=(dia[r.Fecha]||0)+num(r.Valor));
+  const ks=Object.keys(dia).sort(),mx=Math.max(...Object.values(dia));
+  $('#chart').innerHTML=ks.map(k=>`<i style="height:${dia[k]/mx*100}%" data-t="${k}: ${money(dia[k])}"></i>`).join('');
+  const agg=key=>{const o={};VEN.forEach(r=>o[r[key]]=(o[r[key]]||0)+num(r.Valor));return Object.entries(o).sort((a,b)=>b[1]-a[1])};
+  const bars=arr=>{const m=arr[0][1];return arr.map(([k,v])=>`<div class="hb"><em>${k}</em><i style="width:${v/m*55}%"></i><s>${money(v)}</s></div>`).join('')};
+  $('#top').innerHTML=bars(agg('Producto').slice(0,5));$('#canal').innerHTML=bars(agg('Canal'));
+}
+$('#meta').addEventListener('input',pintaVentas);
+
+/* ---------- 4. DOMICILIOS ---------- */
+function pintaDom(){
+  if(!DOM.length)return;
+  const n=Math.max(1,num($('#nRid').value)||3),zonas={};
+  DOM.forEach(d=>(zonas[d.Zona]=zonas[d.Zona]||[]).push(d));
+  const R=Array.from({length:n},(_,i)=>({nom:'Domiciliario '+(i+1),z:[],p:[]}));
+  Object.entries(zonas).sort((a,b)=>b[1].length-a[1].length).forEach(([z,ps])=>{const r=R.reduce((a,b)=>b.p.length<a.p.length?b:a);r.z.push(z);r.p.push(...ps)});
+  const ord=f=>/ma/i.test(f)?0:1,org=$('#origen').value;
+  $('#riders').innerHTML=R.map((r,i)=>{
+    r.p.sort((a,b)=>ord(a.Franja)-ord(b.Franja)||a.Zona.localeCompare(b.Zona));
+    const efe=r.p.filter(p=>/efec/i.test(p.Pago)).reduce((s,p)=>s+num(p.Valor),0);
+    const url='https://www.google.com/maps/dir/'+[org,...r.p.map(p=>p.Direccion+', '+p.Barrio+', Medellín')].map(encodeURIComponent).join('/');
+    const txt=`${r.nom} – ruta de hoy\n`+r.p.map((p,k)=>`${k+1}. ${p.Pedido} · ${p.Cliente} · ${p.Direccion}, ${p.Barrio} · ${p.Franja} · ${p.Pago} ${money(num(p.Valor))}`).join('\n')+`\nEfectivo a recoger: ${money(efe)}\nRuta: ${url}`;
+    return`<div class="rider"><h2>${r.nom}</h2><span class="muted">${r.z.join(' · ')||'Sin pedidos'} · ${r.p.length} pedidos</span><ol>${r.p.map(p=>`<li><b>${p.Pedido}</b> ${p.Cliente}<br><span class="muted">${p.Direccion}, ${p.Barrio} · ${p.Franja} · ${p.Pago} ${money(num(p.Valor))}</span></li>`).join('')}</ol><p><b>Efectivo a recoger: ${money(efe)}</b></p><div class="bar" style="margin-top:10px">${r.p.length?`<a class="btn" target="_blank" href="${url}">Ver ruta en Google Maps</a><button class="btn sec" data-txt="${i}">Copiar lista</button>`:''}</div><textarea hidden id="tx${i}">${txt}</textarea></div>`}).join('');
+  $$('[data-txt]').forEach(e=>e.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText($('#tx'+e.dataset.txt).value);e.textContent='Copiada ✓'});
+}
+['#nRid','#origen'].forEach(s=>$(s).addEventListener('input',pintaDom));
+
+/* ---------- carga ---------- */
+const FILES={cli:'crm-clientes.csv',ven:'crm-ventas.csv',dom:'crm-domicilios.csv'};
+function usar(k,t){const d=parseCSV(t);if(k=='cli'){CLI=d;segmentar();pintaClientes();pintaMsgs()}if(k=='ven'){VEN=d;pintaVentas()}if(k=='dom'){DOM=d;pintaDom()}}
+$$('[data-load]').forEach(i=>i.onchange=()=>{const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>usar(i.dataset.load,r.result);r.readAsText(f,'utf-8')});
+$$('[data-demo]').forEach(b=>b.onclick=()=>fetch(FILES[b.dataset.demo]).then(r=>r.text()).then(t=>usar(b.dataset.demo,t)).catch(()=>alert('No se pudo cargar el ejemplo. Usa el botón Cargar.')));
+$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x==b));$$('section').forEach(s=>s.classList.toggle('on',s.id==b.dataset.tab));if(b.dataset.tab=='mensajes')pintaMsgs()});
+pintaTpl();pintaMsgs();
+</script>
+</body>
+</html>

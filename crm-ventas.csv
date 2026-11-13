@@ -1,0 +1,441 @@
+Fecha,Pedido,Producto,Categoria,Unidades,Valor,Canal
+2026-10-14,P1001,Chaqueta de jean,Chaquetas,2,378000,WhatsApp
+2026-10-14,P1002,Blusa de lino,Blusas,2,178000,Tienda
+2026-10-14,P1003,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-14,P1003,Tenis deportivos,Tenis,2,458000,WhatsApp
+2026-10-14,P1004,Jean clásico,Jeans,2,238000,WhatsApp
+2026-10-14,P1004,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-14,P1005,Blusa de lino,Blusas,1,89000,Instagram
+2026-10-14,P1005,Bolso de mano,Bolsos,1,129000,Instagram
+2026-10-14,P1005,Tenis blancos,Tenis,1,169000,Instagram
+2026-10-14,P1006,Tenis deportivos,Tenis,2,458000,Instagram
+2026-10-15,P1007,Medias x3,Accesorios,2,38000,WhatsApp
+2026-10-15,P1008,Tenis deportivos,Tenis,2,458000,Tienda
+2026-10-15,P1008,Bolso de mano,Bolsos,1,129000,Tienda
+2026-10-15,P1009,Cinturón de cuero,Accesorios,1,49000,WhatsApp
+2026-10-15,P1009,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-10-15,P1010,Morral urbano,Bolsos,1,149000,Instagram
+2026-10-15,P1010,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-15,P1011,Cinturón de cuero,Accesorios,1,49000,Tienda
+2026-10-15,P1011,Sandalia plana,Sandalias,2,138000,Tienda
+2026-10-15,P1012,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-15,P1013,Cinturón de cuero,Accesorios,2,98000,Tienda
+2026-10-15,P1014,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-15,P1015,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-16,P1016,Tenis deportivos,Tenis,2,458000,Tienda
+2026-10-16,P1016,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-16,P1016,Morral urbano,Bolsos,1,149000,Tienda
+2026-10-16,P1017,Gafas de sol,Accesorios,1,59000,Tienda
+2026-10-16,P1017,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-16,P1018,Cinturón de cuero,Accesorios,1,49000,WhatsApp
+2026-10-16,P1018,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-16,P1019,Tenis blancos,Tenis,1,169000,Instagram
+2026-10-16,P1020,Morral urbano,Bolsos,1,149000,Instagram
+2026-10-16,P1020,Gafas de sol,Accesorios,1,59000,Instagram
+2026-10-16,P1021,Bolso de mano,Bolsos,1,129000,WhatsApp
+2026-10-16,P1021,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-10-16,P1021,Gafas de sol,Accesorios,1,59000,WhatsApp
+2026-10-16,P1022,Gafas de sol,Accesorios,3,177000,WhatsApp
+2026-10-16,P1022,Cinturón de cuero,Accesorios,3,147000,WhatsApp
+2026-10-16,P1023,Sandalia plana,Sandalias,2,138000,Instagram
+2026-10-16,P1024,Tenis blancos,Tenis,2,338000,WhatsApp
+2026-10-16,P1025,Camiseta básica,Camisetas,2,70000,Tienda
+2026-10-16,P1026,Gafas de sol,Accesorios,2,118000,Tienda
+2026-10-16,P1027,Cinturón de cuero,Accesorios,3,147000,WhatsApp
+2026-10-16,P1028,Jean clásico,Jeans,2,238000,Tienda
+2026-10-17,P1029,Bolso de mano,Bolsos,1,129000,WhatsApp
+2026-10-17,P1030,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-17,P1030,Tenis blancos,Tenis,1,169000,Instagram
+2026-10-17,P1031,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-10-17,P1032,Blusa manga corta,Blusas,1,59000,Tienda
+2026-10-17,P1033,Jean clásico,Jeans,1,119000,Tienda
+2026-10-17,P1033,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-17,P1034,Bolso de mano,Bolsos,1,129000,Tienda
+2026-10-17,P1035,Tenis deportivos,Tenis,2,458000,Instagram
+2026-10-17,P1035,Bolso de mano,Bolsos,1,129000,Instagram
+2026-10-17,P1036,Cinturón de cuero,Accesorios,3,147000,WhatsApp
+2026-10-17,P1036,Jean clásico,Jeans,1,119000,WhatsApp
+2026-10-17,P1037,Camiseta estampada,Camisetas,2,90000,WhatsApp
+2026-10-17,P1037,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-10-17,P1037,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-17,P1038,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-17,P1039,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-17,P1039,Camiseta básica,Camisetas,1,35000,Tienda
+2026-10-17,P1040,Tenis blancos,Tenis,2,338000,Instagram
+2026-10-17,P1040,Medias x3,Accesorios,1,19000,Instagram
+2026-10-17,P1040,Blusa de lino,Blusas,1,89000,Instagram
+2026-10-18,P1041,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-18,P1042,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-10-18,P1043,Tenis blancos,Tenis,1,169000,Instagram
+2026-10-18,P1044,Camiseta básica,Camisetas,1,35000,WhatsApp
+2026-10-18,P1044,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-10-18,P1045,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-18,P1046,Sandalia plana,Sandalias,1,69000,Instagram
+2026-10-19,P1047,Gafas de sol,Accesorios,2,118000,Tienda
+2026-10-19,P1047,Cinturón de cuero,Accesorios,1,49000,Tienda
+2026-10-19,P1047,Chaqueta de jean,Chaquetas,2,378000,Tienda
+2026-10-19,P1048,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-19,P1048,Jean clásico,Jeans,1,119000,Tienda
+2026-10-19,P1048,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-19,P1049,Blusa de lino,Blusas,2,178000,Instagram
+2026-10-19,P1049,Camiseta básica,Camisetas,1,35000,Instagram
+2026-10-19,P1050,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-19,P1051,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-19,P1052,Medias x3,Accesorios,3,57000,Tienda
+2026-10-19,P1052,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-20,P1053,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-20,P1053,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-20,P1053,Gafas de sol,Accesorios,3,177000,Tienda
+2026-10-20,P1054,Blusa de lino,Blusas,2,178000,Instagram
+2026-10-20,P1054,Blusa manga corta,Blusas,2,118000,Instagram
+2026-10-20,P1054,Jean bota recta,Jeans,2,278000,Instagram
+2026-10-20,P1055,Sandalia plana,Sandalias,1,69000,Tienda
+2026-10-20,P1056,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-20,P1056,Camiseta básica,Camisetas,2,70000,Tienda
+2026-10-20,P1056,Morral urbano,Bolsos,1,149000,Tienda
+2026-10-20,P1057,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-10-20,P1058,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-21,P1059,Morral urbano,Bolsos,1,149000,Instagram
+2026-10-21,P1060,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-10-21,P1061,Morral urbano,Bolsos,1,149000,Tienda
+2026-10-21,P1062,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-10-21,P1062,Tenis blancos,Tenis,2,338000,WhatsApp
+2026-10-21,P1063,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-21,P1064,Camiseta básica,Camisetas,1,35000,WhatsApp
+2026-10-21,P1065,Tenis deportivos,Tenis,1,229000,Instagram
+2026-10-21,P1065,Sandalia plana,Sandalias,1,69000,Instagram
+2026-10-22,P1066,Medias x3,Accesorios,1,19000,Tienda
+2026-10-22,P1066,Cinturón de cuero,Accesorios,3,147000,Tienda
+2026-10-22,P1066,Bolso de mano,Bolsos,1,129000,Tienda
+2026-10-22,P1067,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-22,P1067,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-22,P1068,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-22,P1068,Cinturón de cuero,Accesorios,3,147000,Tienda
+2026-10-22,P1068,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-22,P1069,Medias x3,Accesorios,2,38000,Tienda
+2026-10-22,P1069,Morral urbano,Bolsos,2,298000,Tienda
+2026-10-22,P1069,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-22,P1070,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-10-22,P1070,Medias x3,Accesorios,2,38000,WhatsApp
+2026-10-22,P1071,Jean clásico,Jeans,1,119000,Instagram
+2026-10-22,P1071,Camiseta estampada,Camisetas,1,45000,Instagram
+2026-10-23,P1072,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-23,P1073,Medias x3,Accesorios,2,38000,Instagram
+2026-10-23,P1074,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-23,P1075,Gafas de sol,Accesorios,3,177000,Tienda
+2026-10-23,P1076,Medias x3,Accesorios,3,57000,Tienda
+2026-10-23,P1077,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-23,P1078,Tenis blancos,Tenis,2,338000,Tienda
+2026-10-23,P1078,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-23,P1079,Jean clásico,Jeans,1,119000,WhatsApp
+2026-10-23,P1080,Gafas de sol,Accesorios,1,59000,Tienda
+2026-10-23,P1081,Jean bota recta,Jeans,2,278000,Tienda
+2026-10-23,P1082,Blusa de lino,Blusas,2,178000,Tienda
+2026-10-23,P1083,Cinturón de cuero,Accesorios,2,98000,Instagram
+2026-10-23,P1084,Gafas de sol,Accesorios,3,177000,Tienda
+2026-10-23,P1084,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-23,P1085,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-23,P1085,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-24,P1086,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-24,P1087,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-24,P1088,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-10-24,P1088,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-10-24,P1089,Tenis deportivos,Tenis,2,458000,Instagram
+2026-10-24,P1089,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-24,P1089,Camiseta estampada,Camisetas,1,45000,Instagram
+2026-10-24,P1090,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-10-24,P1090,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-24,P1091,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-10-24,P1092,Blusa de lino,Blusas,2,178000,Tienda
+2026-10-24,P1092,Medias x3,Accesorios,3,57000,Tienda
+2026-10-24,P1093,Tenis blancos,Tenis,1,169000,Tienda
+2026-10-24,P1094,Morral urbano,Bolsos,2,298000,WhatsApp
+2026-10-24,P1094,Jean clásico,Jeans,2,238000,WhatsApp
+2026-10-24,P1095,Jean clásico,Jeans,1,119000,WhatsApp
+2026-10-24,P1095,Gafas de sol,Accesorios,2,118000,WhatsApp
+2026-10-24,P1096,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-24,P1097,Jean clásico,Jeans,1,119000,Tienda
+2026-10-24,P1097,Camiseta básica,Camisetas,1,35000,Tienda
+2026-10-24,P1098,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-24,P1098,Jean clásico,Jeans,2,238000,Tienda
+2026-10-24,P1099,Jean clásico,Jeans,1,119000,WhatsApp
+2026-10-25,P1100,Blusa manga corta,Blusas,1,59000,Tienda
+2026-10-25,P1100,Camiseta básica,Camisetas,1,35000,Tienda
+2026-10-25,P1101,Morral urbano,Bolsos,2,298000,Instagram
+2026-10-25,P1101,Tenis deportivos,Tenis,1,229000,Instagram
+2026-10-25,P1102,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-25,P1102,Jean clásico,Jeans,2,238000,Tienda
+2026-10-25,P1103,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-25,P1103,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-25,P1103,Sandalia plana,Sandalias,1,69000,Tienda
+2026-10-26,P1104,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-26,P1104,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-26,P1104,Sandalia plana,Sandalias,1,69000,Tienda
+2026-10-26,P1105,Camiseta estampada,Camisetas,2,90000,Tienda
+2026-10-26,P1106,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-26,P1107,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-10-26,P1108,Blusa manga corta,Blusas,1,59000,Tienda
+2026-10-26,P1108,Medias x3,Accesorios,1,19000,Tienda
+2026-10-26,P1109,Chaqueta de jean,Chaquetas,2,378000,WhatsApp
+2026-10-27,P1110,Jean clásico,Jeans,1,119000,Instagram
+2026-10-27,P1111,Morral urbano,Bolsos,1,149000,Tienda
+2026-10-27,P1111,Cinturón de cuero,Accesorios,3,147000,Tienda
+2026-10-27,P1112,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-27,P1112,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-27,P1113,Jean clásico,Jeans,1,119000,WhatsApp
+2026-10-27,P1113,Gafas de sol,Accesorios,2,118000,WhatsApp
+2026-10-27,P1114,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-27,P1115,Camiseta estampada,Camisetas,2,90000,WhatsApp
+2026-10-27,P1116,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-27,P1116,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-27,P1117,Blusa de lino,Blusas,2,178000,Tienda
+2026-10-27,P1117,Sandalia plana,Sandalias,1,69000,Tienda
+2026-10-27,P1118,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-27,P1118,Jean clásico,Jeans,1,119000,Instagram
+2026-10-28,P1119,Cinturón de cuero,Accesorios,3,147000,Tienda
+2026-10-28,P1120,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-10-28,P1120,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-10-28,P1120,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-10-28,P1121,Sandalia plana,Sandalias,2,138000,Tienda
+2026-10-28,P1121,Cinturón de cuero,Accesorios,3,147000,Tienda
+2026-10-28,P1122,Blusa manga corta,Blusas,1,59000,Tienda
+2026-10-28,P1122,Camiseta básica,Camisetas,1,35000,Tienda
+2026-10-28,P1123,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-10-28,P1123,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-10-28,P1124,Jean bota recta,Jeans,2,278000,Tienda
+2026-10-28,P1125,Morral urbano,Bolsos,1,149000,Instagram
+2026-10-28,P1126,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-28,P1127,Cinturón de cuero,Accesorios,3,147000,Instagram
+2026-10-28,P1128,Gafas de sol,Accesorios,1,59000,WhatsApp
+2026-10-28,P1128,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-10-28,P1129,Morral urbano,Bolsos,2,298000,WhatsApp
+2026-10-29,P1130,Gafas de sol,Accesorios,2,118000,Instagram
+2026-10-29,P1131,Sandalia plana,Sandalias,2,138000,Tienda
+2026-10-29,P1131,Camiseta básica,Camisetas,1,35000,Tienda
+2026-10-29,P1131,Blusa de lino,Blusas,2,178000,Tienda
+2026-10-29,P1132,Medias x3,Accesorios,1,19000,Instagram
+2026-10-29,P1132,Camiseta básica,Camisetas,1,35000,Instagram
+2026-10-29,P1132,Sandalia plana,Sandalias,1,69000,Instagram
+2026-10-29,P1133,Tenis deportivos,Tenis,1,229000,Instagram
+2026-10-29,P1133,Blusa de lino,Blusas,1,89000,Instagram
+2026-10-29,P1134,Gafas de sol,Accesorios,2,118000,Tienda
+2026-10-29,P1134,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-29,P1134,Morral urbano,Bolsos,1,149000,Tienda
+2026-10-29,P1135,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-10-29,P1136,Jean clásico,Jeans,2,238000,WhatsApp
+2026-10-29,P1136,Medias x3,Accesorios,2,38000,WhatsApp
+2026-10-29,P1136,Tenis deportivos,Tenis,2,458000,WhatsApp
+2026-10-29,P1137,Bolso de mano,Bolsos,2,258000,WhatsApp
+2026-10-29,P1138,Jean bota recta,Jeans,2,278000,Tienda
+2026-10-29,P1139,Medias x3,Accesorios,1,19000,Tienda
+2026-10-29,P1140,Tenis deportivos,Tenis,2,458000,Tienda
+2026-10-29,P1140,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-29,P1140,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-30,P1141,Camiseta estampada,Camisetas,2,90000,WhatsApp
+2026-10-30,P1142,Sandalia plana,Sandalias,1,69000,Instagram
+2026-10-30,P1143,Jean bota recta,Jeans,1,139000,Instagram
+2026-10-30,P1144,Blusa manga corta,Blusas,2,118000,Tienda
+2026-10-30,P1144,Medias x3,Accesorios,1,19000,Tienda
+2026-10-30,P1145,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-30,P1146,Bolso de mano,Bolsos,2,258000,Tienda
+2026-10-30,P1146,Sandalia plana,Sandalias,1,69000,Tienda
+2026-10-30,P1147,Tenis deportivos,Tenis,1,229000,Tienda
+2026-10-30,P1148,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-10-30,P1149,Blusa de lino,Blusas,1,89000,Tienda
+2026-10-30,P1150,Jean bota recta,Jeans,1,139000,Instagram
+2026-10-30,P1150,Camiseta estampada,Camisetas,1,45000,Instagram
+2026-10-30,P1151,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-10-30,P1151,Gafas de sol,Accesorios,2,118000,WhatsApp
+2026-10-31,P1152,Blusa manga corta,Blusas,1,59000,Tienda
+2026-10-31,P1153,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-10-31,P1154,Jean bota recta,Jeans,2,278000,WhatsApp
+2026-10-31,P1154,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-10-31,P1154,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-10-31,P1155,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-10-31,P1156,Camiseta básica,Camisetas,1,35000,WhatsApp
+2026-10-31,P1157,Tenis deportivos,Tenis,1,229000,Instagram
+2026-10-31,P1158,Blusa manga corta,Blusas,2,118000,WhatsApp
+2026-10-31,P1159,Jean bota recta,Jeans,1,139000,Tienda
+2026-10-31,P1159,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-10-31,P1159,Camiseta básica,Camisetas,2,70000,Tienda
+2026-10-31,P1160,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-10-31,P1161,Gafas de sol,Accesorios,3,177000,Instagram
+2026-10-31,P1161,Blusa manga corta,Blusas,1,59000,Instagram
+2026-10-31,P1162,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-11-01,P1163,Jean clásico,Jeans,2,238000,Tienda
+2026-11-01,P1163,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-01,P1164,Morral urbano,Bolsos,1,149000,Instagram
+2026-11-01,P1164,Jean clásico,Jeans,1,119000,Instagram
+2026-11-01,P1165,Cinturón de cuero,Accesorios,2,98000,Tienda
+2026-11-01,P1165,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-02,P1166,Cinturón de cuero,Accesorios,2,98000,Tienda
+2026-11-02,P1166,Jean clásico,Jeans,2,238000,Tienda
+2026-11-02,P1167,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-02,P1168,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-02,P1169,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-11-02,P1169,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-02,P1170,Jean bota recta,Jeans,1,139000,Instagram
+2026-11-02,P1170,Chaqueta de jean,Chaquetas,1,189000,Instagram
+2026-11-02,P1171,Sandalia plana,Sandalias,2,138000,Instagram
+2026-11-02,P1172,Camiseta básica,Camisetas,2,70000,Tienda
+2026-11-02,P1172,Blusa manga corta,Blusas,2,118000,Tienda
+2026-11-03,P1173,Camiseta básica,Camisetas,1,35000,Instagram
+2026-11-03,P1173,Medias x3,Accesorios,1,19000,Instagram
+2026-11-03,P1174,Camiseta básica,Camisetas,1,35000,Tienda
+2026-11-03,P1175,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-03,P1175,Bolso de mano,Bolsos,2,258000,Tienda
+2026-11-03,P1176,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-03,P1176,Tenis blancos,Tenis,1,169000,Tienda
+2026-11-03,P1177,Medias x3,Accesorios,1,19000,Tienda
+2026-11-03,P1177,Blusa manga corta,Blusas,2,118000,Tienda
+2026-11-03,P1177,Gafas de sol,Accesorios,1,59000,Tienda
+2026-11-03,P1178,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-11-03,P1179,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-03,P1179,Jean clásico,Jeans,1,119000,Tienda
+2026-11-03,P1180,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-03,P1180,Blusa manga corta,Blusas,2,118000,Tienda
+2026-11-03,P1180,Tenis blancos,Tenis,2,338000,Tienda
+2026-11-03,P1181,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-11-03,P1181,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-03,P1181,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-11-03,P1182,Camiseta básica,Camisetas,1,35000,Tienda
+2026-11-04,P1183,Blusa manga corta,Blusas,1,59000,Tienda
+2026-11-04,P1183,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-04,P1184,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-04,P1185,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-11-04,P1185,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-04,P1185,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-11-04,P1186,Sandalia plana,Sandalias,2,138000,Tienda
+2026-11-04,P1186,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-11-04,P1187,Gafas de sol,Accesorios,2,118000,Tienda
+2026-11-04,P1187,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-11-04,P1188,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-11-04,P1188,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-11-05,P1189,Bolso de mano,Bolsos,2,258000,Instagram
+2026-11-05,P1189,Tenis deportivos,Tenis,1,229000,Instagram
+2026-11-05,P1189,Morral urbano,Bolsos,1,149000,Instagram
+2026-11-05,P1190,Jean clásico,Jeans,1,119000,WhatsApp
+2026-11-05,P1190,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-11-05,P1191,Cinturón de cuero,Accesorios,1,49000,Instagram
+2026-11-05,P1192,Morral urbano,Bolsos,1,149000,Tienda
+2026-11-05,P1193,Jean clásico,Jeans,2,238000,Tienda
+2026-11-05,P1194,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-11-05,P1194,Camiseta estampada,Camisetas,2,90000,WhatsApp
+2026-11-05,P1195,Tenis blancos,Tenis,2,338000,Tienda
+2026-11-05,P1196,Morral urbano,Bolsos,2,298000,WhatsApp
+2026-11-06,P1197,Cinturón de cuero,Accesorios,3,147000,Instagram
+2026-11-06,P1198,Camiseta estampada,Camisetas,2,90000,Tienda
+2026-11-06,P1199,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-11-06,P1199,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-06,P1200,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-11-06,P1200,Medias x3,Accesorios,1,19000,Tienda
+2026-11-06,P1201,Jean clásico,Jeans,1,119000,Tienda
+2026-11-06,P1201,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-06,P1201,Sandalia plana,Sandalias,1,69000,Tienda
+2026-11-06,P1202,Jean clásico,Jeans,1,119000,WhatsApp
+2026-11-06,P1203,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-06,P1203,Morral urbano,Bolsos,2,298000,WhatsApp
+2026-11-06,P1204,Camiseta estampada,Camisetas,2,90000,WhatsApp
+2026-11-06,P1205,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-06,P1205,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-06,P1205,Jean bota recta,Jeans,1,139000,Tienda
+2026-11-06,P1206,Gafas de sol,Accesorios,2,118000,Tienda
+2026-11-06,P1206,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-06,P1207,Morral urbano,Bolsos,2,298000,Tienda
+2026-11-06,P1207,Camiseta estampada,Camisetas,1,45000,Tienda
+2026-11-06,P1207,Tenis blancos,Tenis,1,169000,Tienda
+2026-11-06,P1208,Sandalia plana,Sandalias,2,138000,WhatsApp
+2026-11-06,P1209,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-11-06,P1209,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-07,P1210,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-11-07,P1211,Medias x3,Accesorios,3,57000,WhatsApp
+2026-11-07,P1211,Jean clásico,Jeans,1,119000,WhatsApp
+2026-11-07,P1212,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-11-07,P1213,Jean clásico,Jeans,1,119000,Tienda
+2026-11-07,P1213,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-07,P1214,Tenis blancos,Tenis,1,169000,Instagram
+2026-11-07,P1215,Gafas de sol,Accesorios,3,177000,WhatsApp
+2026-11-07,P1215,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-11-07,P1215,Camiseta básica,Camisetas,2,70000,WhatsApp
+2026-11-07,P1216,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-07,P1216,Sandalia plana,Sandalias,2,138000,WhatsApp
+2026-11-07,P1217,Camiseta básica,Camisetas,2,70000,Instagram
+2026-11-07,P1218,Tenis deportivos,Tenis,1,229000,WhatsApp
+2026-11-07,P1218,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-07,P1218,Camiseta básica,Camisetas,1,35000,WhatsApp
+2026-11-07,P1219,Medias x3,Accesorios,3,57000,Tienda
+2026-11-07,P1219,Sandalia plana,Sandalias,1,69000,Tienda
+2026-11-07,P1220,Sandalia plana,Sandalias,1,69000,Instagram
+2026-11-07,P1220,Morral urbano,Bolsos,2,298000,Instagram
+2026-11-07,P1221,Jean bota recta,Jeans,1,139000,Instagram
+2026-11-07,P1221,Blusa de lino,Blusas,1,89000,Instagram
+2026-11-08,P1222,Camiseta estampada,Camisetas,1,45000,Instagram
+2026-11-08,P1223,Morral urbano,Bolsos,1,149000,WhatsApp
+2026-11-08,P1224,Sandalia plana,Sandalias,1,69000,Tienda
+2026-11-08,P1224,Gafas de sol,Accesorios,2,118000,Tienda
+2026-11-08,P1224,Medias x3,Accesorios,2,38000,Tienda
+2026-11-08,P1225,Tenis blancos,Tenis,1,169000,Instagram
+2026-11-08,P1225,Cinturón de cuero,Accesorios,1,49000,Instagram
+2026-11-08,P1226,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-11-08,P1226,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-11-08,P1226,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-11-09,P1227,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-09,P1228,Tenis deportivos,Tenis,1,229000,Tienda
+2026-11-09,P1229,Camiseta básica,Camisetas,1,35000,Tienda
+2026-11-09,P1229,Medias x3,Accesorios,1,19000,Tienda
+2026-11-09,P1230,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-11-09,P1230,Blusa de lino,Blusas,2,178000,WhatsApp
+2026-11-09,P1231,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-09,P1232,Camiseta básica,Camisetas,1,35000,WhatsApp
+2026-11-09,P1233,Blusa de lino,Blusas,1,89000,WhatsApp
+2026-11-09,P1233,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-09,P1234,Blusa manga corta,Blusas,2,118000,WhatsApp
+2026-11-09,P1235,Blusa manga corta,Blusas,1,59000,Tienda
+2026-11-09,P1236,Camiseta básica,Camisetas,1,35000,Instagram
+2026-11-10,P1237,Morral urbano,Bolsos,1,149000,Tienda
+2026-11-10,P1237,Cinturón de cuero,Accesorios,1,49000,Tienda
+2026-11-10,P1237,Blusa de lino,Blusas,1,89000,Tienda
+2026-11-10,P1238,Chaqueta de jean,Chaquetas,1,189000,Tienda
+2026-11-10,P1239,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-10,P1240,Jean bota recta,Jeans,1,139000,Tienda
+2026-11-10,P1241,Jean clásico,Jeans,1,119000,Tienda
+2026-11-10,P1241,Jean bota recta,Jeans,1,139000,Tienda
+2026-11-10,P1241,Blusa manga corta,Blusas,2,118000,Tienda
+2026-11-10,P1242,Camiseta básica,Camisetas,1,35000,Instagram
+2026-11-10,P1242,Jean clásico,Jeans,1,119000,Instagram
+2026-11-10,P1242,Tenis deportivos,Tenis,2,458000,Instagram
+2026-11-10,P1243,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-11-10,P1243,Bolso de mano,Bolsos,2,258000,WhatsApp
+2026-11-10,P1243,Gafas de sol,Accesorios,1,59000,WhatsApp
+2026-11-10,P1244,Gafas de sol,Accesorios,3,177000,Tienda
+2026-11-11,P1245,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-11-11,P1246,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-11-11,P1246,Tenis blancos,Tenis,1,169000,WhatsApp
+2026-11-11,P1246,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-11-11,P1247,Chaqueta de jean,Chaquetas,1,189000,WhatsApp
+2026-11-11,P1247,Blusa manga corta,Blusas,1,59000,WhatsApp
+2026-11-11,P1247,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-11-11,P1248,Tenis blancos,Tenis,2,338000,Tienda
+2026-11-11,P1249,Tenis deportivos,Tenis,1,229000,Instagram
+2026-11-11,P1249,Morral urbano,Bolsos,1,149000,Instagram
+2026-11-11,P1249,Sandalia plana,Sandalias,1,69000,Instagram
+2026-11-11,P1250,Bolso de mano,Bolsos,1,129000,Tienda
+2026-11-11,P1250,Jean clásico,Jeans,2,238000,Tienda
+2026-11-11,P1251,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-11-11,P1251,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-11,P1252,Blusa manga corta,Blusas,1,59000,Instagram
+2026-11-12,P1253,Sandalia plana,Sandalias,1,69000,Tienda
+2026-11-12,P1253,Gafas de sol,Accesorios,1,59000,Tienda
+2026-11-12,P1253,Camiseta estampada,Camisetas,2,90000,Tienda
+2026-11-12,P1254,Jean bota recta,Jeans,2,278000,WhatsApp
+2026-11-12,P1255,Cinturón de cuero,Accesorios,2,98000,WhatsApp
+2026-11-12,P1256,Blusa manga corta,Blusas,1,59000,Tienda
+2026-11-12,P1256,Sandalia plana,Sandalias,1,69000,Tienda
+2026-11-12,P1257,Medias x3,Accesorios,2,38000,WhatsApp
+2026-11-12,P1257,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-12,P1258,Sandalia plana,Sandalias,1,69000,WhatsApp
+2026-11-12,P1258,Jean bota recta,Jeans,1,139000,WhatsApp
+2026-11-12,P1258,Camiseta estampada,Camisetas,1,45000,WhatsApp
+2026-11-12,P1259,Jean bota recta,Jeans,2,278000,Tienda
+2026-11-12,P1260,Blusa de lino,Blusas,2,178000,WhatsApp
+2026-11-12,P1260,Chaqueta de jean,Chaquetas,2,378000,WhatsApp
